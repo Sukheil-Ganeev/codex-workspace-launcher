@@ -53,6 +53,6 @@ echo "  codex-workspace open <id> --tool claude --mode safe"
 echo "  codex-workspace tools              # all AI tools with versions"
 echo "  codex-workspace doctor             # health checks"
 echo
-echo "NOTE (first launch only): macOS may ask 'Terminal wants to control…'"
-echo "when the picker opens the terminal — click Allow."
+echo "No macOS permission prompts are needed: the picker opens the terminal"
+echo "via a small local .command file (open -a), without AppleScript."
 echo "To remove: bash install/macos-uninstall.sh"

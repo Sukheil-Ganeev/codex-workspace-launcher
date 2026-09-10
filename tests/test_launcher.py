@@ -28,7 +28,7 @@ sys.path.insert(0, str(ROOT))
 
 from cwl.discovery import discover  # noqa: E402
 from cwl.doctor import check_workspace  # noqa: E402
-from cwl.launch import (_app_plan, _applescript_string, _shell_quote,  # noqa: E402
+from cwl.launch import (_app_plan, _shell_quote,  # noqa: E402
                         _linux_terminal_plan, _macos_terminal_plan,
                         _windows_terminal_plan, build_plan, execute,
                         find_terminal, os_name)
@@ -139,17 +139,13 @@ def test_tools_and_modes(tmp):
 
 
 def test_quoting():
-    section("shell/applescript quoting (pure, every OS)")
+    section("shell quoting (pure, every OS)")
     check("shell_quote simple", _shell_quote("/a b") == "'/a b'")
     check("shell_quote single quote",
           _shell_quote("it's") == "'it'\\''s'")
     cyr = _shell_quote("/Дом/Продажи Событий")
     check("shell_quote cyrillic+space",
           cyr == "'/Дом/Продажи Событий'")
-    quoted = _applescript_string('say "hi" \\\\ ok')
-    check("applescript escapes quotes+backslash",
-          quoted == '"say \\"hi\\" \\\\\\\\ ok"')
-    check("applescript cyrillic", "Дом" in _applescript_string("/Дом"))
 
 
 def test_doctor(tmp):
@@ -254,50 +250,34 @@ def test_discovery(tmp):
 def test_macos_native(tmp):
     if sys.platform != "darwin":
         return
-    section("macOS native: osascript, osacompile, bash -n, open, Terminal")
-    proc = subprocess.run(["osascript", "-e", "return 42"],
-                          capture_output=True, text=True, timeout=30)
-    check("osascript runs", proc.returncode == 0 and "42" in proc.stdout,
-          proc.stderr)
+    section("macOS native: .command plan, bash -n, open, Terminal")
     check("/usr/bin/open exists", Path("/usr/bin/open").exists())
     check("Terminal.app exists",
           Path("/Applications/Utilities/Terminal.app").exists()
           or Path("/System/Applications/Utilities/Terminal.app").exists())
     check("find_terminal falls back to Terminal", find_terminal() == "Terminal")
 
-    plan_t = _macos_terminal_plan("Terminal", "/Users/t/My Project",
-                                  "/usr/local/bin/muse", ("--yolo",))
-    check("macos plan uses osascript", plan_t.command[:2] == ("osascript", "-e"))
-    script_t = plan_t.command[2]
-    check("script names Terminal", "Terminal" in script_t)
+    plan = _macos_terminal_plan("Terminal", "/Users/t/My Project",
+                                "/usr/local/bin/muse", ("--yolo",))
+    check("plan uses open -a", plan.command[:3] == ("open", "-a", "Terminal"))
+    script_path = Path(plan.command[3])
+    check("plan points to a .command file",
+          script_path.suffix == ".command" and script_path.exists())
+    check(".command is executable", os.access(script_path, os.X_OK))
+    bash_ok = subprocess.run(["bash", "-n", str(script_path)],
+                             capture_output=True, text=True, timeout=30)
+    check("bash -n accepts generated .command", bash_ok.returncode == 0,
+          bash_ok.stderr)
+    content = script_path.read_text(encoding="utf-8")
+    check("command cd's into project", "cd '/Users/t/My Project'" in content)
+    check("command runs tool with flags",
+          "'/usr/local/bin/muse' --yolo" in content)
+
     plan_i = _macos_terminal_plan("iTerm2", "/Users/t/My Project",
                                   "/usr/local/bin/muse", ())
-    check("script names iTerm2", "iTerm2" in plan_i.command[2])
-
-    for plan in (plan_t, plan_i):
-        with tempfile.NamedTemporaryFile("w", suffix=".applescript",
-                                         delete=False) as fh:
-            fh.write(plan.command[2])
-            path = fh.name
-        try:
-            comp = subprocess.run(["osacompile", "-o", "/dev/null", path],
-                                  capture_output=True, text=True, timeout=30)
-            check("AppleScript compiles", comp.returncode == 0, comp.stderr)
-        finally:
-            Path(path).unlink(missing_ok=True)
-
-    shell_cmd = ("cd " + _shell_quote("/Users/t/My Project") + " && " +
-                 _shell_quote("/usr/local/bin/muse") + " --yolo")
-    with tempfile.NamedTemporaryFile("w", suffix=".sh", delete=False) as fh:
-        fh.write(shell_cmd + "\n")
-        shpath = fh.name
-    try:
-        ok = subprocess.run(["bash", "-n", shpath], capture_output=True,
-                            text=True, timeout=30)
-        check("bash -n accepts generated command", ok.returncode == 0,
-              ok.stderr)
-    finally:
-        Path(shpath).unlink(missing_ok=True)
+    check("iTerm2 plan uses open -a",
+          plan_i.command[:3] == ("open", "-a", "iTerm2"))
+    Path(plan_i.command[3]).unlink(missing_ok=True)
 
     app_plan = _app_plan("macos", "/Users/t/My Project",
                          ToolReport(id="codex-app", label="Codex App",

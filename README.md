@@ -105,7 +105,6 @@ codex-workspace pick
 |---|---|
 | «Python не найден» | macOS: `brew install python` · Linux: `apt install python3` · Windows: python.org (галочка «Add to PATH») |
 | На macOS команда `codex-workspace` не находится | Открой новый терминал (PATH обновился при установке) или проверь строку в `~/.zprofile` |
-| macOS просит «Terminal хочет управлять…» | Это один раз при первом запуске — нажми Allow (это разрешение открыть терминал из пикера) |
 | macOS: хочу iTerm2 вместо Terminal | Установи iTerm2 — пикер сам его найдёт. Или `export CODEX_TERMINAL=iTerm2` |
 | Linux без графики (сервер) | Терминал не найдётся — укажи свой: `export CODEX_TERMINAL=/путь/к/терминалу` |
 | Windows: нет Windows Terminal | Откроется обычное окно консоли (cmd) — всё работает |

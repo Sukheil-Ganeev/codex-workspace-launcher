@@ -11,6 +11,7 @@ import os
 import shutil
 import subprocess
 import sys
+import tempfile
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -25,10 +26,6 @@ def os_name() -> str:
 
 def _shell_quote(value: str) -> str:
     return "'" + value.replace("'", "'\\''") + "'"
-
-
-def _applescript_string(value: str) -> str:
-    return '"' + value.replace("\\", "\\\\").replace('"', '\\"') + '"'
 
 
 @dataclass(frozen=True)
@@ -125,23 +122,22 @@ def _app_plan(platform: str, workspace: str, tool_report) -> LaunchPlan:
 def _macos_terminal_plan(terminal: str, workspace: str,
                          executable: str,
                          args: tuple[str, ...]) -> LaunchPlan:
-    shell_cmd = "cd " + _shell_quote(workspace) + " && " + \
-        _shell_quote(executable) + (" " + " ".join(args) if args else "")
-    # Block form (not `tell ... to ...`): the one-liner form makes the
-    # compiler read `script` as a class name and fails with -2740.
-    if terminal == "iTerm2":
-        script = (
-            'tell application "iTerm2"\n'
-            "\tcreate window with default profile command " +
-            _applescript_string(shell_cmd) + "\n"
-            "end tell")
-    else:
-        script = (
-            'tell application "Terminal"\n'
-            "\tactivate\n"
-            "\tdo script " + _applescript_string(shell_cmd) + "\n"
-            "end tell")
-    return LaunchPlan(command=("osascript", "-e", script),
+    """Run the tool via a temporary .command file opened in the terminal.
+
+    No AppleScript and no automation permission prompt: `open -a <terminal>
+    <file>.command` starts the terminal app with our script. The temp file
+    lives in the system temp dir and is cleaned by the OS.
+    """
+    script = ("#!/bin/bash\n"
+              "cd " + _shell_quote(workspace) + " && exec " +
+              _shell_quote(executable) +
+              (" " + " ".join(args) if args else "") + "\n")
+    fd, path = tempfile.mkstemp(suffix=".command",
+                                prefix="codex-workspace-")
+    with os.fdopen(fd, "w", encoding="utf-8") as handle:
+        handle.write(script)
+    os.chmod(path, 0o755)
+    return LaunchPlan(command=("open", "-a", terminal, path),
                       cwd=None, target=terminal, platform="macos")
 
 

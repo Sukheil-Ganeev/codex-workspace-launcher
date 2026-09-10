@@ -1,10 +1,13 @@
 # Codex Workspace Launcher
 
+[![test](https://github.com/Sukheil-Ganeev/codex-workspace-launcher/actions/workflows/test.yml/badge.svg)](https://github.com/Sukheil-Ganeev/codex-workspace-launcher/actions)
+
 Выбери проект — и нужный AI-инструмент (Codex, Claude, Muse, Qwen и другие)
 откроется сразу в папке этого проекта, с выбранным режимом запуска.
 
 Работает одинаково на **macOS, Linux и Windows**. Только Python 3.8+,
-без внешних зависимостей.
+без внешних зависимостей. Каждый коммит автоматически проверяется тестами
+на настоящих macOS, Linux и Windows машинах (GitHub Actions).
 
 ## Пикер
 
@@ -95,6 +98,21 @@ codex-workspace pick
 
 Проекты и настройки хранятся в маленьком JSON-файле в твоём профиле
 (пути — только у тебя на машине). Ничего никуда не отправляется.
+
+## Если что-то не работает
+
+| Ситуация | Что делать |
+|---|---|
+| «Python не найден» | macOS: `brew install python` · Linux: `apt install python3` · Windows: python.org (галочка «Add to PATH») |
+| На macOS команда `codex-workspace` не находится | Открой новый терминал (PATH обновился при установке) или проверь строку в `~/.zprofile` |
+| macOS просит «Terminal хочет управлять…» | Это один раз при первом запуске — нажми Allow (это разрешение открыть терминал из пикера) |
+| macOS: хочу iTerm2 вместо Terminal | Установи iTerm2 — пикер сам его найдёт. Или `export CODEX_TERMINAL=iTerm2` |
+| Linux без графики (сервер) | Терминал не найдётся — укажи свой: `export CODEX_TERMINAL=/путь/к/терминалу` |
+| Windows: нет Windows Terminal | Откроется обычное окно консоли (cmd) — всё работает |
+| Инструмент в списке, но «не запускается» | Он установлен, но сломан. Проверь: `codex-workspace doctor` |
+| Инструмента нет в списке | Установи его, и он появится (список строится по реальным программам) |
+| Пикер не открылся в браузере | Он печатает ссылку в терминале — открой её вручную. Или `codex-workspace pick --cli` |
+| Хочу всё удалить | macOS: `install/macos-uninstall.sh` · Linux: `install/linux-uninstall.sh` · Windows: `install\windows-uninstall.bat` |
 
 ## Настройка с нуля через Codex
 

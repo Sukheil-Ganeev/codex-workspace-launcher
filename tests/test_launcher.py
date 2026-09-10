@@ -158,8 +158,22 @@ def test_doctor(tmp):
     reg = make_registry(tmp, "r3")
     ghost = check_workspace(reg, tmp / "does-not-exist", "codex")
     check("missing folder -> missing", ghost.state == "missing")
-    ok = check_workspace(reg, tmp, "codex")
-    check("real folder + fake codex -> ready", ok.ready, ok.to_dict())
+    # Headless CI has no terminal: provide a mock one so the 'ready' path is
+    # exercised (real desktops find a real terminal).
+    saved_term = os.environ.get("CODEX_TERMINAL")
+    if find_terminal() is None:
+        mock = tmp / "mock-term"
+        mock.write_text("#!/bin/sh\nexit 0\n", encoding="utf-8")
+        mock.chmod(0o755)
+        os.environ["CODEX_TERMINAL"] = str(mock)
+    try:
+        ok = check_workspace(reg, tmp, "codex")
+        check("real folder + fake codex -> ready", ok.ready, ok.to_dict())
+    finally:
+        if saved_term is None:
+            os.environ.pop("CODEX_TERMINAL", None)
+        else:
+            os.environ["CODEX_TERMINAL"] = saved_term
     notool = check_workspace(reg, tmp, "nonexistent-tool")
     check("unknown tool -> degraded", notool.state == "degraded",
           notool.state)
@@ -247,7 +261,8 @@ def test_macos_native(tmp):
           proc.stderr)
     check("/usr/bin/open exists", Path("/usr/bin/open").exists())
     check("Terminal.app exists",
-          Path("/Applications/Utilities/Terminal.app").exists())
+          Path("/Applications/Utilities/Terminal.app").exists()
+          or Path("/System/Applications/Utilities/Terminal.app").exists())
     check("find_terminal falls back to Terminal", find_terminal() == "Terminal")
 
     plan_t = _macos_terminal_plan("Terminal", "/Users/t/My Project",

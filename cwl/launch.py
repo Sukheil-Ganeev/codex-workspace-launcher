@@ -127,13 +127,20 @@ def _macos_terminal_plan(terminal: str, workspace: str,
                          args: tuple[str, ...]) -> LaunchPlan:
     shell_cmd = "cd " + _shell_quote(workspace) + " && " + \
         _shell_quote(executable) + (" " + " ".join(args) if args else "")
+    # Block form (not `tell ... to ...`): the one-liner form makes the
+    # compiler read `script` as a class name and fails with -2740.
     if terminal == "iTerm2":
-        script = ('tell application "iTerm2" to create window with '
-                  "default profile command " + _applescript_string(shell_cmd))
+        script = (
+            'tell application "iTerm2"\n'
+            "\tcreate window with default profile command " +
+            _applescript_string(shell_cmd) + "\n"
+            "end tell")
     else:
-        script = ('tell application "Terminal" to activate\n'
-                  "tell application \"Terminal\" to do script " +
-                  _applescript_string(shell_cmd))
+        script = (
+            'tell application "Terminal"\n'
+            "\tactivate\n"
+            "\tdo script " + _applescript_string(shell_cmd) + "\n"
+            "end tell")
     return LaunchPlan(command=("osascript", "-e", script),
                       cwd=None, target=terminal, platform="macos")
 

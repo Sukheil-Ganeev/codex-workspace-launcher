@@ -54,8 +54,13 @@ class LaunchPlan:
 def find_terminal() -> str | None:
     """Best available terminal for this platform."""
     configured = os.environ.get("CODEX_TERMINAL")
-    if configured and shutil.which(configured):
-        return shutil.which(configured)
+    if configured:
+        exe = shutil.which(configured)
+        if exe:
+            return exe
+        path = Path(configured)
+        if path.is_file() and os.access(path, os.X_OK):
+            return str(path)
     if os_name() == "macos":
         # Terminal.app is always present; iTerm2 is preferred if installed.
         if Path("/Applications/iTerm.app").exists():
@@ -165,13 +170,11 @@ def _windows_terminal_plan(terminal: str | None, workspace: str,
         return LaunchPlan(
             command=(terminal, "-d", workspace, exe, *args),
             cwd=None, target="Windows Terminal", platform="windows")
-    if exe.lower().endswith((".cmd", ".bat")):
-        return LaunchPlan(
-            command=("cmd.exe", "/c", "start", "", "cmd.exe", "/k",
-                     "cd", "/d", workspace, "&&", exe, *args),
-            cwd=None, target="cmd.exe", platform="windows")
-    return LaunchPlan(command=(exe, *args), cwd=workspace,
-                      target="direct", platform="windows")
+    # No Windows Terminal: open a fresh console window with the working
+    # directory set via `start /D`. Works for .exe, .cmd and .bat tools.
+    return LaunchPlan(
+        command=("cmd.exe", "/c", "start", "", "/D", workspace, exe, *args),
+        cwd=None, target="cmd.exe", platform="windows")
 
 
 def execute(plan: LaunchPlan) -> None:

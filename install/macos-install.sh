@@ -20,7 +20,22 @@ EOF
 chmod +x "$WRAPPER"
 echo "OK: terminal command installed: $WRAPPER"
 
-# 2) Double-clickable .command on the Desktop (shows the picker window)
+# 2) Make sure ~/.local/bin is on PATH (macOS does not add it by default)
+for rc in "$HOME/.zprofile" "$HOME/.zshrc" "$HOME/.bash_profile"; do
+  if [ -f "$rc" ] && grep -q '\.local/bin' "$rc"; then
+    break
+  fi
+  if [ ! -f "$rc" ]; then
+    touch "$rc"
+  fi
+  if ! grep -q 'export PATH="$HOME/.local/bin:$PATH"' "$rc"; then
+    printf '\n# codex-workspace launcher\nexport PATH="$HOME/.local/bin:$PATH"\n' >> "$rc"
+    echo "OK: PATH updated in $rc"
+  fi
+  break
+done
+
+# 3) Double-clickable .command on the Desktop (shows the picker window)
 DESKTOP_CMD="$HOME/Desktop/Codex Workspace.command"
 cat > "$DESKTOP_CMD" <<EOF
 #!/usr/bin/env bash
@@ -37,3 +52,7 @@ echo "  codex-workspace add /path --label \"Name\""
 echo "  codex-workspace open <id> --tool claude --mode safe"
 echo "  codex-workspace tools              # all AI tools with versions"
 echo "  codex-workspace doctor             # health checks"
+echo
+echo "NOTE (first launch only): macOS may ask 'Terminal wants to control…'"
+echo "when the picker opens the terminal — click Allow."
+echo "To remove: bash install/macos-uninstall.sh"

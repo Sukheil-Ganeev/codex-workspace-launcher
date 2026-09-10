@@ -1,0 +1,6 @@
+# Keep line endings correct for each platform so scripts run everywhere.
+*.sh  text eol=lf
+*.py  text eol=lf
+*.md  text eol=lf
+*.json text eol=lf
+*.bat text eol=crlf

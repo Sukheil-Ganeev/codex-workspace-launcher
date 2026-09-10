@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+
+# Secrets — never commit
+.env
+.env.*
+*.token
+*.secret
+auth.json
+key.txt
+secrets/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local runtime state (project registry lives on the user's machine)
+registry.json
+registry.sqlite3
+*.log

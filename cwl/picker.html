@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Codex Workspace</title>
+<style>
+  :root {
+    --bg: #0b0e14;
+    --surface: #131824;
+    --surface-2: #1a2130;
+    --border: #232c3e;
+    --text: #e8ecf4;
+    --muted: #8a94a8;
+    --accent: #7c6cff;
+    --accent-2: #4cc9f0;
+    --ok: #34d399;
+    --warn: #fbbf24;
+    --bad: #f87171;
+    --radius: 14px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: radial-gradient(1200px 600px at 70% -10%, #1b2340 0%, var(--bg) 55%);
+    color: var(--text);
+    font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial, sans-serif;
+    min-height: 100vh;
+  }
+  header {
+    padding: 26px 32px 18px;
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+  }
+  header h1 { font-size: 22px; font-weight: 700; letter-spacing: .2px; }
+  header h1 .dot { color: var(--accent); }
+  header .sub { color: var(--muted); font-size: 13px; }
+  .layout {
+    display: grid;
+    grid-template-columns: minmax(320px, 5fr) minmax(360px, 6fr);
+    gap: 18px;
+    padding: 6px 32px 32px;
+    max-width: 1240px;
+  }
+  @media (max-width: 860px) { .layout { grid-template-columns: 1fr; } }
+  .panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px;
+  }
+  .panel h2 {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1.1px;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+  .search {
+    width: 100%;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 14px;
+    margin-bottom: 12px;
+    outline: none;
+  }
+  .search:focus { border-color: var(--accent); }
+  .projects { display: flex; flex-direction: column; gap: 8px;
+              max-height: 62vh; overflow-y: auto; padding-right: 4px; }
+  .project {
+    display: flex; align-items: center; gap: 12px;
+    padding: 11px 12px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    cursor: pointer;
+    transition: border-color .15s, transform .08s;
+  }
+  .project:hover { border-color: #39435c; }
+  .project.selected {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 1px var(--accent) inset;
+  }
+  .project .info { flex: 1; min-width: 0; }
+  .project .name { font-weight: 600; font-size: 14.5px; }
+  .project .path {
+    color: var(--muted); font-size: 12px; font-family: ui-monospace,
+    "Cascadia Mono", Consolas, monospace;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .badge {
+    font-size: 10.5px; font-weight: 600; letter-spacing: .4px;
+    padding: 3px 8px; border-radius: 999px; white-space: nowrap;
+  }
+  .badge.ok    { color: #06281b; background: var(--ok); }
+  .badge.warn  { color: #3a2a05; background: var(--warn); }
+  .badge.bad   { color: #4a0d12; background: var(--bad); }
+  .tools {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 8px; max-height: 40vh; overflow-y: auto; padding-right: 2px;
+  }
+  .tool {
+    display: flex; flex-direction: column; gap: 7px;
+    padding: 12px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    cursor: pointer;
+    transition: border-color .15s, transform .08s;
+    opacity: .62;
+  }
+  .tool.available { opacity: 1; }
+  .tool:hover { border-color: #39435c; }
+  .tool.selected { border-color: var(--accent);
+                   box-shadow: 0 0 0 1px var(--accent) inset; }
+  .tool .head { display: flex; align-items: center; gap: 9px; }
+  .mono {
+    width: 30px; height: 30px; border-radius: 9px; flex: none;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 12px; color: #0b0e14;
+  }
+  .tool .tname { font-weight: 600; font-size: 13.5px; line-height: 1.2; }
+  .tool .kind {
+    font-size: 9.5px; color: var(--muted); letter-spacing: .6px;
+    text-transform: uppercase;
+  }
+  .tool .status { font-size: 11px; color: var(--muted); }
+  .tool.available .status.ready { color: var(--ok); }
+  .tool .version {
+    font-size: 10.5px; color: var(--muted); font-family: ui-monospace,
+    "Cascadia Mono", Consolas, monospace;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .modes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+           margin-top: 14px; }
+  .mode {
+    padding: 11px 10px; text-align: center;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 11px; cursor: pointer;
+    transition: border-color .15s;
+  }
+  .mode:hover { border-color: #39435c; }
+  .mode.selected { border-color: var(--accent);
+                   box-shadow: 0 0 0 1px var(--accent) inset; }
+  .mode .mlabel { font-weight: 600; font-size: 13px; }
+  .mode .mdesc { font-size: 10.5px; color: var(--muted); margin-top: 2px; }
+  .launch-row { margin-top: 16px; display: flex; align-items: center; gap: 12px; }
+  button.launch {
+    flex: 1;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    border: none; color: #0b0e14;
+    font-size: 15px; font-weight: 700; letter-spacing: .3px;
+    padding: 13px 18px; border-radius: 12px; cursor: pointer;
+    transition: filter .15s, transform .08s;
+  }
+  button.launch:hover { filter: brightness(1.08); }
+  button.launch:active { transform: translateY(1px); }
+  button.launch:disabled { opacity: .45; cursor: not-allowed; }
+  .hint { color: var(--muted); font-size: 12px; }
+  .empty { color: var(--muted); padding: 18px 4px; font-size: 14px; }
+  .toast {
+    position: fixed; left: 50%; bottom: 28px; transform: translateX(-50%);
+    background: #123c2c; border: 1px solid #1f6f4d; color: #d9f7e8;
+    padding: 13px 20px; border-radius: 12px; font-size: 14px;
+    box-shadow: 0 12px 30px rgba(0,0,0,.45);
+    display: none; max-width: 90vw;
+  }
+  .toast.err { background: #43121a; border-color: #7a2231; color: #ffe1e6; }
+  footer { padding: 4px 32px 26px; color: var(--muted); font-size: 12px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Codex <span class="dot">Workspace</span></h1>
+  <span class="sub" id="platform"></span>
+</header>
+
+<div class="layout">
+  <section class="panel">
+    <h2>Проекты</h2>
+    <input class="search" id="search" type="text"
+           placeholder="Поиск проекта…" autocomplete="off">
+    <div class="projects" id="projects"></div>
+  </section>
+
+  <section class="panel">
+    <h2>Инструмент</h2>
+    <div class="tools" id="tools"></div>
+    <h2 style="margin-top:16px">Режим</h2>
+    <div class="modes" id="modes"></div>
+    <div class="launch-row">
+      <button class="launch" id="launch" disabled>Запустить</button>
+      <span class="hint" id="hint"></span>
+    </div>
+  </section>
+</div>
+
+<footer id="footer"></footer>
+<div class="toast" id="toast"></div>
+
+<script>
+const params = new URLSearchParams(location.search);
+const TOKEN = params.get("token") || "";
+const $ = (id) => document.getElementById(id);
+let state = null;
+let selectedProject = null, selectedTool = null, selectedMode = null;
+
+const MONO_COLORS = ["#7c6cff", "#4cc9f0", "#34d399", "#fbbf24", "#f87171",
+                     "#f472b6", "#a3e635", "#fb923c", "#22d3ee", "#c084fc"];
+
+function colorFor(id) {
+  let h = 0;
+  for (const c of id) h = (h * 31 + c.charCodeAt(0)) >>> 0;
+  return MONO_COLORS[h % MONO_COLORS.length];
+}
+
+function monogram(label) {
+  const parts = label.trim().split(/\s+/);
+  return (parts[0][0] + (parts[1] ? parts[1][0] : "")).toUpperCase();
+}
+
+function badge(text, kind) {
+  const b = document.createElement("span");
+  b.className = "badge " + kind;
+  b.textContent = text;
+  return b;
+}
+
+function renderProjects() {
+  const box = $("projects");
+  box.innerHTML = "";
+  const q = $("search").value.trim().toLowerCase();
+  const list = state.projects.filter(p =>
+    !q || p.label.toLowerCase().includes(q) ||
+    p.path.toLowerCase().includes(q));
+  if (!list.length) {
+    box.innerHTML = '<div class="empty">Проекты не найдены.<br>' +
+      'Добавьте: <b>codex-workspace add /путь/к/проекту</b></div>';
+    return;
+  }
+  for (const p of list) {
+    const el = document.createElement("div");
+    el.className = "project" +
+      (selectedProject && selectedProject.id === p.id ? " selected" : "");
+    const d = p.doctor || {};
+    const st = d.state === "ready" ? ["ok", "Готово"]
+      : d.state === "degraded" ? ["warn", d.message]
+      : ["bad", "Нет"];
+    el.innerHTML =
+      '<div class="info"><div class="name"></div><div class="path"></div></div>';
+    el.querySelector(".name").textContent = p.label;
+    el.querySelector(".path").textContent = p.path;
+    el.appendChild(badge(st[1], st[0]));
+    el.onclick = () => { selectedProject = p; renderProjects(); refresh(); };
+    box.appendChild(el);
+  }
+}
+
+function renderTools() {
+  const box = $("tools");
+  box.innerHTML = "";
+  for (const t of state.tools) {
+    const el = document.createElement("div");
+    el.className = "tool" +
+      (t.ready ? " available" : "") +
+      (selectedTool && selectedTool.id === t.id ? " selected" : "");
+    const mono = document.createElement("div");
+    mono.className = "mono";
+    mono.style.background = t.ready ? colorFor(t.id) : "#2a3348";
+    mono.textContent = monogram(t.label);
+    el.appendChild(mono);
+    const head = document.createElement("div");
+    head.className = "head";
+    head.innerHTML = '<div><div class="tname"></div><div class="kind"></div></div>';
+    head.querySelector(".tname").textContent = t.label;
+    head.querySelector(".kind").textContent =
+      (t.launch_mode === "app" ? "Приложение" : "CLI") +
+      (t.ready ? "" : " · недоступен");
+    el.appendChild(head);
+    const status = document.createElement("div");
+    status.className = "status " + (t.ready ? "ready" : "");
+    status.textContent = t.ready ? "Готово" : t.message;
+    el.appendChild(status);
+    if (t.ready && t.version) {
+      const ver = document.createElement("div");
+      ver.className = "version";
+      ver.textContent = t.version;
+      el.appendChild(ver);
+    }
+    el.onclick = () => { if (t.ready) { selectedTool = t; renderTools(); refresh(); } };
+    box.appendChild(el);
+  }
+}
+
+function renderModes() {
+  const box = $("modes");
+  box.innerHTML = "";
+  for (const m of state.modes) {
+    const el = document.createElement("div");
+    el.className = "mode" +
+      (selectedMode === m.id ? " selected" : "");
+    el.innerHTML = '<div class="mlabel"></div><div class="mdesc"></div>';
+    el.querySelector(".mlabel").textContent = m.label;
+    el.querySelector(".mdesc").textContent = m.description;
+    el.onclick = () => { selectedMode = m.id; renderModes(); refresh(); };
+    box.appendChild(el);
+  }
+}
+
+function refresh() {
+  const launch = $("launch");
+  const hint = $("hint");
+  const readyProject = selectedProject &&
+    selectedProject.doctor && selectedProject.doctor.state === "ready";
+  launch.disabled = !(selectedProject && selectedTool && selectedMode);
+  if (!selectedProject) hint.textContent = "Выбери проект";
+  else if (!selectedTool) hint.textContent = "Выбери инструмент";
+  else if (!readyProject) hint.textContent = selectedProject.doctor.message;
+  else if (!selectedMode) hint.textContent = "Выбери режим";
+  else hint.textContent = `${selectedProject.label} · ${selectedTool.label} · ${selectedMode}`;
+}
+
+function toast(text, isErr) {
+  const t = $("toast");
+  t.textContent = text;
+  t.className = "toast" + (isErr ? " err" : "");
+  t.style.display = "block";
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => { t.style.display = "none"; }, 6000);
+}
+
+function heartbeat() {
+  fetch(`/api/ping?token=${TOKEN}`).catch(() => {});
+  setTimeout(heartbeat, 5000);
+}
+
+async function launch() {
+  const btn = $("launch");
+  btn.disabled = true;
+  btn.textContent = "Запускаю…";
+  try {
+    const res = await fetch(`/api/launch?token=${TOKEN}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        project_id: selectedProject.id,
+        tool_id: selectedTool.id,
+        mode: selectedMode,
+      }),
+    });
+    const data = await res.json();
+    if (!res.ok || !data.ok) {
+      toast("Ошибка: " + (data.error || res.status), true);
+    } else {
+      toast(`Открыл ${data.tool_label} в «${data.project}» (${data.target})`);
+      btn.textContent = "Открыть ещё";
+    }
+  } catch (e) {
+    toast("Ошибка сети: " + e, true);
+  }
+  btn.disabled = false;
+  refresh();
+}
+
+async function init() {
+  const res = await fetch(`/api/state?token=${TOKEN}`);
+  state = await res.json();
+  $("platform").textContent =
+    "macOS" === state.platform ? "· macOS" :
+    "linux" === state.platform ? "· Linux" : "· Windows";
+  $("footer").textContent =
+    "Проекты и настройки хранятся только на этом компьютере.";
+  if (state.defaults.project) {
+    selectedProject = state.projects.find(p => p.id === state.defaults.project)
+      || null;
+  }
+  const defaultTool = state.tools.find(t => t.ready && t.id === state.defaults.tool);
+  selectedTool = defaultTool || state.tools.find(t => t.ready) || null;
+  selectedMode = state.modes.find(m => m.id === state.defaults.mode)
+    ? state.defaults.mode : "safe";
+  renderProjects();
+  renderTools();
+  renderModes();
+  refresh();
+  heartbeat();
+  $("search").addEventListener("input", renderProjects);
+  $("launch").addEventListener("click", launch);
+  window.addEventListener("beforeunload", () => {
+    navigator.sendBeacon(`/api/bye?token=${TOKEN}`);
+  });
+}
+
+init();
+</script>
+</body>
+</html>

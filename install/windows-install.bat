@@ -13,7 +13,7 @@ if errorlevel 1 (
   exit /b 1
 )
 
-REM Create a command wrapper in the user's bin folder
+REM Command wrapper in the user's bin folder
 if not exist "%USERPROFILE%\bin" mkdir "%USERPROFILE%\bin"
 set "WRAPPER=%USERPROFILE%\bin\codex-workspace.cmd"
 > "%WRAPPER%" echo @echo off
@@ -23,7 +23,10 @@ echo OK: command wrapper created: %WRAPPER%
 echo.
 echo Use in a terminal:
 echo   codex-workspace pick
+echo   codex-workspace list
 echo   codex-workspace add C:\path\to\project --label "Name"
+echo   codex-workspace open ^<id^> --tool claude --mode safe
+echo   codex-workspace tools
 echo.
 echo If "%USERPROFILE%\bin" is not on PATH, add it manually.
 pause

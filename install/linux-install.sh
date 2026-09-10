@@ -20,6 +20,8 @@ chmod +x "$WRAPPER"
 
 echo "OK: terminal command installed: $WRAPPER"
 echo
-echo "Use:  codex-workspace pick"
-echo "Add projects:  codex-workspace add /path/to/project --label \"Name\""
-echo "Auto-discover: export CODEX_WORKSPACE_ROOTS=/path/to/parent:/other/parent"
+echo "Use:"
+echo "  codex-workspace pick               # picker (project + tool + mode)"
+echo "  codex-workspace list               # projects with status"
+echo "  codex-workspace add /path --label \"Name\""
+echo "  codex-workspace tools              # all AI tools with versions"

@@ -10,7 +10,7 @@ if ! command -v python3 >/dev/null 2>&1; then
   exit 1
 fi
 
-# 1) Terminal command:  codex-workspace pick | list | open | add
+# 1) Terminal command:  codex-workspace pick | list | add | open | tools
 mkdir -p "$HOME/.local/bin"
 WRAPPER="$HOME/.local/bin/codex-workspace"
 cat > "$WRAPPER" <<EOF
@@ -20,20 +20,20 @@ EOF
 chmod +x "$WRAPPER"
 echo "OK: terminal command installed: $WRAPPER"
 
-# 2) Double-clickable .command on the Desktop (shows the picker)
+# 2) Double-clickable .command on the Desktop (shows the picker window)
 DESKTOP_CMD="$HOME/Desktop/Codex Workspace.command"
 cat > "$DESKTOP_CMD" <<EOF
 #!/usr/bin/env bash
-cd "\$(dirname "\$0")"
 exec python3 "$LAUNCHER" pick
 EOF
 chmod +x "$DESKTOP_CMD"
 echo "OK: Desktop shortcut created: $DESKTOP_CMD"
 
 echo
-echo "Done. Use one of:"
-echo "  codex-workspace pick      # picker in the terminal"
-echo "  double-click 'Codex Workspace.command' on the Desktop"
-echo
-echo "Add projects:  codex-workspace add /path/to/project --label \"Name\""
-echo "Or auto-discover: export CODEX_WORKSPACE_ROOTS=/path/to/parent:/other/parent"
+echo "Done. Use:"
+echo "  codex-workspace pick               # picker (project + tool + mode)"
+echo "  codex-workspace list               # projects with status"
+echo "  codex-workspace add /path --label \"Name\""
+echo "  codex-workspace open <id> --tool claude --mode safe"
+echo "  codex-workspace tools              # all AI tools with versions"
+echo "  codex-workspace doctor             # health checks"

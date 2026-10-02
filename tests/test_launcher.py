@@ -391,5 +391,24 @@ def main():
     return 0
 
 
+def load_tests(loader, tests, pattern):
+    """Expose the suite to `python -m unittest discover`.
+
+    The tests are a hand-rolled runner (main() calls test_* functions with
+    a tmp fixture), so without this hook discovery reports a misleading
+    'Ran 0 tests — OK'. One FunctionTestCase runs the whole suite and
+    turns any failed check into a test failure.
+    """
+    import unittest as _ut
+
+    def run_suite():
+        rc = main()
+        if rc != 0:
+            raise AssertionError(
+                f"suite failed rc={rc}: {', '.join(FAILURES) or 'see log'}")
+
+    return _ut.TestSuite([_ut.FunctionTestCase(run_suite)])
+
+
 if __name__ == "__main__":
     raise SystemExit(main())

@@ -331,7 +331,7 @@ def test_macos_native(tmp):
     content = script_path.read_text(encoding="utf-8")
     check("command cd's into project", "cd '/Users/t/My Project'" in content)
     check("command runs tool with flags",
-          "'/usr/local/bin/muse' --yolo" in content)
+          "'/usr/local/bin/muse' '--yolo'" in content)
 
     plan_i = _macos_terminal_plan("iTerm2", "/Users/t/My Project",
                                   "/usr/local/bin/muse", ())

@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import json
 import os
+import sys
 import time
 import uuid
 from pathlib import Path
@@ -64,7 +65,17 @@ class Registry:
             return
         try:
             self.data = json.loads(self.path.read_text(encoding="utf-8"))
-        except (OSError, json.JSONDecodeError):
+        except json.JSONDecodeError:
+            corrupt = self.path.with_suffix(self.path.suffix + ".corrupt")
+            try:
+                os.replace(self.path, corrupt)
+                print(f"warning: registry unreadable, preserved as {corrupt}",
+                      file=sys.stderr)
+            except OSError:
+                pass
+            self.data = {"schema": 1, "workspaces": {}, "probes": {},
+                         "app_state": {}}
+        except OSError:
             self.data = {"schema": 1, "workspaces": {}, "probes": {},
                          "app_state": {}}
         self.data.setdefault("workspaces", {})

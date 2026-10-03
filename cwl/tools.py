@@ -156,7 +156,7 @@ def _macos_app_exists(name: str) -> bool:
 
 def probe_tool(definition: ToolDefinition,
                cached: dict | None = None) -> ToolReport:
-    if cached is not None:
+    if cached is not None and cached.get("id") == definition.id:
         return ToolReport.from_dict(cached)
 
     if definition.probe_kind == "files":

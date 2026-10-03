@@ -106,7 +106,7 @@ class Registry:
         if not wid:
             return None
         row = self.data["workspaces"].get(wid)
-        if row is not None:
+        if row is not None and not row.get("archived"):
             return row
         # Git-style short ids: a unique prefix of a workspace id works too.
         matches = [w for k, w in self.data["workspaces"].items()

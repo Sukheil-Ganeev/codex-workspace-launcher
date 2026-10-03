@@ -169,8 +169,21 @@ def test_quoting():
           cyr == "'/Дом/Продажи Событий'")
 
 
+def _functional_bash():
+    bash = shutil.which("bash")
+    if not bash:
+        return None
+    try:
+        ok = subprocess.run([bash, "-c", "exit 0"], capture_output=True,
+                            timeout=10).returncode == 0
+    except OSError:
+        return None
+    return bash if ok else None
+
+
 def test_macos_arguments_are_shell_safe(tmp):
-    if not shutil.which("bash"):
+    bash = _functional_bash()
+    if bash is None:
         return
     section("macOS command quoting: literal arguments")
     marker = tmp / "shell-marker"
@@ -180,7 +193,7 @@ def test_macos_arguments_are_shell_safe(tmp):
                                 ("-c", source, *args))
     script = Path(plan.command[3])
     try:
-        proc = subprocess.run(["bash", str(script)], capture_output=True,
+        proc = subprocess.run([bash, str(script)], capture_output=True,
                               text=True, timeout=30)
         try:
             actual_args = json.loads(proc.stdout)

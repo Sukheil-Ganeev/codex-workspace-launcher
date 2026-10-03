@@ -130,6 +130,19 @@ def test_registry(tmp):
     check("repeated corruption gets a separate backup",
           second_saved == "{also not json", second_saved)
 
+    # Duplicate keys in one object: last copy used to win silently, dropping
+    # a whole workspaces table — treat as corrupt like a decode error.
+    dup = tmp / "r1c" / "registry.json"
+    dup.parent.mkdir(parents=True, exist_ok=True)
+    dup.write_text(
+        '{"schema": 1, "workspaces": {"a": {"id": "a"}},'
+        ' "workspaces": {}, "probes": {}, "app_state": {}}',
+        encoding="utf-8")
+    reg_dup = Registry(str(dup))
+    check("dup-key registry resets", reg_dup.list() == [])
+    check("dup-key file preserved",
+          (tmp / "r1c" / "registry.json.corrupt").is_file())
+
 
 def test_tools_and_modes(tmp):
     section("tools: catalog, probing, modes")

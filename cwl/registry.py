@@ -19,6 +19,15 @@ APP_NAME = "codex-workspace-launcher"
 PROBE_TTL_SECONDS = 300.0
 
 
+def _no_dup_object(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+    obj: dict[str, Any] = {}
+    for key, value in pairs:
+        if key in obj:
+            raise ValueError(f"duplicate key in JSON object: {key!r}")
+        obj[key] = value
+    return obj
+
+
 def state_dir() -> Path:
     if os.name == "nt":
         base = os.environ.get("LOCALAPPDATA") or str(Path.home())
@@ -64,8 +73,9 @@ class Registry:
             }
             return
         try:
-            self.data = json.loads(self.path.read_text(encoding="utf-8"))
-        except json.JSONDecodeError:
+            self.data = json.loads(self.path.read_text(encoding="utf-8"),
+                                   object_pairs_hook=_no_dup_object)
+        except (json.JSONDecodeError, ValueError):
             corrupt = self.path.with_suffix(self.path.suffix + ".corrupt")
             suffix = 1
             while os.path.lexists(corrupt):

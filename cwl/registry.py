@@ -8,6 +8,7 @@ Stored per user (never in the repository):
 from __future__ import annotations
 
 import json
+import math
 import os
 import sys
 import time
@@ -179,9 +180,20 @@ class Registry:
 
     def get_probe(self, tool_id: str) -> dict | None:
         hit = self.data["probes"].get(tool_id)
-        if not hit:
+        if not isinstance(hit, dict):
             return None
-        if time.time() - float(hit.get("checked_at", 0)) > PROBE_TTL_SECONDS:
+        checked_at = hit.get("checked_at", 0)
+        if (isinstance(checked_at, bool)
+                or not isinstance(checked_at, (int, float))):
+            return None
+        try:
+            checked_at = float(checked_at)
+        except (OverflowError, TypeError, ValueError):
+            return None
+        if not math.isfinite(checked_at):
+            return None
+        age = time.time() - checked_at
+        if age < 0 or age > PROBE_TTL_SECONDS:
             return None
         payload = hit.get("payload")
         if not isinstance(payload, dict):

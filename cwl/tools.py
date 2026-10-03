@@ -66,6 +66,10 @@ class ToolReport:
 
     @staticmethod
     def from_dict(payload: dict) -> "ToolReport":
+        launch_arguments = payload.get("launch_arguments", ())
+        if (not isinstance(launch_arguments, (list, tuple))
+                or any(not isinstance(arg, str) for arg in launch_arguments)):
+            raise ValueError("invalid cached launch arguments")
         return ToolReport(
             id=str(payload.get("id", "")),
             label=str(payload.get("label", "")),
@@ -76,7 +80,7 @@ class ToolReport:
             description=str(payload.get("description", "")),
             launch_mode=str(payload.get("launch_mode", "terminal")),
             probe_kind=str(payload.get("probe_kind", "version")),
-            launch_arguments=tuple(payload.get("launch_arguments", ())),
+            launch_arguments=tuple(launch_arguments),
         )
 
 
@@ -156,8 +160,11 @@ def _macos_app_exists(name: str) -> bool:
 
 def probe_tool(definition: ToolDefinition,
                cached: dict | None = None) -> ToolReport:
-    if cached is not None and cached.get("id") == definition.id:
-        return ToolReport.from_dict(cached)
+    if isinstance(cached, dict) and cached.get("id") == definition.id:
+        try:
+            return ToolReport.from_dict(cached)
+        except (TypeError, ValueError):
+            pass
 
     if definition.probe_kind == "files":
         if sys.platform == "darwin" and definition.macos_app:

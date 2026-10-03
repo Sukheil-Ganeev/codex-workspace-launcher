@@ -102,6 +102,16 @@ def test_registry(tmp):
     check("id stable", registry_id_for_path(tmp / "X") ==
           registry_id_for_path(tmp / "X"))
 
+    # Corrupt registry: file moved aside, data reset — not silently wiped.
+    broken = tmp / "r1b" / "registry.json"
+    broken.parent.mkdir(parents=True, exist_ok=True)
+    broken.write_text("{not json", encoding="utf-8")
+    reg_broken = Registry(str(broken))
+    check("corrupt registry resets",
+          reg_broken.list() == [] and reg_broken.get_probe("codex") is None)
+    check("corrupt file preserved",
+          (tmp / "r1b" / "registry.json.corrupt").is_file())
+
 
 def test_tools_and_modes(tmp):
     section("tools: catalog, probing, modes")

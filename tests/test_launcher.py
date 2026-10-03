@@ -93,6 +93,7 @@ def test_registry(tmp):
     check("second project", len(reg.list()) == 2)
     reg.archive(row["id"][:8])
     check("archive removes from list", len(reg.list()) == 1)
+    check("archived project is absent by full id", reg.get(row["id"]) is None)
     reg.upsert(tmp / "Alpha Project", "Alpha back")
     check("re-add restores", len(reg.list()) == 2)
     reg.set_probe("codex", {"id": "codex", "label": "Codex", "state": "ready",
@@ -154,6 +155,14 @@ def test_tools_and_modes(tmp):
     payload = report.to_dict()
     check("report roundtrip", ToolReport.from_dict(payload).id == "codex")
     check("probe cached", reg.get_probe("codex") is not None)
+    mismatched_cache = probe_tool(
+        ToolDefinition("expected-tool", "Expected Tool"),
+        cached=ToolReport(id="other-tool", label="Other Tool", state="ready",
+                          message="stale cache",
+                          executable_path="/tmp/other-tool").to_dict())
+    check("probe ignores cache for a different tool",
+          mismatched_cache.id == "expected-tool"
+          and mismatched_cache.state == "missing", repr(mismatched_cache))
     check("mode_flags muse yolo", mode_flags("muse", "yolo") == ("--yolo",))
     check("mode_flags claude free",
           mode_flags("claude", "free") == ("--permission-mode", "acceptEdits"))

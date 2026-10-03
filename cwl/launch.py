@@ -131,7 +131,8 @@ def _macos_terminal_plan(terminal: str, workspace: str,
     script = ("#!/bin/bash\n"
               "cd " + _shell_quote(workspace) + " && exec " +
               _shell_quote(executable) +
-              (" " + " ".join(args) if args else "") + "\n")
+              (" " + " ".join(_shell_quote(arg) for arg in args)
+               if args else "") + "\n")
     fd, path = tempfile.mkstemp(suffix=".command",
                                 prefix="codex-workspace-")
     with os.fdopen(fd, "w", encoding="utf-8") as handle:

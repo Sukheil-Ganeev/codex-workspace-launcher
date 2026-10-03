@@ -169,6 +169,32 @@ def test_quoting():
           cyr == "'/Дом/Продажи Событий'")
 
 
+def test_macos_arguments_are_shell_safe(tmp):
+    if not shutil.which("bash"):
+        return
+    section("macOS command quoting: literal arguments")
+    marker = tmp / "shell-marker"
+    source = "import json, sys; print(json.dumps(sys.argv[1:]))"
+    args = ("two words", f"$(touch {marker})")
+    plan = _macos_terminal_plan("Terminal", str(tmp), sys.executable,
+                                ("-c", source, *args))
+    script = Path(plan.command[3])
+    try:
+        proc = subprocess.run(["bash", str(script)], capture_output=True,
+                              text=True, timeout=30)
+        try:
+            actual_args = json.loads(proc.stdout)
+        except json.JSONDecodeError:
+            actual_args = None
+        check("script preserves each argument literally",
+              proc.returncode == 0 and actual_args == list(args),
+              f"rc={proc.returncode}, stdout={proc.stdout!r}, "
+              f"stderr={proc.stderr!r}")
+        check("script does not execute argument text", not marker.exists())
+    finally:
+        script.unlink(missing_ok=True)
+
+
 def test_doctor(tmp):
     section("doctor: folder and tool states")
     make_bin_dir(tmp)
@@ -398,6 +424,7 @@ def main():
         test_registry(tmp)
         test_tools_and_modes(tmp)
         test_quoting()
+        test_macos_arguments_are_shell_safe(tmp)
         test_doctor(tmp)
         test_picker_server(tmp)
         test_discovery(tmp)

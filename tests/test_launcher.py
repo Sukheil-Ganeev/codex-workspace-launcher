@@ -22,6 +22,7 @@ import time
 import urllib.error
 import urllib.request
 from pathlib import Path
+from unittest.mock import Mock, patch
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
@@ -33,6 +34,7 @@ from cwl.launch import (_app_plan, _shell_quote,  # noqa: E402
                         _windows_terminal_plan, build_plan, execute,
                         find_terminal, os_name)
 from cwl.picker import _PickerServer  # noqa: E402
+from cwl import picker as picker_module  # noqa: E402
 from cwl.registry import Registry, label_for_path, registry_id_for_path  # noqa: E402
 from cwl.tools import (MODE_FLAGS, ToolDefinition, ToolReport,  # noqa: E402
                        mode_flags, probe_all, probe_tool, tool_by_id,
@@ -101,6 +103,10 @@ def test_registry(tmp):
     check("label_for_path", label_for_path("my-project") == "My Project")
     check("id stable", registry_id_for_path(tmp / "X") ==
           registry_id_for_path(tmp / "X"))
+    single = make_registry(tmp, "single-project")
+    single.upsert(tmp / "Only Project", "Only Project")
+    check("empty id does not match the only project",
+          single.get("") is None)
 
     # Corrupt registry: file moved aside, data reset — not silently wiped.
     broken = tmp / "r1b" / "registry.json"
@@ -286,6 +292,55 @@ def test_picker_server(tmp):
         srv.shutdown()
 
 
+def test_cli_picker_filters_unavailable_tools(tmp):
+    section("CLI picker: only ready tools can be selected")
+    reg = make_registry(tmp, "cli-picker")
+    reg.upsert(tmp, "Picker Project")
+    unavailable = ToolReport(id="missing", label="Missing Tool",
+                             state="missing", message="not installed")
+    ready = ToolReport(id="ready", label="Ready Tool", state="ready",
+                       message="Ready", executable_path="/usr/bin/ready")
+    menus = []
+
+    def choose(items, prompt):
+        menus.append((prompt, list(items)))
+        return 0
+
+    with patch.object(picker_module, "probe_all",
+                      return_value=[unavailable, ready]), \
+            patch.object(picker_module, "_choose", side_effect=choose), \
+            patch.object(picker_module, "check_workspace",
+                         return_value=Mock(ready=True, message="Ready")), \
+            patch.object(picker_module, "build_plan",
+                         return_value=Mock(target="mock terminal")) as build_plan, \
+            patch.object(picker_module, "execute") as execute:
+        rc = picker_module.run_cli_picker(reg)
+
+    tool_menus = [items for prompt, items in menus if prompt == "Tool number"]
+    check("unavailable tool is omitted from CLI menu",
+          tool_menus == [[ready.display_label()]], repr(tool_menus))
+    check("ready tool is launched", rc == 0 and execute.call_count == 1,
+          f"rc={rc}, execute_calls={execute.call_count}")
+    selected_tool = (build_plan.call_args.args[1]
+                     if build_plan.call_args else None)
+    check("menu index selects the displayed ready tool",
+          selected_tool is ready,
+          getattr(selected_tool, "id", None))
+
+    menus.clear()
+    with patch.object(picker_module, "probe_all",
+                      return_value=[unavailable]), \
+            patch.object(picker_module, "_choose", side_effect=choose), \
+            patch.object(picker_module, "check_workspace",
+                         return_value=Mock(ready=False,
+                                           message="No available tool")):
+        rc = picker_module.run_cli_picker(reg)
+    prompts = [prompt for prompt, _ in menus]
+    check("no-ready-tools case stops before tool selection",
+          rc == 1 and "Tool number" not in prompts,
+          f"rc={rc}, prompts={prompts}")
+
+
 def test_discovery(tmp):
     section("discovery from CODEX_WORKSPACE_ROOTS")
     reg = make_registry(tmp, "r5")
@@ -439,6 +494,7 @@ def main():
         test_quoting()
         test_macos_arguments_are_shell_safe(tmp)
         test_doctor(tmp)
+        test_cli_picker_filters_unavailable_tools(tmp)
         test_picker_server(tmp)
         test_discovery(tmp)
         test_macos_native(tmp)

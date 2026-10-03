@@ -103,6 +103,8 @@ class Registry:
         return rows
 
     def get(self, wid: str) -> dict | None:
+        if not wid:
+            return None
         row = self.data["workspaces"].get(wid)
         if row is not None:
             return row

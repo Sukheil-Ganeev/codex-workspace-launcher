@@ -242,13 +242,16 @@ def run_cli_picker(registry: Registry, default_tool: str | None = None,
 
     tools = probe_all(registry)
     ready_tools = [t for t in tools if t.ready]
+    if not ready_tools:
+        print("No available tools.")
+        return 1
     print("== Tool ==")
     tool_index = _choose(
         [t.display_label() + (f" · {t.version}" if t.version else "")
-         for t in tools], "Tool number")
+         for t in ready_tools], "Tool number")
     if tool_index is None:
         return 1
-    tool = tools[tool_index]
+    tool = ready_tools[tool_index]
 
     print("== Mode ==")
     mode_index = _choose(

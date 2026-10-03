@@ -99,6 +99,24 @@ def test_registry(tmp):
     reg.set_probe("codex", {"id": "codex", "label": "Codex", "state": "ready",
                             "message": "ok"})
     check("probe cache get", reg.get_probe("codex")["state"] == "ready")
+    for suffix, checked_at in (("bad-text", "not-a-time"),
+                               ("nan", float("nan")),
+                               ("future", time.time() + 3600),
+                               ("oversized", 10 ** 1000)):
+        cache_path = tmp / f"bad-cache-{suffix}" / "registry.json"
+        cache_path.parent.mkdir(parents=True, exist_ok=True)
+        cache_path.write_text(json.dumps({
+            "schema": 1, "workspaces": {}, "app_state": {},
+            "probes": {"codex": {"checked_at": checked_at,
+                                  "payload": {"id": "codex"}}},
+        }), encoding="utf-8")
+        corrupt_cache = Registry(str(cache_path))
+        try:
+            cached_probe = corrupt_cache.get_probe("codex")
+        except (TypeError, ValueError, OverflowError):
+            cached_probe = "raised"
+        check(f"invalid probe timestamp is ignored ({suffix})",
+              cached_probe is None, repr(cached_probe))
     reg.set_state("last_mode_id", "yolo")
     check("app state", reg.get_state("last_mode_id") == "yolo")
     check("label_for_path", label_for_path("my-project") == "My Project")
@@ -176,6 +194,14 @@ def test_tools_and_modes(tmp):
     check("probe ignores cache for a different tool",
           mismatched_cache.id == "expected-tool"
           and mismatched_cache.state == "missing", repr(mismatched_cache))
+    malformed_cache = probe_tool(
+        ToolDefinition("expected-tool", "Expected Tool"),
+        cached={"id": "expected-tool", "label": "Expected Tool",
+                "state": "ready", "message": "stale cache",
+                "launch_arguments": "--stale"})
+    check("probe ignores malformed cached arguments",
+          malformed_cache.id == "expected-tool"
+          and malformed_cache.state == "missing", repr(malformed_cache))
     check("mode_flags muse yolo", mode_flags("muse", "yolo") == ("--yolo",))
     check("mode_flags claude free",
           mode_flags("claude", "free") == ("--permission-mode", "acceptEdits"))

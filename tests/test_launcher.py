@@ -169,6 +169,45 @@ def test_quoting():
           cyr == "'/Дом/Продажи Событий'")
 
 
+def _functional_bash():
+    bash = shutil.which("bash")
+    if not bash:
+        return None
+    try:
+        ok = subprocess.run([bash, "-c", "exit 0"], capture_output=True,
+                            timeout=10).returncode == 0
+    except OSError:
+        return None
+    return bash if ok else None
+
+
+def test_macos_arguments_are_shell_safe(tmp):
+    bash = _functional_bash()
+    if bash is None:
+        return
+    section("macOS command quoting: literal arguments")
+    marker = tmp / "shell-marker"
+    source = "import json, sys; print(json.dumps(sys.argv[1:]))"
+    args = ("two words", f"$(touch {marker})")
+    plan = _macos_terminal_plan("Terminal", str(tmp), sys.executable,
+                                ("-c", source, *args))
+    script = Path(plan.command[3])
+    try:
+        proc = subprocess.run([bash, str(script)], capture_output=True,
+                              text=True, timeout=30)
+        try:
+            actual_args = json.loads(proc.stdout)
+        except json.JSONDecodeError:
+            actual_args = None
+        check("script preserves each argument literally",
+              proc.returncode == 0 and actual_args == list(args),
+              f"rc={proc.returncode}, stdout={proc.stdout!r}, "
+              f"stderr={proc.stderr!r}")
+        check("script does not execute argument text", not marker.exists())
+    finally:
+        script.unlink(missing_ok=True)
+
+
 def test_doctor(tmp):
     section("doctor: folder and tool states")
     make_bin_dir(tmp)
@@ -292,7 +331,7 @@ def test_macos_native(tmp):
     content = script_path.read_text(encoding="utf-8")
     check("command cd's into project", "cd '/Users/t/My Project'" in content)
     check("command runs tool with flags",
-          "'/usr/local/bin/muse' --yolo" in content)
+          "'/usr/local/bin/muse' '--yolo'" in content)
 
     plan_i = _macos_terminal_plan("iTerm2", "/Users/t/My Project",
                                   "/usr/local/bin/muse", ())
@@ -398,6 +437,7 @@ def main():
         test_registry(tmp)
         test_tools_and_modes(tmp)
         test_quoting()
+        test_macos_arguments_are_shell_safe(tmp)
         test_doctor(tmp)
         test_picker_server(tmp)
         test_discovery(tmp)

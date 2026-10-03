@@ -472,7 +472,7 @@ def test_linux_execute(tmp):
               plan.command[0] == str(terminal), plan.to_dict())
         execute(plan)
         time.sleep(1.0)
-        args = argout.read_text() if argout.exists() else ""
+        args = argout.read_text(encoding='utf-8') if argout.exists() else ""
         check("tool path passed to terminal", "/usr/bin/codex" in args, args)
     finally:
         if old is None:

@@ -67,6 +67,11 @@ class Registry:
             self.data = json.loads(self.path.read_text(encoding="utf-8"))
         except json.JSONDecodeError:
             corrupt = self.path.with_suffix(self.path.suffix + ".corrupt")
+            suffix = 1
+            while os.path.lexists(corrupt):
+                corrupt = self.path.with_suffix(
+                    self.path.suffix + f".corrupt.{suffix}")
+                suffix += 1
             try:
                 os.replace(self.path, corrupt)
                 print(f"warning: registry unreadable, preserved as {corrupt}",

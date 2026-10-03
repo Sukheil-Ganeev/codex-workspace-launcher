@@ -112,6 +112,17 @@ def test_registry(tmp):
     check("corrupt file preserved",
           (tmp / "r1b" / "registry.json.corrupt").is_file())
 
+    first_backup = tmp / "r1b" / "registry.json.corrupt"
+    second_backup = tmp / "r1b" / "registry.json.corrupt.1"
+    broken.write_text("{also not json", encoding="utf-8")
+    Registry(str(broken))
+    second_saved = (second_backup.read_text(encoding="utf-8")
+                    if second_backup.exists() else None)
+    check("repeated corruption preserves first backup",
+          first_backup.read_text(encoding="utf-8") == "{not json")
+    check("repeated corruption gets a separate backup",
+          second_saved == "{also not json", second_saved)
+
 
 def test_tools_and_modes(tmp):
     section("tools: catalog, probing, modes")

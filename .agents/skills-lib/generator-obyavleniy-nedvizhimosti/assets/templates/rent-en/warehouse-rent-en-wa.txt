@@ -1,0 +1,31 @@
+*WAREHOUSE | [TYPE] | [AREA]*
+_[Description — type, access, features]_
+───────────────
+*FEATURES*
+▫️ Area: [XX,XXX] sq.ft.
+▫️ Clear height: [X]m
+▫️ Loading doors: [X] pcs, size [X]m x [X]m
+▫️ Floor type: [Concrete/Epoxy]
+▫️ Floor load capacity: [X] t/sqm
+▫️ Office area: [X] sq.ft.
+
+*INFRASTRUCTURE*
+▫️ Power: [X] kVA
+▫️ Loading bay: [Yes/No]
+▫️ Ramp: [Yes/No]
+▫️ 24/7 Security: [Yes/No]
+▫️ Truck parking: [X] spaces
+
+*LOCATION: [ZONE]*
+[Al Quoz / DIP / JAFZA / RAK]
+───────────────
+💰 *RENT: [XX] AED/sq.ft./year*
+_Total: [XXX,XXX] AED/year_
+
+*TERMS*
+▫️ Minimum: [X] year(s)
+▫️ Service charge: [Included/Separate]
+▫️ DEWA: [Connected]
+▫️ License: [Industrial/Warehouse]
+
+*CONTACT:* [NAME] | [+971 XX XXX XXXX]

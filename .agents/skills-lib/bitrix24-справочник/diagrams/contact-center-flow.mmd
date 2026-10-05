@@ -1,0 +1,94 @@
+%% Название: Поток контакт-центра -- Open Channels, маршрутизация, CRM-привязка
+%% Автор: diagram-designer
+%% Дата: 2026-02-16
+
+flowchart TD
+    %% === КАНАЛЫ ВХОДЯЩИХ ОБРАЩЕНИЙ ===
+    subgraph INCOMING["Входящие каналы"]
+        direction LR
+        CH_TG["Telegram\nБот через @BotFather"]
+        CH_WA["WhatsApp\nЧерез Wazzup / Edna"]
+        CH_IG["Instagram Direct\nБизнес-аккаунт"]
+        CH_FB["Facebook Messenger\nОфициальный коннектор"]
+        CH_VK["ВКонтакте\nГруппа VK"]
+        CH_VB["Viber\nБизнес-аккаунт"]
+        CH_CHAT["Онлайн-чат\nВиджет на сайте"]
+        CH_PHONE["Телефония\nSIP / Встроенная"]
+        CH_EMAIL["Email\nEmail-трекер"]
+    end
+
+    %% === OPEN CHANNELS ===
+    CH_TG & CH_WA & CH_IG & CH_FB & CH_VK & CH_VB & CH_CHAT --> OC["Open Channel\nОткрытая линия\nЕдиное окно обработки"]
+    CH_PHONE --> PHONE_QUEUE["Телефония\nIVR + очередь"]
+    CH_EMAIL --> EMAIL_TRACK["Email-трекер\nПривязка к CRM"]
+
+    %% === ЧАТ-БОТ ===
+    OC --> BOT{"Чат-бот\nАвтоматический ответ?"}
+    BOT -->|"Бот ответил"| BOT_REPLY["Авто-ответ\nПриветствие, FAQ,\nшаблон прайса"]
+    BOT -->|"Требуется оператор"| ROUTE
+
+    BOT_REPLY --> BOT_CHECK{"Клиент удовлетворен?"}
+    BOT_CHECK -->|"Да"| CRM_AUTO["Авто-создание\nлида в CRM"]
+    BOT_CHECK -->|"Нет, нужен человек"| ROUTE
+
+    %% === МАРШРУТИЗАЦИЯ ===
+    ROUTE{"Маршрутизация\nРаспределение обращения"}
+    ROUTE -->|"По очереди\n(равномерно)"| QUEUE["Очередь операторов\nРавномерное распределение"]
+    ROUTE -->|"На свободного"| FREE_OP["Свободный оператор\nМинимальная нагрузка"]
+    ROUTE -->|"По компетенции"| SKILL_ROUTE["По направлению\nЭкскурсии / Яхты / Авто"]
+
+    PHONE_QUEUE --> ROUTE
+    EMAIL_TRACK --> ROUTE
+
+    %% === ОПЕРАТОРЫ ===
+    QUEUE & FREE_OP & SKILL_ROUTE --> OPERATOR["Оператор\nОбработка обращения"]
+
+    %% === CRM-ПРИВЯЗКА ===
+    OPERATOR --> CRM_CHECK{"CRM-привязка\nКлиент существует?"}
+    CRM_CHECK -->|"Новый клиент"| CREATE_LEAD["Создать лид\n+ Контакт"]
+    CRM_CHECK -->|"Существующий"| BIND_EXISTING["Привязать к контакту\nИстория в карточке"]
+    CRM_AUTO --> CREATE_LEAD
+
+    CREATE_LEAD & BIND_EXISTING --> RESPONSE["Ответ клиенту\nШаблоны быстрых ответов"]
+
+    %% === ШАБЛОНЫ ОТВЕТОВ ===
+    subgraph TEMPLATES["Шаблоны быстрых ответов"]
+        direction LR
+        TPL1["Приветствие"]
+        TPL2["Прайс экскурсий"]
+        TPL3["Подтверждение\nбронирования"]
+        TPL4["Напоминание\nза 24 часа"]
+        TPL5["Благодарность\nпосле тура"]
+    end
+
+    RESPONSE -.->|"Использует"| TEMPLATES
+
+    %% === ЗАВЕРШЕНИЕ ===
+    RESPONSE --> CLOSE{"Обращение\nзавершено?"}
+    CLOSE -->|"Да"| CSI["Оценка качества\nCSI-опрос"]
+    CLOSE -->|"Нет, продолжение"| OPERATOR
+
+    CSI --> HISTORY["История сохранена\nв карточке CRM"]
+
+    %% === СТИЛИ ===
+    style INCOMING fill:#E3F2FD,stroke:#1565C0,stroke-width:2px
+    style OC fill:#1565C0,stroke:#0D47A1,stroke-width:3px,color:#fff
+    style BOT fill:#FFF8E1,stroke:#F57F17,stroke-width:2px
+    style BOT_REPLY fill:#FFF9C4,stroke:#FBC02D,stroke-width:2px
+    style ROUTE fill:#E8EAF6,stroke:#283593,stroke-width:2px
+    style OPERATOR fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px
+    style CREATE_LEAD fill:#FFF3E0,stroke:#E65100,stroke-width:2px
+    style BIND_EXISTING fill:#E0F7FA,stroke:#006064,stroke-width:2px
+    style RESPONSE fill:#C8E6C9,stroke:#1B5E20,stroke-width:2px
+    style CSI fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px
+    style HISTORY fill:#ECEFF1,stroke:#37474F,stroke-width:2px
+    style TEMPLATES fill:#FFFDE7,stroke:#F9A825,stroke-width:1px
+    style CH_TG fill:#0088cc,stroke:#006699,color:#fff
+    style CH_WA fill:#25D366,stroke:#128C7E,color:#fff
+    style CH_IG fill:#E1306C,stroke:#C13584,color:#fff
+    style CH_FB fill:#1877F2,stroke:#0D47A1,color:#fff
+    style CH_VK fill:#4C75A3,stroke:#2B587A,color:#fff
+    style CH_PHONE fill:#FF7043,stroke:#BF360C,color:#fff
+    style CH_EMAIL fill:#78909C,stroke:#37474F,color:#fff
+    style PHONE_QUEUE fill:#FFF3E0,stroke:#E65100,stroke-width:2px
+    style EMAIL_TRACK fill:#ECEFF1,stroke:#455A64,stroke-width:2px

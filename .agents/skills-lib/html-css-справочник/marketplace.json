@@ -1,0 +1,106 @@
+{
+  "name": "html-css-справочник",
+  "version": "1.0.0",
+  "description": "Production-ready скилл для создания современных веб-страниц с HTML5, CSS3, JavaScript и API интеграциями",
+  "author": "Tourism Tech Team (Suheil)",
+  "license": "MIT",
+  "keywords": [
+    "html",
+    "html5",
+    "css",
+    "css3",
+    "javascript",
+    "responsive",
+    "web-development",
+    "landing-pages",
+    "tourism",
+    "google-maps",
+    "google-sheets",
+    "api-integration"
+  ],
+  "triggers": [
+    "html",
+    "css",
+    "веб",
+    "сайт",
+    "лендинг",
+    "landing",
+    "страница",
+    "форма",
+    "responsive",
+    "google maps",
+    "google sheets"
+  ],
+  "categories": [
+    "Web Development",
+    "Frontend",
+    "Tourism",
+    "Templates"
+  ],
+  "files": {
+    "main": "SKILL.md",
+    "readme": "README.md",
+    "references": [
+      "references/html5-reference.md",
+      "references/css3-reference.md",
+      "references/responsive-design.md",
+      "references/javascript-integration.md",
+      "references/api-integrations.md",
+      "references/performance-optimization.md",
+      "references/skill-integrations.md"
+    ],
+    "templates": [
+      "assets/templates/landing-page.html",
+      "assets/templates/tour-card.html",
+      "assets/templates/contact-form.html",
+      "assets/templates/price-calculator.html",
+      "assets/templates/booking-form.html",
+      "assets/templates/gallery.html",
+      "assets/templates/google-maps-integration.html",
+      "assets/templates/sheets-api-integration.html",
+      "assets/templates/base-styles.css",
+      "assets/templates/responsive-grid.css"
+    ],
+    "examples": [
+      "assets/examples/tour-landing/",
+      "assets/examples/price-list/",
+      "assets/examples/booking-system/",
+      "assets/examples/tour-cards/",
+      "assets/examples/gallery/",
+      "assets/examples/calculator/",
+      "assets/examples/maps-route/",
+      "assets/examples/contact-form/",
+      "assets/examples/integrated-workflow/"
+    ],
+    "scripts": [
+      "scripts/validate.js",
+      "scripts/minify.js",
+      "scripts/template-gen.js",
+      "scripts/dev-server.js",
+      "scripts/build.js",
+      "scripts/autoprefixer.js",
+      "scripts/image-optimizer.js",
+      "scripts/deploy-helper.js",
+      "scripts/package.json",
+      "scripts/README.md"
+    ]
+  },
+  "dependencies": {
+    "html-validator": "^6.0.0",
+    "cssnano": "^6.0.0",
+    "terser": "^5.0.0",
+    "sass": "^1.70.0",
+    "autoprefixer": "^10.4.0",
+    "sharp": "^0.33.0",
+    "express": "^4.18.0",
+    "chokidar": "^3.5.0"
+  },
+  "related_skills": [
+    "netlify-deployment",
+    "vercel-деплой",
+    "git-github-справочник",
+    "api-туризм-оаэ",
+    "форматирование-турпродуктов",
+    "создание-карточек-каталога"
+  ]
+}

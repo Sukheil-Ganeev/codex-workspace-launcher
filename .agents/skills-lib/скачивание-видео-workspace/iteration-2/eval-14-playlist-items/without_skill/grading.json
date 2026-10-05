@@ -1,0 +1,23 @@
+{
+  "expectations": [
+    {
+      "text": "Использует --playlist-items 5-10 для выбора диапазона",
+      "passed": true,
+      "evidence": "'--playlist-items 5-10' в основной команде"
+    },
+    {
+      "text": "Указывает путь сохранения D:/Downloads/YouTube/",
+      "passed": false,
+      "evidence": "Путь сохранения не указан ни в одной команде. Все команды работают с текущей директорией."
+    }
+  ],
+  "summary": {
+    "passed": 1,
+    "failed": 1,
+    "total": 2,
+    "pass_rate": 0.5
+  },
+  "timing": {
+    "executor_duration_seconds": 32.1
+  }
+}

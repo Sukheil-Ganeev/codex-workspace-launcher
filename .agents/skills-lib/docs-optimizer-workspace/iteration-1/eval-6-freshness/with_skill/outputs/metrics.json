@@ -1,0 +1,106 @@
+{
+  "eval": "eval-6-freshness",
+  "variant": "with_skill",
+  "project": "D:/Downloads/TouristBotEcosystem/",
+  "analysis_date": "2026-03-12",
+  "skill_used": "docs-optimizer",
+  "skill_mode": "freshness_check",
+
+  "file_counts": {
+    "total": 40,
+    "active": 39,
+    "stale": 0,
+    "dead": 0,
+    "untracked": 1
+  },
+
+  "thresholds_used": {
+    "active_max_days": 14,
+    "stale_max_days": 60,
+    "dead_min_days": 60
+  },
+
+  "volume_metrics": {
+    "total_lines": 21191,
+    "total_tokens_approx": 84764,
+    "files_scanned": 40,
+    "skill_target_lines": 5000,
+    "skill_warning_lines": 15000,
+    "volume_status": "CRITICAL"
+  },
+
+  "freshness_summary": {
+    "oldest_tracked_file": "docs/plans/2026-03-02-merge-vtb-cf-plan.md",
+    "oldest_tracked_date": "2026-03-02",
+    "oldest_age_days": 10,
+    "newest_file": "CHANGELOG.md",
+    "newest_date": "2026-03-05",
+    "newest_age_days": 7,
+    "days_until_first_stale": 4,
+    "files_approaching_stale": [
+      "docs/plans/2026-03-02-merge-vtb-cf-plan.md",
+      "docs/plans/2026-03-02-unified-telegram-bot.md"
+    ]
+  },
+
+  "untracked_files": [
+    {
+      "file": "docs/IDEAL_MASTER_PLAN.md",
+      "lines": 2559,
+      "tokens_approx": 10236,
+      "risk": "no git history, will be lost on fresh clone"
+    }
+  ],
+
+  "recommendations": [
+    {
+      "priority": "HIGH",
+      "action": "Add docs/IDEAL_MASTER_PLAN.md to git or document intentional exclusion",
+      "reason": "Untracked file, 2559 lines, no history"
+    },
+    {
+      "priority": "MEDIUM",
+      "action": "Archive docs/plans/2026-03-02-*.md to docs/archive/plans/",
+      "reason": "Completed migration plans, approaching stale threshold in ~4 days"
+    },
+    {
+      "priority": "MEDIUM",
+      "action": "Archive Phase 0 audit files to docs/archive/audits/",
+      "reason": "7 audit files (AUDIT_2026-03-03.md + audit_*.md) already marked READ ONLY in CLAUDE.md"
+    },
+    {
+      "priority": "LOW",
+      "action": "Consider archiving v1 docs: ARCHITECTURE_v1.md, CODE_REVIEW_v1.md, UX_DESIGN_v1.md",
+      "reason": "Superseded by current docs, adding ~3200 lines / ~12800 tokens to context"
+    },
+    {
+      "priority": "LOW",
+      "action": "Optimize CLAUDE.md from 557 lines to < 250 lines",
+      "reason": "Skill target < 250, warning 250-400, current 557 (CRITICAL)"
+    }
+  ],
+
+  "anti_patterns_detected": [
+    {
+      "id": "AP-01",
+      "name": "Context Stuffing",
+      "severity": "HIGH",
+      "detail": "Total docs 21191 lines / ~84764 tokens. CLAUDE.md alone: 557 lines (~2228 tokens)"
+    },
+    {
+      "id": "AP-03",
+      "name": "Orphan Docs / Untracked",
+      "severity": "HIGH",
+      "detail": "docs/IDEAL_MASTER_PLAN.md not in git"
+    },
+    {
+      "id": "AP-13",
+      "name": "Flat Hierarchy",
+      "severity": "MEDIUM",
+      "detail": "Audit files and plan files mixed in docs/ root without docs/archive/ subfolder"
+    }
+  ],
+
+  "skill_applied_correctly": true,
+  "methodology_notes": "Used git log --follow -1 --format=%ai per file. Today = 2026-03-12. Thresholds: active < 14d, stale 14-60d, dead > 60d. docs/IDEAL_MASTER_PLAN.md shows ?? in git status (untracked, not committed)."
+}

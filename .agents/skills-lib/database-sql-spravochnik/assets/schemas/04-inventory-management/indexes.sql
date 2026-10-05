@@ -1,0 +1,10 @@
+CREATE INDEX idx_inventory_items_category ON inventory_items(category_id);
+CREATE INDEX idx_inventory_items_sku ON inventory_items(sku);
+CREATE INDEX idx_stock_movements_item_id ON stock_movements(item_id);
+CREATE INDEX idx_stock_movements_created_at ON stock_movements(created_at DESC);
+CREATE INDEX idx_yacht_maintenance_vehicle_id ON yacht_maintenance(vehicle_id);
+CREATE INDEX idx_vehicle_maintenance_vehicle_id ON vehicle_maintenance(vehicle_id);
+CREATE INDEX idx_insurance_policies_asset ON insurance_policies(asset_type, asset_id);
+CREATE INDEX idx_insurance_policies_expiry ON insurance_policies(policy_expiry_date);
+CREATE INDEX idx_licenses_certifications_expiry ON licenses_and_certifications(expiry_date);
+CREATE INDEX idx_inventory_allocation_location ON inventory_allocation(storage_location_id);

@@ -1,0 +1,27 @@
+{
+  "eval_id": 6,
+  "eval_name": "eval-n-plus-one",
+  "prompt": "У меня список туристов, для каждого хочу получить его заказы. Вот код:\n\n```python\ntourists = db.query(Tourist).all()\nfor tourist in tourists:\n    orders = db.query(Order).filter_by(user_id=tourist.id).all()\n    print(f\"{tourist.name}: {len(orders)} заказов\")\n```\n\nКак вывести это красиво в боте?",
+  "assertions": [
+    {
+      "id": "N1",
+      "name": "Обнаруживает N+1 проблему (SELECT в цикле)",
+      "description": "Ответ должен явно указать что код делает N+1 запросов к базе — по одному запросу на каждого туриста"
+    },
+    {
+      "id": "N2",
+      "name": "Объясняет риск производительности",
+      "description": "Ответ должен объяснить чем это опасно: 100 туристов = 101 запрос, медленно, нагрузка на БД"
+    },
+    {
+      "id": "N3",
+      "name": "Предлагает JOIN или subqueryload как решение",
+      "description": "Ответ должен предложить конкретное решение: JOIN запрос, SQLAlchemy subqueryload/joinedload, или батчинг"
+    },
+    {
+      "id": "N4",
+      "name": "НЕ просто отвечает на вопрос про форматирование",
+      "description": "Ответ НЕ должен просто показать красивый print/вывод без упоминания проблемы с N+1 запросами"
+    }
+  ]
+}

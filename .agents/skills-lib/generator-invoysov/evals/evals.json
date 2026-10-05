@@ -1,0 +1,416 @@
+{
+  "skill_name": "генератор-инвойсов",
+  "evals": [
+    {
+      "id": 1,
+      "name": "simple-tour",
+      "prompt": "Сделай инвойс #26-047 от Feb 5, 2026. Клиент PETROV ALEXEY, +7 925 111 2233. Тур в Дубае для 2 человек 15 февраля, старт 10:00. Цена 190 USD без VAT.",
+      "expected_output": "Инвойс Marsel с корректным VAT (9.50 USD), итогом 199.50 USD, банковскими реквизитами Marsel (Account 28642584), описанием услуги CAPS на английском",
+      "files": [],
+      "assertions": [
+        {
+          "id": "A1-1",
+          "name": "Правильный номер инвойса",
+          "description": "Инвойс содержит номер #26-047"
+        },
+        {
+          "id": "A1-2",
+          "name": "VAT рассчитан верно",
+          "description": "VAT = 9.50 USD (190 × 0.05)"
+        },
+        {
+          "id": "A1-3",
+          "name": "Amount incl. VAT верен",
+          "description": "Amount incl. VAT = 199.50 USD"
+        },
+        {
+          "id": "A1-4",
+          "name": "Реквизиты Marsel (не Sokol)",
+          "description": "Содержит Account 28642584 или MARSEL LUXURY CAR RENTAL, но НЕ Sokol реквизиты"
+        },
+        {
+          "id": "A1-5",
+          "name": "Имя клиента в CAPS",
+          "description": "Имя клиента написано заглавными буквами: PETROV ALEXEY"
+        },
+        {
+          "id": "A1-6",
+          "name": "Описание услуги содержит ключевые слова",
+          "description": "Описание содержит TOUR, DUBAI, 2 persons или аналог"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "yacht-pos",
+      "prompt": "Нужен инвойс #26-052 от Feb 10, 2026 для SULTANOVA AINUR, +7 701 555 8899. Яхта Majesty 48FT 3 часа 20 февраля с 17:00 до 20:00 — 350 USD. Плюс кейтеринг на яхте 20 февраля — 120 USD. Оплата картой, комиссия 4%. Покажи итоги в AED.",
+      "expected_output": "Инвойс с 2 строками услуг, POS комиссия 4% от Total incl. VAT (470*1.05*0.04 = 19.74), Grand Total, конвертация в AED по курсу 3.65",
+      "files": [],
+      "assertions": [
+        {
+          "id": "A2-1",
+          "name": "Две строки услуг",
+          "description": "Таблица содержит 2 услуги: яхта и кейтеринг"
+        },
+        {
+          "id": "A2-2",
+          "name": "Total excl. VAT верен",
+          "description": "Total Excl. VAT = 470.00 USD (350 + 120)"
+        },
+        {
+          "id": "A2-3",
+          "name": "Total VAT верен",
+          "description": "Total VAT = 23.50 USD (470 × 0.05)"
+        },
+        {
+          "id": "A2-4",
+          "name": "POS комиссия 4% правильно рассчитана",
+          "description": "POS комиссия = ~19.74 USD (493.50 × 0.04) или аналогичное значение, строка PAYMENT VIA POS TERMINAL присутствует"
+        },
+        {
+          "id": "A2-5",
+          "name": "Конвертация в AED присутствует",
+          "description": "В инвойсе указана сумма в AED (Total in AED)"
+        },
+        {
+          "id": "A2-6",
+          "name": "Grand Total включает POS",
+          "description": "Grand Total = Total incl. VAT + POS комиссия"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "sokol-car-rental",
+      "prompt": "Инвойс Sokol #26-SKL-008 от Jan 30, 2026. Клиент HASSAN AL-RASHIDI, +971 50 333 7788. Toyota Land Cruiser 300 с 01.02.2026 по 28.02.2026 — 2400 AED. Депозит 1000 AED. Tolls charges 50 AED.",
+      "expected_output": "Инвойс с брендом SOKOL CAR RENTAL, реквизитами Sokol (Account 19346595), 3 строки услуг, VAT от каждой, номер #26-SKL-008",
+      "files": [],
+      "assertions": [
+        {
+          "id": "A3-1",
+          "name": "Номер формата Sokol",
+          "description": "Номер инвойса #26-SKL-008 в правильном формате"
+        },
+        {
+          "id": "A3-2",
+          "name": "Реквизиты Sokol (не Marsel)",
+          "description": "Account 19346595 или SOKOL CAR RENTAL, НЕ Marsel реквизиты"
+        },
+        {
+          "id": "A3-3",
+          "name": "Три строки услуг",
+          "description": "Аренда авто, депозит и tolls charges — 3 отдельные строки"
+        },
+        {
+          "id": "A3-4",
+          "name": "Описание аренды содержит даты",
+          "description": "Строка аренды содержит период 01.02.2026 - 28.02.2026"
+        },
+        {
+          "id": "A3-5",
+          "name": "VAT от аренды верен",
+          "description": "VAT от 2400 AED = 120 AED"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "corporate-trn",
+      "prompt": "Инвойс #26-031 от Mar 1, 2026 для компании DUBAI TRAVEL GROUP L.L.C, телефон +971 4 567 8900, адрес Business Bay, Dubai, TRN: 100342178500003. Заказали: тур Abu Dhabi для 6 человек 10 марта — 520 USD, трансфер на Mercedes V-Class из отеля в аэропорт 11 марта — 85 USD. Оплата банком, без POS.",
+      "expected_output": "Инвойс с TRN номером в шапке клиента, юридическим адресом, 2 строки услуг, без POS комиссии, Total incl. VAT = 635.25 USD",
+      "files": [],
+      "assertions": [
+        {
+          "id": "A4-1",
+          "name": "TRN указан в инвойсе",
+          "description": "Инвойс содержит TRN: 100342178500003"
+        },
+        {
+          "id": "A4-2",
+          "name": "Две строки услуг",
+          "description": "Тур и трансфер — 2 отдельные строки"
+        },
+        {
+          "id": "A4-3",
+          "name": "Total excl. VAT = 605.00",
+          "description": "Сумма без VAT = 520 + 85 = 605.00 USD"
+        },
+        {
+          "id": "A4-4",
+          "name": "Нет POS комиссии",
+          "description": "Строка PAYMENT VIA POS TERMINAL отсутствует"
+        },
+        {
+          "id": "A4-5",
+          "name": "Трансфер описан по шаблону",
+          "description": "Описание трансфера содержит MERCEDES V-CLASS или V-CLASS"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "error-correction",
+      "prompt": "Сделай инвойс 26-089, дата 7 марта 2026. Клиент: Ivanova Maria, тел 925-777-1234. Билеты La Perle Show, Silver Category, 2 взрослых + 1 ребёнок, цена 280 USD. Оплата через POS, 3.5%.",
+      "expected_output": "Скилл исправляет ошибки: #26-089 (добавит #), IVANOVA MARIA (CAPS), запрашивает код страны или добавляет +7. POS 3.5% комиссия от Total incl. VAT",
+      "files": [],
+      "assertions": [
+        {
+          "id": "A5-1",
+          "name": "Номер исправлен — добавлен #",
+          "description": "В итоговом инвойсе номер #26-089, не просто 26-089"
+        },
+        {
+          "id": "A5-2",
+          "name": "Имя клиента в CAPS",
+          "description": "Имя IVANOVA MARIA написано заглавными буквами"
+        },
+        {
+          "id": "A5-3",
+          "name": "POS комиссия 3.5%",
+          "description": "Комиссия 3.5%, а не 4%. Строка PAYMENT VIA POS TERMINAL +3.5%"
+        },
+        {
+          "id": "A5-4",
+          "name": "Описание La Perle Show корректно",
+          "description": "Описание содержит LA PERLE SHOW, SILVER CATEGORY"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "complex-multi-service",
+      "prompt": "Инвойс #26-061 от Feb 20, 2026. Клиент ZHUKOV DMITRY, +7 916 444 5566. Три услуги: 1) Jeep Safari для 4 человек 28 февраля — 240 USD. 2) Встреча в аэропорту и трансфер в отель на Lexus ES350 1 марта — 75 USD. 3) Modern Tour Abu Dhabi для 4 человек 2 марта, старт 09:00 — 310 USD. Без POS, итоги в AED.",
+      "expected_output": "3 строки услуг с правильными шаблонами описаний, Total excl. VAT = 625 USD, Total VAT = 31.25, Total incl. VAT = 656.25, конвертация в AED",
+      "files": [],
+      "assertions": [
+        {
+          "id": "A6-1",
+          "name": "Три строки услуг",
+          "description": "В таблице 3 строки: Safari, Transfer, Abu Dhabi Tour"
+        },
+        {
+          "id": "A6-2",
+          "name": "Total excl. VAT = 625.00",
+          "description": "240 + 75 + 310 = 625.00 USD"
+        },
+        {
+          "id": "A6-3",
+          "name": "Total VAT = 31.25",
+          "description": "625 × 0.05 = 31.25 USD"
+        },
+        {
+          "id": "A6-4",
+          "name": "Total incl. VAT = 656.25",
+          "description": "625 + 31.25 = 656.25 USD"
+        },
+        {
+          "id": "A6-5",
+          "name": "Конвертация AED присутствует",
+          "description": "Показана сумма в AED (656.25 × 3.65 = ~2395.31 AED)"
+        },
+        {
+          "id": "A6-6",
+          "name": "Описание Jeep Safari полностью в CAPS и по шаблону",
+          "description": "Описание строго: PRIVATE JEEP SAFARI TOUR (for 4 persons) — все слова заглавными, включая PRIVATE, JEEP, SAFARI, TOUR"
+        },
+        {
+          "id": "A6-7",
+          "name": "Описание трансфера в CAPS с LEXUS ES350",
+          "description": "Описание строго в CAPS: MEETING AT THE AIRPORT AND TRANSFER TO THE HOTEL BY LEXUS ES350 — не 'Airport Meet & Transfer', не 'Lexus ES350' строчными"
+        }
+      ]
+    }
+  ,
+  {
+    "id": 7,
+    "name": "wrong-brand-sokol-tour",
+    "prompt": "Создай инвойс Sokol #26-099 от Mar 5, 2026 на экскурсию Dubai City Tour для 3 человек 15 марта — 180 USD. Клиент SMIRNOV IGOR, +7 903 777 8899.",
+    "expected_output": "Скилл предупреждает что Sokol только для аренды авто, предлагает создать инвойс Marsel. Если создаёт инвойс — только с реквизитами Marsel (Account 28642584).",
+    "files": [],
+    "assertions": [
+      {
+        "id": "A7-1",
+        "name": "Предупреждение о несоответствии бренда",
+        "description": "Ответ содержит предупреждение о том, что Sokol предназначен только для аренды авто, а не для туров/экскурсий"
+      },
+      {
+        "id": "A7-2",
+        "name": "Предлагает использовать Marsel",
+        "description": "Скилл предлагает переключиться на Marsel для экскурсий и туров"
+      },
+      {
+        "id": "A7-3",
+        "name": "Реквизиты Sokol не использованы для тура",
+        "description": "Если создаётся инвойс на тур, используются реквизиты Marsel (Account 28642584), а НЕ Sokol (Account 19346595)"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "name": "quantity-multi-tickets",
+    "prompt": "Инвойс #26-071 от Mar 3, 2026. Клиент LEE JINHEE, +971 55 123 4567. 10 билетов Dubai Aquarium по 35 USD каждый.",
+    "expected_output": "Quantity=10, Price=35.00 USD, Amount=350.00 USD, VAT=17.50 USD, Total incl. VAT=367.50 USD.",
+    "files": [],
+    "assertions": [
+      {
+        "id": "A8-1",
+        "name": "Quantity = 10",
+        "description": "Колонка Quantity содержит значение 10"
+      },
+      {
+        "id": "A8-2",
+        "name": "Unit Price = 35.00 USD",
+        "description": "Цена за единицу = 35.00 USD"
+      },
+      {
+        "id": "A8-3",
+        "name": "Amount = 350.00 USD",
+        "description": "Сумма = 10 × 35 = 350.00 USD"
+      },
+      {
+        "id": "A8-4",
+        "name": "VAT = 17.50 USD",
+        "description": "VAT = 350.00 × 0.05 = 17.50 USD"
+      },
+      {
+        "id": "A8-5",
+        "name": "Total incl. VAT = 367.50 USD",
+        "description": "Итог = 350.00 + 17.50 = 367.50 USD"
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "name": "vat-rounding-dirty-numbers",
+    "prompt": "Инвойс #26-078 от Mar 4, 2026. Клиент NAZAROV TIMUR, +7 927 444 5566. Jeep Safari для 3 человек 20 марта — 237.33 USD без VAT.",
+    "expected_output": "VAT = 237.33 × 0.05 = 11.8665 → округлить до 11.87 USD. Total incl. VAT = 237.33 + 11.87 = 249.20 USD.",
+    "files": [],
+    "assertions": [
+      {
+        "id": "A9-1",
+        "name": "Price = 237.33 USD",
+        "description": "Сумма без VAT = 237.33 USD (не округлена до 237 или 237.30)"
+      },
+      {
+        "id": "A9-2",
+        "name": "VAT округлён правильно = 11.87",
+        "description": "VAT = 11.87 USD (237.33 × 0.05 = 11.8665, округлено до 11.87)"
+      },
+      {
+        "id": "A9-3",
+        "name": "Total incl. VAT = 249.20",
+        "description": "Total = 237.33 + 11.87 = 249.20 USD"
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "name": "dirty-whatsapp-input",
+    "prompt": "привет, сделай инвойс. клиент андрей петров, номер 916 555 22 11. вчера ездили на сафари, 4 чел, цена была 220 без ндс. оплатил картой",
+    "expected_output": "Скилл запрашивает недостающие данные (дата инвойса, номер #), исправляет: имя → PETROV ANDREI (CAPS), телефон → +7 916 555 22 11 (добавляет +7), дата услуги → уточняет или указывает вчерашнюю. VAT = 11.00, Total = 231.00.",
+    "files": [],
+    "assertions": [
+      {
+        "id": "A10-1",
+        "name": "Имя клиента в CAPS",
+        "description": "Имя преобразовано в заглавные буквы: PETROV ANDREI или ANDREI PETROV"
+      },
+      {
+        "id": "A10-2",
+        "name": "Телефон с кодом страны",
+        "description": "Номер содержит +7 (или спрашивает код страны)"
+      },
+      {
+        "id": "A10-3",
+        "name": "VAT рассчитан верно",
+        "description": "VAT = 11.00 USD (220 × 0.05)"
+      },
+      {
+        "id": "A10-4",
+        "name": "Total incl. VAT = 231.00",
+        "description": "Total = 220 + 11 = 231.00 USD"
+      },
+      {
+        "id": "A10-5",
+        "name": "POS комиссия 4%",
+        "description": "Если карта = POS, комиссия 4% добавлена. Или скилл запрашивает тип оплаты"
+      }
+    ]
+  }
+  ,
+  {
+    "id": 11,
+    "name": "discount-20-percent",
+    "prompt": "Инвойс #26-082 от Mar 5, 2026. Клиент MANSOOR ALI, +971 55 876 5432. Desert Safari для 2 человек 12 марта. Обычная цена 300 USD, скидка 20%.",
+    "expected_output": "Скидка 20% = 60 USD, Amount после скидки = 240 USD, VAT от 240 = 12.00 USD, Total incl. VAT = 252.00 USD.",
+    "files": [],
+    "assertions": [
+      {"id": "A11-1", "name": "Скидка 20% = 60 USD", "description": "Строка скидки или сумма скидки = 60.00 USD (300 × 0.20)"},
+      {"id": "A11-2", "name": "Amount после скидки = 240 USD", "description": "Цена к оплате до VAT = 240.00 USD (300 - 60)"},
+      {"id": "A11-3", "name": "VAT от 240 = 12.00 USD", "description": "VAT рассчитан от суммы ПОСЛЕ скидки: 240 × 0.05 = 12.00 USD"},
+      {"id": "A11-4", "name": "Total incl. VAT = 252.00 USD", "description": "Итог = 240 + 12 = 252.00 USD"}
+    ]
+  },
+  {
+    "id": 12,
+    "name": "deposit-partial-payment",
+    "prompt": "Инвойс #26-085 от Mar 6, 2026. Клиент IVANOV SERGEY, +7 916 333 4455. Аренда Rolls-Royce Ghost на 1 день 15 марта — 1800 USD. Клиент уже оплатил аванс 500 USD картой.",
+    "expected_output": "Total incl. VAT = 1890 USD, Deposit paid = 500 USD, Balance due = 1390 USD. Бренд Marsel (аренда с водителем) или Sokol (без водителя — уточнить). POS комиссия на аванс.",
+    "files": [],
+    "assertions": [
+      {"id": "A12-1", "name": "Total incl. VAT = 1890.00 USD", "description": "1800 × 1.05 = 1890.00 USD"},
+      {"id": "A12-2", "name": "Аванс/депозит = 500 USD", "description": "Строка Deposit Paid / Advance Payment = 500.00 USD"},
+      {"id": "A12-3", "name": "Balance due = 1390 USD", "description": "Остаток = 1890 - 500 = 1390.00 USD"}
+    ]
+  },
+  {
+    "id": 13,
+    "name": "aed-only-invoice",
+    "prompt": "Инвойс #26-091 от Mar 7, 2026. Клиент HASSAN AHMED, +971 50 111 2233. Ferrari F8 Tributo без водителя на 1 день 20 марта — 2500 AED. Инвойс только в AED.",
+    "expected_output": "Бренд Sokol (аренда без водителя), валюта AED, VAT = 125 AED (2500 × 0.05), Total = 2625 AED. Без конвертации в USD.",
+    "files": [],
+    "assertions": [
+      {"id": "A13-1", "name": "Валюта AED (не USD)", "description": "Суммы указаны в AED, не USD — для инвойса в AED"},
+      {"id": "A13-2", "name": "Реквизиты Sokol (аренда без водителя)", "description": "Account 19346595 или SOKOL CAR RENTAL — Ferrari без водителя = Sokol"},
+      {"id": "A13-3", "name": "VAT = 125 AED", "description": "2500 × 0.05 = 125.00 AED"},
+      {"id": "A13-4", "name": "Total = 2625 AED", "description": "2500 + 125 = 2625.00 AED"}
+    ]
+  },
+  {
+    "id": 14,
+    "name": "adult-child-pricing",
+    "prompt": "Инвойс #26-095 от Mar 8, 2026. Клиент PETERSEN ANNA, +45 20 333 456. Dubai Frame 25 марта: 2 взрослых по 55 USD и 1 ребёнок (до 12 лет) по 45 USD.",
+    "expected_output": "2 строки или итог 155 USD (2×55 + 1×45), VAT = 7.75 USD, Total = 162.75 USD.",
+    "files": [],
+    "assertions": [
+      {"id": "A14-1", "name": "Сумма услуг = 155 USD", "description": "2 × 55 + 1 × 45 = 110 + 45 = 155.00 USD"},
+      {"id": "A14-2", "name": "VAT = 7.75 USD", "description": "155 × 0.05 = 7.75 USD"},
+      {"id": "A14-3", "name": "Total incl. VAT = 162.75 USD", "description": "155 + 7.75 = 162.75 USD"}
+    ]
+  },
+  {
+    "id": 15,
+    "name": "refund-credit-note",
+    "prompt": "Сделай документ на возврат к инвойсу #26-047. Клиент PETROV ALEXEY отменил тур 15 февраля. Возврат 190 USD (сумма без НДС).",
+    "expected_output": "Credit Note или Refund Invoice с пометкой REFUND/CANCELLATION, ссылкой на #26-047, суммой -190 USD или 190 USD с пометкой возврата, VAT к возврату = 9.50 USD.",
+    "files": [],
+    "assertions": [
+      {"id": "A15-1", "name": "Документ помечен как возврат", "description": "Заголовок или тело содержит REFUND, CREDIT NOTE, CANCELLATION или ВОЗВРАТ"},
+      {"id": "A15-2", "name": "Сумма возврата = 190 USD", "description": "Сумма возврата (без VAT) = 190.00 USD (отрицательная или с пометкой возврата)"},
+      {"id": "A15-3", "name": "Ссылка на оригинальный инвойс", "description": "Документ ссылается на инвойс #26-047"}
+    ]
+  },
+  {
+    "id": 16,
+    "name": "group-invoice-multi-clients",
+    "prompt": "Инвойс #26-098 от Mar 9, 2026. Групповой тур Abu Dhabi City Tour 20 марта. Клиенты: 1) KOWALSKI MAREK +48 601 234 567, 2) KOWALSKI ANNA +48 601 234 568, 3) SCHMIDT HANS +49 171 999 8877. Цена на всю группу 450 USD.",
+    "expected_output": "Инвойс на группу 3 человек, все имена или основной клиент, VAT = 22.50 USD, Total incl. VAT = 472.50 USD.",
+    "files": [],
+    "assertions": [
+      {"id": "A16-1", "name": "Все 3 клиента упомянуты", "description": "Имена KOWALSKI MAREK, KOWALSKI ANNA, SCHMIDT HANS присутствуют (или 3 persons в описании)"},
+      {"id": "A16-2", "name": "VAT = 22.50 USD", "description": "450 × 0.05 = 22.50 USD"},
+      {"id": "A16-3", "name": "Total incl. VAT = 472.50 USD", "description": "450 + 22.50 = 472.50 USD"}
+    ]
+  }
+  ]
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "X Viral Business Strategist"
+  short_description: "Scores and rewrites X posts for reach and business value."
+  default_prompt: "Оцени мой X-пост на вирусность и бизнес-пользу."

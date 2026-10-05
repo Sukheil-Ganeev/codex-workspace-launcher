@@ -1,0 +1,53 @@
+# =============================================================================
+# Dockerfile.node -- Multi-stage шаблон для Node.js
+# Docker Engine 29.x | Node.js 22 LTS | Февраль 2026
+#
+# Использование:
+#   docker build -t myapp -f Dockerfile.node .
+#   docker run -d -p 3000:3000 --name myapp myapp
+#
+# Замени dist/index.js на свою точку входа.
+# =============================================================================
+
+# --- Stage 1: Builder ---
+FROM node:22-slim AS builder
+
+WORKDIR /app
+
+# Копируем файлы зависимостей отдельно (кэширование слоёв)
+COPY package*.json ./
+
+# Установка только production-зависимостей с кэшированием npm
+RUN --mount=type=cache,target=/root/.npm \
+    npm ci --only=production
+
+# Копируем исходный код и собираем
+COPY . .
+RUN npm run build
+
+# --- Stage 2: Production ---
+FROM node:22-slim
+
+# Создаём непривилегированного пользователя
+RUN addgroup --system --gid 1001 app && \
+    adduser --system --uid 1001 --ingroup app app
+
+WORKDIR /app
+
+# Копируем только необходимое из builder
+COPY --from=builder --chown=app:app /app/dist ./dist
+COPY --from=builder --chown=app:app /app/node_modules ./node_modules
+COPY --from=builder --chown=app:app /app/package.json ./
+
+# Переключаемся на непривилегированного пользователя
+USER app
+
+# Документируем порт (не открывает!)
+EXPOSE 3000
+
+# Проверка здоровья
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+  CMD node -e "require('http').get('http://localhost:3000/health', (r) => r.statusCode === 200 ? process.exit(0) : process.exit(1))"
+
+# Запуск приложения
+CMD ["node", "dist/index.js"]

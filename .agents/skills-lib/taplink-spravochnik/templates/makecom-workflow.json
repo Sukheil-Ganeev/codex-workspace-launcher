@@ -1,0 +1,255 @@
+{
+  "_comment": "============================================================",
+  "_description": "ШАБЛОН: Описание сценария автоматизации Make.com для Taplink",
+  "_usage": [
+    "Это НЕ реальный Make.com export — это описание шагов для ручной настройки.",
+    "Используйте этот файл как пошаговую инструкцию для создания сценария в Make.com.",
+    "",
+    "КАК ИСПОЛЬЗОВАТЬ:",
+    "1. Войдите в Make.com (make.com)",
+    "2. Создайте новый сценарий (Scenarios -> Create a new scenario)",
+    "3. Следуйте шагам ниже, добавляя модули по порядку",
+    "4. Замените placeholder'ы на реальные значения",
+    "",
+    "РЕЗУЛЬТАТ: Новая заявка с Taplink автоматически:",
+    "- Отправляет уведомление в Telegram",
+    "- Создаёт запись в базе Notion",
+    "- Отправляет email подтверждение клиенту"
+  ],
+  "_comment_end": "============================================================",
+
+  "scenario": {
+    "name": "Taplink -> Telegram + Notion + Email",
+    "description": "Обработка заявок и платежей с Taplink: уведомление менеджеру, запись в CRM (Notion), автоответ клиенту",
+    "scheduling": {
+      "type": "immediately",
+      "note": "Сценарий срабатывает мгновенно при получении вебхука"
+    }
+  },
+
+  "modules": [
+    {
+      "step": 1,
+      "module": "Webhooks -> Custom Webhook",
+      "role": "TRIGGER (Триггер)",
+      "description": "Приём данных от Taplink. Make.com генерирует уникальный URL, который нужно вставить в настройки вебхука Taplink.",
+      "setup": {
+        "action": "Добавьте модуль 'Webhooks' -> 'Custom webhook'",
+        "webhook_name": "Taplink Leads",
+        "steps": [
+          "1. Нажмите 'Add' для создания нового вебхука",
+          "2. Дайте имя: 'Taplink Leads'",
+          "3. Скопируйте сгенерированный URL (https://hook.make.com/xxxxx)",
+          "4. Вставьте URL в Taplink: Настройки -> Модули -> Webhooks -> URL",
+          "5. В Taplink выберите события: New lead, New payment",
+          "6. В Make.com нажмите 'Run once'",
+          "7. Отправьте тестовую заявку через форму на Taplink",
+          "8. Make.com определит структуру JSON автоматически"
+        ]
+      },
+      "output_fields": {
+        "action": "leads.created или payments.created",
+        "data.lead_id": "ID заявки",
+        "data.lead_number": "Номер заявки",
+        "data.page_link": "URL страницы Taplink",
+        "data.tms_created": "Время создания (YYYY-MM-DD HH:MM:SS)",
+        "data.records[]": "Массив полей формы: value, type, title"
+      }
+    },
+
+    {
+      "step": 2,
+      "module": "Flow Control -> Router",
+      "role": "МАРШРУТИЗАТОР",
+      "description": "Разделяет поток на 2 ветки: заявки (leads) и платежи (payments). Каждая ветка обрабатывается отдельно.",
+      "setup": {
+        "action": "Добавьте модуль 'Flow Control' -> 'Router'",
+        "routes": [
+          {
+            "name": "Route 1: Заявки (Leads)",
+            "filter": {
+              "condition": "action Equal to leads.created",
+              "label": "Только заявки"
+            }
+          },
+          {
+            "name": "Route 2: Платежи (Payments)",
+            "filter": {
+              "condition": "action Equal to payments.created",
+              "label": "Только платежи"
+            }
+          }
+        ]
+      }
+    },
+
+    {
+      "step": "3a",
+      "module": "Telegram Bot -> Send a Message",
+      "role": "УВЕДОМЛЕНИЕ (Route 1: Leads)",
+      "description": "Отправляет форматированное сообщение о новой заявке в Telegram-чат/группу менеджеров.",
+      "setup": {
+        "action": "Добавьте модуль 'Telegram Bot' -> 'Send a Message'",
+        "connection": "Создайте подключение с токеном вашего бота (@BotFather)",
+        "settings": {
+          "chat_id": "YOUR_CHAT_ID (ID чата или группы, например -100123456789)",
+          "parse_mode": "HTML",
+          "text_template": [
+            "<b>Новая заявка с Taplink!</b>",
+            "━━━━━━━━━━━━━━━━━━",
+            "",
+            "Заявка #{{data.lead_number}}",
+            "Страница: {{data.page_link}}",
+            "Время: {{data.tms_created}}",
+            "",
+            "<b>Данные клиента:</b>",
+            "{{ИСПОЛЬЗУЙТЕ Iterator для records[]}}",
+            "{{record.title}}: {{record.value}}",
+            "",
+            "IP: {{data.ip}}"
+          ],
+          "note": "Для вывода всех полей records используйте модуль Iterator перед Telegram, или вручную замаппите records[1].value, records[2].value и т.д."
+        }
+      },
+      "placeholder_values": {
+        "YOUR_CHAT_ID": "ID вашего Telegram чата/группы",
+        "BOT_TOKEN": "Токен от @BotFather"
+      }
+    },
+
+    {
+      "step": "3b",
+      "module": "Telegram Bot -> Send a Message",
+      "role": "УВЕДОМЛЕНИЕ (Route 2: Payments)",
+      "description": "Отправляет уведомление о новом платеже.",
+      "setup": {
+        "settings": {
+          "chat_id": "YOUR_CHAT_ID",
+          "parse_mode": "HTML",
+          "text_template": [
+            "<b>Новый платёж с Taplink!</b>",
+            "━━━━━━━━━━━━━━━━━━",
+            "",
+            "Заказ #{{data.order_number}}",
+            "<b>Сумма: {{data.budget}} {{data.currency_code}}</b>",
+            "Назначение: {{data.purpose}}",
+            "Время: {{data.tms_modify}}"
+          ]
+        }
+      }
+    },
+
+    {
+      "step": 4,
+      "module": "Notion -> Create a Database Item",
+      "role": "CRM (Route 1: Leads)",
+      "description": "Создаёт запись о новой заявке в базе данных Notion. Используется как CRM для учёта клиентов.",
+      "setup": {
+        "action": "Добавьте модуль 'Notion' -> 'Create a Database Item'",
+        "connection": "Создайте Internal Integration в Notion (notion.so/my-integrations)",
+        "steps": [
+          "1. В Notion создайте базу данных с полями (см. field_mapping)",
+          "2. Поделитесь базой с Integration (Share -> Invite)",
+          "3. В Make.com создайте подключение с Notion API ключом",
+          "4. Выберите базу данных",
+          "5. Замаппите поля из вебхука на поля Notion"
+        ],
+        "database_name": "Taplink Leads",
+        "field_mapping": {
+          "Имя (Title)": "{{data.records[].value}} где title='Name'",
+          "Телефон (Phone)": "{{data.records[].value}} где title='Phone'",
+          "Email (Email)": "{{data.records[].value}} где title='Email'",
+          "Услуга (Select)": "{{data.records[].value}} где title содержит 'экскурсия' или 'тип'",
+          "Дата (Date)": "{{data.records[].value}} где title='Date'",
+          "Статус (Status)": "Новая",
+          "Источник (Select)": "Taplink",
+          "Номер заявки (Number)": "{{data.lead_number}}",
+          "Страница (URL)": "{{data.page_link}}",
+          "Создано (Date)": "{{data.tms_created}}",
+          "Менеджер (Person)": "Назначить вручную или по правилу"
+        },
+        "note": "Для извлечения конкретных полей из records[] используйте модуль 'Array Aggregator' или 'Iterator' + 'Text Aggregator' перед этим модулем"
+      },
+      "placeholder_values": {
+        "NOTION_API_KEY": "Ключ Internal Integration из Notion",
+        "DATABASE_ID": "ID базы данных (из URL страницы Notion)"
+      }
+    },
+
+    {
+      "step": 5,
+      "module": "Email -> Send an Email (или Gmail -> Send an Email)",
+      "role": "АВТООТВЕТ КЛИЕНТУ (Route 1: Leads)",
+      "description": "Отправляет автоматическое email-подтверждение клиенту о получении заявки.",
+      "setup": {
+        "action": "Добавьте модуль 'Email' -> 'Send an Email' (или 'Gmail' -> 'Send an Email')",
+        "connection": "Для Gmail — авторизуйтесь через OAuth. Для обычного Email — SMTP настройки.",
+        "settings": {
+          "to": "{{data.records[].value}} где type='2' (Email)",
+          "from": "YOUR_EMAIL@domain.com",
+          "subject": "Ваша заявка #{{data.lead_number}} получена — Dubai Tours",
+          "content_type": "HTML",
+          "body_template": [
+            "<div style='font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;'>",
+            "  <h2 style='color: #D4A056;'>Спасибо за вашу заявку!</h2>",
+            "  <p>Здравствуйте, <b>{{ИМЯ_КЛИЕНТА}}</b>!</p>",
+            "  <p>Мы получили вашу заявку <b>#{{data.lead_number}}</b> и свяжемся с вами в течение 30 минут.</p>",
+            "  <hr style='border: 1px solid #eee;'>",
+            "  <p><b>Ваши данные:</b></p>",
+            "  <ul>",
+            "    <li>Услуга: {{УСЛУГА}}</li>",
+            "    <li>Дата: {{ДАТА}}</li>",
+            "    <li>Гостей: {{КОЛ-ВО}}</li>",
+            "  </ul>",
+            "  <hr style='border: 1px solid #eee;'>",
+            "  <p>Для быстрой связи:</p>",
+            "  <p><a href='https://wa.me/YOUR_WHATSAPP_NUMBER' style='background: #25D366; color: white; padding: 10px 20px; text-decoration: none; border-radius: 8px;'>Написать в WhatsApp</a></p>",
+            "  <p style='color: #999; font-size: 12px;'>Dubai Tours — Экскурсии, билеты и яхты в Дубае<br>Офис: Tecom (Barsha Heights), Dubai</p>",
+            "</div>"
+          ]
+        }
+      },
+      "placeholder_values": {
+        "YOUR_EMAIL@domain.com": "Email отправителя (ваш рабочий email)",
+        "YOUR_WHATSAPP_NUMBER": "Номер WhatsApp (формат 971XXXXXXXXX)"
+      }
+    }
+  ],
+
+  "error_handling": {
+    "description": "Настройка обработки ошибок в Make.com",
+    "recommendations": [
+      "1. Включите 'Error Handler' для каждого модуля (правый клик -> Add error handler)",
+      "2. Для Telegram: используйте 'Resume' — если Telegram недоступен, продолжить сценарий",
+      "3. Для Notion: используйте 'Break' — если Notion не отвечает, повторить позже",
+      "4. Для Email: используйте 'Ignore' — если email невалидный, пропустить",
+      "5. Включите уведомления об ошибках: Scenario settings -> Notifications -> On error"
+    ]
+  },
+
+  "testing": {
+    "description": "Как протестировать сценарий",
+    "steps": [
+      "1. В Make.com нажмите 'Run once' для активации ожидания вебхука",
+      "2. Откройте вашу Taplink-страницу",
+      "3. Заполните и отправьте тестовую форму",
+      "4. В Make.com проверьте, что все модули выполнились успешно (зелёные галочки)",
+      "5. Проверьте: Telegram-уведомление, запись в Notion, email клиенту",
+      "6. Если всё работает — включите сценарий (Scheduling -> ON)"
+    ]
+  },
+
+  "cost_estimation": {
+    "description": "Оценка стоимости Make.com",
+    "free_plan": {
+      "operations_per_month": 1000,
+      "scenarios": 2,
+      "note": "Достаточно для ~200 заявок/месяц (5 операций на заявку)"
+    },
+    "core_plan": {
+      "price": "$9/мес",
+      "operations_per_month": 10000,
+      "note": "Достаточно для ~2000 заявок/месяц"
+    }
+  }
+}

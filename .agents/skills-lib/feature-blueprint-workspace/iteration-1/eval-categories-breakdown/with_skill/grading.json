@@ -1,0 +1,40 @@
+{
+  "expectations": [
+    {
+      "text": "has_numbered_tasks",
+      "passed": true,
+      "evidence": "21 numbered tasks using TASK-001 through TASK-021 format, organized into 6 waves. Each task has a heading (e.g., '### TASK-001 — Define 5 new TypeScript interfaces in types.ts'), description, files list, plan with steps, result criteria, dependency declaration, and time estimate."
+    },
+    {
+      "text": "task_size_ok",
+      "passed": true,
+      "evidence": "All 21 tasks are between 10-40 minutes: TASK-001 (20min), TASK-002 (25min), TASK-003 (40min), TASK-004 (40min), TASK-005 (35min), TASK-006 (35min), TASK-007 (40min), TASK-008 (15min), TASK-009 (15min), TASK-010 (15min), TASK-011 (15min), TASK-012 (15min), TASK-013 (30min), TASK-014 (30min), TASK-015 (30min), TASK-016 (30min), TASK-017 (30min), TASK-018 (15min), TASK-019 (25min), TASK-020 (10min), TASK-021 (15min). All within 15-60 minute range."
+    },
+    {
+      "text": "has_file_paths",
+      "passed": true,
+      "evidence": "Tasks reference specific file paths throughout: src/data/types.ts, src/data/translations.ts, src/data/spa.ts, src/data/shopping.ts, src/data/photoshoots.ts, src/data/visas.ts, src/data/apartments.ts, src/app/spa/page.tsx, src/app/spa/layout.tsx, src/app/spa/loading.tsx, src/app/spa/[slug]/page.tsx, src/app/spa/[slug]/SpaClient.tsx, src/app/spa/[slug]/opengraph-image.tsx, src/lib/search-index.ts, src/components/Navigation.tsx, src/components/Footer.tsx, src/app/sitemap.ts, and many more."
+    },
+    {
+      "text": "has_dependencies",
+      "passed": true,
+      "evidence": "Every task has an explicit 'Depends on:' field. Examples: TASK-001 'nothing', TASK-003 'TASK-001 (SpaService interface)', TASK-008 'TASK-003 (spa data)', TASK-013 'TASK-003 (spa data), TASK-002 (translations)', TASK-018 'TASK-003..007 (all data files)', TASK-021 'TASK-018, TASK-019, TASK-020'. Also includes an ASCII dependency graph showing the full chain."
+    },
+    {
+      "text": "has_verification",
+      "passed": true,
+      "evidence": "TASK-021 'TypeScript check + build verification' is a dedicated verification wave (Wave 6) with 5 steps: run tsc --noEmit, run npm run build, verify new static pages in build output, check for unused imports or missing translation keys, fix any issues found."
+    },
+    {
+      "text": "covers_all_5",
+      "passed": true,
+      "evidence": "All 5 categories covered with dedicated tasks: SPA (TASK-003/008/013, I-73), Shopping (TASK-004/009/014, I-74), Photoshoots (TASK-005/010/015, I-75), Visas (TASK-006/011/016, I-76), Apartments (TASK-007/012/017, I-77). Issues referenced in header and throughout."
+    }
+  ],
+  "summary": {
+    "passed": 6,
+    "failed": 0,
+    "total": 6,
+    "pass_rate": 1.0
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "name": "threads-autoposter",
+  "version": "1.0.0",
+  "description": "Автоматическая публикация контента в Threads по расписанию",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js",
+    "test": "node test-post.js"
+  },
+  "keywords": [
+    "threads",
+    "autoposter",
+    "social-media",
+    "automation"
+  ],
+  "author": "Claude Code Agent",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.6.5",
+    "dotenv": "^16.4.1",
+    "node-cron": "^3.0.3",
+    "winston": "^3.11.0"
+  }
+}

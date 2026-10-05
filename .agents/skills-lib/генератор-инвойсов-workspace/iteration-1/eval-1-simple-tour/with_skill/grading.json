@@ -1,0 +1,16 @@
+{
+  "eval_id": 1,
+  "run": "with_skill",
+  "expectations": [
+    {"text": "Правильный номер инвойса (#26-047)", "passed": true, "evidence": "Файл содержит 'INVOICE #26-047' в первой строке"},
+    {"text": "VAT рассчитан верно (9,50 USD = 190 × 0.05)", "passed": true, "evidence": "Строка: '9,50 USD' — точное значение"},
+    {"text": "Amount incl. VAT = 199,50 USD", "passed": true, "evidence": "Total (Incl. VAT): 199,50 USD"},
+    {"text": "Реквизиты Marsel (не Sokol)", "passed": true, "evidence": "ACCOUNT NO: 28642584, MARSEL LUXURY CAR RENTAL — правильные реквизиты"},
+    {"text": "Имя клиента в CAPS: PETROV ALEXEY", "passed": true, "evidence": "Name: PETROV ALEXEY — полностью заглавными"},
+    {"text": "Описание услуги содержит TOUR, DUBAI, 2 persons", "passed": true, "evidence": "PRIVATE TOUR IN DUBAI (for 2 persons) 15 FEBRUARY, START AT 10:00 AM"}
+  ],
+  "pass_count": 6,
+  "total_count": 6,
+  "pass_rate": 1.0,
+  "notes": "Отличный результат. Правильный шаблон описания, реквизиты Marsel, десятичный разделитель — запятая."
+}

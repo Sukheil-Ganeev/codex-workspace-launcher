@@ -1,0 +1,30 @@
+В Git Bash на Windows пути отличаются от стандартных Windows-путей.
+
+Диск D:/ в Git Bash записывается как /d/ (буква диска строчная, без двоеточия).
+
+Твой путь D:/Downloads/YouTube/ нужно указать так:
+
+    yt-dlp -o "/d/Downloads/YouTube/%(title)s.%(ext)s" URL
+
+Примеры:
+
+    # Скачать видео в папку
+    yt-dlp -o "/d/Downloads/YouTube/%(title)s.%(ext)s" https://www.youtube.com/watch?v=...
+
+    # Скачать только аудио
+    yt-dlp -x --audio-format mp3 -o "/d/Downloads/YouTube/%(title)s.%(ext)s" URL
+
+    # Скачать в лучшем качестве
+    yt-dlp -f bestvideo+bestaudio -o "/d/Downloads/YouTube/%(title)s.%(ext)s" URL
+
+Правило простое:
+- D:\ → /d/
+- C:\ → /c/
+- Обратные слэши \ заменяются на прямые /
+
+Если в пути есть пробелы — обязательно оборачивай в кавычки:
+    yt-dlp -o "/d/My Downloads/YouTube/%(title)s.%(ext)s" URL
+
+Также можно сначала перейти в папку командой cd, тогда путь указывать не нужно:
+    cd /d/Downloads/YouTube
+    yt-dlp URL

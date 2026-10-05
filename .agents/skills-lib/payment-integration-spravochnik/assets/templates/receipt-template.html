@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Receipt</title>
+  <style>
+    /* Email-friendly styles - inline CSS preferred for emails */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+      background: #f5f5f5;
+      padding: 20px;
+      color: #333;
+    }
+
+    .receipt-container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Header with gradient */
+    .receipt-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 40px 30px;
+      text-align: center;
+    }
+
+    .success-icon {
+      font-size: 64px;
+      margin-bottom: 16px;
+    }
+
+    .receipt-header h1 {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+
+    .receipt-header p {
+      font-size: 16px;
+      opacity: 0.9;
+    }
+
+    /* Content */
+    .receipt-content {
+      padding: 40px 30px;
+    }
+
+    .transaction-id {
+      background: #f9f9f9;
+      padding: 16px;
+      border-radius: 8px;
+      text-align: center;
+      margin-bottom: 32px;
+      border: 2px dashed #e0e0e0;
+    }
+
+    .transaction-id label {
+      display: block;
+      font-size: 12px;
+      color: #999;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .transaction-id code {
+      font-size: 16px;
+      font-weight: 600;
+      color: #667eea;
+      font-family: 'Courier New', monospace;
+    }
+
+    /* Details section */
+    .details-section {
+      margin-bottom: 32px;
+    }
+
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 14px 0;
+      border-bottom: 1px solid #f0f0f0;
+      font-size: 15px;
+    }
+
+    .detail-row:last-child {
+      border-bottom: none;
+    }
+
+    .detail-label {
+      color: #666;
+      font-weight: 500;
+    }
+
+    .detail-value {
+      color: #333;
+      font-weight: 600;
+      text-align: right;
+    }
+
+    /* Amount highlight */
+    .amount-section {
+      background: linear-gradient(135deg, #f0f4ff 0%, #fff 100%);
+      padding: 24px;
+      border-radius: 8px;
+      margin-bottom: 32px;
+      border: 2px solid #667eea;
+    }
+
+    .amount-label {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 8px;
+      text-align: center;
+    }
+
+    .amount-value {
+      font-size: 36px;
+      font-weight: 700;
+      color: #667eea;
+      text-align: center;
+    }
+
+    /* QR Code section */
+    .qr-section {
+      text-align: center;
+      margin-bottom: 32px;
+      padding: 24px;
+      background: #f9f9f9;
+      border-radius: 8px;
+    }
+
+    .qr-section p {
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 16px;
+    }
+
+    .qr-code {
+      display: inline-block;
+      padding: 12px;
+      background: white;
+      border-radius: 8px;
+      border: 2px solid #e0e0e0;
+    }
+
+    /* Customer info */
+    .customer-info {
+      background: #f9f9f9;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 32px;
+    }
+
+    .customer-info h3 {
+      font-size: 14px;
+      color: #999;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+
+    .customer-info p {
+      font-size: 15px;
+      line-height: 1.8;
+      color: #333;
+    }
+
+    /* Action buttons */
+    .actions {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 14px 20px;
+      text-align: center;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.2s;
+      display: inline-block;
+    }
+
+    .btn-primary {
+      background: #667eea;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #5568d3;
+    }
+
+    .btn-secondary {
+      background: white;
+      color: #667eea;
+      border: 2px solid #667eea;
+    }
+
+    .btn-secondary:hover {
+      background: #f0f4ff;
+    }
+
+    /* Footer */
+    .receipt-footer {
+      background: #f9f9f9;
+      padding: 24px 30px;
+      text-align: center;
+      font-size: 13px;
+      color: #666;
+      line-height: 1.8;
+    }
+
+    .receipt-footer a {
+      color: #667eea;
+      text-decoration: none;
+    }
+
+    .divider {
+      height: 1px;
+      background: #e0e0e0;
+      margin: 24px 0;
+    }
+
+    /* Mobile responsive */
+    @media (max-width: 600px) {
+      body {
+        padding: 10px;
+      }
+
+      .receipt-header {
+        padding: 30px 20px;
+      }
+
+      .receipt-content {
+        padding: 24px 20px;
+      }
+
+      .actions {
+        flex-direction: column;
+      }
+
+      .amount-value {
+        font-size: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="receipt-container">
+    <!-- Header -->
+    <div class="receipt-header">
+      <div class="success-icon">✅</div>
+      <h1>Payment Successful!</h1>
+      <p>Your payment has been processed successfully</p>
+    </div>
+
+    <!-- Content -->
+    <div class="receipt-content">
+      <!-- Transaction ID -->
+      <div class="transaction-id">
+        <label>Transaction ID</label>
+        <code>pi_3AbcDefGHIjklMNo</code>
+      </div>
+
+      <!-- Amount -->
+      <div class="amount-section">
+        <div class="amount-label">Amount Paid</div>
+        <div class="amount-value">630.00 AED</div>
+      </div>
+
+      <!-- Transaction Details -->
+      <div class="details-section">
+        <div class="detail-row">
+          <span class="detail-label">Date & Time</span>
+          <span class="detail-value">Feb 4, 2026 at 2:34 PM</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Payment Method</span>
+          <span class="detail-value">Visa •••• 4242</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Description</span>
+          <span class="detail-value">Desert Safari Tour</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Subtotal</span>
+          <span class="detail-value">600.00 AED</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">VAT (5%)</span>
+          <span class="detail-value">30.00 AED</span>
+        </div>
+      </div>
+
+      <!-- Customer Info -->
+      <div class="customer-info">
+        <h3>Customer Information</h3>
+        <p>
+          <strong>Name:</strong> John Doe<br>
+          <strong>Email:</strong> john.doe@example.com<br>
+          <strong>Phone:</strong> +971 50 123 4567<br>
+          <strong>Booking Date:</strong> February 10, 2026
+        </p>
+      </div>
+
+      <!-- QR Code (optional - for verification) -->
+      <div class="qr-section">
+        <p>Scan this code to verify your receipt</p>
+        <div class="qr-code">
+          <!-- QR code placeholder - generate with library like qrcode.js -->
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=pi_3AbcDefGHIjklMNo"
+               alt="Receipt QR Code"
+               width="150"
+               height="150">
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="actions">
+        <a href="/download-receipt?id=pi_3AbcDefGHIjklMNo" class="btn btn-primary">
+          Download PDF
+        </a>
+        <a href="/support" class="btn btn-secondary">
+          Contact Support
+        </a>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Additional Info -->
+      <div style="font-size: 13px; color: #666; line-height: 1.8;">
+        <p><strong>What's Next?</strong></p>
+        <p style="margin-top: 8px;">
+          • You will receive a confirmation email with tour details<br>
+          • Our team will contact you 24 hours before the tour<br>
+          • Save this receipt for your records<br>
+          • For any questions, contact us at info@uaetours.com
+        </p>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="receipt-footer">
+      <strong>UAE Tourism Services</strong><br>
+      Dubai Internet City, Tecom, Dubai, UAE<br>
+      Phone: +971 50 XXX XXXX | Email: info@uaetours.com<br>
+      TRN: 100XXXXXXXX0003<br>
+      <br>
+      Need help? Visit our <a href="/support">Support Center</a>
+    </div>
+  </div>
+</body>
+</html>

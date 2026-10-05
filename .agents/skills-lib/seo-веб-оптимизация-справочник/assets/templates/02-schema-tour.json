@@ -1,0 +1,138 @@
+{
+  "@context": "https://schema.org/",
+  "@type": "Product",
+  "name": "Dubai Desert Safari Evening Tour - Dune Bashing & Dinner",
+  "description": "Experience the magic of Dubai Desert. Dune bashing, camel ride, falcon photography, henna, and traditional Bedouin dinner with live entertainment.",
+  "image": [
+    "https://example.com/tours/desert-safari-1.jpg",
+    "https://example.com/tours/desert-safari-2.jpg",
+    "https://example.com/tours/desert-safari-3.jpg",
+    "https://example.com/tours/desert-safari-4.jpg"
+  ],
+  "brand": {
+    "@type": "Organization",
+    "name": "Your Tour Company LLC",
+    "logo": "https://example.com/logo.png",
+    "url": "https://example.com"
+  },
+  "offers": {
+    "@type": "Offer",
+    "url": "https://example.com/dubai-desert-safari-evening",
+    "priceCurrency": "AED",
+    "price": "175",
+    "priceValidUntil": "2026-12-31",
+    "availability": "InStock",
+    "availabilityStarts": "2026-02-04T14:30:00+04:00",
+    "availabilityEnds": "2026-12-31T20:00:00+04:00",
+    "eligibleDuration": "PT6H",
+    "seller": {
+      "@type": "Organization",
+      "name": "Your Tour Company"
+    }
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "ratingCount": "247",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "review": [
+    {
+      "@type": "Review",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5"
+      },
+      "reviewBody": "Amazing experience! The dune bashing was thrilling, professional guides, and the traditional dinner was delicious.",
+      "author": {
+        "@type": "Person",
+        "name": "Sarah Johnson"
+      },
+      "datePublished": "2026-01-15"
+    },
+    {
+      "@type": "Review",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "4.8"
+      },
+      "reviewBody": "Perfect desert safari tour! Great value for money. Guides were knowledgeable and friendly.",
+      "author": {
+        "@type": "Person",
+        "name": "Ahmed Al Mansouri"
+      },
+      "datePublished": "2026-01-10"
+    }
+  ],
+  "itinerary": {
+    "@type": "ItemList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": "1",
+        "name": "Hotel Pickup",
+        "description": "Pick up from your Dubai hotel"
+      },
+      {
+        "@type": "ListItem",
+        "position": "2",
+        "name": "Dune Bashing",
+        "description": "Thrilling ride through golden sand dunes"
+      },
+      {
+        "@type": "ListItem",
+        "position": "3",
+        "name": "Camel Ride",
+        "description": "Traditional camel ride in the desert"
+      },
+      {
+        "@type": "ListItem",
+        "position": "4",
+        "name": "Falcon Photography",
+        "description": "Photo opportunity with trained falcon"
+      },
+      {
+        "@type": "ListItem",
+        "position": "5",
+        "name": "Henna & Shisha",
+        "description": "Traditional henna tattoo and shisha lounge"
+      },
+      {
+        "@type": "ListItem",
+        "position": "6",
+        "name": "BBQ Dinner",
+        "description": "Authentic Bedouin dinner with live entertainment"
+      },
+      {
+        "@type": "ListItem",
+        "position": "7",
+        "name": "Hotel Drop-off",
+        "description": "Return to your Dubai hotel"
+      }
+    ]
+  },
+  "eligibleRegion": {
+    "@type": "Place",
+    "name": "Dubai, United Arab Emirates",
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "25.1456",
+      "longitude": "55.2707"
+    }
+  },
+  "organizer": {
+    "@type": "Organization",
+    "name": "Your Tour Company",
+    "telephone": "+971-4-XXXXXXX",
+    "email": "info@example.com",
+    "url": "https://example.com"
+  },
+  "typicalAgeRange": "5-",
+  "mainEntity": {
+    "@type": "LocalBusiness",
+    "name": "Your Tour Company",
+    "image": "https://example.com/logo.png",
+    "url": "https://example.com"
+  }
+}

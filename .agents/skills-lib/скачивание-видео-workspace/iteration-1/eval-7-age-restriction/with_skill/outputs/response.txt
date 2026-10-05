@@ -1,0 +1,21 @@
+Возрастное ограничение на YouTube обходится через cookies из браузера — yt-dlp берёт их напрямую и YouTube видит тебя как залогиненного пользователя, который уже подтвердил возраст.
+
+Команда:
+
+yt-dlp --cookies-from-browser chrome -P "D:/Downloads/YouTube/" "https://www.youtube.com/watch?v=xxx"
+
+Что здесь происходит:
+- --cookies-from-browser chrome — yt-dlp читает cookies из Chrome (где ты залогинен в Google)
+- -P "D:/Downloads/YouTube/" — сохранить в стандартную папку
+- дальше обычная ссылка на видео
+
+Важно: ты должен быть залогинен в Google в Chrome и уже иметь подтверждённый возраст в аккаунте YouTube (это делается один раз на сайте YouTube вручную).
+
+Если используешь другой браузер — замени chrome на нужный:
+- Firefox: --cookies-from-browser firefox
+- Edge:    --cookies-from-browser edge
+- Brave:   --cookies-from-browser brave
+
+Если хочешь скачать в MP4 1080p, добавь флаги формата:
+
+yt-dlp --cookies-from-browser chrome -f "bv*[ext=mp4][height<=1080]+ba[ext=m4a]/b[ext=mp4]" --merge-output-format mp4 -P "D:/Downloads/YouTube/" "https://www.youtube.com/watch?v=xxx"

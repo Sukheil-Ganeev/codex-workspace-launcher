@@ -1,0 +1,278 @@
+{
+  "id": "database-sql-справочник",
+  "name": "Database & SQL Справочник",
+  "version": "1.0.0",
+  "description": "Полный справочник SQL и управления БД для туристического бизнеса. PostgreSQL, Prisma, 13 готовых schemas, примеры запросов и best practices.",
+  "category": "backend",
+  "tags": [
+    "sql",
+    "postgresql",
+    "database",
+    "orm",
+    "prisma",
+    "tourism",
+    "queries",
+    "optimization"
+  ],
+  "author": {
+    "name": "Claude Skills",
+    "description": "Production-grade SQL and database reference"
+  },
+  "triggers": [
+    "sql запрос",
+    "postgresql",
+    "база данных",
+    "бд",
+    "prisma",
+    "orm",
+    "индексы",
+    "оптимизация запросов",
+    "схема базы",
+    "миграции",
+    "транзакции",
+    "безопасность бд"
+  ],
+  "usage": {
+    "description": "Используй для помощи с SQL-запросами, дизайном БД, оптимизацией производительности, интеграцией ORM",
+    "examples": [
+      "Напиши запрос для получения топ-10 туров по количеству бронирований",
+      "Как оптимизировать медленный SELECT с множественными JOINs?",
+      "Настрой Prisma schema для системы бронирований",
+      "Какие индексы нужны для таблицы bookings?",
+      "Как делать безопасные миграции в production?"
+    ]
+  },
+  "integrations": [
+    {
+      "name": "PostgreSQL",
+      "version": "12+",
+      "optional": false,
+      "description": "Основная СУБД"
+    },
+    {
+      "name": "Prisma",
+      "version": "4+",
+      "optional": true,
+      "description": "ORM для Node.js/TypeScript"
+    },
+    {
+      "name": "pg",
+      "version": "8+",
+      "optional": true,
+      "description": "PostgreSQL драйвер для Node.js"
+    },
+    {
+      "name": "psycopg2",
+      "version": "2.9+",
+      "optional": true,
+      "description": "PostgreSQL адаптер для Python"
+    }
+  ],
+  "dependencies": [
+    "postgresql-table-design"
+  ],
+  "relatedSkills": [
+    "javascript-nodejs-справочник",
+    "api-design-principles",
+    "error-handling-patterns"
+  ],
+  "structure": {
+    "main": "SKILL.md",
+    "readme": "README.md",
+    "experience": "experience/_index.md",
+    "references": "references/",
+    "templates": "assets/templates/",
+    "examples": "assets/examples/",
+    "scripts": "scripts/"
+  },
+  "content": {
+    "skill_md": {
+      "sections": 9,
+      "words": 2500,
+      "covers": [
+        "Overview",
+        "Quick Start",
+        "13 Schemas для туризма",
+        "SQL Fundamentals",
+        "Advanced Features",
+        "ORM Integration",
+        "Best Practices",
+        "Common Patterns",
+        "Troubleshooting"
+      ]
+    },
+    "references": [
+      {
+        "title": "SQL Fundamentals",
+        "file": "sql-fundamentals.md",
+        "topics": [
+          "SELECT, FROM, WHERE",
+          "JOIN операции",
+          "GROUP BY, HAVING",
+          "ORDER BY, LIMIT",
+          "DISTINCT, IN, BETWEEN"
+        ]
+      },
+      {
+        "title": "Data Types & Constraints",
+        "file": "data-types-constraints.md",
+        "topics": [
+          "SERIAL, INT, BIGINT",
+          "VARCHAR, TEXT, CHAR",
+          "DECIMAL, NUMERIC, FLOAT",
+          "DATE, TIME, TIMESTAMP",
+          "JSON, JSONB, ARRAY",
+          "CHECK, UNIQUE, NOT NULL",
+          "PRIMARY KEY, FOREIGN KEY"
+        ]
+      },
+      {
+        "title": "Indexes & Performance",
+        "file": "indexes-performance.md",
+        "topics": [
+          "B-tree индексы",
+          "Composite индексы",
+          "Partial индексы",
+          "EXPLAIN ANALYZE",
+          "Query plans",
+          "VACUUM, ANALYZE",
+          "Connection pooling"
+        ]
+      },
+      {
+        "title": "Transactions & Locking",
+        "file": "transactions-locking.md",
+        "topics": [
+          "ACID свойства",
+          "BEGIN, COMMIT, ROLLBACK",
+          "Isolation levels",
+          "Pessimistic locking",
+          "Optimistic locking",
+          "Deadlocks",
+          "Row-level locks"
+        ]
+      },
+      {
+        "title": "Advanced Queries",
+        "file": "advanced-queries.md",
+        "topics": [
+          "Window Functions",
+          "Common Table Expressions (CTE)",
+          "Recursive queries",
+          "Subqueries",
+          "Full-Text Search",
+          "JSON операции",
+          "Aggregation functions"
+        ]
+      },
+      {
+        "title": "ORM Integration",
+        "file": "orm-integration.md",
+        "topics": [
+          "Prisma schema",
+          "Relations",
+          "Migrations",
+          "Seeding",
+          "Raw queries",
+          "Query optimization",
+          "Types generation"
+        ]
+      },
+      {
+        "title": "Security & Backup",
+        "file": "security-backup.md",
+        "topics": [
+          "SQL Injection prevention",
+          "Prepared statements",
+          "User roles",
+          "Permissions",
+          "Encryption",
+          "Backup strategies",
+          "Point-in-time recovery",
+          "WAL"
+        ]
+      },
+      {
+        "title": "Migrations & Schema",
+        "file": "migrations-schema.md",
+        "topics": [
+          "Schema versioning",
+          "Flyway, Liquibase",
+          "Prisma migrations",
+          "Zero-downtime migrations",
+          "Rollbacks",
+          "Multiple environments"
+        ]
+      }
+    ],
+    "templates": [
+      {
+        "name": "booking-system.sql",
+        "description": "Полная система бронирования с ценообразованием"
+      },
+      {
+        "name": "pricing-engine.sql",
+        "description": "Динамическое ценообразование и скидки"
+      },
+      {
+        "name": "analytics-dashboard.sql",
+        "description": "Запросы для аналитических дашбордов"
+      }
+    ],
+    "examples": [
+      {
+        "name": "sample-tourism-db.sql",
+        "description": "Тестовые данные для разработки"
+      },
+      {
+        "name": "complex-queries.sql",
+        "description": "20+ готовых производственных запросов"
+      },
+      {
+        "name": "optimization-tips.sql",
+        "description": "Оптимизация реальных проблемных запросов"
+      }
+    ],
+    "scripts": [
+      {
+        "name": "init-database.sh",
+        "description": "Инициализация БД с schemas"
+      },
+      {
+        "name": "backup-restore.sh",
+        "description": "Резервные копии и восстановление"
+      },
+      {
+        "name": "performance-check.sql",
+        "description": "Проверка производительности и индексов"
+      }
+    ]
+  },
+  "learning": {
+    "level": "intermediate",
+    "prerequisites": [
+      "Базовое понимание SQL",
+      "Опыт работы с БД"
+    ],
+    "estimatedTime": {
+      "basic": "30 minutes",
+      "intermediate": "3 hours",
+      "advanced": "1 week"
+    }
+  },
+  "stats": {
+    "schemas": 13,
+    "sqlExamples": 80,
+    "codeSnippets": 150,
+    "references": 8,
+    "templates": 3,
+    "scripts": 3
+  },
+  "metadata": {
+    "created": "2026-02-04",
+    "updated": "2026-02-04",
+    "status": "production",
+    "maintenance": "active",
+    "license": "proprietary"
+  }
+}

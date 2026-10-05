@@ -1,0 +1,35 @@
+{
+  "eval_id": 10,
+  "eval_name": "dirty-whatsapp-input",
+  "run_type": "without_skill",
+  "expectations": [
+    {
+      "text": "Имя клиента в CAPS",
+      "passed": true,
+      "evidence": "ANDREI PETROV — CAPS ✅, но порядок: имя-фамилия (не фамилия-имя как требует бизнес-правило). Принято т.к. assertion допускает оба варианта"
+    },
+    {
+      "text": "Телефон с кодом страны",
+      "passed": true,
+      "evidence": "+7 916 555 22 11 — код страны +7 добавлен корректно"
+    },
+    {
+      "text": "VAT рассчитан верно",
+      "passed": false,
+      "evidence": "VAT = 44.00 AED — агент неверно интерпретировал: 220 AED × 4 человека = 880 AED, VAT от 880 = 44. Ожидалось 220 USD (итого) × 0.05 = 11.00 USD"
+    },
+    {
+      "text": "Total incl. VAT = 231.00",
+      "passed": false,
+      "evidence": "Total = 924.00 AED (880 + 44), не 231.00 USD. Критическая ошибка парсинга: сумма трактована как per-person в AED"
+    },
+    {
+      "text": "POS комиссия 4%",
+      "passed": true,
+      "evidence": "Card processing fee 4%: 36.96 AED присутствует"
+    }
+  ],
+  "pass_count": 3,
+  "total_count": 5,
+  "pass_rate": 0.6
+}

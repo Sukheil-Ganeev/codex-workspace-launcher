@@ -1,0 +1,12 @@
+# Vercel Environment Variables
+# Добавить через: vercel env add
+
+# Production
+PROD_API_KEY=
+PROD_DATABASE_URL=
+
+# Preview
+PREVIEW_API_KEY=
+
+# Development
+DEV_API_KEY=

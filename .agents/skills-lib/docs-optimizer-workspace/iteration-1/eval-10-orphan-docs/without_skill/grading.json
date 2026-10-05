@@ -1,0 +1,33 @@
+{
+  "eval_id": "eval-10-orphan-docs",
+  "config": "without_skill",
+  "assertions": [
+    {
+      "id": "a1",
+      "description": "Output lists specific files found in the docs/ directory of the project",
+      "passed": true,
+      "evidence": "Found 30 docs/ files"
+    },
+    {
+      "id": "a2",
+      "description": "Output cross-checks which docs/ files are referenced from CLAUDE.md or other navigation documents and flags unreferenced ones",
+      "passed": true,
+      "evidence": "Found cross-check vs CLAUDE.md"
+    },
+    {
+      "id": "a3",
+      "description": "Output classifies orphan docs into Archive tier using the specific tier name 'Archive'",
+      "passed": false,
+      "evidence": "Unmatched: Output classifies orphan docs into Archive tier using the sp"
+    },
+    {
+      "id": "a4",
+      "description": "Output assigns AP-XX codes to orphan documentation antipatterns",
+      "passed": false,
+      "evidence": "No AP-XX codes"
+    }
+  ],
+  "pass_rate": 0.5,
+  "passed": 2,
+  "total": 4
+}

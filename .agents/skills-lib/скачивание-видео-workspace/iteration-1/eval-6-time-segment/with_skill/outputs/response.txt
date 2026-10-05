@@ -1,0 +1,18 @@
+Скачаю первые 3 минуты. Вот команда:
+
+```bash
+yt-dlp --download-sections "*00:00:00-00:03:00" -P "D:/Downloads/YouTube/" "https://youtube.com/watch?v=dQw4w9WgXcQ"
+```
+
+**Что делает команда:**
+- `--download-sections "*00:00:00-00:03:00"` — скачать только отрезок с 0:00 до 3:00
+- `-P "D:/Downloads/YouTube/"` — сохранить в стандартную папку
+- Файл будет обрезан через FFmpeg (он должен быть установлен)
+
+Если хочешь сразу в MP4:
+
+```bash
+yt-dlp --download-sections "*00:00:00-00:03:00" -f "bv*[ext=mp4]+ba[ext=m4a]/b[ext=mp4]" --merge-output-format mp4 -P "D:/Downloads/YouTube/" "https://youtube.com/watch?v=dQw4w9WgXcQ"
+```
+
+Файл появится в `D:/Downloads/YouTube/` с названием видео.

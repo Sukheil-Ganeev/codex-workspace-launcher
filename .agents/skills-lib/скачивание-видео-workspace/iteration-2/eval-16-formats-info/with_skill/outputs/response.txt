@@ -1,0 +1,95 @@
+Чтобы посмотреть доступные форматы без скачивания, используй флаг -F:
+
+```bash
+yt-dlp -F "https://youtube.com/watch?v=dQw4w9WgXcQ"
+```
+
+Это только запрашивает информацию с сервера — ничего не скачивается.
+
+---
+
+## Что покажет вывод
+
+Вывод будет выглядеть примерно так:
+
+```
+ID      EXT   RESOLUTION FPS │  FILESIZE   TBR PROTO │ VCODEC          VBR ACODEC      ABR     ASR MORE INFO
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────
+sb3     mhtml 48x27         3 │                  mhtml │ images                                      storyboard
+sb2     mhtml 80x45         1 │                  mhtml │ images                                      storyboard
+sb1     mhtml 160x90        1 │                  mhtml │ images                                      storyboard
+sb0     mhtml 320x180       1 │                  mhtml │ images                                      storyboard
+233     mp4   audio only      │                  m3u8  │ audio only          unknown
+234     mp4   audio only      │                  m3u8  │ audio only          unknown
+139     m4a   audio only      │    1.45MiB   49k https │ audio only          aac         49k  22050Hz low, m4a_dash
+249     webm  audio only      │    1.30MiB   44k https │ audio only          opus        44k  48000Hz low, webm_dash
+250     webm  audio only      │    1.72MiB   58k https │ audio only          opus        58k  48000Hz low, webm_dash
+140     m4a   audio only      │    3.85MiB  129k https │ audio only          aac        129k  44100Hz medium, m4a_dash
+251     webm  audio only      │    3.38MiB  114k https │ audio only          opus       114k  48000Hz medium, webm_dash
+160     mp4   256x144      24 │    1.29MiB   43k https │ avc1.4d400c     43k video only          144p, mp4_dash
+394     mp4   256x144      24 │    1.08MiB   36k https │ av01.0.00M.08   36k video only          144p, mp4_dash
+278     webm  256x144      24 │    1.52MiB   51k https │ vp9             51k video only          144p, webm_dash
+395     mp4   426x240      24 │    2.11MiB   71k https │ av01.0.00M.08   71k video only          240p, mp4_dash
+133     mp4   426x240      24 │    2.55MiB   86k https │ avc1.4d4015     86k video only          240p, mp4_dash
+242     webm  426x240      24 │    2.09MiB   70k https │ vp9             70k video only          240p, webm_dash
+396     mp4   640x360      24 │    4.51MiB  152k https │ av01.0.01M.08  152k video only          360p, mp4_dash
+134     mp4   640x360      24 │    5.76MiB  194k https │ avc1.4d401e    194k video only          360p, mp4_dash
+243     webm  640x360      24 │    4.40MiB  148k https │ vp9            148k video only          360p, webm_dash
+397     mp4   854x480      24 │    7.83MiB  264k https │ av01.0.04M.08  264k video only          480p, mp4_dash
+135     mp4   854x480      24 │   10.49MiB  354k https │ avc1.4d401f    354k video only          480p, mp4_dash
+244     webm  854x480      24 │    7.60MiB  256k https │ vp9            256k video only          480p, webm_dash
+398     mp4   1280x720     24 │   13.23MiB  447k https │ av01.0.05M.08  447k video only          720p, mp4_dash
+136     mp4   1280x720     24 │   18.25MiB  616k https │ avc1.4d401f    616k video only          720p, mp4_dash
+247     webm  1280x720     24 │   12.88MiB  435k https │ vp9            435k video only          720p, webm_dash
+399     mp4   1920x1080    24 │   23.59MiB  796k https │ av01.0.08M.08  796k video only          1080p, mp4_dash
+137     mp4   1920x1080    24 │   37.11MiB 1253k https │ avc1.640028   1253k video only          1080p, mp4_dash
+248     webm  1920x1080    24 │   22.42MiB  757k https │ vp9            757k video only          1080p, webm_dash
+```
+
+---
+
+## Расшифровка колонок
+
+| Колонка | Что означает |
+|---------|-------------|
+| **ID** | Номер формата — используется при скачивании конкретного варианта |
+| **EXT** | Контейнер файла: mp4, webm, m4a, webm |
+| **RESOLUTION** | Разрешение видео (ширина x высота) или "audio only" для аудиодорожек |
+| **FPS** | Кадров в секунду (24, 30, 60) |
+| **FILESIZE** | Приблизительный размер файла |
+| **TBR** | Total Bitrate — общий битрейт в kbps |
+| **PROTO** | Протокол загрузки: https (прямой), m3u8 (HLS-стрим), dash |
+| **VCODEC** | Видеокодек: avc1/H.264, vp9, av01/AV1 |
+| **VBR** | Video Bitrate в kbps |
+| **ACODEC** | Аудиокодек: aac, opus |
+| **ABR** | Audio Bitrate в kbps |
+| **ASR** | Audio Sample Rate в Hz (44100 = CD-качество) |
+| **MORE INFO** | Метка качества (144p, 360p, 1080p и т.д.) и тип потока |
+
+---
+
+## Ключевые моменты для этого видео
+
+**Важно:** YouTube хранит видео и аудио РАЗДЕЛЬНО для качества 360p и выше. Строки с `video only` — это только картинка без звука. Строки с `audio only` — только звук.
+
+Поэтому для скачивания в хорошем качестве потребуется FFmpeg, который склеивает два потока в один файл.
+
+**Кодеки в порядке предпочтения:**
+- `av01` (AV1) — современный, лучшее сжатие, меньший размер при том же качестве
+- `vp9` — хорошее качество, широкая поддержка
+- `avc1` / H.264 — самый совместимый, работает везде (TV, телефоны, старые плееры)
+
+**Аудио:**
+- `opus` — лучший кодек для потокового вещания, меньше размер
+- `aac` — универсальный, работает в MP4/M4A
+
+---
+
+## Как читать ID форматов
+
+Если захочешь скачать конкретную комбинацию — используешь `-f ID_видео+ID_аудио`. Например:
+- `137+140` — 1080p H.264 + AAC 129kbps (самый совместимый вариант)
+- `248+251` — 1080p VP9 + Opus (меньший размер файла)
+- `399+251` — 1080p AV1 + Opus (самое современное, наименьший размер)
+
+Но это уже для скачивания — ты пока только смотришь что доступно.

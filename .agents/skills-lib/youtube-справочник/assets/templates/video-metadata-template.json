@@ -1,0 +1,137 @@
+{
+  "tourVideos": {
+    "desertSafari": {
+      "title": "Dubai Desert Safari 2026 - Ultimate Adventure Experience | Dubai Tourism",
+      "description": "Experience the ultimate Dubai desert safari adventure! 🏜️\n\nIn this video:\n✅ Dune bashing in 4x4 vehicles\n✅ Camel riding experience\n✅ Traditional BBQ dinner\n✅ Belly dance show\n✅ Henna painting\n✅ Sunset photography\n\n📞 Book now: +971 50 123 4567\n💰 Price: AED 200/person\n🌐 Website: example.com\n\n🕒 Timecodes:\n0:00 - Introduction\n1:30 - Hotel pickup\n3:00 - Desert arrival & dune bashing\n8:00 - Camel riding\n10:30 - Camp activities\n15:00 - BBQ dinner & entertainment\n\n#DubaiTourism #DesertSafari #Dubai2026 #UAETravel #DuneBashing #CamelRiding #DubaiDesert #ArabianNights #TravelVlog #VisitDubai",
+      "tags": [
+        "Dubai",
+        "Desert Safari",
+        "Dubai Tourism",
+        "UAE Travel",
+        "Dune Bashing",
+        "Camel Riding",
+        "Dubai Desert",
+        "Arabian Nights",
+        "Travel Vlog",
+        "Visit Dubai",
+        "Dubai 2026",
+        "Middle East Travel"
+      ],
+      "categoryId": "19",
+      "defaultLanguage": "en",
+      "defaultAudioLanguage": "en"
+    },
+    "burjKhalifa": {
+      "title": "Burj Khalifa Tour 2026 - World's Tallest Building Experience | Dubai",
+      "description": "Visit the iconic Burj Khalifa - the world's tallest building! 🏙️\n\nWhat you'll see:\n✅ 124th & 125th floor observation decks\n✅ 360° panoramic views of Dubai\n✅ Dubai Fountain view from above\n✅ Sunset experience\n✅ Interactive exhibits\n\n📞 Book tickets: +971 50 123 4567\n💰 Price: AED 149/person (standard), AED 379/person (prime hours)\n🌐 Website: example.com\n\n🕒 Best time to visit:\n- Sunset: 5:00 PM - 7:00 PM (most popular)\n- Morning: 8:00 AM - 10:00 AM (less crowded)\n\n#BurjKhalifa #Dubai #DubaiTourism #WorldsTallestBuilding #UAETravel #DubaiAttractions #VisitDubai #DubaiSkyline #TravelVlog",
+      "tags": [
+        "Burj Khalifa",
+        "Dubai",
+        "Dubai Tourism",
+        "World's Tallest Building",
+        "UAE Travel",
+        "Dubai Attractions",
+        "Visit Dubai",
+        "Dubai Skyline",
+        "Travel Vlog",
+        "Dubai 2026"
+      ],
+      "categoryId": "19"
+    },
+    "dubaiMarina": {
+      "title": "Dubai Marina Yacht Tour 2026 - Luxury Yachting Experience",
+      "description": "Experience luxury yachting in Dubai Marina! ⛵\n\nPackage includes:\n✅ Private yacht charter (2-4 hours)\n✅ Professional crew\n✅ Swimming & snorkeling\n✅ BBQ on board (optional)\n✅ Dubai Marina & Atlantis views\n\n📞 Book now: +971 50 123 4567\n💰 Starting from AED 500/hour\n🌐 Website: example.com\n\n🕒 Available slots:\n- Morning cruise: 9:00 AM - 12:00 PM\n- Sunset cruise: 4:00 PM - 7:00 PM (most popular)\n- Night cruise: 8:00 PM - 11:00 PM\n\n#DubaiMarina #YachtTour #DubaiYachts #LuxuryDubai #UAETravel #DubaiTourism #MarinaCruise #VisitDubai",
+      "tags": [
+        "Dubai Marina",
+        "Yacht Tour",
+        "Dubai Yachts",
+        "Luxury Dubai",
+        "UAE Travel",
+        "Dubai Tourism",
+        "Marina Cruise",
+        "Visit Dubai",
+        "Dubai 2026"
+      ],
+      "categoryId": "19"
+    }
+  },
+  "shorts": {
+    "template": {
+      "title": "[Attraction] in Dubai 🇦🇪 #Shorts",
+      "description": "Experience [attraction] in Dubai!\n\n📞 Book: +971 50 123 4567\n\n#Shorts #Dubai #[attraction] #UAETravel #DubaiTourism",
+      "tags": [
+        "Shorts",
+        "Dubai",
+        "UAE",
+        "Dubai Tourism",
+        "Travel Shorts",
+        "Visit Dubai"
+      ],
+      "categoryId": "19"
+    },
+    "examples": [
+      {
+        "title": "Burj Khalifa View 🏙️ #Shorts",
+        "description": "Breathtaking view from the world's tallest building!\n\n📞 Book tickets: +971 50 123 4567\n\n#Shorts #BurjKhalifa #Dubai #DubaiTourism #UAETravel",
+        "tags": ["Shorts", "Burj Khalifa", "Dubai", "Dubai Tourism", "UAE"]
+      },
+      {
+        "title": "Desert Safari Adventure 🏜️ #Shorts",
+        "description": "Ultimate desert experience in Dubai!\n\n📞 Book now: +971 50 123 4567\n\n#Shorts #DesertSafari #Dubai #DubaiTourism",
+        "tags": ["Shorts", "Desert Safari", "Dubai", "UAE Travel"]
+      }
+    ]
+  },
+  "categoryIds": {
+    "1": "Film & Animation",
+    "2": "Autos & Vehicles",
+    "10": "Music",
+    "15": "Pets & Animals",
+    "17": "Sports",
+    "18": "Short Movies",
+    "19": "Travel & Events",
+    "20": "Gaming",
+    "21": "Videoblogging",
+    "22": "People & Blogs",
+    "23": "Comedy",
+    "24": "Entertainment",
+    "25": "News & Politics",
+    "26": "Howto & Style",
+    "27": "Education",
+    "28": "Science & Technology",
+    "29": "Nonprofits & Activism"
+  },
+  "bestPractices": {
+    "title": {
+      "maxLength": 100,
+      "tips": [
+        "Начните с ключевого слова (Dubai Desert Safari)",
+        "Добавьте год (2026) для актуальности",
+        "Используйте pipe | для разделения",
+        "Добавьте бренд в конце"
+      ]
+    },
+    "description": {
+      "maxLength": 5000,
+      "tips": [
+        "Первые 2-3 строки самые важные (показываются в превью)",
+        "Используйте эмодзи для визуальности",
+        "Добавьте призыв к действию (Book now)",
+        "Включите контакты и цены",
+        "Добавьте timecodes для длинных видео",
+        "Используйте 3-5 хэштегов"
+      ]
+    },
+    "tags": {
+      "maxLength": 500,
+      "maxTags": 50,
+      "tips": [
+        "5-10 тегов оптимально (не 50!)",
+        "Начните с самых специфических",
+        "Добавьте локацию (Dubai, UAE)",
+        "Добавьте год (Dubai 2026)",
+        "Не спамьте популярные теги если не релевантны"
+      ]
+    }
+  }
+}

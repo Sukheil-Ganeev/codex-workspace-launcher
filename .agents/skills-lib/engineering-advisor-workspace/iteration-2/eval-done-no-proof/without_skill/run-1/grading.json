@@ -1,0 +1,33 @@
+{
+  "eval_name": "eval-done-no-proof",
+  "config": "without_skill",
+  "expectations": [
+    {
+      "text": "D1: Требует доказательств перед переходом дальше (\"покажи вывод\", \"запусти\")",
+      "passed": false,
+      "evidence": "Файл не найден"
+    },
+    {
+      "text": "D2: Упоминает что финансовая/бизнес логика требует тестов",
+      "passed": false,
+      "evidence": "Файл не найден"
+    },
+    {
+      "text": "D3: Задаёт конкретные граничные случаи (скидка 0%, скидка 100%, 0 ночей)",
+      "passed": false,
+      "evidence": "Файл не найден"
+    },
+    {
+      "text": "D4: НЕ просто говорит \"отлично, следующий шаг...\"",
+      "passed": false,
+      "evidence": "Файл не найден"
+    }
+  ],
+  "summary": {
+    "passed": 0,
+    "failed": 4,
+    "total": 4,
+    "pass_rate": 0.0
+  },
+  "notes": "Файл without_skill/outputs/response.md отсутствует. Все assertions = false по условию задания. Нет данных для оценки."
+}

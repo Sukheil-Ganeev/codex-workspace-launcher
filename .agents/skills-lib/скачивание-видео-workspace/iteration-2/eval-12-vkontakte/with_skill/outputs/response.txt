@@ -1,0 +1,37 @@
+ВКонтакте поддерживается yt-dlp, скачать можно стандартной командой.
+
+Команда для скачивания видео vk.com/video-123456_789:
+
+yt-dlp -P "D:/Downloads/YouTube/" "https://vk.com/video-123456_789"
+
+Если нужен MP4 в лучшем качестве:
+
+yt-dlp -f "bv*[ext=mp4]+ba[ext=m4a]/b[ext=mp4]" --merge-output-format mp4 -P "D:/Downloads/YouTube/" "https://vk.com/video-123456_789"
+
+Файл сохранится в: D:/Downloads/YouTube/
+
+---
+
+ВАЖНО — cookies для ВКонтакте:
+
+ВКонтакте часто закрывает видео для авторизованных пользователей. Если видео недоступно без входа, добавь флаг cookies:
+
+yt-dlp --cookies-from-browser chrome -P "D:/Downloads/YouTube/" "https://vk.com/video-123456_789"
+
+Или через Firefox:
+
+yt-dlp --cookies-from-browser firefox -P "D:/Downloads/YouTube/" "https://vk.com/video-123456_789"
+
+Для этого нужно быть залогиненным во ВКонтакте в браузере.
+
+---
+
+Если видео закрытое (только для друзей/группы) — нужно иметь доступ к нему через браузер с тем же аккаунтом, тогда cookies помогут.
+
+Посмотреть доступные форматы перед скачиванием:
+
+yt-dlp -F "https://vk.com/video-123456_789"
+
+Обновить yt-dlp если возникают ошибки:
+
+yt-dlp -U

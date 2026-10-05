@@ -1,0 +1,40 @@
+{
+  "expectations": [
+    {
+      "text": "has_moscow",
+      "passed": true,
+      "evidence": "Section '## 4. MoSCoW Prioritization' contains a full table with Must/Should/Could/Won't categories (lines 65-87)"
+    },
+    {
+      "text": "has_architecture",
+      "passed": true,
+      "evidence": "Section '## 5. Technical Design' with subsection '### 5.1 Architecture' describes the system design with Website, CRM, and DB subgraphs, plus data flow and booking flow descriptions (lines 92-197)"
+    },
+    {
+      "text": "has_mermaid",
+      "passed": true,
+      "evidence": "Contains 4 mermaid code blocks: flowchart TD (architecture, line 95), sequenceDiagram (data flow, line 141), sequenceDiagram (booking flow, line 170), erDiagram (ERD, line 412)"
+    },
+    {
+      "text": "has_db_schema",
+      "passed": true,
+      "evidence": "Section '5.3 Data Model' contains multiple CREATE TABLE statements: website_products, service_slots, website_reviews, chat_sessions, chat_messages, visitor_favorites (lines 220-408)"
+    },
+    {
+      "text": "has_task_breakdown",
+      "passed": true,
+      "evidence": "Section '## 7. Implementation Plan' contains TASK-001 through TASK-032 across 5 phases (lines 562-627)"
+    },
+    {
+      "text": "task_size_ok",
+      "passed": true,
+      "evidence": "All 32 tasks have estimates of 20-60 minutes. The largest is TASK-007 and TASK-011 at 60 min. None exceed 60 minutes."
+    }
+  ],
+  "summary": {
+    "passed": 6,
+    "failed": 0,
+    "total": 6,
+    "pass_rate": 1.0
+  }
+}

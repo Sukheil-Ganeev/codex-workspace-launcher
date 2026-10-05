@@ -1,0 +1,81 @@
+%%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#2F3437', 'primaryTextColor': '#fff', 'primaryBorderColor': '#E16259', 'lineColor': '#37352F'}}}%%
+erDiagram
+    WORKSPACE ||--o{ TEAMSPACE : contains
+    TEAMSPACE ||--o{ PAGE : contains
+    TEAMSPACE ||--o{ DATABASE : contains
+
+    DATABASE ||--|| DATA_SOURCE : "has (v2025-09-03)"
+    DATA_SOURCE ||--o{ PROPERTY : defines
+    DATABASE ||--o{ PAGE : "contains records"
+
+    PAGE ||--o{ BLOCK : "has children"
+    BLOCK ||--o{ BLOCK : "nested max 2 levels"
+
+    PAGE ||--o{ COMMENT : has
+
+    DATABASE }|--o{ DATABASE : "relation one-way or two-way"
+
+    PROPERTY {
+        string title "Название записи"
+        string rich_text "Текст"
+        number number "Число с форматами"
+        string select "Выбор одного значения"
+        string multi_select "Множественный выбор"
+        date date "Дата или период"
+        string people "Пользователи"
+        string files "Файлы"
+        boolean checkbox "Чекбокс"
+        string url "URL"
+        string email "Email"
+        string phone_number "Телефон"
+        string formula "Вычисляемое"
+        string relation "Связь с другой БД"
+        string rollup "Агрегация через relation"
+        string status "Статус - нельзя создать через API"
+        string unique_id "Автоинкремент с префиксом"
+        string place "Геолокация"
+    }
+
+    BLOCK {
+        string paragraph "Текст"
+        string heading "heading_1 heading_2 heading_3"
+        string list "bulleted numbered to_do"
+        string toggle "Сворачиваемый блок"
+        string quote "Цитата"
+        string callout "Выделенный блок"
+        string code "Код с подсветкой"
+        string media "image video audio pdf file"
+        string table "table + table_row"
+        string layout "column_list column divider"
+        string synced_block "Синхронизированный блок"
+    }
+
+    PAGE {
+        uuid id "UUID без дефисов"
+        string title "Название"
+        string icon "emoji или file"
+        string cover "file URL"
+        boolean archived "В корзине"
+        datetime created_time "Auto"
+        datetime last_edited_time "Auto"
+    }
+
+    DATABASE {
+        uuid id "UUID"
+        string title "Название БД"
+        string icon "emoji или file"
+        boolean is_inline "Встроенная"
+    }
+
+    DATA_SOURCE {
+        uuid id "UUID нового формата v2025-09-03"
+        string type "database"
+        object properties "Схема свойств"
+    }
+
+    COMMENT {
+        uuid id "UUID"
+        string body "Rich text содержимое"
+        string created_by "User ID"
+        datetime created_time "Auto"
+    }

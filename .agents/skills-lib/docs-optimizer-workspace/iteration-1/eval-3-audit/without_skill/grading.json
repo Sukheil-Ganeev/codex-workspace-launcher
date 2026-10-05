@@ -1,0 +1,82 @@
+{
+  "eval_id": "eval-3-audit",
+  "config": "without_skill",
+  "graded_at": "2026-03-12",
+  "assertions": [
+    {
+      "id": "a1",
+      "description": "Output analyzes duplication between CLAUDE.md and MEMORY.md or other documentation files",
+      "passed": true,
+      "evidence": "Section 3 DUPLICATION: DUP-01 two ARCHITECTURE docs, DUP-02 two DEPLOY docs, DUP-03 two IMPROVEMENT plans, DUP-04 MASTER_PLAN vs IDEAL_MASTER_PLAN, DUP-05 metrics in 4 places."
+    },
+    {
+      "id": "a2",
+      "description": "Output checks ISSUES.md for stale or incorrectly-open entries",
+      "passed": true,
+      "evidence": "Section 5 ISSUES.md: last updated 2026-03-04, SEN-01..05 open 8 days, per-issue table with actuality assessment."
+    },
+    {
+      "id": "a3",
+      "description": "Output validates file path references mentioned in CLAUDE.md",
+      "passed": true,
+      "evidence": "BL-01: docs/DESIGN_DECISIONS_v1.md absent, referenced in README.md line 338 and ARCHITECTURE_v1.md. BL-02: ARCHITECTURE.md and ARCHITECTURE_v1.md in root do not exist."
+    },
+    {
+      "id": "a4",
+      "description": "Output contains duplication codes in DUP-XX format (e.g. DUP-01, DUP-02)",
+      "passed": true,
+      "evidence": "DUP-01 through DUP-06 all present with headers like '### DUP-01 — Two architecture docs'."
+    },
+    {
+      "id": "a5",
+      "description": "Output contains antipattern codes in AP-XX format (e.g. AP-01, AP-02)",
+      "passed": false,
+      "evidence": "No AP-XX codes found. Issues coded as BL-XX, OC-XX, DUP-XX, SEC-XX — no AP-XX format."
+    },
+    {
+      "id": "a6",
+      "description": "Output provides a Verification Score in N/5 format",
+      "passed": false,
+      "evidence": "No N/5 score anywhere in the output. Summary table has severity/action columns but no N/5 score."
+    },
+    {
+      "id": "a7",
+      "description": "Output lists at least 2 distinct DUP-XX coded duplications with file pairs",
+      "passed": true,
+      "evidence": "DUP-01 (ARCHITECTURE.md vs ARCHITECTURE_v1.md), DUP-02 (DEPLOY.md vs DEPLOY_GCP.md), DUP-03 (IMPROVEMENT_MASTER_PLAN v1 vs v2) — all with file pairs."
+    },
+    {
+      "id": "a8",
+      "description": "Output contains the exact word 'Essential' as a tier name",
+      "passed": false,
+      "evidence": "Word 'Essential' not found anywhere in the output."
+    },
+    {
+      "id": "a9",
+      "description": "Output contains the exact word 'On-demand' as a tier name",
+      "passed": false,
+      "evidence": "Word 'On-demand' not found anywhere in the output."
+    },
+    {
+      "id": "a10",
+      "description": "Output contains the exact word 'Archive' as a tier name",
+      "passed": true,
+      "evidence": "Multiple uses: 'archive (Phase 0 complete)', 'Архив — ОК' in tables, section 8 recommends 'пометить Oracle как архив'."
+    },
+    {
+      "id": "a11",
+      "description": "Output contains at least 5 distinct AP-XX codes (AP-01 through AP-05 or higher)",
+      "passed": false,
+      "evidence": "Zero AP-XX codes found. Output uses own coding scheme (BL, OC, DUP, SEC) without AP-XX."
+    },
+    {
+      "id": "a12",
+      "description": "Output contains a summary table with columns Tier, File, and Reason",
+      "passed": false,
+      "evidence": "Section 7 summary table has columns: ID, Type, Severity, Problem, Action — no Tier column."
+    }
+  ],
+  "pass_rate": 0.4167,
+  "passed": 5,
+  "total": 12
+}

@@ -1,0 +1,29 @@
+*RETAIL | [TYPE] | [AREA]*
+_[Description — location, foot traffic]_
+───────────────
+*FEATURES*
+▫️ Area: [X,XXX] sq.ft.
+▫️ Frontage: [X]m
+▫️ Ceiling height: [X.X]m
+▫️ Storefront: [Yes/No]
+
+*LOCATION*
+▫️ Floor: [Ground/1st/Basement]
+▫️ Foot traffic: [High/Medium]
+▫️ Parking: [X] spaces
+
+*BUILDING: [NAME]*
+───────────────
+💰 *SALE: [X,XXX,XXX] AED*
+_(~$[XXX,XXX])_
+_[XXX] AED/sq.ft._
+
+*COMMERCIAL TERMS*
+▫️ Service charge: [X] AED/sq.ft./year
+▫️ Title Deed: [Status]
+▫️ Current tenant: [Yes/Vacant]
+▫️ ROI: [X]% (if leased)
+
+⚠️ Freehold ownership
+
+*CONTACT:* [NAME] | [+971 XX XXX XXXX]

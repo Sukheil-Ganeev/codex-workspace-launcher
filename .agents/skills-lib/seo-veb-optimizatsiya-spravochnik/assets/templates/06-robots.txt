@@ -1,0 +1,81 @@
+# robots.txt for example.com
+# Last updated: 2026-02-04
+
+# Allow all bots to crawl the site
+User-agent: *
+Allow: /
+
+# Specific rules for Google bot
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+# Specific rules for Bing bot
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# Disallow crawling of sensitive pages
+User-agent: *
+Disallow: /admin/
+Disallow: /private/
+Disallow: /api/
+Disallow: /cart/
+Disallow: /checkout/
+Disallow: /user/
+Disallow: /account/
+
+# Allow access to robots.txt and sitemap
+User-agent: *
+Allow: /robots.txt
+Allow: /sitemap.xml
+
+# Disallow crawling of duplicate content
+User-agent: *
+Disallow: /*?*sort=
+Disallow: /*?*filter=
+Disallow: /*?*page=2
+Disallow: /*?*page=3
+
+# Allow crawling of search pages (pagination handled via rel="next/prev")
+User-agent: *
+Allow: /?page=
+
+# Disallow crawling of printer-friendly versions
+User-agent: *
+Disallow: /*?print=
+
+# Disallow crawling of temporary/test pages
+User-agent: *
+Disallow: /test/
+Disallow: /temp/
+Disallow: /staging/
+
+# Sitemap location - helps Google discover all pages
+Sitemap: https://example.com/sitemap.xml
+Sitemap: https://example.com/sitemap-news.xml
+
+# Allow social media bots
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+# Block bad bots (optional)
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /
+
+# Request rate limiting for bandwidth protection
+User-agent: *
+Request-rate: 30/60
+
+# Comments and notes
+# This robots.txt follows Google's official recommendations
+# For more info: https://developers.google.com/search/docs/beginner/robots_txt

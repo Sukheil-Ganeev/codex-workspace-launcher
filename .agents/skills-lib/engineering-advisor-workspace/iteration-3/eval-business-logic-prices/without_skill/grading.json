@@ -1,0 +1,43 @@
+{
+  "expectations": [
+    {
+      "text": "(B1) Упоминает необходимость тестов для финансовой логики",
+      "passed": false,
+      "evidence": "Response contains no mention of tests, testing recommendations, or any suggestion to add tests. It jumps directly to providing a complete implementation."
+    },
+    {
+      "text": "(B2) Называет конкретный риск финансовых ошибок",
+      "passed": false,
+      "evidence": "Response contains no warning about risks of financial errors, no explanation that a mistake in calculation could result in wrong amounts to clients or financial losses/conflicts."
+    },
+    {
+      "text": "(B3) Предлагает конкретные тест-кейсы (граничные случаи)",
+      "passed": false,
+      "evidence": "Response contains no test cases or boundary conditions whatsoever — no mention of 0% discount, 100% discount, VAT edge cases, negative values, or zero nights."
+    },
+    {
+      "text": "(B4) НЕ выдаёт готовый код без предупреждения",
+      "passed": false,
+      "evidence": "First line is 'Вот дополненная функция:' followed immediately by a complete Python function. There is zero mention of tests, risks, or warnings anywhere in the entire response."
+    }
+  ],
+  "summary": {
+    "passed": 0,
+    "failed": 4,
+    "total": 4,
+    "pass_rate": 0.0
+  },
+  "execution_metrics": {
+    "output_chars": 1647
+  },
+  "claims": [],
+  "eval_feedback": {
+    "suggestions": [
+      "Response should include a recommendation to add tests for financial logic before or alongside the code",
+      "Response should explain the risk: an error in price calculation means wrong amount shown to client, leading to financial losses or conflicts",
+      "Response should propose specific test cases: discount=0%, discount=100%, negative base price, zero nights, VAT rounding edge cases",
+      "Response should not deliver complete production-ready financial code without any mention of testing requirements"
+    ],
+    "overall": "Complete failure on all 4 assertions. The response is a pure code-delivery answer with no engineering guidance — no tests, no risk warnings, no boundary case analysis. This is exactly the anti-pattern the skill is designed to prevent: financial business logic delivered without any safety net discussion."
+  }
+}

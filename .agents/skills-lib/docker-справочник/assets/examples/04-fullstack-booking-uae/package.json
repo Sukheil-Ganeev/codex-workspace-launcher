@@ -1,0 +1,19 @@
+{
+  "name": "booking-api-uae",
+  "version": "1.0.0",
+  "description": "Booking API для туризма ОАЭ -- экскурсии, билеты в парки, бронирования",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.21.0",
+    "pg": "^8.13.0",
+    "redis": "^4.7.0"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "author": "Сухейль",
+  "license": "MIT"
+}

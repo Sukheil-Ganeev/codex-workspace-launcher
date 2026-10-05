@@ -1,0 +1,27 @@
+{
+  "eval_id": 22,
+  "eval_name": "eval-monolithic-file",
+  "prompt": "Вот мой handlers.py — там 1200 строк, добавь ещё один хэндлер для обработки голосовых сообщений.\n\nКод (фрагмент):\n```python\n# handlers.py — 1200 строк\nfrom aiogram import Router, F\nfrom aiogram.types import Message, CallbackQuery\nfrom aiogram.filters import Command\n\nrouter = Router()\n\n@router.message(Command('start'))\nasync def cmd_start(message: Message):\n    await message.answer('Добро пожаловать!')\n\n@router.message(Command('help'))\nasync def cmd_help(message: Message):\n    await message.answer('Список команд...')\n\n@router.message(Command('book'))\nasync def cmd_book(message: Message):\n    # ... 100 строк логики бронирования\n    pass\n\n@router.message(Command('price'))\nasync def cmd_price(message: Message):\n    # ... 80 строк калькулятора цен\n    pass\n\n@router.message(Command('status'))\nasync def cmd_status(message: Message):\n    # ... 60 строк проверки статуса\n    pass\n\n@router.callback_query(F.data.startswith('book_'))\nasync def process_booking(callback: CallbackQuery):\n    # ... 120 строк обработки бронирований\n    pass\n\n@router.callback_query(F.data.startswith('pay_'))\nasync def process_payment(callback: CallbackQuery):\n    # ... 90 строк обработки оплаты\n    pass\n\n@router.message(F.photo)\nasync def handle_photo(message: Message):\n    # ... 70 строк обработки фото\n    pass\n\n@router.message(F.document)\nasync def handle_document(message: Message):\n    # ... 50 строк обработки документов\n    pass\n\n# ... ещё 600+ строк хэндлеров, вспомогательных функций, и бизнес-логики\n```\n\nДобавь хэндлер для голосовых сообщений с транскрипцией через Whisper.",
+  "assertions": [
+    {
+      "id": "M1",
+      "text": "(M1) Обнаруживает триггер #22 — монолитный файл >1000 строк",
+      "discriminating": true
+    },
+    {
+      "id": "M2",
+      "text": "(M2) Предлагает план разделения файла на модули ПЕРЕД добавлением нового кода",
+      "discriminating": true
+    },
+    {
+      "id": "M3",
+      "text": "(M3) Упоминает конкретные модули для разделения (например: handlers_commands.py, handlers_callbacks.py, handlers_media.py)",
+      "discriminating": true
+    },
+    {
+      "id": "M4",
+      "text": "(M4) НЕ просто добавляет хэндлер без комментария про размер файла",
+      "discriminating": true
+    }
+  ]
+}

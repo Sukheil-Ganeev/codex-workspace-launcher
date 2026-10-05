@@ -1,0 +1,25 @@
+{
+    "tours": [
+        {
+            "id": 1,
+            "name": "Morning Safari",
+            "price": 350,
+            "duration": "5h",
+            "features": ["Sunrise Adventure", "Breakfast", "Camel Ride"]
+        },
+        {
+            "id": 2,
+            "name": "Evening Safari",
+            "price": 420,
+            "duration": "6h",
+            "features": ["Sunset View", "Dinner", "Camel Ride"]
+        },
+        {
+            "id": 3,
+            "name": "Night Safari VIP",
+            "price": 650,
+            "duration": "7h",
+            "features": ["Full Experience", "Belly Dance", "Stargazing"]
+        }
+    ]
+}

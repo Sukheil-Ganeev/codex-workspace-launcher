@@ -1,0 +1,22 @@
+{
+  "expectations": [
+    {
+      "text": "Использует bv* или bestvideo селектор для видео потока",
+      "passed": true,
+      "evidence": "'bv*[ext=mp4][height<=1080]' — в основной команде"
+    },
+    {
+      "text": "Использует --merge-output-format mp4",
+      "passed": true,
+      "evidence": "'--merge-output-format mp4' — явно в основной команде"
+    },
+    {
+      "text": "Указывает путь D:/Downloads/YouTube/",
+      "passed": true,
+      "evidence": "'-P \"D:/Downloads/YouTube/\"' — в основной команде"
+    }
+  ],
+  "passed": 3,
+  "total": 3,
+  "score": 1.0
+}

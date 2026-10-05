@@ -1,0 +1,21 @@
+{
+  "id": "claude",
+  "label": "Claude Code",
+  "home_libraries": [
+    "claude"
+  ],
+  "readable_libraries": [
+    "claude",
+    "agents-master"
+  ],
+  "default_limit": 5,
+  "default_format": "table",
+  "skills_dir": "C:\\Users\\londo\\.claude\\skills",
+  "instruction_file": "C:\\Users\\londo\\.claude\\CLAUDE.md",
+  "launcher": "C:\\Users\\londo\\.agents\\skill-bridge\\bin\\skill.cmd",
+  "notes": [
+    "Умеет ленивую подгрузку навыков: держит в контексте только имена и описания.",
+    "Бюджет описаний можно поднять переменной SLASH_COMMAND_TOOL_CHAR_BUDGET.",
+    "10 навыков в .claude лежат как skill.md строчными — на Windows читаются, но строгий поиск по имени их не видит."
+  ]
+}

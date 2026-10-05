@@ -1,0 +1,15 @@
+{
+  "eval_id": 4,
+  "run": "without_skill",
+  "expectations": [
+    {"text": "TRN: 100342178500003 указан в инвойсе", "passed": true, "evidence": "TRN: 100342178500003 в секции Bill To"},
+    {"text": "Две строки услуг (тур + трансфер)", "passed": true, "evidence": "2 строки: Abu Dhabi Tour + Transfer Mercedes V-Class"},
+    {"text": "Total Excl. VAT = 605,00 USD", "passed": true, "evidence": "Subtotal: 605.00"},
+    {"text": "Нет строки POS комиссии", "passed": true, "evidence": "POS отсутствует"},
+    {"text": "Описание трансфера содержит MERCEDES V-CLASS или V-Class", "passed": true, "evidence": "Transfer — Mercedes V-Class (Hotel to Airport)"}
+  ],
+  "pass_count": 5,
+  "total_count": 5,
+  "pass_rate": 1.0,
+  "notes": "Математика верна, TRN указан. Но: заполнители вместо реквизитов ('your bank name', 'your IBAN'), описания не в CAPS, номер инвойса без # (26-031 вместо #26-031)."
+}

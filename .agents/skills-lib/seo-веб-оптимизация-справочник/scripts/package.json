@@ -1,0 +1,45 @@
+{
+  "name": "seo-optimization-toolkit",
+  "version": "1.0.0",
+  "description": "12 SEO Automation Scripts for UAE Tourism Websites",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "gsc": "node 01-google-search-console.js",
+    "rank": "node 02-rank-tracker.js",
+    "backlinks": "node 03-backlink-monitor.js",
+    "competitor": "node 04-competitor-analysis.js",
+    "audit": "node 05-seo-audit.js",
+    "sitemap": "node 06-sitemap-generator.js",
+    "schema": "node 07-schema-validator.js",
+    "meta": "node 08-meta-optimizer.js",
+    "keywords": "node 09-keyword-research.js",
+    "content": "node 10-content-optimizer.js",
+    "images": "node 11-image-optimizer.js",
+    "performance": "node 12-performance-monitor.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "seo",
+    "automation",
+    "google-apis",
+    "web-optimization"
+  ],
+  "author": "SEO Toolkit",
+  "license": "MIT",
+  "dependencies": {
+    "googleapis": "^118.0.0",
+    "puppeteer": "^19.0.0",
+    "cheerio": "^1.0.0",
+    "axios": "^1.4.0",
+    "dotenv": "^16.0.0",
+    "csv-writer": "^1.6.0",
+    "chalk": "^5.3.0",
+    "ora": "^5.4.1",
+    "commander": "^11.0.0",
+    "moment": "^2.29.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.0.0"
+  }
+}

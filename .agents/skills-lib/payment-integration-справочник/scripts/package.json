@@ -1,0 +1,36 @@
+{
+  "name": "payment-integration-scripts",
+  "version": "1.0.0",
+  "description": "Automation scripts for payment processing",
+  "scripts": {
+    "status": "node payment-status-checker.js",
+    "invoice": "node invoice-generator.js",
+    "reconcile": "node reconciliation-tool.js",
+    "refund": "node refund-processor.js",
+    "analytics": "node analytics-dashboard.js",
+    "fraud-monitor": "node fraud-detection-monitor.js",
+    "webhook-test": "node webhook-tester.js",
+    "bulk-links": "node payment-link-bulk-generator.js",
+    "update-rates": "node currency-rate-updater.js",
+    "health": "node health-check.js",
+    "backup": "node backup-transactions.js",
+    "export": "node export-accounting.js",
+    "reminders": "node send-payment-reminders.js",
+    "validate": "node validate-config.js"
+  },
+  "dependencies": {
+    "stripe": "^14.10.0",
+    "commander": "^11.1.0",
+    "chalk": "^4.1.2",
+    "express": "^4.18.2",
+    "axios": "^1.6.0",
+    "puppeteer": "^21.5.2",
+    "pdfkit": "^0.13.0",
+    "qrcode": "^1.5.3",
+    "nodemailer": "^6.9.7",
+    "csv-parse": "^5.5.2",
+    "csv-stringify": "^6.4.4",
+    "dotenv": "^16.3.1",
+    "pg": "^8.11.0"
+  }
+}

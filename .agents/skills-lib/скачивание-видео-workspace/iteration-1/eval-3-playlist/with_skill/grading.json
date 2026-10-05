@@ -1,0 +1,26 @@
+{
+  "run_id": "eval-3-playlist-with_skill",
+  "expectations": [
+    {
+      "text": "Содержит %(playlist)s в шаблоне (папка с именем плейлиста)",
+      "passed": true,
+      "evidence": "%(playlist)s/ — есть в шаблоне -o"
+    },
+    {
+      "text": "Содержит %(playlist_index) в шаблоне (нумерация файлов)",
+      "passed": true,
+      "evidence": "%(playlist_index)02d — есть"
+    },
+    {
+      "text": "Использует 02d или аналогичный ведущий ноль в нумерации",
+      "passed": true,
+      "evidence": "%(playlist_index)02d — ведущий ноль есть (01, 02, 03...)"
+    },
+    {
+      "text": "Содержит правильный путь D:/Downloads/YouTube/",
+      "passed": true,
+      "evidence": "-P \"D:/Downloads/YouTube/\" — есть"
+    }
+  ],
+  "pass_rate": 1.0
+}

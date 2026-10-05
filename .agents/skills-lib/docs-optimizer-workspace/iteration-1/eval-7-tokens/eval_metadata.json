@@ -1,0 +1,11 @@
+{
+  "eval_id": 7,
+  "eval_name": "session-startup-token-audit",
+  "prompt": "Сколько токенов тратится при старте каждой сессии с проектом D:/Downloads/TouristBotEcosystem/?",
+  "assertions": [
+    "Output contains at least one specific numeric token count estimate for a file or total",
+    "Output provides a breakdown of token usage by file or section (not just a single total)",
+    "Output classifies files into Essential, On-demand, and Archive tiers based on token impact",
+    "Output uses the specific tier names Essential, On-demand, Archive (not generic categories)"
+  ]
+}

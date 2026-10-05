@@ -1,0 +1,979 @@
+{
+  "metadata": {
+    "skill_name": "docs-optimizer",
+    "skill_path": "C:/Users/londo/.claude/skills/docs-optimizer",
+    "executor_model": "claude-sonnet-4-6",
+    "analyzer_model": "claude-sonnet-4-6",
+    "timestamp": "2026-03-12T14:30:00Z",
+    "iteration": 6,
+    "note": "Iteration 6: eval-4 (4/5→5/5) fixed. SKILL.md: optimize mode now requires tier-table (Essential/On-demand/Archive) before generating optimized CLAUDE.md. with_skill mean: 0.98 → 1.0, delta: +0.44 → +0.46. ALL 10 evals at 100%.",
+    "evals_run": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "runs_per_configuration": 1
+  },
+  "runs": [
+    {
+      "eval_id": 1,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 6,
+        "failed": 0,
+        "total": 6,
+        "time_seconds": 602.9,
+        "tokens": 20249,
+        "tool_calls": 37,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Output contains a Verification Score explicitly in N/5 format",
+          "passed": true,
+          "evidence": "Found score: 3/5"
+        },
+        {
+          "text": "Output identifies CLAUDE.md exceeding 300-400 line threshold as a critical problem",
+          "passed": true,
+          "evidence": "Found '557' + 'CLAUDE.md' mention"
+        },
+        {
+          "text": "Output includes a recommendations section with ranked items (HIGH/MEDIUM/LOW or приоритет)",
+          "passed": true,
+          "evidence": "Found recommendations with ranking"
+        },
+        {
+          "text": "Output contains antipattern codes in AP-XX format (e.g. AP-01, AP-02)",
+          "passed": true,
+          "evidence": "Found AP-XX: AP-01, AP-04, AP-20, AP-16, AP-10"
+        },
+        {
+          "text": "Output uses the specific score format N/5 (e.g. 2/5, 3/5) not percentage or other scales",
+          "passed": true,
+          "evidence": "Found N/5: 3/5"
+        },
+        {
+          "text": "Output lists at least 3 distinct AP-XX coded antipatterns with descriptions",
+          "passed": true,
+          "evidence": "Found 15 AP-XX: AP-01, AP-02, AP-03, AP-04, AP-09"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 1,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.3333,
+        "passed": 2,
+        "failed": 4,
+        "total": 6,
+        "time_seconds": 289.9,
+        "tokens": 14750,
+        "tool_calls": 33,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Output contains a Verification Score explicitly in N/5 format",
+          "passed": false,
+          "evidence": "No N/5 score found"
+        },
+        {
+          "text": "Output identifies CLAUDE.md exceeding 300-400 line threshold as a critical problem",
+          "passed": true,
+          "evidence": "Found '557' + 'CLAUDE.md' mention"
+        },
+        {
+          "text": "Output includes a recommendations section with ranked items (HIGH/MEDIUM/LOW or приоритет)",
+          "passed": true,
+          "evidence": "Found recommendations with ranking"
+        },
+        {
+          "text": "Output contains antipattern codes in AP-XX format (e.g. AP-01, AP-02)",
+          "passed": false,
+          "evidence": "No AP-XX codes found"
+        },
+        {
+          "text": "Output uses the specific score format N/5 (e.g. 2/5, 3/5) not percentage or other scales",
+          "passed": false,
+          "evidence": "No N/5 score format"
+        },
+        {
+          "text": "Output lists at least 3 distinct AP-XX coded antipatterns with descriptions",
+          "passed": false,
+          "evidence": "Only 0 AP-XX (need 3+)"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 2,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 7,
+        "failed": 0,
+        "total": 7,
+        "time_seconds": 256.5,
+        "tokens": 7842,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Output classifies files into three named tiers: Essential, On-demand, and Archive",
+          "passed": true,
+          "evidence": "Found all three tiers"
+        },
+        {
+          "text": "Output provides at least one numeric token estimate (e.g. '~800 токенов' or similar)",
+          "passed": true,
+          "evidence": "Found: 456 токен"
+        },
+        {
+          "text": "Output suggests .claudeignore content or archiving strategy",
+          "passed": true,
+          "evidence": "Found .claudeignore or archiving"
+        },
+        {
+          "text": "Output explicitly uses the tier name 'Essential' for always-loaded files",
+          "passed": true,
+          "evidence": "Found 'Essential'"
+        },
+        {
+          "text": "Output explicitly uses the tier name 'On-demand' for conditionally-loaded files",
+          "passed": true,
+          "evidence": "Found 'On-demand'"
+        },
+        {
+          "text": "Output explicitly uses the tier name 'Archive' for rarely-needed files",
+          "passed": true,
+          "evidence": "Found 'Archive'"
+        },
+        {
+          "text": "Output uses the specific score format N/5 for overall documentation quality",
+          "passed": true,
+          "evidence": "Found N/5: 2/5"
+        }
+      ],
+      "notes": ["Iteration-5: output regenerated with explicit N/5 score format. All 7 assertions pass."]
+    },
+    {
+      "eval_id": 2,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.5714,
+        "passed": 4,
+        "failed": 3,
+        "total": 7,
+        "time_seconds": 342.7,
+        "tokens": 0,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Output classifies files into three named tiers: Essential, On-demand, and Archive",
+          "passed": false,
+          "evidence": "Missing tiers: Essential"
+        },
+        {
+          "text": "Output provides at least one numeric token estimate (e.g. '~800 токенов' or similar)",
+          "passed": true,
+          "evidence": "Found: 000 токен"
+        },
+        {
+          "text": "Output suggests .claudeignore content or archiving strategy",
+          "passed": true,
+          "evidence": "Found .claudeignore or archiving"
+        },
+        {
+          "text": "Output explicitly uses the tier name 'Essential' for always-loaded files",
+          "passed": false,
+          "evidence": "No 'Essential' tier"
+        },
+        {
+          "text": "Output explicitly uses the tier name 'On-demand' for conditionally-loaded files",
+          "passed": true,
+          "evidence": "Found 'On-demand'"
+        },
+        {
+          "text": "Output explicitly uses the tier name 'Archive' for rarely-needed files",
+          "passed": true,
+          "evidence": "Found 'Archive'"
+        },
+        {
+          "text": "Output uses the specific score format N/5 for overall documentation quality",
+          "passed": false,
+          "evidence": "No N/5 score"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 3,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 12,
+        "failed": 0,
+        "total": 12,
+        "time_seconds": 772.7,
+        "tokens": 0,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Output analyzes duplication between CLAUDE.md and MEMORY.md or other documentation files",
+          "passed": true,
+          "evidence": "Section 2B CROSS-FILE DUPLICATION MAP — DUP-01..DUP-06 covering GCP params, Docker commands, architecture tree, FORMATTING_GUIDE path. AP-20 notes MEMORY.md absent."
+        },
+        {
+          "text": "Output checks ISSUES.md for stale or incorrectly-open entries",
+          "passed": true,
+          "evidence": "Section 2D: version v5.8.0 vs actual v5.9.0, SEN-01..05 open 8 days, per-issue analysis table."
+        },
+        {
+          "text": "Output validates file path references mentioned in CLAUDE.md",
+          "passed": true,
+          "evidence": "Section 2E: 11 paths checked, docs/DESIGN_DECISIONS_v1.md flagged BROKEN LINK."
+        },
+        {
+          "text": "Output contains duplication codes in DUP-XX format (e.g. DUP-01, DUP-02)",
+          "passed": true,
+          "evidence": "Section 2B: DUP-01 through DUP-06 in both code block and table format, each with explicit file pairs."
+        },
+        {
+          "text": "Output contains antipattern codes in AP-XX format (e.g. AP-01, AP-02)",
+          "passed": true,
+          "evidence": "Section 2A: AP-01, AP-07, AP-08, AP-09, AP-10, AP-11, AP-16, AP-18, AP-19, AP-20."
+        },
+        {
+          "text": "Output provides a Verification Score in N/5 format",
+          "passed": true,
+          "evidence": "Header: 'Verification Score: 3/5'. Footer: 'VERIFICATION SCORE: 3/5' with criteria table."
+        },
+        {
+          "text": "Output lists at least 2 distinct DUP-XX coded duplications with file pairs",
+          "passed": true,
+          "evidence": "DUP-01 (CLAUDE.md ↔ docs/DEPLOY_GCP.md), DUP-02 (CLAUDE.md ↔ docs/DEPLOY.md ↔ docs/DEPLOY_GCP.md), DUP-03 (CLAUDE.md ↔ docs/ARCHITECTURE.md ↔ docs/ARCHITECTURE_v1.md) — all with explicit file pairs."
+        },
+        {
+          "text": "Output contains the exact word 'Essential' as a tier name",
+          "passed": true,
+          "evidence": "Phase 3 TIER CLASSIFICATION TABLE: 'Essential | CLAUDE.md', 'Essential | ISSUES.md', 'Essential | CHANGELOG.md'."
+        },
+        {
+          "text": "Output contains the exact word 'On-demand' as a tier name",
+          "passed": true,
+          "evidence": "Phase 3 TIER CLASSIFICATION TABLE: 'On-demand | docs/ARCHITECTURE.md', 'On-demand | docs/DEPLOY_GCP.md', etc. — 9 On-demand entries."
+        },
+        {
+          "text": "Output contains the exact word 'Archive' as a tier name",
+          "passed": true,
+          "evidence": "Phase 3 TIER CLASSIFICATION TABLE: 'Archive | docs/ARCHITECTURE_v1.md', 'Archive | docs/DEPLOY.md', etc. — 8 Archive entries."
+        },
+        {
+          "text": "Output contains at least 5 distinct AP-XX codes (AP-01 through AP-05 or higher)",
+          "passed": true,
+          "evidence": "10 distinct AP-XX codes: AP-01, AP-07, AP-08, AP-09, AP-10, AP-11, AP-16, AP-18, AP-19, AP-20."
+        },
+        {
+          "text": "Output contains a summary table with columns Tier, File, and Reason",
+          "passed": true,
+          "evidence": "Phase 3 TIER CLASSIFICATION TABLE has exact columns: Tier | File | Reason — 20 rows covering Essential, On-demand, Archive tiers."
+        }
+      ],
+      "notes": ["Iteration-4: output regenerated with DUP-XX codes and Essential/On-demand/Archive tier table. All 12 assertions pass."]
+    },
+    {
+      "eval_id": 3,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.4167,
+        "passed": 5,
+        "failed": 7,
+        "total": 12,
+        "time_seconds": 442.4,
+        "tokens": 0,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Output analyzes duplication between CLAUDE.md and MEMORY.md or other documentation files",
+          "passed": true,
+          "evidence": "Section 3: DUP-01..DUP-06 covering two ARCHITECTURE docs, two DEPLOY docs, two IMPROVEMENT plans, MASTER_PLAN vs IDEAL_MASTER_PLAN, metrics in 4 places."
+        },
+        {
+          "text": "Output checks ISSUES.md for stale or incorrectly-open entries",
+          "passed": true,
+          "evidence": "Section 5: last updated 2026-03-04, SEN-01..05 open 8 days, per-issue actuality assessment."
+        },
+        {
+          "text": "Output validates file path references mentioned in CLAUDE.md",
+          "passed": true,
+          "evidence": "BL-01: docs/DESIGN_DECISIONS_v1.md absent referenced in README.md line 338 and ARCHITECTURE_v1.md. BL-02: root-level ARCHITECTURE files absent."
+        },
+        {
+          "text": "Output contains duplication codes in DUP-XX format (e.g. DUP-01, DUP-02)",
+          "passed": true,
+          "evidence": "DUP-01 through DUP-06 all present with section headers."
+        },
+        {
+          "text": "Output contains antipattern codes in AP-XX format (e.g. AP-01, AP-02)",
+          "passed": false,
+          "evidence": "No AP-XX codes found. Output uses own coding scheme: BL-XX, OC-XX, DUP-XX, SEC-XX."
+        },
+        {
+          "text": "Output provides a Verification Score in N/5 format",
+          "passed": false,
+          "evidence": "No N/5 score anywhere in output."
+        },
+        {
+          "text": "Output lists at least 2 distinct DUP-XX coded duplications with file pairs",
+          "passed": true,
+          "evidence": "DUP-01 (ARCHITECTURE.md vs ARCHITECTURE_v1.md), DUP-02 (DEPLOY.md vs DEPLOY_GCP.md), DUP-03 (IMPROVEMENT_MASTER_PLAN v1 vs v2) — all with file pairs."
+        },
+        {
+          "text": "Output contains the exact word 'Essential' as a tier name",
+          "passed": false,
+          "evidence": "Word 'Essential' not found in output."
+        },
+        {
+          "text": "Output contains the exact word 'On-demand' as a tier name",
+          "passed": false,
+          "evidence": "Word 'On-demand' not found in output."
+        },
+        {
+          "text": "Output contains the exact word 'Archive' as a tier name",
+          "passed": true,
+          "evidence": "Multiple uses: 'archive (Phase 0 complete)', 'Архив — ОК', section 8 recommends 'пометить Oracle как архив'."
+        },
+        {
+          "text": "Output contains at least 5 distinct AP-XX codes (AP-01 through AP-05 or higher)",
+          "passed": false,
+          "evidence": "Zero AP-XX codes. Own scheme used instead."
+        },
+        {
+          "text": "Output contains a summary table with columns Tier, File, and Reason",
+          "passed": false,
+          "evidence": "Section 7 summary table has ID/Type/Severity/Problem/Action columns — no Tier column."
+        }
+      ],
+      "notes": ["Regraded iteration-3 with full 12 assertions from eval_metadata.json"]
+    },
+    {
+      "eval_id": 4,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 5,
+        "failed": 0,
+        "total": 5,
+        "time_seconds": 195.1,
+        "tokens": 0,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Output proposes a condensed CLAUDE.md structure targeting 200-250 lines or mentions a significant reduction",
+          "passed": true,
+          "evidence": "Found 200-250 target + CLAUDE.md"
+        },
+        {
+          "text": "Output includes explicit before/after line count or token count comparison",
+          "passed": true,
+          "evidence": "Found line count comparison"
+        },
+        {
+          "text": "Output generates a draft outline or structure of an optimized CLAUDE.md",
+          "passed": true,
+          "evidence": "Found draft structure for CLAUDE.md"
+        },
+        {
+          "text": "Output references AP-XX antipattern codes that the optimization addresses",
+          "passed": true,
+          "evidence": "Found AP-XX: AP-01, AP-04, AP-20, AP-16, AP-10"
+        },
+        {
+          "text": "Output classifies content into Essential, On-demand, and Archive tiers to justify what stays and what moves",
+          "passed": true,
+          "evidence": "Tier-table with Essential (8 rows), On-demand (8 rows), Archive (4 rows)"
+        }
+      ],
+      "notes": ["Iteration-6: tier-table with all three tiers added to optimize mode output. All 5 assertions pass."]
+    },
+    {
+      "eval_id": 4,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.6,
+        "passed": 3,
+        "failed": 2,
+        "total": 5,
+        "time_seconds": 100.3,
+        "tokens": 0,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Output proposes a condensed CLAUDE.md structure targeting 200-250 lines or mentions a significant reduction",
+          "passed": true,
+          "evidence": "Found 200-250 target + CLAUDE.md"
+        },
+        {
+          "text": "Output includes explicit before/after line count or token count comparison",
+          "passed": true,
+          "evidence": "Found line count comparison"
+        },
+        {
+          "text": "Output generates a draft outline or structure of an optimized CLAUDE.md",
+          "passed": true,
+          "evidence": "Found draft structure for CLAUDE.md"
+        },
+        {
+          "text": "Output references AP-XX antipattern codes that the optimization addresses",
+          "passed": false,
+          "evidence": "No AP-XX codes"
+        },
+        {
+          "text": "Output classifies content into Essential, On-demand, and Archive tiers to justify what stays and what moves",
+          "passed": false,
+          "evidence": "Only: []"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 5,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 5,
+        "failed": 0,
+        "total": 5,
+        "time_seconds": 517.8,
+        "tokens": 0,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Output names at least two specific files that contain overlapping or duplicated information",
+          "passed": true,
+          "evidence": "Found 45 .md files: SERVER_RUNBOOK.md, audit_ecosystem.md, docs/COMMAND_AUDIT.md, docs/SERVER_HEALTH_REPORT_2026-03-04.md"
+        },
+        {
+          "text": "Output provides at least one concrete example of content that appears in multiple files (e.g. mentions MASTER_PLAN or deployment info duplicated)",
+          "passed": true,
+          "evidence": "Found concrete example"
+        },
+        {
+          "text": "Output assigns DUP-XX codes to each identified duplication (e.g. DUP-01, DUP-02)",
+          "passed": true,
+          "evidence": "Found DUP-XX: DUP-05, DUP-04, DUP-02, DUP-01, DUP-03"
+        },
+        {
+          "text": "Output lists at least 2 distinct DUP-XX coded duplications with source and target files",
+          "passed": true,
+          "evidence": "Found 14 DUP-XX"
+        },
+        {
+          "text": "Output recommends a Single Source of Truth (SSOT) location for each duplicated piece of information",
+          "passed": true,
+          "evidence": "Found SSOT recommendation"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 5,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.6,
+        "passed": 3,
+        "failed": 2,
+        "total": 5,
+        "time_seconds": 182.5,
+        "tokens": 0,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Output names at least two specific files that contain overlapping or duplicated information",
+          "passed": true,
+          "evidence": "Found 19 .md files: SERVER_RUNBOOK.md, CICD_SETUP.md, docs/UX_DESIGN_v1.md, docs/SERVER_RUNBOOK.md"
+        },
+        {
+          "text": "Output provides at least one concrete example of content that appears in multiple files (e.g. mentions MASTER_PLAN or deployment info duplicated)",
+          "passed": true,
+          "evidence": "Found concrete example"
+        },
+        {
+          "text": "Output assigns DUP-XX codes to each identified duplication (e.g. DUP-01, DUP-02)",
+          "passed": false,
+          "evidence": "No DUP-XX codes"
+        },
+        {
+          "text": "Output lists at least 2 distinct DUP-XX coded duplications with source and target files",
+          "passed": false,
+          "evidence": "Only 0 DUP-XX (need 2+)"
+        },
+        {
+          "text": "Output recommends a Single Source of Truth (SSOT) location for each duplicated piece of information",
+          "passed": true,
+          "evidence": "Found SSOT recommendation"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 6,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "time_seconds": 189.1,
+        "tokens": 0,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Output uses git log or checks modification dates to determine when files were last updated",
+          "passed": true,
+          "evidence": "Phase 1 declares git log method. All 39 files have dates from git."
+        },
+        {
+          "text": "Output identifies at least one specific file as potentially stale based on modification date or commit history",
+          "passed": true,
+          "evidence": "9 files flagged CONTENT-STALE: docs/ARCHITECTURE.md, docs/MANUAL_TESTS.md, docs/USER_GUIDE_admin.md, docs/USER_GUIDE_owner.md, docs/USER_GUIDE_staff.md, docs/DEPLOY.md, docs/IMPROVEMENT_MASTER_PLAN.md, docs/COMMAND_AUDIT.md, docs/COMMAND_AUDIT_ADMIN.md."
+        },
+        {
+          "text": "Output assigns AP-XX codes to freshness-related antipatterns (e.g. AP-XX for stale documentation)",
+          "passed": true,
+          "evidence": "Phase 2 lists 14 AP-F0X violations: AP-F01, AP-F02, AP-F03, AP-F04 applied to specific files."
+        },
+        {
+          "text": "Output provides a Verification Score in N/5 format for documentation freshness",
+          "passed": true,
+          "evidence": "Header: 'Verification Score: 2/5'. Footer: 'VERIFICATION SCORE: 2/5' with criteria table."
+        }
+      ],
+      "notes": ["Output regenerated with AP-F0X codes and N/5 score per updated SKILL.md"]
+    },
+    {
+      "eval_id": 6,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.5,
+        "passed": 2,
+        "failed": 2,
+        "total": 4,
+        "time_seconds": 349.9,
+        "tokens": 0,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Output uses git log or checks modification dates to determine when files were last updated",
+          "passed": true,
+          "evidence": "Table column 'Последнее обновление (git)' present for all 41 files."
+        },
+        {
+          "text": "Output identifies at least one specific file as potentially stale based on modification date or commit history",
+          "passed": true,
+          "evidence": "Section identifies docs/ARCHITECTURE.md (v4.0), docs/MANUAL_TESTS.md (v4.3.0+), docs/USER_GUIDE_admin.md, docs/USER_GUIDE_owner.md, docs/USER_GUIDE_staff.md, MASTER_PLAN.md as stale."
+        },
+        {
+          "text": "Output assigns AP-XX codes to freshness-related antipatterns (e.g. AP-XX for stale documentation)",
+          "passed": false,
+          "evidence": "No AP-XX codes anywhere. Analysis is detailed and accurate but uses no AP-XX or AP-F0X coding."
+        },
+        {
+          "text": "Output provides a Verification Score in N/5 format for documentation freshness",
+          "passed": false,
+          "evidence": "No N/5 score. Output ends with recommendations table and narrative conclusion."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 7,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "time_seconds": 327.6,
+        "tokens": 0,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Output contains at least one specific numeric token count estimate for a file or total",
+          "passed": true,
+          "evidence": "Found: ~19,141 токен"
+        },
+        {
+          "text": "Output provides a breakdown of token usage by file or section (not just a single total)",
+          "passed": true,
+          "evidence": "Found 27 token mentions"
+        },
+        {
+          "text": "Output classifies files into Essential, On-demand, and Archive tiers based on token impact",
+          "passed": true,
+          "evidence": "Found all three tiers"
+        },
+        {
+          "text": "Output uses the specific tier names Essential, On-demand, Archive (not generic categories)",
+          "passed": true,
+          "evidence": "Found exact tier names"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 7,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.5,
+        "passed": 2,
+        "failed": 2,
+        "total": 4,
+        "time_seconds": 164.1,
+        "tokens": 0,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Output contains at least one specific numeric token count estimate for a file or total",
+          "passed": true,
+          "evidence": "Found: 200,000 token"
+        },
+        {
+          "text": "Output provides a breakdown of token usage by file or section (not just a single total)",
+          "passed": true,
+          "evidence": "Found 12 token mentions"
+        },
+        {
+          "text": "Output classifies files into Essential, On-demand, and Archive tiers based on token impact",
+          "passed": false,
+          "evidence": "Missing tiers"
+        },
+        {
+          "text": "Output uses the specific tier names Essential, On-demand, Archive (not generic categories)",
+          "passed": false,
+          "evidence": "Missing exact tier names"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 8,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 3,
+        "failed": 0,
+        "total": 3,
+        "time_seconds": 201.7,
+        "tokens": 0,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Output reads CLAUDE.md and extracts specific file path references mentioned in it",
+          "passed": true,
+          "evidence": "Found file refs: __init__.py, scripts/backup_sqlite.py, docs/ADMIN_BOT_REDESIGN.md, docs/COMMAND_AUDIT.md"
+        },
+        {
+          "text": "Output reports whether each referenced path actually exists in the filesystem (pass/fail per reference)",
+          "passed": true,
+          "evidence": "Found existence check"
+        },
+        {
+          "text": "Output assigns AP-XX codes to broken link antipatterns found in documentation",
+          "passed": true,
+          "evidence": "Found AP-XX: AP-03"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 8,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.6667,
+        "passed": 2,
+        "failed": 1,
+        "total": 3,
+        "time_seconds": 379.2,
+        "tokens": 0,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Output reads CLAUDE.md and extracts specific file path references mentioned in it",
+          "passed": true,
+          "evidence": "Found file refs: SERVER_RUNBOOK.md, audit_ecosystem.md, audit_content.md, SENTRY_GUIDE.md"
+        },
+        {
+          "text": "Output reports whether each referenced path actually exists in the filesystem (pass/fail per reference)",
+          "passed": true,
+          "evidence": "Found existence check"
+        },
+        {
+          "text": "Output assigns AP-XX codes to broken link antipatterns found in documentation",
+          "passed": false,
+          "evidence": "No AP-XX codes"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 9,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "time_seconds": 159.3,
+        "tokens": 0,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Output reads ISSUES.md from D:/Downloads/TouristBotEcosystem/ and reports its content",
+          "passed": true,
+          "evidence": "Found ISSUES.md reference"
+        },
+        {
+          "text": "Output reports the status of each issue or at minimum the overall breakdown (open vs closed count)",
+          "passed": true,
+          "evidence": "Found issue status breakdown"
+        },
+        {
+          "text": "Output cross-references issue statuses with git log or code to verify if open issues are actually resolved",
+          "passed": true,
+          "evidence": "Found git/code cross-reference"
+        },
+        {
+          "text": "Output provides a Verification Score in N/5 format for issue tracking hygiene",
+          "passed": true,
+          "evidence": "Found N/5: 0/5"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 9,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.75,
+        "passed": 3,
+        "failed": 1,
+        "total": 4,
+        "time_seconds": 112.4,
+        "tokens": 0,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Output reads ISSUES.md from D:/Downloads/TouristBotEcosystem/ and reports its content",
+          "passed": true,
+          "evidence": "Found ISSUES.md reference"
+        },
+        {
+          "text": "Output reports the status of each issue or at minimum the overall breakdown (open vs closed count)",
+          "passed": true,
+          "evidence": "Found issue status breakdown"
+        },
+        {
+          "text": "Output cross-references issue statuses with git log or code to verify if open issues are actually resolved",
+          "passed": true,
+          "evidence": "Found git/code cross-reference"
+        },
+        {
+          "text": "Output provides a Verification Score in N/5 format for issue tracking hygiene",
+          "passed": false,
+          "evidence": "No N/5 score"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 10,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "time_seconds": 316.5,
+        "tokens": 0,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Output lists specific files found in the docs/ directory of the project",
+          "passed": true,
+          "evidence": "Found 19 docs/ files"
+        },
+        {
+          "text": "Output cross-checks which docs/ files are referenced from CLAUDE.md or other navigation documents and flags unreferenced ones",
+          "passed": true,
+          "evidence": "Found cross-check vs CLAUDE.md"
+        },
+        {
+          "text": "Output classifies orphan docs into Archive tier using the specific tier name 'Archive'",
+          "passed": true,
+          "evidence": "Found Archive tier for 22 orphan files in tier-table with 'Orphan: нет ссылок'"
+        },
+        {
+          "text": "Output assigns AP-XX codes to orphan documentation antipatterns",
+          "passed": true,
+          "evidence": "Found AP-XX: AP-03"
+        }
+      ],
+      "notes": ["Iteration-5: output regenerated with tier-table containing Archive for all orphan files. All 4 assertions pass."]
+    },
+    {
+      "eval_id": 10,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.5,
+        "passed": 2,
+        "failed": 2,
+        "total": 4,
+        "time_seconds": 145.4,
+        "tokens": 0,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Output lists specific files found in the docs/ directory of the project",
+          "passed": true,
+          "evidence": "Found 30 docs/ files"
+        },
+        {
+          "text": "Output cross-checks which docs/ files are referenced from CLAUDE.md or other navigation documents and flags unreferenced ones",
+          "passed": true,
+          "evidence": "Found cross-check vs CLAUDE.md"
+        },
+        {
+          "text": "Output classifies orphan docs into Archive tier using the specific tier name 'Archive'",
+          "passed": false,
+          "evidence": "Unmatched: Output classifies orphan docs into Archive tier using the sp"
+        },
+        {
+          "text": "Output assigns AP-XX codes to orphan documentation antipatterns",
+          "passed": false,
+          "evidence": "No AP-XX codes"
+        }
+      ],
+      "notes": []
+    }
+  ],
+  "run_summary": {
+    "with_skill": {
+      "pass_rate": {
+        "mean": 1.0,
+        "stddev": 0.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "time_seconds": {
+        "mean": 353.92,
+        "stddev": 207.9651,
+        "min": 159.3,
+        "max": 772.7
+      },
+      "tokens": {
+        "mean": 2809.1,
+        "stddev": 6604.7839,
+        "min": 0,
+        "max": 20249
+      }
+    },
+    "without_skill": {
+      "pass_rate": {
+        "mean": 0.5438,
+        "stddev": 0.1194,
+        "min": 0.3333,
+        "max": 0.75
+      },
+      "time_seconds": {
+        "mean": 250.88,
+        "stddev": 123.8673,
+        "min": 100.3,
+        "max": 442.4
+      },
+      "tokens": {
+        "mean": 1475.0,
+        "stddev": 4664.3595,
+        "min": 0,
+        "max": 14750
+      }
+    },
+    "delta": {
+      "pass_rate": "+0.46",
+      "time_seconds": "+103.0",
+      "tokens": "+1334"
+    }
+  },
+  "notes": [
+    "Iteration 3: eval-3 regraded with full 12 assertions (was 7). eval-6 with_skill output regenerated with AP-F0X codes and N/5 score per SKILL.md update. Both eval-6 configs regraded.",
+    "Iteration 4: eval-3 with_skill output regenerated with DUP-XX codes + Essential/On-demand/Archive tier table. Regraded 12/12 (was 6/12). with_skill mean: 0.8907 → 0.9407, delta: +0.35 → +0.40.",
+    "Iteration 5: eval-2 (86%→100%) + eval-10 (75%→100%) fixed. SKILL.md updated: explicit N/5 score format in Output Format section + AP-03 orphan docs → Archive tier rule. with_skill mean: 0.9407 → 0.98, delta: +0.40 → +0.44.",
+    "Iteration 6: eval-4 (80%→100%) fixed. SKILL.md: optimize mode requires tier-table (Essential/On-demand/Archive) before draft. with_skill mean: 0.98 → 1.0, delta: +0.44 → +0.46. PERFECT SCORE: all 10 evals at 100%."
+  ]
+}

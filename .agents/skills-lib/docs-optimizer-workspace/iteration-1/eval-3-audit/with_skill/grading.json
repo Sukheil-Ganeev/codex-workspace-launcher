@@ -1,0 +1,82 @@
+{
+  "eval_id": "eval-3-audit",
+  "config": "with_skill",
+  "graded_at": "2026-03-12",
+  "assertions": [
+    {
+      "id": "a1",
+      "description": "Output analyzes duplication between CLAUDE.md and MEMORY.md or other documentation files",
+      "passed": true,
+      "evidence": "Section 2B CROSS-FILE DUPLICATION MAP — DUP-01..DUP-06 covering GCP params, Docker commands, architecture tree, FORMATTING_GUIDE path, batch status, BUTTON_DESIGN_GUIDE path. AP-20 explicitly notes MEMORY.md not present in project."
+    },
+    {
+      "id": "a2",
+      "description": "Output checks ISSUES.md for stale or incorrectly-open entries",
+      "passed": true,
+      "evidence": "Section 2D ISSUES.MD STALE DETECTION: version v5.8.0 vs actual v5.9.0, SEN-01..05 open 8 days, per-issue analysis table."
+    },
+    {
+      "id": "a3",
+      "description": "Output validates file path references mentioned in CLAUDE.md",
+      "passed": true,
+      "evidence": "Section 2E FILE PATH REFERENCES IN CLAUDE.md — VALIDATION: table of 11 paths checked, docs/DESIGN_DECISIONS_v1.md flagged as BROKEN LINK."
+    },
+    {
+      "id": "a4",
+      "description": "Output contains duplication codes in DUP-XX format (e.g. DUP-01, DUP-02)",
+      "passed": true,
+      "evidence": "Section 2B contains DUP-01 through DUP-06 in both code block format and table format, each with file pairs."
+    },
+    {
+      "id": "a5",
+      "description": "Output contains antipattern codes in AP-XX format (e.g. AP-01, AP-02)",
+      "passed": true,
+      "evidence": "Section 2A Anti-Pattern Scan contains: AP-01, AP-07, AP-08, AP-09, AP-10, AP-11, AP-16, AP-18, AP-19, AP-20."
+    },
+    {
+      "id": "a6",
+      "description": "Output provides a Verification Score in N/5 format",
+      "passed": true,
+      "evidence": "Header: 'Verification Score: 3/5'. Footer: 'VERIFICATION SCORE: 3/5' with criteria table."
+    },
+    {
+      "id": "a7",
+      "description": "Output lists at least 2 distinct DUP-XX coded duplications with file pairs",
+      "passed": true,
+      "evidence": "DUP-01 (CLAUDE.md ↔ docs/DEPLOY_GCP.md), DUP-02 (CLAUDE.md ↔ docs/DEPLOY.md ↔ docs/DEPLOY_GCP.md), DUP-03 (CLAUDE.md ↔ docs/ARCHITECTURE.md ↔ docs/ARCHITECTURE_v1.md) — all with explicit file pairs."
+    },
+    {
+      "id": "a8",
+      "description": "Output contains the exact word 'Essential' as a tier name",
+      "passed": true,
+      "evidence": "TIER CLASSIFICATION TABLE in Phase 3 Synthesis: 'Essential | CLAUDE.md | Загружается каждую сессию', 'Essential | ISSUES.md | Актуальный список проблем', 'Essential | CHANGELOG.md | История изменений'."
+    },
+    {
+      "id": "a9",
+      "description": "Output contains the exact word 'On-demand' as a tier name",
+      "passed": true,
+      "evidence": "TIER CLASSIFICATION TABLE: 'On-demand | docs/ARCHITECTURE.md', 'On-demand | docs/DEPLOY_GCP.md', etc. — 9 On-demand entries."
+    },
+    {
+      "id": "a10",
+      "description": "Output contains the exact word 'Archive' as a tier name",
+      "passed": true,
+      "evidence": "TIER CLASSIFICATION TABLE: 'Archive | docs/ARCHITECTURE_v1.md', 'Archive | docs/DEPLOY.md', etc. — 8 Archive entries. Also in M-03 recommendation and ACTION PLAN."
+    },
+    {
+      "id": "a11",
+      "description": "Output contains at least 5 distinct AP-XX codes (AP-01 through AP-05 or higher)",
+      "passed": true,
+      "evidence": "10 distinct AP-XX codes: AP-01, AP-07, AP-08, AP-09, AP-10, AP-11, AP-16, AP-18, AP-19, AP-20."
+    },
+    {
+      "id": "a12",
+      "description": "Output contains a summary table with columns Tier, File, and Reason",
+      "passed": true,
+      "evidence": "Phase 3 TIER CLASSIFICATION TABLE has exact columns: Tier | File | Reason — with 20 rows covering Essential, On-demand, and Archive tiers."
+    }
+  ],
+  "pass_rate": 1.0,
+  "passed": 12,
+  "total": 12
+}

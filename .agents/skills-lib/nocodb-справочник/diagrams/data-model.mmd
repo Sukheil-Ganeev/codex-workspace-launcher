@@ -1,0 +1,91 @@
+%% NocoDB Data Model Diagram
+%% Иерархия: Workspace -> Base -> Tables -> Fields -> Records
+%% Связи, Lookups, Rollups и Views
+
+graph TB
+    %% Верхний уровень
+    workspace["Workspace<br/>Контейнер верхнего уровня"]
+
+    subgraph base["Base (основная единица)"]
+        direction TB
+
+        subgraph tables["Tables"]
+            table1["Table A"]
+            table2["Table B"]
+            table3["Table C"]
+        end
+
+        subgraph fields["Fields (35+ типов)"]
+            textFields["Текст<br/>SingleLineText, LongText"]
+            numFields["Числа<br/>Number, Currency, Percent"]
+            selectFields["Выбор<br/>SingleSelect, MultiSelect"]
+            dateFields["Дата<br/>Date, DateTime, Duration"]
+            specialFields["Специальные<br/>Attachment, User, JSON,<br/>QrCode, Barcode, GeoData"]
+            autoFields["Автоматические<br/>CreatedTime, AutoNumber,<br/>LastModifiedTime"]
+        end
+
+        subgraph records["Records (строки данных)"]
+            rec1["Record 1"]
+            rec2["Record 2"]
+            rec3["Record N..."]
+        end
+    end
+
+    %% Связи между таблицами
+    subgraph links["Links (связи)"]
+        hm["Has-Many (1:N)<br/>+ авто BelongsTo"]
+        mm["Many-to-Many (M:N)<br/>+ junction table"]
+        oo["One-to-One (1:1)"]
+        selfref["Self-referencing<br/>Employee -> Manager"]
+    end
+
+    %% Производные поля
+    subgraph derived["Производные поля"]
+        lookup["Lookup<br/>Значение из связанной таблицы<br/>(read-only, real-time)"]
+        rollup["Rollup<br/>count, sum, avg, min, max<br/>countDistinct, sumDistinct"]
+        formula["Formula<br/>IF, CONCAT, DATEADD,<br/>DATETIME_DIFF, ROUND..."]
+    end
+
+    %% Views
+    subgraph views["Views (представления)"]
+        grid["Grid<br/>Таблица"]
+        kanban["Kanban<br/>Доска по статусам"]
+        gallery["Gallery<br/>Карточки с фото"]
+        form["Form<br/>Ввод данных"]
+        calendar["Calendar<br/>Расписание"]
+    end
+
+    %% Связи иерархии
+    workspace --> base
+    tables --> fields
+    tables --> records
+    table1 --- table2
+    table2 --- table3
+
+    %% Links привязаны к таблицам
+    table1 -- "hm / mm / oo" --> table2
+    table2 -- "hm" --> table3
+    table1 -. "self-ref" .-> table1
+
+    links --> lookup
+    links --> rollup
+
+    %% Views работают с таблицами
+    table1 --> views
+
+    %% Стили
+    classDef wsStyle fill:#2C3E50,stroke:#1A252F,color:#FFFFFF
+    classDef baseStyle fill:#3498DB,stroke:#2980B9,color:#FFFFFF
+    classDef fieldStyle fill:#9B59B6,stroke:#8E44AD,color:#FFFFFF
+    classDef recordStyle fill:#1ABC9C,stroke:#16A085,color:#FFFFFF
+    classDef linkStyle fill:#E74C3C,stroke:#C0392B,color:#FFFFFF
+    classDef derivedStyle fill:#F39C12,stroke:#E67E22,color:#FFFFFF
+    classDef viewStyle fill:#27AE60,stroke:#229954,color:#FFFFFF
+
+    class workspace wsStyle
+    class table1,table2,table3 baseStyle
+    class textFields,numFields,selectFields,dateFields,specialFields,autoFields fieldStyle
+    class rec1,rec2,rec3 recordStyle
+    class hm,mm,oo,selfref linkStyle
+    class lookup,rollup,formula derivedStyle
+    class grid,kanban,gallery,form,calendar viewStyle

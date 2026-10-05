@@ -1,0 +1,13 @@
+{
+  "eval_id": 5,
+  "eval_name": "shared-db-adr",
+  "prompt": "ADR: Shared Database vs API Gateway (adr mode)",
+  "assertions": [
+    {"name": "has_context", "description": "Contains Context section"},
+    {"name": "has_decision", "description": "Contains Decision section"},
+    {"name": "has_consequences_positive", "description": "Lists positive consequences"},
+    {"name": "has_consequences_negative", "description": "Lists negative consequences"},
+    {"name": "has_alternatives", "description": "2+ rejected alternatives"},
+    {"name": "has_status", "description": "Contains status field"}
+  ]
+}

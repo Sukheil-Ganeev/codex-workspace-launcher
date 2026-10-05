@@ -1,0 +1,190 @@
+{
+  "audit_date": "2026-03-12",
+  "project": "TouristBotEcosystem",
+  "project_version_claude_md": "v5.9.0",
+  "project_version_issues_md": "v5.8.0",
+  "git_branch": "feat/admin-inline-action-callbacks",
+
+  "files_scanned": {
+    "total_md_root": 7,
+    "total_md_docs": 32,
+    "total_md_plans": 2,
+    "total_md_deploy": 1,
+    "total_excluding_worktrees": 42,
+    "note": "Excludes .claude/worktrees/ and .pytest_cache/"
+  },
+
+  "broken_links": {
+    "count": 1,
+    "items": [
+      {
+        "id": "BL-01",
+        "missing_file": "docs/DESIGN_DECISIONS_v1.md",
+        "referenced_in": ["README.md:338", "docs/ARCHITECTURE_v1.md:37", "docs/ARCHITECTURE_v1.md:841", "MASTER_PLAN.md:1690"],
+        "severity": "medium"
+      }
+    ]
+  },
+
+  "outdated_content": {
+    "count": 8,
+    "items": [
+      {
+        "id": "OC-01",
+        "topic": "test count mismatch",
+        "correct_value": 1263,
+        "stale_files": ["README.md (1042+)", "docs/ARCHITECTURE.md (970+)", "docs/IMPROVEMENT_MASTER_PLAN.md (970+)"],
+        "severity": "medium"
+      },
+      {
+        "id": "OC-02",
+        "topic": "db tables count mismatch",
+        "correct_value": 47,
+        "stale_files": ["docs/ARCHITECTURE_v1.md (45)", "docs/ARCHITECTURE.md (45)", "CLAUDE.md (45 tables but 7 mixins — internal conflict)"],
+        "severity": "medium"
+      },
+      {
+        "id": "OC-03",
+        "topic": "core subsystems count mismatch",
+        "correct_value": 14,
+        "stale_files": ["docs/ARCHITECTURE.md (13)", "docs/ARCHITECTURE_v1.md (13)", "docs/PROJECT_ACCOMPLISHMENTS.md (13)"],
+        "severity": "low"
+      },
+      {
+        "id": "OC-04",
+        "topic": "infrastructure: Oracle Cloud vs GCP",
+        "correct_value": "GCP europe-west3-b",
+        "stale_files": ["docs/DEPLOY.md (full Oracle Cloud guide)", "docs/ARCHITECTURE_v1.md", "docs/ARCHITECTURE.md", "deploy/README.md"],
+        "severity": "high"
+      },
+      {
+        "id": "OC-05",
+        "topic": "active bots count: 3 vs 5",
+        "correct_value": 3,
+        "stale_files": ["docs/DEPLOY.md (5 bots)", "docs/ARCHITECTURE.md (5 bots)", "docs/ARCHITECTURE_v1.md (5 bots)"],
+        "severity": "high"
+      },
+      {
+        "id": "OC-06",
+        "topic": "IMPROVEMENT_MASTER_PLAN v1 status is ACTIVE but closed",
+        "stale_files": ["docs/IMPROVEMENT_MASTER_PLAN.md"],
+        "note": "IMPROVEMENT_MASTER_PLAN_v2.md explicitly says v1 closed in v5.7.0",
+        "severity": "low"
+      },
+      {
+        "id": "OC-07",
+        "topic": "ADMIN_BOT_REDESIGN.md not marked as implemented",
+        "stale_files": ["docs/ADMIN_BOT_REDESIGN.md"],
+        "severity": "low"
+      },
+      {
+        "id": "OC-08",
+        "topic": "AUDIT_2026-03-03.md marked АКТУАЛЕН but >7 days old",
+        "stale_files": ["docs/AUDIT_2026-03-03.md"],
+        "note": "Per project protocol, audits >7 days should be marked УСТАРЕЛ",
+        "severity": "low"
+      }
+    ]
+  },
+
+  "duplicates": {
+    "count": 6,
+    "items": [
+      {
+        "id": "DUP-01",
+        "group": "Architecture docs",
+        "files": ["docs/ARCHITECTURE.md (424 lines)", "docs/ARCHITECTURE_v1.md (841 lines)"],
+        "issue": "Both describe same state (Phase 0 + Batch 1-4), neither reflects current state (Batch 5-6)",
+        "severity": "low"
+      },
+      {
+        "id": "DUP-02",
+        "group": "Deployment guides",
+        "files": ["docs/DEPLOY.md (798 lines, Oracle Cloud)", "docs/DEPLOY_GCP.md (1062 lines, GCP)"],
+        "issue": "Unclear which is primary; Oracle guide is obsolete",
+        "severity": "medium"
+      },
+      {
+        "id": "DUP-03",
+        "group": "Improvement plans",
+        "files": ["docs/IMPROVEMENT_MASTER_PLAN.md (879 lines)", "docs/IMPROVEMENT_MASTER_PLAN_v2.md (255 lines)"],
+        "issue": "v1 closed but still marked ACTIVE",
+        "severity": "low"
+      },
+      {
+        "id": "DUP-04",
+        "group": "Master plans",
+        "files": ["MASTER_PLAN.md (1900 lines, root)", "docs/IDEAL_MASTER_PLAN.md (2559 lines)"],
+        "issue": "Similar naming; IDEAL is methodology (READ ONLY), MASTER_PLAN is operational — needs clearer distinction",
+        "severity": "low"
+      },
+      {
+        "id": "DUP-05",
+        "group": "Project metrics",
+        "files": ["CLAUDE.md", "README.md", "docs/ARCHITECTURE.md", "docs/ARCHITECTURE_v1.md"],
+        "issue": "Same metrics (tests, tables, bots, subsystems) in 4 places, out of sync",
+        "severity": "medium"
+      },
+      {
+        "id": "DUP-06",
+        "group": "Redesign plans without DONE status",
+        "files": ["docs/ADMIN_BOT_REDESIGN.md", "docs/WHATSAPP_BOT_REDESIGN.md"],
+        "issue": "Both describe future plans that have been partially or fully implemented but not closed",
+        "severity": "low"
+      }
+    ]
+  },
+
+  "issues_md_status": {
+    "last_updated": "2026-03-04 19:57 (Dubai)",
+    "file_self_status": "АКТУАЛЕН",
+    "open_issues": [
+      {"id": "DB-01", "status": "DORMANT", "likely_still_open": true},
+      {"id": "SEN-01", "status": "ОТКРЫТ", "days_since_creation": 8},
+      {"id": "SEN-02", "status": "ОТКРЫТ", "days_since_creation": 8},
+      {"id": "SEN-03", "status": "ОТКРЫТ", "days_since_creation": 8},
+      {"id": "SEN-04", "status": "ОТКРЫТ", "days_since_creation": 8},
+      {"id": "SEN-05", "status": "ОТКРЫТ", "days_since_creation": 8}
+    ],
+    "note": "SEN-01..05 open for 8 days, no updates visible. Consider reviewing."
+  },
+
+  "unregistered_docs": {
+    "count": 15,
+    "note": "Files in docs/ not mentioned in CLAUDE.md architecture tree",
+    "files": [
+      "docs/ADMIN_BOT_REDESIGN.md",
+      "docs/COMMAND_AUDIT_ADMIN.md",
+      "docs/CICD_SETUP.md",
+      "docs/DEPLOY.md",
+      "docs/DEPLOY_GCP.md",
+      "docs/DEPLOY_LESSONS_2026-03-03.md",
+      "docs/IMPROVEMENT_MASTER_PLAN_v2.md",
+      "docs/PROJECT_ACCOMPLISHMENTS.md",
+      "docs/SENTRY_GUIDE.md",
+      "docs/SERVER_HEALTH_REPORT_2026-03-04.md",
+      "docs/SERVER_RUNBOOK.md",
+      "docs/USER_GUIDE_admin.md",
+      "docs/USER_GUIDE_owner.md",
+      "docs/USER_GUIDE_staff.md",
+      "docs/WHATSAPP_BOT_REDESIGN.md"
+    ]
+  },
+
+  "security_notes": {
+    "server_ip_in_docs": true,
+    "ip_address": "34.107.127.155",
+    "ssh_user_in_docs": "londo",
+    "repo_visibility": "private",
+    "risk_level": "acceptable (private repo)"
+  },
+
+  "summary_counts": {
+    "broken_links": 1,
+    "outdated_content_items": 8,
+    "duplicate_groups": 6,
+    "missing_design_decisions_file": 1,
+    "open_issues_in_issues_md": 6,
+    "docs_not_in_claude_md": 15
+  }
+}

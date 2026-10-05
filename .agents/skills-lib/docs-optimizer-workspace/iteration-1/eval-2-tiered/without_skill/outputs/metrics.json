@@ -1,0 +1,65 @@
+{
+  "analysis_target": "D:/Downloads/TouristBotEcosystem/",
+  "total_md_files_found": 40,
+  "auto_loaded_files": {
+    "files": [
+      {"path": "~/.claude/CLAUDE.md", "bytes": 7965, "tokens_approx": 1991},
+      {"path": "TouristBotEcosystem/CLAUDE.md", "bytes": 39824, "tokens_approx": 9956},
+      {"path": "TouristBotEcosystem/CHANGELOG.md", "bytes": 68345, "tokens_approx": 17086},
+      {"path": "TouristBotEcosystem/ISSUES.md", "bytes": 10317, "tokens_approx": 2579}
+    ],
+    "total_bytes": 126451,
+    "total_tokens_approx": 31612,
+    "percent_of_200k_window": 15.8
+  },
+  "on_demand_files": {
+    "files": [
+      {"path": "MASTER_PLAN.md", "bytes": 103078, "tokens_approx": 25769},
+      {"path": "docs/IDEAL_MASTER_PLAN.md", "bytes": 124835, "tokens_approx": 31208},
+      {"path": "docs/IMPROVEMENT_MASTER_PLAN.md", "bytes": 54491, "tokens_approx": 13622},
+      {"path": "docs/BUTTON_DESIGN_GUIDE.md", "bytes": 48414, "tokens_approx": 12103},
+      {"path": "docs/plans/2026-03-02-merge-vtb-cf-plan.md", "bytes": 60028, "tokens_approx": 15007},
+      {"path": "docs/ARCHITECTURE_v1.md", "bytes": 40647, "tokens_approx": 10161},
+      {"path": "docs/UX_DESIGN_v1.md", "bytes": 50479, "tokens_approx": 12619},
+      {"path": "docs/DEPLOY_GCP.md", "bytes": 47602, "tokens_approx": 11900},
+      {"path": "docs/AUDIT_2026-03-03.md + 6 audit files", "bytes": 127365, "tokens_approx": 31826}
+    ],
+    "total_bytes": 656939,
+    "total_tokens_approx": 164215
+  },
+  "biggest_problem": {
+    "file": "CHANGELOG.md",
+    "tokens": 17086,
+    "versions_count": 36,
+    "useful_versions": 2,
+    "useful_tokens": 640,
+    "wasted_tokens": 16446
+  },
+  "claude_md_section_breakdown": {
+    "Архитектура (file tree)": 5005,
+    "Статус проекта": 524,
+    "Команды": 463,
+    "Cloudflare Tunnel (one-time, done)": 599,
+    "Деплой GCP": 391,
+    "Зависимости requirements.txt (duplicate)": 268,
+    "AI Backends": 112,
+    "Бизнес-контекст": 55,
+    "Статистика": 250,
+    "Открытые проблемы": 61,
+    "Стандарты дизайна": 107,
+    "Источники": 71
+  },
+  "optimization_potential": {
+    "split_changelog": 15000,
+    "extract_file_tree": 4500,
+    "remove_cloudflare_setup": 600,
+    "compress_requirements": 270,
+    "defer_changelog_loading": 17000,
+    "archive_closed_issues": 1500,
+    "total_tokens_saveable_min": 22000,
+    "total_tokens_saveable_max": 37000,
+    "current_auto_load": 31612,
+    "optimized_auto_load_estimate": 9000
+  },
+  "token_estimation_method": "bytes / 4 (approximate, actual may vary by 10-15%)"
+}

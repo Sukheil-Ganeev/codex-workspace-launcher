@@ -1,0 +1,43 @@
+{
+  "name": "database-utility-scripts",
+  "version": "1.0.0",
+  "description": "Production-ready database utility scripts for PostgreSQL",
+  "main": "db.js",
+  "scripts": {
+    "migrate:up": "node migrate.js up",
+    "migrate:down": "node migrate.js down",
+    "migrate:status": "node migrate.js status",
+    "migrate:create": "node migrate.js create",
+    "seed": "node seed.js",
+    "backup": "node backup.js create",
+    "backup:list": "node backup.js list",
+    "backup:cleanup": "node backup.js cleanup",
+    "restore": "node restore.js",
+    "validate": "node schema-validator.js",
+    "analyze": "node performance-analyzer.js",
+    "monitor": "node connection-monitor.js",
+    "health": "node health-checker.js",
+    "diff": "node schema-diff.js",
+    "factory": "node test-factory.js",
+    "replication": "node replication-setup.js",
+    "query": "node query-builder.js"
+  },
+  "keywords": [
+    "postgresql",
+    "database",
+    "migration",
+    "backup",
+    "monitoring"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "pg": "^8.10.0"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^8.0.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

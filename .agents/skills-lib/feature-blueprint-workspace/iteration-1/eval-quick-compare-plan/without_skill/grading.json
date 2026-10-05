@@ -1,0 +1,40 @@
+{
+  "expectations": [
+    {
+      "text": "has_moscow",
+      "passed": false,
+      "evidence": "No MoSCoW prioritization found. The document has 'In Scope (MVP)' and 'Out of Scope (Future)' sections (Section 2), but does not use Must/Should/Could/Won't labels or any MoSCoW framework."
+    },
+    {
+      "text": "has_architecture",
+      "passed": true,
+      "evidence": "Section '3. Technical Architecture' covers stack/constraints (3.1), new files table (3.2), modified files (3.3), unchanged files (3.4). Section '12. Dependency Map' shows the component tree. Section '4. Detailed Design' provides system-level design for hook, checkbox, bar, and modal."
+    },
+    {
+      "text": "has_mermaid",
+      "passed": false,
+      "evidence": "No ```mermaid code blocks anywhere in the document. Dependency map in Section 12 uses plain ASCII tree notation. Modal layouts use ASCII art boxes. No diagram tooling used."
+    },
+    {
+      "text": "has_component_design",
+      "passed": true,
+      "evidence": "Detailed component designs: useCompare hook (interface with items, count, isComparing, toggleCompare, etc.), CompareCheckbox (props interface, visual specs 32x32px, position absolute, states), CompareBar (behavior, z-index, visual specs with heights, colors, backdrop-filter, layouts for desktop/mobile), CompareModal (dynamic import pattern, data resolution, layout ASCII mockups, comparison rows table, styling specs)."
+    },
+    {
+      "text": "has_task_breakdown",
+      "passed": false,
+      "evidence": "Section 13 'Implementation Plan' has 4 phases with numbered sub-steps (Phase 1: 6 steps, Phase 2: 5 steps, Phase 3: 6 steps, Phase 4: 5 steps), but time estimates are only at the phase level ('Day 1', 'Day 1-2', 'Day 2', 'Day 3'). No individual task time estimates in minutes/hours. Total estimate is '3 days (1 developer)' — not granular enough to qualify as a task breakdown with time estimates per task."
+    },
+    {
+      "text": "task_size_ok",
+      "passed": false,
+      "evidence": "No individual task time estimates provided. Phase-level estimates are 'Day 1', 'Day 1-2', 'Day 2', 'Day 3' — each phase encompasses multiple hours of work (well above 60 minutes). Cannot verify the <= 60 minute constraint at task level since no task-level estimates exist."
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 4,
+    "total": 6,
+    "pass_rate": 0.33
+  }
+}

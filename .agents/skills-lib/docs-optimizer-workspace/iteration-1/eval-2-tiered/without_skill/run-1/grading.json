@@ -1,0 +1,56 @@
+{
+  "expectations": [
+    {
+      "text": "Output classifies files into three named tiers: Essential, On-demand, and Archive",
+      "passed": false,
+      "evidence": "The output does not use the exact tier names 'Essential', 'On-demand', and 'Archive'. It organizes files into 'автозагружаемые' (auto-loaded) and on-demand categories in metrics.json, but in the output.md the structure is presented as sections ('Что загружается автоматически', 'Файлы, которые НЕ загружаются автоматически') without labeling them as three named tiers. The word 'Archive' appears only as an action/strategy (e.g., 'вынести в docs/ISSUES_ARCHIVE.md'), not as a tier name. All three tier names must be explicitly present — this requirement fails."
+    },
+    {
+      "text": "Output provides at least one numeric token estimate (e.g. '~800 токенов' or similar)",
+      "passed": true,
+      "evidence": "The output is rich with numeric token estimates. Examples: '~31 600 автозагружаемыми токенами', '~2 000', '~9 960', '~17 090', '~2 580', '~5 000', '~600', '~17 000 токенов', '~640 токенов'. Multiple precise figures appear throughout."
+    },
+    {
+      "text": "Output suggests .claudeignore content or archiving strategy",
+      "passed": true,
+      "evidence": "The output explicitly suggests multiple archiving strategies: (1) 'Создать CHANGELOG_ARCHIVE.md для версий v5.7.x и старше' (recommendation #1), (2) 'Вынести в docs/ARCHITECTURE_TREE.md' for the file tree section (recommendation #2), (3) 'вынести в docs/ISSUES_ARCHIVE.md' for closed issues (recommendation #6). No .claudeignore is mentioned, but the archiving strategy portion of the expectation is clearly met."
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 1,
+    "total": 3,
+    "pass_rate": 0.67
+  },
+  "execution_metrics": {
+    "analysis_target": "D:/Downloads/TouristBotEcosystem/",
+    "total_md_files_found": 40,
+    "auto_loaded_files_count": 4,
+    "auto_loaded_tokens_approx": 31612,
+    "on_demand_files_count": 9,
+    "on_demand_tokens_approx": 164215,
+    "total_tokens_saveable_min": 22000,
+    "total_tokens_saveable_max": 37000,
+    "optimized_auto_load_estimate": 9000,
+    "token_estimation_method": "bytes / 4 (approximate, actual may vary by 10-15%)"
+  },
+  "timing": {
+    "total_tokens": 60803,
+    "duration_ms": 342715,
+    "total_duration_seconds": 342.7
+  },
+  "claims": [
+    "Each session starts with ~31,600 auto-loaded tokens (~17% of 200K context window)",
+    "CHANGELOG.md is the biggest culprit at ~17,000 tokens (36 versions, only 2 useful)",
+    "The file tree in CLAUDE.md alone accounts for ~5,000 tokens",
+    "Potential savings of 22,000–37,000 tokens reducing auto-load from ~31,600 to ~9,000–15,000"
+  ],
+  "eval_feedback": {
+    "suggestions": [
+      "To pass expectation 1, the output should explicitly label three tiers with the exact names 'Essential', 'On-demand', and 'Archive' — perhaps as section headers or table columns.",
+      "Consider adding a .claudeignore section showing which files to exclude, as this is a common and practical strategy the evaluation checks for.",
+      "The output is well-structured and detailed with token estimates; reorganizing around three explicit named tiers would make it meet all three expectations."
+    ],
+    "overall": "The output is high-quality and provides excellent quantitative analysis with concrete token estimates and actionable archiving recommendations. It fails only on the structural requirement of using three explicitly named tiers (Essential, On-demand, Archive) — the content implicitly covers these categories but does not label them with those exact terms. Pass rate: 2/3 (67%)."
+  }
+}

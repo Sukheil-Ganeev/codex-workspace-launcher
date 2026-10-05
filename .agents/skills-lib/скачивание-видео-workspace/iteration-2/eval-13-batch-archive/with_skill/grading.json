@@ -1,0 +1,33 @@
+{
+  "expectations": [
+    {
+      "text": "Использует флаг -a urls.txt для пакетной загрузки из файла",
+      "passed": true,
+      "evidence": "'-a urls.txt' — первый флаг в команде с пояснением 'читает ссылки из файла'"
+    },
+    {
+      "text": "Использует --download-archive для хранения ID скачанных видео",
+      "passed": true,
+      "evidence": "'--download-archive D:/Downloads/YouTube/archive.txt' с детальным объяснением как работает архив"
+    },
+    {
+      "text": "Указывает путь сохранения D:/Downloads/YouTube/",
+      "passed": true,
+      "evidence": "'-P D:/Downloads/YouTube/' присутствует в команде"
+    },
+    {
+      "text": "Упоминает --no-overwrites для пропуска существующих файлов",
+      "passed": true,
+      "evidence": "'--no-overwrites — не перезаписывать файл если он уже существует на диске'"
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "timing": {
+    "executor_duration_seconds": 41.7
+  }
+}

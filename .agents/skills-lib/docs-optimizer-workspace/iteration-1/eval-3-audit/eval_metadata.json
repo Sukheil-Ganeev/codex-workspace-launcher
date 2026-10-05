@@ -1,0 +1,19 @@
+{
+  "eval_id": 3,
+  "eval_name": "full-audit-duplication-links-freshness",
+  "prompt": "Полный аудит документации в D:/Downloads/TouristBotEcosystem/ — найди дубли, битые ссылки и устаревший контент",
+  "assertions": [
+    "Output analyzes duplication between CLAUDE.md and MEMORY.md or other documentation files",
+    "Output checks ISSUES.md for stale or incorrectly-open entries",
+    "Output validates file path references mentioned in CLAUDE.md",
+    "Output contains duplication codes in DUP-XX format (e.g. DUP-01, DUP-02)",
+    "Output contains antipattern codes in AP-XX format (e.g. AP-01, AP-02)",
+    "Output provides a Verification Score in N/5 format",
+    "Output lists at least 2 distinct DUP-XX coded duplications with file pairs",
+    "Output contains the exact word 'Essential' as a tier name",
+    "Output contains the exact word 'On-demand' as a tier name",
+    "Output contains the exact word 'Archive' as a tier name",
+    "Output contains at least 5 distinct AP-XX codes (AP-01 through AP-05 or higher)",
+    "Output contains a summary table with columns Tier, File, and Reason"
+  ]
+}

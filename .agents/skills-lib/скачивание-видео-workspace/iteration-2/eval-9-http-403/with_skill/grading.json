@@ -1,0 +1,28 @@
+{
+  "expectations": [
+    {
+      "text": "Упоминает yt-dlp -U или обновление yt-dlp как одно из решений",
+      "passed": true,
+      "evidence": "Шаг 1 явно: 'yt-dlp -U' + 'yt-dlp --update-to nightly', с комментарием '90% ошибок 403 решаются просто обновлением'"
+    },
+    {
+      "text": "Упоминает --cookies-from-browser как способ передать авторизацию",
+      "passed": true,
+      "evidence": "Шаг 2: 'yt-dlp --cookies-from-browser chrome ...' с вариантами firefox/edge"
+    },
+    {
+      "text": "Упоминает -v или --verbose для диагностики ошибки",
+      "passed": true,
+      "evidence": "Раздел 'Диагностика': 'yt-dlp -v URL' с пояснением и вариантом вывода в файл"
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "timing": {
+    "executor_duration_seconds": 56.0
+  }
+}

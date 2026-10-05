@@ -1,0 +1,70 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is included in the desert safari tour?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The evening desert safari includes dune bashing with professional drivers, camel ride, falcon photography, henna tattoo, shisha lounge, and authentic Bedouin BBQ dinner with live entertainment. Hotel pickup and drop-off are also included."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long does the desert safari tour take?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The entire tour takes approximately 6 hours, starting with hotel pickup around 2:30 PM and returning to your hotel by 9:00 PM. Exact timing depends on your hotel location."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the price for the desert safari?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The desert safari evening tour costs AED 175 per person (approximately USD 48). Children under 5 are free, and there are discounts available for group bookings of 10 or more people."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need to bring anything for the desert safari?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We recommend bringing sunscreen, sunglasses, a light jacket (for evening chill), and a camera. Wear comfortable clothing and closed shoes. We provide all necessary equipment and refreshments."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the desert safari suitable for families with children?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! The desert safari is family-friendly. Children can enjoy dune bashing (not too extreme), camel rides, henna tattoos, and the dinner. We offer private tours for families who prefer a more personalized experience."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I book the desert safari online?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, you can book online at www.example.com/booking. We require payment upfront to secure your reservation. Cancellations up to 24 hours before the tour receive a full refund."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens if the weather is bad?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Desert safaris operate in most weather conditions. In case of extreme weather, we offer a full refund or reschedule your tour to another date at no additional cost."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are dietary requirements accommodated at dinner?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, we accommodate vegetarian, vegan, and other dietary requirements. Please inform us at the time of booking, and we will ensure appropriate meal options are available."
+      }
+    }
+  ]
+}

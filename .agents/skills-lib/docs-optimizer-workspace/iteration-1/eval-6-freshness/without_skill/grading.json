@@ -1,0 +1,34 @@
+{
+  "eval_id": "eval-6-freshness",
+  "config": "without_skill",
+  "graded_at": "2026-03-12",
+  "assertions": [
+    {
+      "id": "a1",
+      "description": "Output uses git log or checks modification dates to determine when files were last updated",
+      "passed": true,
+      "evidence": "Table column 'Последнее обновление (git)' present for all 41 files with dates from 2026-03-02 to 2026-03-05."
+    },
+    {
+      "id": "a2",
+      "description": "Output identifies at least one specific file as potentially stale based on modification date or commit history",
+      "passed": true,
+      "evidence": "Section 'Критически устаревшие живые документы' identifies docs/ARCHITECTURE.md (v4.0), docs/MANUAL_TESTS.md (v4.3.0+), docs/USER_GUIDE_admin.md, docs/USER_GUIDE_owner.md, docs/USER_GUIDE_staff.md, MASTER_PLAN.md."
+    },
+    {
+      "id": "a3",
+      "description": "Output assigns AP-XX codes to freshness-related antipatterns (e.g. AP-XX for stale documentation)",
+      "passed": false,
+      "evidence": "No AP-XX codes anywhere in the output. Analysis is detailed and content-accurate but uses no AP-XX or AP-F0X coding system."
+    },
+    {
+      "id": "a4",
+      "description": "Output provides a Verification Score in N/5 format for documentation freshness",
+      "passed": false,
+      "evidence": "No N/5 score anywhere in the output. Output ends with recommendations table and narrative conclusion."
+    }
+  ],
+  "pass_rate": 0.5,
+  "passed": 2,
+  "total": 4
+}

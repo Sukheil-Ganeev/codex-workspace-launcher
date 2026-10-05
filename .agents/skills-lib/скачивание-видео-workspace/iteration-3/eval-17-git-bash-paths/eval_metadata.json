@@ -1,0 +1,10 @@
+{
+  "eval_id": 17,
+  "eval_name": "git-bash-path-transformation",
+  "prompt": "запускаю yt-dlp из Git Bash на Windows, у меня папка D:/Downloads/YouTube/ — как правильно указать путь чтобы работало?",
+  "assertions": [
+    "Указывает /d/Downloads/YouTube/ как правильный Git Bash путь",
+    "Объясняет трансформацию D:\\ → /d/ для Git Bash",
+    "Различает поведение в Git Bash vs CMD/PowerShell"
+  ]
+}

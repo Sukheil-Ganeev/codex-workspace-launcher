@@ -1,0 +1,25 @@
+{
+  "eval_id": 9,
+  "eval_name": "vat-rounding-dirty-numbers",
+  "run_type": "without_skill",
+  "expectations": [
+    {
+      "text": "Price = 237.33 USD",
+      "passed": true,
+      "evidence": "237.33 USD сохранено без округления"
+    },
+    {
+      "text": "VAT округлён правильно = 11.87",
+      "passed": true,
+      "evidence": "VAT: 11.87 USD — агент применил стандартное округление half-up"
+    },
+    {
+      "text": "Total incl. VAT = 249.20",
+      "passed": true,
+      "evidence": "Total: 249.20 USD"
+    }
+  ],
+  "pass_count": 3,
+  "total_count": 3,
+  "pass_rate": 1.0
+}

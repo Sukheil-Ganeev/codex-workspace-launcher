@@ -1,0 +1,152 @@
+{
+  "project": "D:/Downloads/TouristBotEcosystem/",
+  "analysis_date": "2026-03-12",
+  "method": "docs-optimizer skill (tiered mode)",
+  "token_estimation": "ASCII chars / 4 + Cyrillic chars / 2",
+
+  "session_startup": {
+    "description": "Files auto-loaded by Claude Code on every session start (CLAUDE.md chain)",
+    "files": [
+      {
+        "path": "C:/Users/londo/.claude/CLAUDE.md",
+        "type": "global",
+        "lines": 139,
+        "chars": 5129,
+        "cyrillic_chars": 2759,
+        "tokens_estimate": 1972,
+        "loaded": "always"
+      },
+      {
+        "path": "D:/Downloads/CLAUDE.md",
+        "type": "parent",
+        "lines": 659,
+        "chars": 23549,
+        "cyrillic_chars": 8881,
+        "tokens_estimate": 8107,
+        "loaded": "always"
+      },
+      {
+        "path": "D:/Downloads/TouristBotEcosystem/CLAUDE.md",
+        "type": "project",
+        "lines": 557,
+        "chars": 31943,
+        "cyrillic_chars": 4308,
+        "tokens_estimate": 9062,
+        "loaded": "always"
+      }
+    ],
+    "total_lines": 1355,
+    "total_chars": 60621,
+    "total_tokens_estimate": 19141
+  },
+
+  "root_level_files": {
+    "files": [
+      {"path": "CLAUDE.md", "lines": 557, "tokens": 9062},
+      {"path": "CHANGELOG.md", "lines": 1088, "tokens": 16549},
+      {"path": "MASTER_PLAN.md", "lines": 1900, "tokens": 25420},
+      {"path": "README.md", "lines": 351, "tokens": 2960},
+      {"path": "ISSUES.md", "lines": 110, "tokens": 2505}
+    ],
+    "total_lines": 4006,
+    "total_tokens": 56496
+  },
+
+  "docs_files": {
+    "files": [
+      {"path": "docs/IDEAL_MASTER_PLAN.md", "lines": 2559, "tokens": 30520, "recommendation": "ARCHIVE"},
+      {"path": "docs/plans/2026-03-02-merge-vtb-cf-plan.md", "lines": 961, "tokens": 14301, "recommendation": "ARCHIVE"},
+      {"path": "docs/IMPROVEMENT_MASTER_PLAN.md", "lines": 879, "tokens": 13285, "recommendation": "on-demand"},
+      {"path": "docs/DEPLOY_GCP.md", "lines": 1062, "tokens": 11590, "recommendation": "on-demand"},
+      {"path": "docs/BUTTON_DESIGN_GUIDE.md", "lines": 1039, "tokens": 11363, "recommendation": "on-demand"},
+      {"path": "docs/UX_DESIGN_v1.md", "lines": 1103, "tokens": 11272, "recommendation": "on-demand"},
+      {"path": "docs/AUDIT_2026-03-03.md", "lines": 332, "tokens": 9814, "recommendation": "ARCHIVE"},
+      {"path": "docs/ARCHITECTURE_v1.md", "lines": 841, "tokens": 9788, "recommendation": "on-demand"},
+      {"path": "docs/PROJECT_ACCOMPLISHMENTS.md", "lines": 628, "tokens": 9210, "recommendation": "ARCHIVE"},
+      {"path": "docs/plans/2026-03-02-unified-telegram-bot.md", "lines": 990, "tokens": 8487, "recommendation": "ARCHIVE"},
+      {"path": "docs/WHATSAPP_BOT_REDESIGN.md", "lines": 522, "tokens": 6515, "recommendation": "on-demand"},
+      {"path": "docs/DEPLOY.md", "lines": 798, "tokens": 6137, "recommendation": "on-demand"},
+      {"path": "docs/DATABASE_COVERAGE_AUDIT.md", "lines": 337, "tokens": 5860, "recommendation": "ARCHIVE"},
+      {"path": "docs/USER_GUIDE_owner.md", "lines": 476, "tokens": 5686, "recommendation": "on-demand"},
+      {"path": "docs/CODE_REVIEW_v1.md", "lines": 385, "tokens": 5161, "recommendation": "ARCHIVE"},
+      {"path": "docs/USER_GUIDE_admin.md", "lines": 390, "tokens": 4904, "recommendation": "on-demand"},
+      {"path": "docs/MANUAL_TESTS.md", "lines": 321, "tokens": 4616, "recommendation": "on-demand"},
+      {"path": "docs/COMMAND_AUDIT.md", "lines": 218, "tokens": 4612, "recommendation": "ARCHIVE"},
+      {"path": "docs/ARCHITECTURE.md", "lines": 424, "tokens": 4314, "recommendation": "on-demand"},
+      {"path": "docs/COMMAND_AUDIT_ADMIN.md", "lines": 262, "tokens": 4278, "recommendation": "ARCHIVE"},
+      {"path": "docs/audit_infra.md", "lines": 178, "tokens": 4026, "recommendation": "ARCHIVE"},
+      {"path": "docs/audit_ai_lessons.md", "lines": 210, "tokens": 3912, "recommendation": "ARCHIVE"},
+      {"path": "docs/audit_business.md", "lines": 136, "tokens": 3815, "recommendation": "ARCHIVE"},
+      {"path": "docs/ADMIN_BOT_REDESIGN.md", "lines": 278, "tokens": 3383, "recommendation": "on-demand"},
+      {"path": "docs/IMPROVEMENT_MASTER_PLAN_v2.md", "lines": 255, "tokens": 3114, "recommendation": "on-demand"},
+      {"path": "docs/audit_content.md", "lines": 119, "tokens": 3042, "recommendation": "ARCHIVE"},
+      {"path": "docs/audit_voice.md", "lines": 123, "tokens": 3011, "recommendation": "ARCHIVE"},
+      {"path": "docs/SERVER_RUNBOOK.md", "lines": 361, "tokens": 2683, "recommendation": "on-demand"},
+      {"path": "docs/audit_ecosystem.md", "lines": 182, "tokens": 2415, "recommendation": "ARCHIVE"},
+      {"path": "docs/SERVER_HEALTH_REPORT_2026-03-04.md", "lines": 142, "tokens": 2153, "recommendation": "ARCHIVE"},
+      {"path": "docs/SENTRY_GUIDE.md", "lines": 187, "tokens": 1886, "recommendation": "on-demand"},
+      {"path": "docs/USER_GUIDE_staff.md", "lines": 145, "tokens": 1665, "recommendation": "on-demand"},
+      {"path": "docs/DEPLOY_LESSONS_2026-03-03.md", "lines": 166, "tokens": 1441, "recommendation": "ARCHIVE"},
+      {"path": "docs/CICD_SETUP.md", "lines": 105, "tokens": 937, "recommendation": "on-demand"}
+    ],
+    "total_files": 34,
+    "total_lines": 17114,
+    "total_tokens": 219196
+  },
+
+  "grand_total": {
+    "files": 39,
+    "lines": 21120,
+    "tokens": 275692,
+    "note": "Project repo only, excludes global/parent CLAUDE.md"
+  },
+
+  "optimization": {
+    "current_startup_tokens": 19141,
+    "target_startup_tokens": 7000,
+    "potential_savings_tokens": 12141,
+    "savings_percent": 63.4,
+    "top_actions": [
+      {
+        "action": "Shrink Project CLAUDE.md from 9,062 to ~2,500 tokens",
+        "savings": 6562,
+        "effort": "HIGH"
+      },
+      {
+        "action": "Shrink Parent CLAUDE.md from 8,107 to ~2,500 tokens",
+        "savings": 5607,
+        "effort": "MEDIUM"
+      },
+      {
+        "action": "Create .claudeignore for archive docs/",
+        "savings": 0,
+        "effort": "LOW",
+        "note": "Prevents accidental bulk-read, not startup cost"
+      }
+    ]
+  },
+
+  "anti_patterns_found": [
+    {"id": "AP-01", "severity": "CRITICAL", "file": "CLAUDE.md", "detail": "9,062 tokens (target: 2,500)"},
+    {"id": "AP-01", "severity": "CRITICAL", "file": "D:/Downloads/CLAUDE.md", "detail": "8,107 tokens (target: 2,500)"},
+    {"id": "AP-16", "severity": "HIGH", "file": "CLAUDE.md + parent", "detail": "TouristBotEcosystem architecture duplicated"},
+    {"id": "AP-03", "severity": "HIGH", "file": "docs/", "detail": "34 docs files, no .claudeignore"},
+    {"id": "AP-11", "severity": "MEDIUM", "file": "CLAUDE.md + docs/DEPLOY.md", "detail": "Commands duplicated"},
+    {"id": "AP-04", "severity": "MEDIUM", "file": "CLAUDE.md", "detail": "Cache-hostile ordering"},
+    {"id": "AP-20", "severity": "HIGH", "file": "CLAUDE.md", "detail": "200+ line architecture tree inline"}
+  ],
+
+  "verification_score": {
+    "score": 2,
+    "max": 5,
+    "issues": [
+      "AP-01: CLAUDE.md 3.6x over token budget",
+      "AP-16: Cross-file duplication between project and parent CLAUDE.md",
+      "AP-03: No .claudeignore, 34 docs files unmanaged",
+      "AP-04: Architecture tree should be in docs/, not inline"
+    ]
+  },
+
+  "claudeignore_exists": false,
+  "project_stage": "ACTIVE"
+}

@@ -1,0 +1,8 @@
+{
+    "tours": {
+        "morning": {"name": "Morning Safari", "price": 350, "duration": "5h"},
+        "evening": {"name": "Evening Safari", "price": 420, "duration": "6h"},
+        "night": {"name": "Night Safari VIP", "price": 650, "duration": "7h"}
+    },
+    "child_discount": 0.7
+}

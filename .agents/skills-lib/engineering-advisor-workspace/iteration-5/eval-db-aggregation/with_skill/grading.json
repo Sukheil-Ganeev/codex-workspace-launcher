@@ -1,0 +1,78 @@
+{
+  "expectations": [
+    {
+      "text": "(D1) Обнаруживает антипаттерн findMany + JS агрегация (триггер #25)",
+      "passed": true,
+      "evidence": "Response explicitly flags: 'WARN (1): stats.service.ts:7 — Триггер #25: findMany + JS агрегация вместо DB' and detects the same pattern a second time at lines 13-17. The summary confirms: 'Триггеры сработали: #25 (findMany + JS агрегация — 2 места)'."
+    },
+    {
+      "text": "(D2) Предлагает prisma.order.groupBy() или prisma.order.count({ where }) как альтернативу",
+      "passed": true,
+      "evidence": "The corrected code in Шаг 2 includes 'prisma.order.groupBy({ by: [\"status\"], where: { status: { in: [\"pending\", \"confirmed\", \"cancelled\"] } }, _count: { id: true } })' for status counts, and 'prisma.order.aggregate({ where: { status: \"paid\" }, _count: { id: true }, _sum: { amount: true } })' plus 'prisma.customer.count({ where: { lastOrderAt: { gte: thirtyDaysAgo } } })' as DB-level alternatives."
+    },
+    {
+      "text": "(D3) Объясняет проблему производительности — загрузка всех записей в память",
+      "passed": true,
+      "evidence": "Response states: 'При 10,000 заказов — в память грузится 10,000 объектов. При 100,000 — 100,000.' and 'Сеть: сервер БД → Node.js передаёт мегабайты данных только чтобы посчитать одно число.' The comparison table also shows 'Для 100K заказов: ~секунды' vs '~миллисекунды'."
+    },
+    {
+      "text": "(D4) НЕ просто добавляет ещё один orders.filter() без предупреждения",
+      "passed": true,
+      "evidence": "The response includes an explicit INFO block: 'Запрос пользователя — добавить подсчёт по статусам (pending/confirmed/cancelled) — НЕЛЬЗЯ выполнять в текущей архитектуре. Иначе добавим ещё три .filter() поверх уже загруженного findMany(). Это усугубит проблему.' The fix is done only after refactoring the architecture."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "tool_calls": 3,
+    "total_steps": 4,
+    "errors_encountered": 0,
+    "output_chars": 4021,
+    "transcript_chars": null
+  },
+  "timing": {
+    "executor_duration_seconds": 67.5,
+    "grader_duration_seconds": null,
+    "total_duration_seconds": 67.5
+  },
+  "claims": [
+    {
+      "claim": "Триггер #25 сработал дважды — в строках заказов и клиентов",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Response clearly identifies two separate WARN instances: WARN(1) for prisma.order.findMany() at line 7, WARN(2) for prisma.customer.findMany() at lines 13-17."
+    },
+    {
+      "claim": "Применён опыт из abaya-bot audit (findMany + JS aggregation)",
+      "type": "process",
+      "verified": true,
+      "evidence": "Response states 'Опыт: применено 1 урок (EXP из abaya-bot audit: \"findMany + JS aggregation\")' and the summary confirms 'Опыт применён: abaya-bot audit (findMany + JS aggregation anti-pattern)'."
+    },
+    {
+      "claim": "Предложено параллельное выполнение через Promise.all как оптимизация",
+      "type": "quality",
+      "verified": true,
+      "evidence": "Шаг 3 provides a Promise.all pattern combining all three DB queries for parallel execution."
+    }
+  ],
+  "user_notes_summary": {
+    "uncertainties": [],
+    "needs_review": [],
+    "workarounds": []
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "reason": "D4 checks that the agent doesn't blindly add filter() — but it could also be satisfied by an agent that refuses to implement the feature at all without fixing the code. Consider adding an assertion that the new status counts ARE implemented correctly (via groupBy) alongside the warning, to confirm the feature was actually delivered."
+      },
+      {
+        "reason": "No assertion checks whether the suggested groupBy syntax is valid Prisma — a hallucinated but plausible-looking API call would also pass. An assertion verifying the Prisma groupBy signature matches the actual API (e.g., _count field name) would strengthen coverage."
+      }
+    ],
+    "overall": "All four assertions are meaningful and discriminating. D4 in particular is a strong negative check that catches a common failure mode. Minor gap: no assertion verifies that the feature was actually delivered (not just the architecture corrected) or that the Prisma API syntax is correct."
+  }
+}

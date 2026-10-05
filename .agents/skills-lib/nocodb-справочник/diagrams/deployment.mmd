@@ -1,0 +1,73 @@
+%% NocoDB Deployment Options Diagram
+%% Варианты деплоя: Docker, npm, PaaS, Cloud
+
+graph LR
+    nocodb["NocoDB<br/>Выбор деплоя"]
+
+    %% Self-hosted
+    subgraph selfhosted["Self-Hosted (бесплатно)"]
+        direction TB
+
+        docker["Docker + PostgreSQL<br/>Production рекомендуемый"]
+        dockerSimple["Docker (простой)<br/>SQLite, dev/demo"]
+        autoUpstall["Auto-Upstall<br/>Скрипт установки"]
+
+        dockerDetails["docker-compose.yml<br/>NocoDB + PostgreSQL + Redis<br/>Volumes для данных<br/>Healthchecks"]
+        docker --> dockerDetails
+    end
+
+    %% Dev/Testing
+    subgraph devtest["Dev / Testing"]
+        direction TB
+        npm["npx nocodb<br/>Быстрый запуск<br/>SQLite по умолчанию"]
+        npmNote["НЕ для production<br/>Нет persistence"]
+        npm --> npmNote
+    end
+
+    %% PaaS
+    subgraph paas["PaaS (управляемый хостинг)"]
+        direction TB
+        railway["Railway<br/>One-click deploy<br/>от $5/мес"]
+        render["Render<br/>Docker deploy<br/>от $7/мес"]
+        hetzner["Hetzner VPS<br/>Docker + GDPR<br/>от $4-5/мес"]
+    end
+
+    %% NocoDB Cloud
+    subgraph cloud["NocoDB Cloud"]
+        direction TB
+        free["Free<br/>$0 | 1K записей<br/>1 ГБ | 1K API/мес"]
+        plus["Plus<br/>$12/мес | 50K записей<br/>20 ГБ | 100K API/мес"]
+        business["Business<br/>$24/мес | 300K записей<br/>100 ГБ | 1M API/мес"]
+        enterprise["Enterprise<br/>от $1000/мес | Unlimited<br/>SSO, Audit, SLA"]
+    end
+
+    %% Сравнительная таблица
+    subgraph comparison["Сравнение"]
+        direction TB
+        cmp1["Цена: Self-hosted = $0<br/>Cloud от $0 до $1000+"]
+        cmp2["Контроль: Self-hosted = полный<br/>Cloud = минимальный"]
+        cmp3["Масштаб: Docker + Redis<br/>= миллионы записей"]
+        cmp4["Обслуживание: Self-hosted = сам<br/>Cloud = NocoDB"]
+    end
+
+    %% Связи
+    nocodb --> selfhosted
+    nocodb --> devtest
+    nocodb --> paas
+    nocodb --> cloud
+
+    %% Стили
+    classDef centerStyle fill:#2C3E50,stroke:#1A252F,color:#FFFFFF,font-weight:bold
+    classDef selfStyle fill:#27AE60,stroke:#1E8449,color:#FFFFFF
+    classDef devStyle fill:#F39C12,stroke:#D68910,color:#FFFFFF
+    classDef paasStyle fill:#3498DB,stroke:#2E86C1,color:#FFFFFF
+    classDef cloudStyle fill:#8E44AD,stroke:#7D3C98,color:#FFFFFF
+    classDef noteStyle fill:#ECF0F1,stroke:#BDC3C7,color:#2C3E50
+    classDef cmpStyle fill:#566573,stroke:#2C3E50,color:#FFFFFF
+
+    class nocodb centerStyle
+    class docker,dockerSimple,autoUpstall,dockerDetails selfStyle
+    class npm,npmNote devStyle
+    class railway,render,hetzner paasStyle
+    class free,plus,business,enterprise cloudStyle
+    class cmp1,cmp2,cmp3,cmp4 cmpStyle

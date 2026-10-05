@@ -1,0 +1,107 @@
+# Web Project .gitignore
+# Шаблон для HTML/CSS/JS веб-проектов
+
+# Dependencies
+node_modules/
+bower_components/
+jspm_packages/
+
+# Build outputs
+dist/
+build/
+out/
+.cache/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# CSS preprocessors
+*.sass-cache
+*.scss.cache
+
+# Compiled CSS (если используется препроцессор)
+# Раскомментируй если CSS генерируется автоматически
+# *.css
+# *.css.map
+
+# Compiled JavaScript (если используется TypeScript/Babel)
+# Раскомментируй если JS генерируется автоматически
+# *.js
+# *.js.map
+
+# Bundler outputs
+bundle.js
+bundle.min.js
+vendor.js
+main.js.map
+
+# Webpack
+.webpack/
+webpack-stats.json
+
+# Parcel
+.parcel-cache/
+
+# Vite
+.vite/
+
+# Static site generators
+.jekyll-cache/
+_site/
+.hugo_build.lock
+
+# CMS
+wp-content/uploads/
+wp-content/cache/
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# IDEs
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Testing
+coverage/
+.nyc_output/
+
+# Package manager files (optional)
+# package-lock.json
+# yarn.lock
+
+# Backup files
+*.bak
+*.backup
+
+# Image optimization cache
+.imgcache/
+
+# Fonts (если генерируются автоматически)
+# *.woff
+# *.woff2
+# *.ttf
+# *.eot
+
+# Source maps (optional - закомментируй если нужны в production)
+# *.map

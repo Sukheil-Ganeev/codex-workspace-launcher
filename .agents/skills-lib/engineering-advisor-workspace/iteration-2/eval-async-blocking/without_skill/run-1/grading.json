@@ -1,0 +1,33 @@
+{
+  "eval_name": "eval-async-blocking",
+  "config": "without_skill",
+  "expectations": [
+    {
+      "text": "A1: Называет BLOCK или критическое предупреждение на time.sleep и requests.post",
+      "passed": false,
+      "evidence": "Файл не найден"
+    },
+    {
+      "text": "A2: Называет конкретные async-альтернативы (asyncio.sleep, aiohttp/httpx)",
+      "passed": false,
+      "evidence": "Файл не найден"
+    },
+    {
+      "text": "A3: Не просто добавляет логи без предупреждения о блокировках",
+      "passed": false,
+      "evidence": "Файл не найден"
+    },
+    {
+      "text": "A4: Объясняет почему блокировка опасна (event loop, другие пользователи)",
+      "passed": false,
+      "evidence": "Файл не найден"
+    }
+  ],
+  "summary": {
+    "passed": 0,
+    "failed": 4,
+    "total": 4,
+    "pass_rate": 0.0
+  },
+  "notes": "Файл without_skill/outputs/response.md отсутствует. Все assertions = false по условию задания. Нет данных для оценки."
+}

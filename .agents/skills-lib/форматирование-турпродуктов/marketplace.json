@@ -1,0 +1,64 @@
+{
+  "name": "форматирование-турпродуктов",
+  "version": "1.0.0",
+  "description": "Полное руководство по форматированию текстов туристических продуктов (туры, экскурсии, питание) для мессенджеров WhatsApp и Telegram. Включает синтаксис, структуру, правила цен, шаблоны, примеры и скрипты валидации.",
+  "author": "Tourism Content Team",
+  "license": "MIT",
+  "keywords": [
+    "formatting",
+    "whatsapp",
+    "telegram",
+    "tourism",
+    "tours",
+    "restaurants",
+    "messenger",
+    "content",
+    "templates",
+    "russian"
+  ],
+  "repository": "",
+  "homepage": "",
+  "engines": {
+    "claude-code": ">=1.0.0"
+  },
+  "files": {
+    "main": "SKILL.md",
+    "templates": [
+      "assets/templates/tour-whatsapp.txt",
+      "assets/templates/tour-telegram.txt",
+      "assets/templates/restaurant-whatsapp.txt",
+      "assets/templates/restaurant-telegram.txt",
+      "assets/templates/menu-whatsapp.txt",
+      "assets/templates/menu-telegram.txt"
+    ],
+    "examples": [
+      "assets/examples/tour-abudhabi-whatsapp.txt",
+      "assets/examples/tour-safaripark-telegram.txt",
+      "assets/examples/restaurant-babshams-whatsapp.txt",
+      "assets/examples/menu-babshams-whatsapp.txt"
+    ],
+    "references": [
+      "references/faq.md",
+      "references/troubleshooting.md",
+      "references/syntax-reference.md",
+      "references/cheatsheet.md"
+    ],
+    "scripts": [
+      "scripts/validate-whatsapp.py",
+      "scripts/validate-telegram.py",
+      "scripts/helpers.py"
+    ]
+  },
+  "triggers": [
+    "форматирование",
+    "whatsapp",
+    "telegram",
+    "тур",
+    "экскурсия",
+    "ресторан",
+    "ужин",
+    "меню",
+    "турпродукт",
+    "мессенджер"
+  ]
+}

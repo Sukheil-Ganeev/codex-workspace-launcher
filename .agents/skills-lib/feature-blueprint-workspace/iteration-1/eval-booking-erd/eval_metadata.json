@@ -1,0 +1,11 @@
+{
+  "eval_id": 3,
+  "eval_name": "booking-erd-diagram",
+  "prompt": "Нарисуй Mermaid ERD для системы бронирований.",
+  "assertions": [
+    {"name": "valid_mermaid_syntax", "description": "Valid erDiagram syntax"},
+    {"name": "has_5_tables", "description": "At least 5 tables"},
+    {"name": "has_relationships", "description": "At least 4 relationship lines"},
+    {"name": "latin_ids", "description": "Latin-only node IDs"}
+  ]
+}

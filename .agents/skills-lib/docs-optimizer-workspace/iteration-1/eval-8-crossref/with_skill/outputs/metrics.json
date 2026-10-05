@@ -1,0 +1,51 @@
+{
+  "eval_id": "eval-8-crossref",
+  "skill": "docs-optimizer",
+  "mode": "audit",
+  "project": "D:/Downloads/TouristBotEcosystem/",
+  "date": "2026-03-12",
+  "target_file": "D:/Downloads/TouristBotEcosystem/CLAUDE.md",
+  "references_audit": {
+    "total_references_checked": 157,
+    "existing": 155,
+    "missing": 2,
+    "external_references_checked": 3,
+    "external_existing": 3,
+    "external_missing": 0
+  },
+  "missing_files": [
+    {
+      "path": "docs/DESIGN_DECISIONS_v1.md",
+      "severity": "MEDIUM",
+      "context": "Architecture tree: 'Architectural decision records'",
+      "likely_cause": "File never created or accidentally omitted during Batch 4"
+    },
+    {
+      "path": "core/db/migrations/runner.py",
+      "severity": "HIGH",
+      "context": "Architecture tree: 'Async file-based migration runner'",
+      "likely_cause": "Logic integrated into core/db/database.py or file deleted; migrations/ dir has only .sql files"
+    }
+  ],
+  "orphan_docs": {
+    "count": 22,
+    "notable": [
+      "docs/node_modules/ (should not exist)",
+      "docs/IMPROVEMENT_MASTER_PLAN_v2.md (v1 referenced, v2 exists)",
+      "docs/ARCHITECTURE.md (unversioned duplicate of ARCHITECTURE_v1.md?)"
+    ]
+  },
+  "undocumented_files": [
+    "core/db/migrations/004_bigint_ids.sql",
+    "core/db/migrations/005_team_members_bigint.sql"
+  ],
+  "accuracy_rate_percent": 98.7,
+  "skill_performance": {
+    "mode_applied": "audit",
+    "sub_modes_used": ["cross-reference validation"],
+    "files_read": 2,
+    "bash_checks_run": 7,
+    "total_paths_verified": 157,
+    "output_quality": "complete"
+  }
+}

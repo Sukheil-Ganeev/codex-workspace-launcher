@@ -1,0 +1,57 @@
+%%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#2F3437', 'primaryTextColor': '#fff', 'primaryBorderColor': '#E16259', 'lineColor': '#E16259'}}}%%
+flowchart TB
+    subgraph Sources["Источники лидов"]
+        IG["Instagram"]
+        TG["Telegram"]
+        WA["WhatsApp"]
+        WEB["Сайт / Taplink"]
+        REF["Рефералы"]
+        WALK["Walk-in"]
+    end
+
+    subgraph CRM["Notion CRM -- 7 связанных баз"]
+        CLIENTS["Clients DB<br/>Name, Phone, WhatsApp, Telegram<br/>Country, Source, Status<br/>Agent: Сухейль/Марсель/Муфамад<br/>Total Revenue rollup sum"]
+
+        BOOKINGS["Bookings DB<br/>Booking ID: BOOK-001<br/>Client relation, Product relation<br/>Date, Pax, Pickup Location<br/>Status: Inquiry - Confirmed - Paid - Completed<br/>Price AED, Cost Price, Profit formula<br/>Currency: AED/USD/RUB/KZT/Crypto"]
+
+        PRODUCTS["Products DB<br/>Category: Excursion/Ticket/Yacht/Car/Transfer/MVU<br/>Responsible person<br/>Price Regular, Price High Season<br/>Place геолокация<br/>Total Sold rollup count"]
+
+        SUPPLIERS["Suppliers DB<br/>Компания, контакт<br/>Тип: Excursion/Yacht/Car<br/>Commission %"]
+    end
+
+    subgraph Agents["Ответственные"]
+        SUH["Сухейль<br/>Экскурсии, Билеты"]
+        MAR["Марсель<br/>Car Rental, Трансферы, МВУ"]
+        MUF["Муфамад<br/>Paramount Yachts<br/>300+ яхт"]
+    end
+
+    subgraph Views["Views"]
+        PIPE["Pipeline Kanban<br/>Inquiry - Confirmed - Paid - Completed"]
+        CAL["Calendar<br/>По датам экскурсий"]
+        GAL["Gallery<br/>Каталог с фото и ценами"]
+        TODAY["Today Table<br/>Date = Today"]
+        UNPAID["Unpaid Board<br/>Payment != Paid"]
+        BYAGENT["By Agent Board<br/>Группировка по ответственному"]
+    end
+
+    subgraph Automation["Автоматизация"]
+        A1["Новый заказ - Slack<br/>Database Automation"]
+        A2["Google Form - CRM<br/>Zapier"]
+        A3["WhatsApp - Notion<br/>n8n webhook"]
+        A4["Напоминание клиенту<br/>Zapier Schedule"]
+        A5["Ежедневный отчёт<br/>Make.com - Email"]
+    end
+
+    Sources -->|"Новый лид"| CLIENTS
+    CLIENTS <-->|"relation"| BOOKINGS
+    BOOKINGS <-->|"relation"| PRODUCTS
+    PRODUCTS <-->|"relation"| SUPPLIERS
+
+    SUH -.->|"Excursion, Ticket"| PRODUCTS
+    MAR -.->|"Car, Transfer, MVU"| PRODUCTS
+    MUF -.->|"Yacht, Water"| PRODUCTS
+
+    BOOKINGS --> Views
+
+    BOOKINGS -->|"trigger"| Automation
+    CLIENTS -->|"trigger"| Automation

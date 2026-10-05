@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Structured Data Validator - SEO Tool</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+        textarea {
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            resize: vertical;
+            min-height: 400px;
+            transition: border-color 0.3s;
+        }
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        .buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        button {
+            padding: 12px 30px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .validate-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            flex: 1;
+        }
+        .validate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+        .clear-btn {
+            background: #f0f0f0;
+            color: #333;
+            flex: 1;
+        }
+        .clear-btn:hover {
+            background: #e0e0e0;
+        }
+        .results {
+            background: #f9f9f9;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            min-height: 200px;
+        }
+        .result-item {
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #ddd;
+        }
+        .result-success {
+            background: #f0fff4;
+            border-left-color: #48bb78;
+            color: #22543d;
+        }
+        .result-error {
+            background: #fff5f5;
+            border-left-color: #f56565;
+            color: #742a2a;
+        }
+        .result-warning {
+            background: #fffff0;
+            border-left-color: #ed8936;
+            color: #7c2d12;
+        }
+        .result-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+            font-size: 1rem;
+        }
+        .result-message {
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        .icon {
+            display: inline-block;
+            margin-right: 8px;
+        }
+        .summary {
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        .templates-section {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid #ddd;
+        }
+        .templates-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .template-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        .template-btn {
+            padding: 15px;
+            background: #f5f5f5;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: left;
+            font-weight: 600;
+        }
+        .template-btn:hover {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            .container {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Structured Data Validator</h1>
+        <p class="subtitle">Validate and test your JSON-LD schema markup for SEO</p>
+
+        <div class="grid">
+            <div>
+                <div class="form-group">
+                    <label for="schemaInput">Paste your JSON-LD Schema:</label>
+                    <textarea id="schemaInput" placeholder='Paste your JSON-LD markup here, for example:
+{
+  "@context": "https://schema.org/",
+  "@type": "Product",
+  "name": "Example Product",
+  "offers": {
+    "@type": "Offer",
+    "price": "99.99",
+    "priceCurrency": "AED"
+  }
+}' spellcheck="false"></textarea>
+                    <div class="buttons">
+                        <button class="validate-btn" onclick="validateSchema()">Validate Schema</button>
+                        <button class="clear-btn" onclick="clearForm()">Clear</button>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div class="form-group">
+                    <label>Validation Results:</label>
+                    <div class="results" id="results">
+                        <p style="color: #999; text-align: center; padding: 50px 20px;">
+                            Validation results will appear here...
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="templates-section">
+            <h2 class="templates-title">Quick Template Loaders</h2>
+            <div class="template-grid">
+                <button class="template-btn" onclick="loadTemplate('product')">Product Schema</button>
+                <button class="template-btn" onclick="loadTemplate('localbusiness')">LocalBusiness Schema</button>
+                <button class="template-btn" onclick="loadTemplate('event')">Event Schema</button>
+                <button class="template-btn" onclick="loadTemplate('faq')">FAQ Schema</button>
+                <button class="template-btn" onclick="loadTemplate('breadcrumb')">Breadcrumb Schema</button>
+                <button class="template-btn" onclick="loadTemplate('organization')">Organization Schema</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const templates = {
+            product: {
+                "@context": "https://schema.org/",
+                "@type": "Product",
+                "name": "Dubai Desert Safari Evening Tour",
+                "description": "Experience dune bashing and traditional Bedouin dinner",
+                "image": "https://example.com/image.jpg",
+                "offers": {
+                    "@type": "Offer",
+                    "price": "175",
+                    "priceCurrency": "AED",
+                    "availability": "InStock"
+                },
+                "aggregateRating": {
+                    "@type": "AggregateRating",
+                    "ratingValue": "4.8",
+                    "ratingCount": "247"
+                }
+            },
+            localbusiness: {
+                "@context": "https://schema.org",
+                "@type": "LocalBusiness",
+                "name": "Your Tour Company",
+                "image": "https://example.com/logo.png",
+                "address": {
+                    "@type": "PostalAddress",
+                    "streetAddress": "123 Sheikh Zayed Road",
+                    "addressLocality": "Dubai",
+                    "addressRegion": "Dubai",
+                    "postalCode": "000000",
+                    "addressCountry": "AE"
+                },
+                "telephone": "+971-4-XXXXXXX",
+                "url": "https://example.com"
+            },
+            event: {
+                "@context": "https://schema.org/",
+                "@type": "Event",
+                "name": "Dubai Desert Safari",
+                "description": "Evening desert safari with dinner",
+                "startDate": "2026-02-14T14:30:00+04:00",
+                "endDate": "2026-02-14T21:00:00+04:00",
+                "location": {
+                    "@type": "Place",
+                    "name": "Dubai Desert"
+                },
+                "organizer": {
+                    "@type": "Organization",
+                    "name": "Your Tour Company",
+                    "url": "https://example.com"
+                }
+            },
+            faq: {
+                "@context": "https://schema.org",
+                "@type": "FAQPage",
+                "mainEntity": [
+                    {
+                        "@type": "Question",
+                        "name": "What is included in the desert safari?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Dune bashing, camel ride, and traditional dinner"
+                        }
+                    }
+                ]
+            },
+            breadcrumb: {
+                "@context": "https://schema.org",
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://example.com"},
+                    {"@type": "ListItem", "position": 2, "name": "Tours", "item": "https://example.com/tours"},
+                    {"@type": "ListItem", "position": 3, "name": "Desert Safari"}
+                ]
+            },
+            organization: {
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                "name": "Your Tour Company",
+                "url": "https://example.com",
+                "logo": "https://example.com/logo.png",
+                "sameAs": [
+                    "https://facebook.com/company",
+                    "https://instagram.com/company"
+                ],
+                "contactPoint": {
+                    "@type": "ContactPoint",
+                    "telephone": "+971-4-XXXXXXX",
+                    "contactType": "Customer Service"
+                }
+            }
+        };
+
+        function loadTemplate(type) {
+            const template = templates[type];
+            document.getElementById('schemaInput').value = JSON.stringify(template, null, 2);
+            validateSchema();
+        }
+
+        function validateSchema() {
+            const input = document.getElementById('schemaInput').value.trim();
+            const resultsDiv = document.getElementById('results');
+
+            if (!input) {
+                resultsDiv.innerHTML = '<div class="result-item result-error"><div class="result-title">⚠️ Error</div><div class="result-message">Please paste JSON-LD schema first</div></div>';
+                return;
+            }
+
+            try {
+                const schema = JSON.parse(input);
+                let results = '<div class="summary">Schema is valid JSON</div>';
+
+                // Basic validation
+                if (!schema['@context']) {
+                    results += '<div class="result-item result-error"><div class="result-title">❌ Missing @context</div><div class="result-message">Every schema must have a @context property</div></div>';
+                }
+                if (!schema['@type']) {
+                    results += '<div class="result-item result-error"><div class="result-title">❌ Missing @type</div><div class="result-message">Every schema must have a @type property</div></div>';
+                }
+
+                // Success message
+                results += '<div class="result-item result-success"><div class="result-title">✅ JSON Valid</div><div class="result-message">Your JSON-LD schema is properly formatted</div></div>';
+
+                // Recommendations
+                if (schema['@type'] === 'Product' && !schema.offers) {
+                    results += '<div class="result-item result-warning"><div class="result-title">⚠️ Recommendation</div><div class="result-message">Product schema should include offers property for better SEO</div></div>';
+                }
+
+                resultsDiv.innerHTML = results;
+            } catch (e) {
+                resultsDiv.innerHTML = `<div class="result-item result-error"><div class="result-title">❌ Invalid JSON</div><div class="result-message">${e.message}</div></div>`;
+            }
+        }
+
+        function clearForm() {
+            document.getElementById('schemaInput').value = '';
+            document.getElementById('results').innerHTML = '<p style="color: #999; text-align: center; padding: 50px 20px;">Validation results will appear here...</p>';
+        }
+
+        // Allow Enter to validate
+        document.getElementById('schemaInput').addEventListener('keydown', function(e) {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                validateSchema();
+            }
+        });
+    </script>
+</body>
+</html>

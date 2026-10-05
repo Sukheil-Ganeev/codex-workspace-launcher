@@ -1,0 +1,10 @@
+{
+  "eval_id": 12,
+  "eval_name": "niche-platform-vkontakte",
+  "prompt": "скачай это видео с ВКонтакте: vk.com/video-123456_789",
+  "assertions": [
+    "Даёт корректную команду yt-dlp с VK URL (vk.com или vkvideo.ru)",
+    "Указывает путь сохранения D:/Downloads/YouTube/",
+    "Упоминает cookies (--cookies-from-browser) как возможное требование для ВК"
+  ]
+}

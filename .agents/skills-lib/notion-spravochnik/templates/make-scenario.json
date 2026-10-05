@@ -1,0 +1,115 @@
+{
+  "_description": "Шаблон Make.com сценария: Google Form -> Notion CRM (создание бронирования)",
+  "_usage": "Импортировать в Make.com через Import Blueprint. Заменить placeholder-ы реальными ID.",
+  "_note": "Make.com использует 1 Watch trigger для Notion (polling), но Google Forms trigger -- instant",
+
+  "name": "Google Form -> Notion Bookings CRM",
+  "flow": [
+    {
+      "id": 1,
+      "module": "google-forms:watchResponses",
+      "description": "Trigger: новый ответ в Google Form",
+      "parameters": {
+        "formId": "YOUR_GOOGLE_FORM_ID",
+        "limit": 10
+      },
+      "mapping": {
+        "output": {
+          "clientName": "{{1.answers.field_name}}",
+          "phone": "{{1.answers.field_phone}}",
+          "whatsapp": "{{1.answers.field_whatsapp}}",
+          "excursion": "{{1.answers.field_excursion}}",
+          "date": "{{1.answers.field_date}}",
+          "pax": "{{1.answers.field_pax}}",
+          "country": "{{1.answers.field_country}}",
+          "notes": "{{1.answers.field_notes}}"
+        }
+      }
+    },
+    {
+      "id": 2,
+      "module": "notion:createADatabaseItem",
+      "description": "Создать запись в Clients DB",
+      "parameters": {
+        "databaseId": "YOUR_CLIENTS_DATABASE_ID",
+        "apiVersion": "2025-09-03"
+      },
+      "mapping": {
+        "properties": {
+          "Name": {
+            "title": [{"text": {"content": "{{1.clientName}}"}}]
+          },
+          "Phone": {
+            "phone_number": "{{1.phone}}"
+          },
+          "WhatsApp": {
+            "url": "https://wa.me/{{replace(1.phone, '+', '')}}"
+          },
+          "Country": {
+            "select": {"name": "{{1.country}}"}
+          },
+          "Source": {
+            "select": {"name": "Google Form"}
+          },
+          "Status": {
+            "status": {"name": "Lead"}
+          }
+        }
+      }
+    },
+    {
+      "id": 3,
+      "module": "notion:createADatabaseItem",
+      "description": "Создать запись в Bookings DB",
+      "parameters": {
+        "databaseId": "YOUR_BOOKINGS_DATABASE_ID",
+        "apiVersion": "2025-09-03"
+      },
+      "mapping": {
+        "properties": {
+          "Booking Name": {
+            "title": [{"text": {"content": "{{1.excursion}} - {{1.clientName}}"}}]
+          },
+          "Date": {
+            "date": {"start": "{{formatDate(1.date, 'YYYY-MM-DD')}}"}
+          },
+          "Pax": {
+            "number": "{{1.pax}}"
+          },
+          "Status": {
+            "select": {"name": "Inquiry"}
+          },
+          "Client": {
+            "relation": [{"id": "{{2.id}}"}]
+          }
+        }
+      }
+    },
+    {
+      "id": 4,
+      "module": "slack:sendMessage",
+      "description": "Уведомление в Slack о новом лиде",
+      "parameters": {
+        "channel": "#tourism-leads",
+        "text": "Новый лид из Google Form:\n*{{1.clientName}}* ({{1.country}})\nЭкскурсия: {{1.excursion}}\nДата: {{formatDate(1.date, 'DD.MM.YYYY')}}\nГостей: {{1.pax}}\nТелефон: {{1.phone}}"
+      }
+    }
+  ],
+
+  "schedule": {
+    "type": "instant",
+    "note": "Google Forms trigger работает instant (webhook)"
+  },
+
+  "placeholders_to_replace": [
+    "YOUR_GOOGLE_FORM_ID",
+    "YOUR_CLIENTS_DATABASE_ID",
+    "YOUR_BOOKINGS_DATABASE_ID"
+  ],
+
+  "alternative_triggers": {
+    "whatsapp": "Заменить Google Forms на n8n webhook + WhatsApp",
+    "telegram": "Заменить на Telegram Bot trigger",
+    "instagram": "Заменить на Instagram Direct Message trigger (через Zapier)"
+  }
+}

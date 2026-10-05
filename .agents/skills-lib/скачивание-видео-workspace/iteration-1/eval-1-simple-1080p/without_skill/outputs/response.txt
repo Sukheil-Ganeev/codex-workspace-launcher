@@ -1,0 +1,22 @@
+Вот команда для скачивания видео в 1080p MP4 через yt-dlp:
+
+yt-dlp -f "bestvideo[height<=1080][ext=mp4]+bestaudio[ext=m4a]/bestvideo[height<=1080]+bestaudio/best[height<=1080]" --merge-output-format mp4 "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+
+Что делает каждая часть:
+
+-f "bestvideo[height<=1080][ext=mp4]+bestaudio[ext=m4a]/..."
+  Выбирает лучшее видео до 1080p в MP4 + лучшее аудио в m4a.
+  Если такой комбинации нет — пробует следующий вариант через /.
+
+--merge-output-format mp4
+  После скачивания объединяет видео и аудио в финальный MP4 файл.
+
+Если хочешь сохранить в конкретную папку, добавь -o:
+
+yt-dlp -f "bestvideo[height<=1080][ext=mp4]+bestaudio[ext=m4a]/bestvideo[height<=1080]+bestaudio/best[height<=1080]" --merge-output-format mp4 -o "D:/Downloads/%(title)s.%(ext)s" "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+
+%(title)s — автоматически подставит название видео в имя файла.
+
+Требования:
+- yt-dlp должен быть установлен: pip install yt-dlp
+- ffmpeg должен быть установлен и доступен в PATH (нужен для объединения видео и аудио)

@@ -1,0 +1,27 @@
+{
+  "eval_id": "eval-8-crossref",
+  "config": "with_skill",
+  "assertions": [
+    {
+      "id": "a1",
+      "description": "Output reads CLAUDE.md and extracts specific file path references mentioned in it",
+      "passed": true,
+      "evidence": "Found file refs: __init__.py, scripts/backup_sqlite.py, docs/ADMIN_BOT_REDESIGN.md, docs/COMMAND_AUDIT.md"
+    },
+    {
+      "id": "a2",
+      "description": "Output reports whether each referenced path actually exists in the filesystem (pass/fail per reference)",
+      "passed": true,
+      "evidence": "Found existence check"
+    },
+    {
+      "id": "a3",
+      "description": "Output assigns AP-XX codes to broken link antipatterns found in documentation",
+      "passed": true,
+      "evidence": "Found AP-XX: AP-03"
+    }
+  ],
+  "pass_rate": 1.0,
+  "passed": 3,
+  "total": 3
+}

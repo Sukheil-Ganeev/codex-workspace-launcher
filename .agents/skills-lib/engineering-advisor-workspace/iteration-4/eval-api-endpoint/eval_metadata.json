@@ -1,0 +1,27 @@
+{
+  "eval_id": 7,
+  "eval_name": "eval-api-endpoint",
+  "prompt": "Добавь в мой FastAPI эндпоинт `/api/orders` который принимает POST с данными заказа и сохраняет в базу. Вот код:\n\n```python\n@app.post('/api/orders')\nasync def create_order(data: dict):\n    order = Order(**data)\n    db.add(order)\n    db.commit()\n    return {\"status\": \"ok\"}\n```\n\nДобавь возврат ID созданного заказа.",
+  "assertions": [
+    {
+      "id": "A1",
+      "name": "Обнаруживает отсутствие авторизации (триггер #13)",
+      "description": "Ответ должен указать что эндпоинт открыт без авторизации — любой может создать заказ"
+    },
+    {
+      "id": "A2",
+      "name": "Указывает на отсутствие валидации (dict вместо Pydantic)",
+      "description": "Ответ должен указать что `data: dict` опасно — нет валидации входных данных, возможна инъекция"
+    },
+    {
+      "id": "A3",
+      "name": "Уровень Recommended или выше для API endpoint",
+      "description": "Ответ должен использовать уровень Recommended или MANDATORY — создание API endpoint без защиты = триггер #13"
+    },
+    {
+      "id": "A4",
+      "name": "НЕ просто добавляет return order.id без предупреждений",
+      "description": "Ответ НЕ должен сразу дать одну строку return без упоминания проблем безопасности/валидации"
+    }
+  ]
+}

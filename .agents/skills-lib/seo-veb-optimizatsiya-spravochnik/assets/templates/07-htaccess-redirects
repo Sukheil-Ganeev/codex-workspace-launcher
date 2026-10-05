@@ -1,0 +1,150 @@
+# .htaccess file for Apache servers
+# For SEO-friendly redirects and optimization
+# Last updated: 2026-02-04
+
+# Enable mod_rewrite
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+</IfModule>
+
+# ===== FORCE HTTPS =====
+# Redirect all HTTP traffic to HTTPS
+<IfModule mod_rewrite.c>
+    RewriteCond %{HTTPS} off
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# ===== FORCE WWW (optional) =====
+# Uncomment if you want to force www prefix
+# <IfModule mod_rewrite.c>
+#     RewriteCond %{HTTP_HOST} !^www\. [NC]
+#     RewriteRule ^(.*)$ https://www.%{HTTP_HOST}/$1 [L,R=301]
+# </IfModule>
+
+# ===== REMOVE TRAILING SLASHES =====
+# Redirect URLs with trailing slash to without (optional)
+# <IfModule mod_rewrite.c>
+#     RewriteCond %{REQUEST_FILENAME} !-d
+#     RewriteRule ^(.+)/$ https://%{HTTP_HOST}/$1 [L,R=301]
+# </IfModule>
+
+# ===== 301 REDIRECTS FOR RENAMED PAGES =====
+# Old page structure to new SEO-friendly URLs
+<IfModule mod_rewrite.c>
+    RewriteCond %{REQUEST_URI} ^/old-desert-safari-page\.html$
+    RewriteRule ^(.*)$ /dubai-desert-safari [L,R=301]
+
+    RewriteCond %{REQUEST_URI} ^/tours/abu-dhabi\.php$
+    RewriteRule ^(.*)$ /abu-dhabi-tours [L,R=301]
+
+    RewriteCond %{REQUEST_URI} ^/services/yacht\.html$
+    RewriteRule ^(.*)$ /yacht-tours [L,R=301]
+</IfModule>
+
+# ===== REMOVE FILE EXTENSIONS =====
+# Make URLs like /page.php become /page
+<IfModule mod_rewrite.c>
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME}\.php -f
+    RewriteRule ^([^\.]+)$ $1.php [L]
+</IfModule>
+
+# ===== REDIRECT DUPLICATE CONTENT =====
+# Use canonical URLs to avoid duplicate content issues
+<IfModule mod_rewrite.c>
+    # Redirect /index.php to root
+    RewriteCond %{REQUEST_URI} ^/index\.php$
+    RewriteRule ^index\.php$ / [L,R=301]
+
+    # Redirect /page?id=123 to /page/123
+    RewriteCond %{REQUEST_URI} !^/admin
+    RewriteCond %{QUERY_STRING} ^id=([0-9]+)$
+    RewriteRule ^tour/details\.php$ /tour/%1? [L,R=301]
+</IfModule>
+
+# ===== GZIP COMPRESSION =====
+# Compress text-based files for faster delivery
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE text/javascript
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE application/xhtml+xml
+    AddOutputFilterByType DEFLATE application/rss+xml
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/x-javascript
+    AddOutputFilterByType DEFLATE application/json
+</IfModule>
+
+# ===== CACHING HEADERS =====
+# Set expires headers for better performance
+<IfModule mod_expires.c>
+    ExpiresActive On
+
+    # Images
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/x-icon "access plus 1 year"
+    ExpiresByType image/x-png "access plus 1 year"
+
+    # CSS and JavaScript
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType text/javascript "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+
+    # Fonts
+    ExpiresByType font/ttf "access plus 1 year"
+    ExpiresByType font/otf "access plus 1 year"
+    ExpiresByType font/woff "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+
+    # Documents
+    ExpiresByType text/html "access plus 0 seconds"
+    ExpiresByType application/json "access plus 0 seconds"
+</IfModule>
+
+# ===== BROWSER CACHING =====
+# Set cache control headers
+<IfModule mod_headers.c>
+    Header set Cache-Control "max-age=31536000, public" .png
+    Header set Cache-Control "max-age=31536000, public" .gif
+    Header set Cache-Control "max-age=31536000, public" .jpg
+    Header set Cache-Control "max-age=31536000, public" .css
+    Header set Cache-Control "max-age=31536000, public" .js
+    Header set Cache-Control "max-age=2592000, public" .woff2
+    Header set Cache-Control "no-cache, must-revalidate" .html
+</IfModule>
+
+# ===== BLOCK MALICIOUS BOTS =====
+# Prevent crawling by certain bots
+<IfModule mod_rewrite.c>
+    RewriteCond %{HTTP_USER_AGENT} (MJ12bot|AhrefsBot|SemrushBot|DotBot) [NC]
+    RewriteRule .* - [F,L]
+</IfModule>
+
+# ===== PROTECT SENSITIVE FILES =====
+# Prevent access to sensitive configuration files
+<FilesMatch "\.(env|json|config|backup|sql)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# ===== ENABLE GZIP FOR SVG =====
+AddType image/svg+xml svg svgz
+AddEncoding gzip svgz
+
+# ===== PREVENT DIRECTORY LISTING =====
+Options -Indexes
+
+# ===== SECURITY HEADERS =====
+<IfModule mod_headers.c>
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-XSS-Protection "1; mode=block"
+    Header set Referrer-Policy "no-referrer-when-downgrade"
+</IfModule>

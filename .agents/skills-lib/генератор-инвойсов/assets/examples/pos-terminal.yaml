@@ -1,0 +1,47 @@
+# Пример 3: Инвойс с оплатой через POS Terminal
+# Использование: когда клиент платит картой и нужна комиссия
+
+invoice:
+  number: "#26-099"
+  date: "Feb 01, 2026"
+
+brand: "marsel"
+
+client:
+  name: "PETROV SERGEY ALEXANDROVICH"
+  phone: "+7 495 123 4567"
+  address: ""
+  trn: ""
+
+services:
+  - type: "PRIVATE_TOUR"
+    description: "PRIVATE JEEP SAFARI TOUR IN DESERT (for 3 persons)"
+    date: "05 FEBRUARY"
+    time: "START AT 03:00 PM"
+    quantity: 1
+    price_excl_vat: 476.19
+
+  - type: "SHOW"
+    description: "LA PERLE SHOW SILVER CATEGORY TICKET (for 3 adults)"
+    date: "06 FEBRUARY"
+    time: "START AT 07:00 PM"
+    quantity: 3
+    price_excl_vat: 95.24       # Цена за 1 билет без VAT
+
+payment:
+  pos_terminal: true
+  pos_commission: 4              # 4% комиссия (стандарт)
+  # Альтернатива: 3.5% для VIP клиентов
+
+bank_details:
+  use_default: true
+
+# Расчёт:
+# Услуга 1: 476.19 + VAT 23.81 = 500.00
+# Услуга 2: 95.24 * 3 = 285.72 + VAT 14.28 = 300.00
+# Subtotal: 800.00
+# POS Terminal 4%: 800.00 * 0.04 = 32.00
+# GRAND TOTAL: 832.00
+
+# Строка POS в инвойсе:
+# "PAYMENT VIA POS TERMINAL + 4%" | 1 | - | - | - | $32,00

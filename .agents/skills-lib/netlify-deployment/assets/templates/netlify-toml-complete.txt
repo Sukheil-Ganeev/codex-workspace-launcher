@@ -1,0 +1,114 @@
+# Полная Netlify конфигурация со всеми возможностями
+# Используется как: справочник и шаблон для сложных проектов
+
+[build]
+  publish = "dist"
+  command = "npm run build"
+  functions = "netlify/functions"
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+# ============================================
+# ENVIRONMENT VARIABLES
+# ============================================
+
+[context.production.environment]
+  NODE_VERSION = "18"
+  VITE_API_URL = "https://api.example.com"
+
+[context.deploy-preview.environment]
+  NODE_VERSION = "18"
+  VITE_API_URL = "https://staging-api.example.com"
+
+# ============================================
+# REDIRECTS & REWRITES
+# ============================================
+
+# API proxy (скрываем внешний API)
+[[redirects]]
+  from = "/api/*"
+  to = "https://external-api.com/:splat"
+  status = 200
+  force = true
+
+# Serverless functions под /api/
+[[redirects]]
+  from = "/api/:function"
+  to = "/.netlify/functions/:function"
+  status = 200
+
+# SPA routing (для React/Vue)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Кастомные страницы ошибок
+[[redirects]]
+  from = "/404"
+  to = "/404.html"
+  status = 404
+
+# ============================================
+# HEADERS (Security & Caching)
+# ============================================
+
+# Security headers для всех страниц
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+
+# Кэширование статичных ресурсов
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# CORS для API
+[[headers]]
+  for = "/api/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Methods = "GET, POST, PUT, DELETE, OPTIONS"
+    Access-Control-Allow-Headers = "Content-Type, Authorization"
+
+# ============================================
+# FORMS
+# ============================================
+
+[forms]
+  spam_protection = true
+
+# ============================================
+# PLUGINS (опционально)
+# ============================================
+
+# [[plugins]]
+#   package = "@netlify/plugin-lighthouse"
+
+# ============================================
+# DEV SERVER (для netlify dev)
+# ============================================
+
+[dev]
+  command = "npm run dev"
+  port = 3000
+  publish = "dist"
+  autoLaunch = true

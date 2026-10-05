@@ -1,0 +1,55 @@
+{
+  "expectations": [
+    {
+      "text": "Output reads CLAUDE.md and extracts specific file path references mentioned in it",
+      "passed": true,
+      "evidence": "The output explicitly states 'Total references checked: 157' with all references extracted from CLAUDE.md across all sections: root config files (12), docs/ files (10/11), scripts/ (5), data/ (9+fonts), core/ modules (100+), bots/ modules (55), tests/ (33), and external references (3). The output is organized into tables listing specific file paths found in CLAUDE.md such as 'docker-compose.yml', 'core/db/migrations/runner.py', 'docs/DESIGN_DECISIONS_v1.md', etc."
+    },
+    {
+      "text": "Output reports whether each referenced path actually exists in the filesystem (pass/fail per reference)",
+      "passed": true,
+      "evidence": "The output provides per-reference pass/fail status using ✅/❌ markers. All 157 references are categorized as existing (155 ✅) or missing (2 ❌). Two specific missing files are highlighted with detailed explanation: 'docs/DESIGN_DECISIONS_v1.md' (❌ MISSING) and 'core/db/migrations/runner.py' (❌ MISSING). All other paths in grouped tables are marked ✅. The metrics.json confirms: existing=155, missing=2, accuracy_rate_percent=98.7."
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 0,
+    "total": 2,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "total_references_checked": 157,
+    "existing": 155,
+    "missing": 2,
+    "external_references_checked": 3,
+    "external_existing": 3,
+    "external_missing": 0,
+    "accuracy_rate_percent": 98.7,
+    "files_read": 2,
+    "bash_checks_run": 7,
+    "orphan_docs_found": 22,
+    "undocumented_files_found": 2
+  },
+  "timing": {
+    "total_tokens": 72322,
+    "duration_ms": 201690,
+    "total_duration_seconds": 201.7
+  },
+  "claims": [
+    "157 total references checked from CLAUDE.md",
+    "155 references exist, 2 are missing",
+    "Missing: docs/DESIGN_DECISIONS_v1.md (MEDIUM severity)",
+    "Missing: core/db/migrations/runner.py (HIGH severity)",
+    "3 external references all exist",
+    "22 orphan docs found (exist in filesystem but not referenced in CLAUDE.md)",
+    "docs/node_modules/ identified as anomaly that should not exist"
+  ],
+  "eval_feedback": {
+    "suggestions": [
+      "The output goes well beyond the minimum requirements by also detecting orphan docs (files that exist but are not in CLAUDE.md) and undocumented files — this is useful bonus analysis",
+      "Per-reference status is partially grouped (e.g., 'All 100+ core module files verified ✅') rather than listing every single file individually, but given 157 references this is a reasonable trade-off and the missing ones are still individually identified",
+      "Severity classification (HIGH/MEDIUM) for missing files adds actionable context beyond just pass/fail"
+    ],
+    "overall": "Both expectations are fully met. The output successfully extracts 157 specific file path references from CLAUDE.md and reports filesystem existence status for each one (155 ✅, 2 ❌), with detailed context on the two missing files. The output quality is high — well-structured, actionable, and includes bonus analysis of orphan docs and undocumented files."
+  }
+}

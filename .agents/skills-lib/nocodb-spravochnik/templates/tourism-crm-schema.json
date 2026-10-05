@@ -1,0 +1,485 @@
+{
+  "_comment": "NocoDB CRM -- Схема для туристического бизнеса ОАЭ",
+  "_version": "1.0",
+  "_description": "4 таблицы: Clients, Bookings, Products, Suppliers. Все типы полей -- NocoDB uidt.",
+  "_usage": "Используйте как справочник при создании таблиц через UI или API. Поля можно создавать через POST /api/v2/meta/tables/{tableId}/columns",
+
+  "tables": [
+    {
+      "table_name": "Clients",
+      "title": "Клиенты",
+      "description": "База клиентов -- туристы из СНГ и других регионов",
+      "columns": [
+        {
+          "title": "ФИО",
+          "uidt": "SingleLineText",
+          "description": "Полное имя клиента",
+          "rqd": true
+        },
+        {
+          "title": "Телефон",
+          "uidt": "PhoneNumber",
+          "description": "Основной номер телефона"
+        },
+        {
+          "title": "Email",
+          "uidt": "Email",
+          "description": "Email-адрес"
+        },
+        {
+          "title": "Telegram",
+          "uidt": "SingleLineText",
+          "description": "@username в Telegram"
+        },
+        {
+          "title": "WhatsApp",
+          "uidt": "PhoneNumber",
+          "description": "Номер WhatsApp (может совпадать с Телефон)"
+        },
+        {
+          "title": "Страна",
+          "uidt": "SingleSelect",
+          "dtxp": "'Казахстан','Россия','Узбекистан','ОАЭ','Другое'",
+          "description": "Страна проживания клиента"
+        },
+        {
+          "title": "Источник",
+          "uidt": "SingleSelect",
+          "dtxp": "'Instagram','WhatsApp','Telegram','Referral','Walk-in','Website'",
+          "description": "Откуда пришел клиент"
+        },
+        {
+          "title": "VIP",
+          "uidt": "Checkbox",
+          "description": "VIP-статус клиента"
+        },
+        {
+          "title": "Заметки",
+          "uidt": "LongText",
+          "description": "Свободные заметки по клиенту"
+        },
+        {
+          "title": "Бронирования",
+          "uidt": "Links",
+          "type": "hm",
+          "linked_table": "Bookings",
+          "description": "Связь: один клиент -> много бронирований"
+        },
+        {
+          "title": "Кол-во бронирований",
+          "uidt": "Rollup",
+          "linked_field": "Бронирования",
+          "rollup_function": "count",
+          "description": "Автоматический подсчет бронирований"
+        },
+        {
+          "title": "Сумма заказов",
+          "uidt": "Rollup",
+          "linked_field": "Бронирования",
+          "rollup_column": "Цена продажи",
+          "rollup_function": "sum",
+          "description": "Общая сумма всех бронирований (AED)"
+        }
+      ],
+      "views": [
+        {
+          "title": "Все клиенты",
+          "type": "grid",
+          "description": "Основной табличный вид"
+        },
+        {
+          "title": "VIP клиенты",
+          "type": "grid",
+          "filter": "(VIP,eq,true)",
+          "description": "Только VIP-клиенты"
+        },
+        {
+          "title": "Карточки клиентов",
+          "type": "gallery",
+          "description": "Галерея с фото (если добавить поле Attachment)"
+        }
+      ]
+    },
+
+    {
+      "table_name": "Bookings",
+      "title": "Бронирования",
+      "description": "Все бронирования -- экскурсии, билеты, яхты, авто, трансферы",
+      "columns": [
+        {
+          "title": "Клиент",
+          "uidt": "Links",
+          "type": "bt",
+          "linked_table": "Clients",
+          "description": "Связь: бронирование принадлежит клиенту"
+        },
+        {
+          "title": "Продукт",
+          "uidt": "Links",
+          "type": "bt",
+          "linked_table": "Products",
+          "description": "Связь: какой продукт/услуга забронированы"
+        },
+        {
+          "title": "Поставщик",
+          "uidt": "Links",
+          "type": "bt",
+          "linked_table": "Suppliers",
+          "description": "Связь: через какого поставщика"
+        },
+        {
+          "title": "Дата",
+          "uidt": "Date",
+          "meta": {"date_format": "YYYY-MM-DD"},
+          "description": "Дата экскурсии/услуги",
+          "rqd": true
+        },
+        {
+          "title": "Статус",
+          "uidt": "SingleSelect",
+          "dtxp": "'Заявка','Подтверждено','Оплачено','Завершено','Отменено','Возврат'",
+          "description": "Текущий статус бронирования"
+        },
+        {
+          "title": "Количество",
+          "uidt": "Number",
+          "description": "Количество человек"
+        },
+        {
+          "title": "Цена продажи",
+          "uidt": "Currency",
+          "meta": {"currency_locale": "en-AE", "currency_code": "AED"},
+          "description": "Цена для клиента (AED)"
+        },
+        {
+          "title": "Себестоимость",
+          "uidt": "Currency",
+          "meta": {"currency_locale": "en-AE", "currency_code": "AED"},
+          "description": "Закупочная цена / стоимость поставщика (AED)"
+        },
+        {
+          "title": "Валюта оплаты",
+          "uidt": "SingleSelect",
+          "dtxp": "'AED','USD','RUB','KZT','Crypto'",
+          "description": "В какой валюте клиент платит"
+        },
+        {
+          "title": "Способ оплаты",
+          "uidt": "SingleSelect",
+          "dtxp": "'Cash','Bank Transfer','Kaspi','Sber','Crypto'",
+          "description": "Метод оплаты"
+        },
+        {
+          "title": "Агент",
+          "uidt": "SingleSelect",
+          "dtxp": "'Сухейль','Марсель','Муфамад'",
+          "description": "Кто из братьев ведет заказ"
+        },
+        {
+          "title": "Заметки",
+          "uidt": "LongText",
+          "description": "Детали бронирования, пожелания клиента"
+        },
+        {
+          "title": "Прибыль",
+          "uidt": "Formula",
+          "formula": "{Цена продажи} - {Себестоимость}",
+          "description": "Автоматический расчет прибыли (AED)"
+        },
+        {
+          "title": "Маржа (%)",
+          "uidt": "Formula",
+          "formula": "IF({Цена продажи} > 0, ROUND(({Цена продажи} - {Себестоимость}) / {Цена продажи} * 100, 1), 0)",
+          "description": "Процент маржинальности"
+        },
+        {
+          "title": "Дней до экскурсии",
+          "uidt": "Formula",
+          "formula": "IF({Дата} >= NOW(), DATETIME_DIFF({Дата}, NOW(), 'days'), 'Прошло')",
+          "description": "Сколько дней осталось до даты"
+        },
+        {
+          "title": "Телефон клиента",
+          "uidt": "Lookup",
+          "linked_field": "Клиент",
+          "lookup_column": "Телефон",
+          "description": "Подтягивается из таблицы Клиенты"
+        },
+        {
+          "title": "Категория продукта",
+          "uidt": "Lookup",
+          "linked_field": "Продукт",
+          "lookup_column": "Категория",
+          "description": "Подтягивается из таблицы Продукты"
+        }
+      ],
+      "views": [
+        {
+          "title": "Pipeline",
+          "type": "kanban",
+          "group_by": "Статус",
+          "description": "Доска: Заявка -> Подтверждено -> Оплачено -> Завершено"
+        },
+        {
+          "title": "Расписание",
+          "type": "calendar",
+          "date_field": "Дата",
+          "description": "Календарь экскурсий и услуг"
+        },
+        {
+          "title": "Заявка от клиента",
+          "type": "form",
+          "description": "Публичная форма для сбора заявок (shared view)"
+        },
+        {
+          "title": "Сегодня",
+          "type": "grid",
+          "filter": "(Дата,eq,today)",
+          "description": "Заказы на сегодня"
+        },
+        {
+          "title": "Неоплаченные",
+          "type": "grid",
+          "filter": "(Статус,eq,Заявка)~or(Статус,eq,Подтверждено)",
+          "description": "Контроль неоплаченных бронирований"
+        },
+        {
+          "title": "Мои заявки (Сухейль)",
+          "type": "grid",
+          "filter": "(Агент,eq,Сухейль)",
+          "description": "Персональный вид агента"
+        }
+      ]
+    },
+
+    {
+      "table_name": "Products",
+      "title": "Продукты",
+      "description": "Каталог услуг -- экскурсии, билеты, яхты, авто, трансферы, МВУ",
+      "columns": [
+        {
+          "title": "Название",
+          "uidt": "SingleLineText",
+          "description": "Название продукта/услуги",
+          "rqd": true
+        },
+        {
+          "title": "Категория",
+          "uidt": "SingleSelect",
+          "dtxp": "'Экскурсия','Билет','Яхта','Авто','Трансфер','МВУ'",
+          "description": "Тип услуги"
+        },
+        {
+          "title": "Эмират",
+          "uidt": "SingleSelect",
+          "dtxp": "'Dubai','Abu Dhabi','Sharjah','RAK','Fujairah','Ajman'",
+          "description": "Эмират проведения"
+        },
+        {
+          "title": "Описание",
+          "uidt": "LongText",
+          "description": "Подробное описание услуги"
+        },
+        {
+          "title": "Цена (AED)",
+          "uidt": "Currency",
+          "meta": {"currency_locale": "en-AE", "currency_code": "AED"},
+          "description": "Базовая цена продажи"
+        },
+        {
+          "title": "Себестоимость",
+          "uidt": "Currency",
+          "meta": {"currency_locale": "en-AE", "currency_code": "AED"},
+          "description": "Закупочная цена"
+        },
+        {
+          "title": "Сезон High (Oct-Mar)",
+          "uidt": "Currency",
+          "meta": {"currency_locale": "en-AE", "currency_code": "AED"},
+          "description": "Цена в высокий сезон (октябрь-март)"
+        },
+        {
+          "title": "Сезон Low (Apr-Sep)",
+          "uidt": "Currency",
+          "meta": {"currency_locale": "en-AE", "currency_code": "AED"},
+          "description": "Цена в низкий сезон (апрель-сентябрь)"
+        },
+        {
+          "title": "Длительность",
+          "uidt": "SingleLineText",
+          "description": "Например: 4 часа, Полный день, 2 часа"
+        },
+        {
+          "title": "Фото",
+          "uidt": "Attachment",
+          "description": "Фотографии продукта/услуги"
+        },
+        {
+          "title": "Активен",
+          "uidt": "Checkbox",
+          "description": "Продукт в продаже"
+        },
+        {
+          "title": "Бронирования",
+          "uidt": "Links",
+          "type": "hm",
+          "linked_table": "Bookings",
+          "description": "Связь: один продукт -> много бронирований"
+        },
+        {
+          "title": "Кол-во бронирований",
+          "uidt": "Rollup",
+          "linked_field": "Бронирования",
+          "rollup_function": "count",
+          "description": "Сколько раз заказывали"
+        },
+        {
+          "title": "Сезонная цена",
+          "uidt": "Formula",
+          "formula": "IF(OR(MONTH(NOW()) >= 10, MONTH(NOW()) <= 3), {Сезон High (Oct-Mar)}, {Сезон Low (Apr-Sep)})",
+          "description": "Автоматический выбор цены по сезону"
+        }
+      ],
+      "views": [
+        {
+          "title": "Каталог",
+          "type": "gallery",
+          "description": "Визуальный каталог с фото -- для показа клиентам"
+        },
+        {
+          "title": "Все продукты",
+          "type": "grid",
+          "description": "Табличный вид с ценами"
+        },
+        {
+          "title": "Активные",
+          "type": "grid",
+          "filter": "(Активен,eq,true)",
+          "description": "Только активные продукты"
+        },
+        {
+          "title": "По категориям",
+          "type": "kanban",
+          "group_by": "Категория",
+          "description": "Доска по типам услуг"
+        }
+      ]
+    },
+
+    {
+      "table_name": "Suppliers",
+      "title": "Поставщики",
+      "description": "Компании-поставщики услуг -- операторы экскурсий, парки, яхтенные компании",
+      "columns": [
+        {
+          "title": "Компания",
+          "uidt": "SingleLineText",
+          "description": "Название компании-поставщика",
+          "rqd": true
+        },
+        {
+          "title": "Контакт",
+          "uidt": "SingleLineText",
+          "description": "Имя контактного лица / менеджера"
+        },
+        {
+          "title": "Телефон",
+          "uidt": "PhoneNumber",
+          "description": "Рабочий телефон"
+        },
+        {
+          "title": "WhatsApp",
+          "uidt": "PhoneNumber",
+          "description": "WhatsApp для оперативной связи"
+        },
+        {
+          "title": "Email",
+          "uidt": "Email",
+          "description": "Email поставщика"
+        },
+        {
+          "title": "Тип услуг",
+          "uidt": "MultiSelect",
+          "dtxp": "'Экскурсии','Билеты','Яхты','Авто','Трансферы','МВУ'",
+          "description": "Какие услуги предоставляет"
+        },
+        {
+          "title": "Комиссия (%)",
+          "uidt": "Number",
+          "description": "Размер нашей комиссии / скидки"
+        },
+        {
+          "title": "Рейтинг",
+          "uidt": "Rating",
+          "meta": {"max": 5},
+          "description": "Оценка качества работы (1-5)"
+        },
+        {
+          "title": "Заметки",
+          "uidt": "LongText",
+          "description": "Детали сотрудничества, условия"
+        },
+        {
+          "title": "Бронирования",
+          "uidt": "Links",
+          "type": "hm",
+          "linked_table": "Bookings",
+          "description": "Связь: один поставщик -> много бронирований"
+        },
+        {
+          "title": "Кол-во заказов",
+          "uidt": "Rollup",
+          "linked_field": "Бронирования",
+          "rollup_function": "count",
+          "description": "Сколько заказов через этого поставщика"
+        },
+        {
+          "title": "Оборот (AED)",
+          "uidt": "Rollup",
+          "linked_field": "Бронирования",
+          "rollup_column": "Себестоимость",
+          "rollup_function": "sum",
+          "description": "Общая сумма закупок у поставщика"
+        }
+      ],
+      "views": [
+        {
+          "title": "Все поставщики",
+          "type": "grid",
+          "description": "Полный список с рейтингами"
+        },
+        {
+          "title": "Топ поставщики",
+          "type": "grid",
+          "sort": "-Рейтинг",
+          "description": "Отсортированы по рейтингу"
+        }
+      ]
+    }
+  ],
+
+  "relations": {
+    "_description": "Связи между таблицами (создаются автоматически при создании Links-полей)",
+    "diagram": "Clients --1:N-- Bookings --N:1-- Products\n                    |                          \n                    '--N:1-- Suppliers",
+    "links": [
+      {
+        "from": "Clients.Бронирования",
+        "to": "Bookings",
+        "type": "hm",
+        "description": "Один клиент -> много бронирований"
+      },
+      {
+        "from": "Bookings.Продукт",
+        "to": "Products",
+        "type": "bt",
+        "description": "Одно бронирование -> один продукт"
+      },
+      {
+        "from": "Bookings.Поставщик",
+        "to": "Suppliers",
+        "type": "bt",
+        "description": "Одно бронирование -> один поставщик"
+      }
+    ]
+  }
+}

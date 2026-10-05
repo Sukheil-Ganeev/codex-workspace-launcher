@@ -1,0 +1,40 @@
+{
+  "task": "orphan-docs-detection",
+  "project": "D:/Downloads/TouristBotEcosystem/",
+  "analysis_date": "2026-03-12",
+  "total_files_in_docs": 51,
+  "referenced_files": 14,
+  "orphan_docs": 21,
+  "technical_noise": 16,
+  "orphan_rate_percent": 41,
+  "method": "cross-reference CLAUDE.md links vs all docs/ files",
+  "top_orphans": [
+    "docs/IMPROVEMENT_MASTER_PLAN_v2.md",
+    "docs/ARCHITECTURE.md",
+    "docs/DEPLOY.md",
+    "docs/DEPLOY_GCP.md",
+    "docs/USER_GUIDE_admin.md",
+    "docs/USER_GUIDE_owner.md",
+    "docs/USER_GUIDE_staff.md",
+    "docs/ADMIN_BOT_REDESIGN.md",
+    "docs/CICD_SETUP.md",
+    "docs/SENTRY_GUIDE.md",
+    "docs/SERVER_RUNBOOK.md",
+    "docs/SERVER_HEALTH_REPORT_2026-03-04.md",
+    "docs/UX_DESIGN_v1.md",
+    "docs/PROJECT_ACCOMPLISHMENTS.md",
+    "docs/COMMAND_AUDIT.md",
+    "docs/COMMAND_AUDIT_ADMIN.md",
+    "docs/DATABASE_COVERAGE_AUDIT.md",
+    "docs/AUDIT_2026-03-03.md",
+    "docs/DEPLOY_LESSONS_2026-03-03.md",
+    "docs/WHATSAPP_BOT_REDESIGN.md",
+    "docs/plans/2026-03-02-unified-telegram-bot.md"
+  ],
+  "technical_noise_files": [
+    "docs/node_modules/ (14 JS files)",
+    "docs/architecture/.gitkeep",
+    "docs/formatting/.gitkeep"
+  ],
+  "notes": "node_modules/ inside docs/ is likely accidental - should not be there"
+}

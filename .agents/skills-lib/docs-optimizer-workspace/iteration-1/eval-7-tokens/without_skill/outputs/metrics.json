@@ -1,0 +1,67 @@
+{
+  "project": "D:/Downloads/TouristBotEcosystem/",
+  "measured_date": "2026-03-12",
+  "model": "claude-sonnet-4-6",
+  "context_window": 200000,
+  "files_loaded": [
+    {
+      "label": "Global CLAUDE.md",
+      "path": "C:/Users/londo/.claude/CLAUDE.md",
+      "bytes": 7965,
+      "lines": 139,
+      "ascii_chars": 2332,
+      "cyrillic_chars": 2759,
+      "other_chars": 38,
+      "estimated_tokens": 2441
+    },
+    {
+      "label": "Parent CLAUDE.md",
+      "path": "D:/Downloads/CLAUDE.md",
+      "bytes": 23549,
+      "lines": 659,
+      "ascii_chars": 14429,
+      "cyrillic_chars": 8881,
+      "other_chars": 239,
+      "estimated_tokens": 9647
+    },
+    {
+      "label": "Project CLAUDE.md",
+      "path": "D:/Downloads/TouristBotEcosystem/CLAUDE.md",
+      "bytes": 39824,
+      "lines": 557,
+      "ascii_chars": 26126,
+      "cyrillic_chars": 4308,
+      "other_chars": 1509,
+      "estimated_tokens": 10158
+    },
+    {
+      "label": "System overhead",
+      "path": "injected (git status, env, date, wrappers)",
+      "bytes": null,
+      "lines": 30,
+      "ascii_chars": null,
+      "cyrillic_chars": null,
+      "other_chars": null,
+      "estimated_tokens": 500
+    }
+  ],
+  "totals": {
+    "total_bytes": 71338,
+    "total_lines": 1385,
+    "total_estimated_tokens": 22746,
+    "context_window_percentage": 11.4,
+    "memory_md_exists": false
+  },
+  "token_methodology": {
+    "ascii_chars_per_token": 4.0,
+    "cyrillic_chars_per_token": 1.5,
+    "other_chars_per_token": 2.0,
+    "margin_of_error_percent": 15
+  },
+  "breakdown_by_file_percent": {
+    "global_claude_md": 10.7,
+    "parent_claude_md": 42.4,
+    "project_claude_md": 44.6,
+    "system_overhead": 2.2
+  }
+}

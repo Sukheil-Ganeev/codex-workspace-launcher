@@ -1,0 +1,39 @@
+# Netlify конфигурация с Environment Variables
+# Используется для: API ключи, секреты, конфигурация окружения
+
+[build]
+  publish = "dist"
+  command = "npm run build"
+  functions = "netlify/functions"
+
+# Production environment
+[context.production.environment]
+  NODE_VERSION = "18"
+  # Публичные переменные (будут встроены в build)
+  VITE_API_URL = "https://api.example.com"
+  VITE_APP_NAME = "My App"
+
+# Deploy Preview environment (для тестовых веток)
+[context.deploy-preview.environment]
+  NODE_VERSION = "18"
+  VITE_API_URL = "https://staging-api.example.com"
+
+# Branch Deploy environment (для конкретных веток)
+[context.branch-deploy.environment]
+  NODE_VERSION = "18"
+
+# ВАЖНО: Секретные переменные (API ключи, токены) добавляются через:
+# Netlify UI → Site settings → Environment variables
+# Они НЕ должны быть в netlify.toml
+
+# Пример использования в serverless function:
+# const apiKey = process.env.API_KEY
+# const sheetId = process.env.GOOGLE_SHEET_ID
+
+# Для локальной разработки создайте .env файл:
+# API_KEY=your_key_here
+# GOOGLE_SHEET_ID=your_id_here
+
+# И добавьте в .gitignore:
+# .env
+# .env.local

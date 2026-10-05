@@ -1,0 +1,127 @@
+{
+  "eval_id": "eval-10-orphan-docs",
+  "skill": "docs-optimizer",
+  "pattern": "AP-03",
+  "project": "D:/Downloads/TouristBotEcosystem/",
+  "analysis_date": "2026-03-12",
+
+  "discovery": {
+    "total_md_files_in_docs": 32,
+    "total_lines": 17114,
+    "total_tokens_approx": 68456,
+    "subdirectories": ["plans/", "architecture/", "formatting/", "node_modules/"]
+  },
+
+  "reference_check": {
+    "explicitly_referenced_navigational": 3,
+    "referenced_in_tree_comment": 7,
+    "mentioned_only_in_changelog_row": 6,
+    "full_orphans_no_reference": 16
+  },
+
+  "orphan_stats": {
+    "orphan_files_count": 22,
+    "orphan_lines": 10814,
+    "orphan_tokens_approx": 43256,
+    "orphan_percentage_of_total": 63,
+    "largest_orphan": {
+      "file": "docs/IDEAL_MASTER_PLAN.md",
+      "lines": 2559,
+      "tokens_approx": 10236,
+      "special": "UNTRACKED (not in git)"
+    }
+  },
+
+  "critical_findings": [
+    {
+      "file": "docs/IDEAL_MASTER_PLAN.md",
+      "lines": 2559,
+      "tokens": 10236,
+      "severity": "CRITICAL",
+      "reason": "Largest file, untracked in git, READ ONLY marker, no navigational link",
+      "recommendation": "Add to .claudeignore, move to docs/archive/"
+    },
+    {
+      "file": "docs/UX_DESIGN_v1.md",
+      "lines": 1103,
+      "tokens": 4412,
+      "severity": "HIGH",
+      "reason": "No reference, created 2026-03-03, never updated, design may have changed",
+      "recommendation": "Verify actuality, archive if stale"
+    },
+    {
+      "file": "docs/DEPLOY_GCP.md",
+      "lines": 1062,
+      "tokens": 4248,
+      "severity": "HIGH",
+      "reason": "Actual GCP guide but no link from CLAUDE.md",
+      "recommendation": "Add navigational link to CLAUDE.md"
+    },
+    {
+      "file": "docs/DEPLOY.md",
+      "lines": 798,
+      "tokens": 3192,
+      "severity": "HIGH",
+      "reason": "Oracle Cloud guide — project is on GCP, likely outdated",
+      "recommendation": "Archive to docs/archive/"
+    },
+    {
+      "file": "docs/plans/2026-03-02-unified-telegram-bot.md",
+      "lines": 990,
+      "tokens": 3960,
+      "severity": "MEDIUM",
+      "reason": "Second migration plan, not referenced (sibling is referenced)",
+      "recommendation": "Archive to docs/archive/"
+    },
+    {
+      "file": "docs/ARCHITECTURE.md",
+      "lines": 424,
+      "tokens": 1696,
+      "severity": "MEDIUM",
+      "reason": "SSOT violation: both ARCHITECTURE.md and ARCHITECTURE_v1.md exist, only _v1 referenced",
+      "recommendation": "Determine which is current, archive the other"
+    },
+    {
+      "file": "docs/IMPROVEMENT_MASTER_PLAN_v2.md",
+      "lines": 255,
+      "tokens": 1020,
+      "severity": "MEDIUM",
+      "reason": "v2 exists with no link while v1 has explicit link; unclear which supersedes",
+      "recommendation": "Resolve v1 vs v2, update CLAUDE.md reference"
+    }
+  ],
+
+  "anti_pattern_ap03": {
+    "detected": true,
+    "severity": "CRITICAL",
+    "orphan_count": 22,
+    "threshold_warning": 1,
+    "threshold_critical": 2,
+    "status": "CRITICAL (22 orphan files)"
+  },
+
+  "claudeignore_recommendation": {
+    "files_to_ignore": [
+      "docs/IDEAL_MASTER_PLAN.md",
+      "docs/DEPLOY.md",
+      "docs/UX_DESIGN_v1.md",
+      "docs/PROJECT_ACCOMPLISHMENTS.md",
+      "docs/SERVER_HEALTH_REPORT_2026-03-04.md",
+      "docs/DEPLOY_LESSONS_2026-03-03.md",
+      "docs/CICD_SETUP.md",
+      "docs/audit_*.md",
+      "docs/AUDIT_2026-03-03.md",
+      "docs/DATABASE_COVERAGE_AUDIT.md",
+      "docs/plans/2026-03-02-unified-telegram-bot.md"
+    ],
+    "potential_token_savings": 30000,
+    "savings_percentage": 44
+  },
+
+  "skill_execution": {
+    "mode": "analyze",
+    "phases_completed": ["discovery", "reference_check", "classification", "synthesis"],
+    "tools_used": ["Bash (ls, wc -l, git log)", "Grep (CLAUDE.md references)", "Read (SKILL.md)"],
+    "time_ms_approx": 15000
+  }
+}

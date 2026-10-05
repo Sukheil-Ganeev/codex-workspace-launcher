@@ -1,0 +1,13 @@
+{
+  "tool_calls": 4,
+  "total_steps": 5,
+  "output_chars": 6847,
+  "triggers_fired": ["#20_BLOCK", "#22_WARN", "#19_WARN", "#21_INFO", "#3_INFO"],
+  "severity_counts": {
+    "BLOCK": 1,
+    "WARN": 2,
+    "INFO": 2
+  },
+  "experience_applied": ["EXP-053", "EXP-001", "WARN-006"],
+  "skill_version": "4.1"
+}

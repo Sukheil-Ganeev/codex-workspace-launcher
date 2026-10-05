@@ -1,0 +1,7 @@
+interface:
+  display_name: "Script Writing Guard"
+  short_description: "Safe script guardrails with triggers, risk checks, and packaging"
+  brand_color: "#1D4ED8"
+  default_prompt: "Before writing scripts, decide adopt versus extend versus build, define risk, add preview safety, and explain verification"
+policy:
+  allow_implicit_invocation: true

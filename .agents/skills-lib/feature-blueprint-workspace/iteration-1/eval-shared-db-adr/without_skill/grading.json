@@ -1,0 +1,40 @@
+{
+  "expectations": [
+    {
+      "text": "has_context",
+      "passed": true,
+      "evidence": "Section '## Context' thoroughly explains both applications (vipdxbrus.com with static data, tourism-crm with 49 Prisma models), the integration need (dynamic catalog, booking calendar, chat, favorites, reviews), the 6 planned new tables with descriptions, and notes that both apps are in the same region."
+    },
+    {
+      "text": "has_decision",
+      "passed": true,
+      "evidence": "Section '## Decision' states: 'We chose Option A: Shared Neon PostgreSQL database, where both vipdxbrus.com and tourism-crm connect to the same Neon PostgreSQL instance through their own Prisma clients.' Followed by 6 specific implementation details including migration ownership and connection pooling."
+    },
+    {
+      "text": "has_consequences_positive",
+      "passed": true,
+      "evidence": "Section '### Positive' lists 5 positive consequences: single DATABASE_URL simplification, real-time CRM visibility, shared user model possibility, reuse of CRM Prisma ecosystem, and fallback to static data built into architecture."
+    },
+    {
+      "text": "has_consequences_negative",
+      "passed": true,
+      "evidence": "Section '### Negative / Risks' provides a detailed table with 6 risks, each with Likelihood, Impact, and Mitigation columns: schema coupling, connection pool exhaustion, Neon free tier limits, Prisma version mismatch, no auth boundary, and migration coordination."
+    },
+    {
+      "text": "has_alternatives",
+      "passed": true,
+      "evidence": "Two rejected alternatives with extensive detail: 'Option B: API Gateway' (6 advantages, 6 disadvantages with detailed explanations) and 'Option C: Completely separate database' (2 advantages, 5 disadvantages). Both clearly rejected with reasoning."
+    },
+    {
+      "text": "has_status",
+      "passed": true,
+      "evidence": "'**Status:** Accepted' at the top of the document, alongside Date, Decision makers, and Related issues fields."
+    }
+  ],
+  "summary": {
+    "passed": 6,
+    "failed": 0,
+    "total": 6,
+    "pass_rate": 1.0
+  }
+}

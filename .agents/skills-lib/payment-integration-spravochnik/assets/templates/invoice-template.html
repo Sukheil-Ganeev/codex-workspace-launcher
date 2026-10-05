@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invoice - UAE Tourism</title>
+  <style>
+    /* Print-optimized styles */
+    @media print {
+      body { margin: 0; }
+      .no-print { display: none; }
+      .invoice-container { box-shadow: none; }
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica', sans-serif;
+      background: #f5f5f5;
+      padding: 20px;
+      color: #333;
+    }
+
+    .invoice-container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      padding: 60px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Header */
+    .invoice-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      margin-bottom: 40px;
+      padding-bottom: 30px;
+      border-bottom: 3px solid #667eea;
+    }
+
+    .company-info h1 {
+      font-size: 28px;
+      color: #667eea;
+      margin-bottom: 8px;
+    }
+
+    .company-info p {
+      font-size: 14px;
+      line-height: 1.6;
+      color: #666;
+    }
+
+    .invoice-meta {
+      text-align: right;
+    }
+
+    .invoice-title {
+      font-size: 36px;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 8px;
+    }
+
+    .invoice-number {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 4px;
+    }
+
+    .invoice-date {
+      font-size: 14px;
+      color: #666;
+    }
+
+    /* Customer info */
+    .customer-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .info-block h3 {
+      font-size: 12px;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 12px;
+      letter-spacing: 1px;
+    }
+
+    .info-block p {
+      font-size: 14px;
+      line-height: 1.8;
+      color: #333;
+    }
+
+    .customer-name {
+      font-weight: 600;
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+
+    /* Items table */
+    .items-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 30px;
+    }
+
+    .items-table thead {
+      background: #f9f9f9;
+    }
+
+    .items-table th {
+      padding: 12px;
+      text-align: left;
+      font-size: 12px;
+      text-transform: uppercase;
+      color: #666;
+      font-weight: 600;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .items-table th:last-child,
+    .items-table td:last-child {
+      text-align: right;
+    }
+
+    .items-table td {
+      padding: 16px 12px;
+      border-bottom: 1px solid #f0f0f0;
+      font-size: 14px;
+    }
+
+    .item-description {
+      color: #666;
+      font-size: 13px;
+      margin-top: 4px;
+    }
+
+    /* Totals */
+    .totals-section {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 40px;
+    }
+
+    .totals {
+      width: 300px;
+    }
+
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 0;
+      font-size: 14px;
+    }
+
+    .total-row.subtotal {
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .total-row.vat {
+      color: #666;
+    }
+
+    .total-row.grand-total {
+      font-size: 20px;
+      font-weight: 700;
+      color: #667eea;
+      padding-top: 16px;
+      border-top: 2px solid #e0e0e0;
+      margin-top: 8px;
+    }
+
+    /* Payment info */
+    .payment-info {
+      background: #f9f9f9;
+      padding: 24px;
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .payment-info h3 {
+      font-size: 14px;
+      margin-bottom: 12px;
+      color: #333;
+    }
+
+    .payment-details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      font-size: 13px;
+    }
+
+    .payment-detail {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .payment-detail strong {
+      color: #666;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .payment-detail span {
+      color: #333;
+    }
+
+    /* Status badge */
+    .status-badge {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .status-badge.paid {
+      background: #e8f5e9;
+      color: #2e7d32;
+    }
+
+    .status-badge.pending {
+      background: #fff3e0;
+      color: #f57c00;
+    }
+
+    /* Footer */
+    .invoice-footer {
+      text-align: center;
+      padding-top: 30px;
+      border-top: 1px solid #e0e0e0;
+      font-size: 12px;
+      color: #999;
+      line-height: 1.8;
+    }
+
+    /* Notes */
+    .notes-section {
+      margin-bottom: 30px;
+      font-size: 13px;
+    }
+
+    .notes-section h3 {
+      font-size: 14px;
+      margin-bottom: 8px;
+      color: #333;
+    }
+
+    .notes-section p {
+      color: #666;
+      line-height: 1.6;
+    }
+
+    /* Action buttons (no print) */
+    .actions {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      margin: 0 8px;
+      background: #667eea;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      border: none;
+      transition: background 0.2s;
+    }
+
+    .btn:hover {
+      background: #5568d3;
+    }
+
+    .btn-secondary {
+      background: white;
+      color: #667eea;
+      border: 2px solid #667eea;
+    }
+
+    .btn-secondary:hover {
+      background: #f0f4ff;
+    }
+
+    @media (max-width: 768px) {
+      .invoice-container {
+        padding: 30px 20px;
+      }
+
+      .invoice-header {
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .invoice-meta {
+        text-align: left;
+      }
+
+      .customer-section {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .items-table {
+        font-size: 12px;
+      }
+
+      .totals {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="invoice-container">
+    <!-- Header -->
+    <div class="invoice-header">
+      <div class="company-info">
+        <h1>UAE Tourism Services</h1>
+        <p>
+          Dubai Internet City, Tecom<br>
+          Dubai, United Arab Emirates<br>
+          Phone: +971 50 XXX XXXX<br>
+          Email: info@uaetours.com<br>
+          TRN: 100XXXXXXXX0003
+        </p>
+      </div>
+      <div class="invoice-meta">
+        <div class="invoice-title">INVOICE</div>
+        <div class="invoice-number">Invoice #: <strong>INV-2026-001</strong></div>
+        <div class="invoice-date">Date: <strong>February 4, 2026</strong></div>
+        <div class="invoice-date">Due Date: <strong>February 11, 2026</strong></div>
+        <div style="margin-top: 12px;">
+          <span class="status-badge paid">PAID</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Customer Information -->
+    <div class="customer-section">
+      <div class="info-block">
+        <h3>Bill To</h3>
+        <p class="customer-name">John Doe</p>
+        <p>
+          Jumeirah Beach Hotel<br>
+          Dubai, UAE<br>
+          Phone: +971 50 123 4567<br>
+          Email: john.doe@example.com
+        </p>
+      </div>
+      <div class="info-block">
+        <h3>Service Details</h3>
+        <p>
+          <strong>Tour Date:</strong> February 10, 2026<br>
+          <strong>Pickup Time:</strong> 3:00 PM<br>
+          <strong>Pickup Location:</strong> Hotel Lobby<br>
+          <strong>Passengers:</strong> 2 Adults
+        </p>
+      </div>
+    </div>
+
+    <!-- Items Table -->
+    <table class="items-table">
+      <thead>
+        <tr>
+          <th>Description</th>
+          <th style="text-align: center;">Quantity</th>
+          <th style="text-align: right;">Unit Price</th>
+          <th style="text-align: right;">Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <strong>Desert Safari Tour</strong>
+            <div class="item-description">
+              Including: Dune bashing, camel ride, BBQ dinner, traditional entertainment
+            </div>
+          </td>
+          <td style="text-align: center;">2</td>
+          <td style="text-align: right;">250.00 AED</td>
+          <td style="text-align: right;">500.00 AED</td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Professional Photography</strong>
+            <div class="item-description">
+              High-resolution photos delivered via email
+            </div>
+          </td>
+          <td style="text-align: center;">1</td>
+          <td style="text-align: right;">100.00 AED</td>
+          <td style="text-align: right;">100.00 AED</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Totals -->
+    <div class="totals-section">
+      <div class="totals">
+        <div class="total-row subtotal">
+          <span>Subtotal:</span>
+          <strong>600.00 AED</strong>
+        </div>
+        <div class="total-row vat">
+          <span>VAT (5%):</span>
+          <strong>30.00 AED</strong>
+        </div>
+        <div class="total-row grand-total">
+          <span>Total Amount:</span>
+          <strong>630.00 AED</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- Payment Information -->
+    <div class="payment-info">
+      <h3>Payment Information</h3>
+      <div class="payment-details">
+        <div class="payment-detail">
+          <strong>Payment Method:</strong>
+          <span>Visa •••• 4242</span>
+        </div>
+        <div class="payment-detail">
+          <strong>Transaction ID:</strong>
+          <span>pi_3AbcDefGHIjklMNo</span>
+        </div>
+        <div class="payment-detail">
+          <strong>Payment Date:</strong>
+          <span>February 4, 2026</span>
+        </div>
+        <div class="payment-detail">
+          <strong>Status:</strong>
+          <span style="color: #2e7d32; font-weight: 600;">Paid in Full</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notes -->
+    <div class="notes-section">
+      <h3>Notes & Terms</h3>
+      <p>
+        • Cancellation policy: Free cancellation up to 24 hours before the tour<br>
+        • Please arrive at pickup location 10 minutes early<br>
+        • Comfortable clothing and closed shoes recommended<br>
+        • Tour subject to weather conditions
+      </p>
+    </div>
+
+    <!-- Footer -->
+    <div class="invoice-footer">
+      Thank you for choosing UAE Tourism Services!<br>
+      For questions about this invoice, please contact us at info@uaetours.com or +971 50 XXX XXXX<br>
+      <br>
+      This is a computer-generated invoice and is valid without signature.
+    </div>
+
+    <!-- Action Buttons (No Print) -->
+    <div class="actions no-print">
+      <button class="btn" onclick="window.print()">Print Invoice</button>
+      <button class="btn btn-secondary" onclick="downloadPDF()">Download PDF</button>
+    </div>
+  </div>
+
+  <script>
+    // Optional: PDF generation (requires server-side implementation or library like jsPDF)
+    function downloadPDF() {
+      alert('PDF download functionality requires server-side implementation or jsPDF library.');
+      // Example with server endpoint:
+      // window.location.href = '/api/invoice/INV-2026-001/pdf';
+    }
+  </script>
+</body>
+</html>

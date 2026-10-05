@@ -1,0 +1,31 @@
+Только субтитры, без скачивания видео — вот команда:
+
+```bash
+yt-dlp --write-subs --sub-lang ru --skip-download -P "D:/Downloads/YouTube/" "https://youtube.com/watch?v=dQw4w9WgXcQ"
+```
+
+Что делает каждый флаг:
+- `--write-subs` — скачать субтитры как отдельный файл
+- `--sub-lang ru` — только русский язык
+- `--skip-download` — НЕ скачивать само видео
+- `-P "D:/Downloads/YouTube/"` — сохранить в твою папку
+
+Файл сохранится рядом с папкой в формате `.vtt` (например: `Rick Astley - Never Gonna Give You Up.ru.vtt`).
+
+Если русских субтитров нет — добавь автосгенерированные:
+
+```bash
+yt-dlp --write-auto-subs --sub-lang ru --skip-download -P "D:/Downloads/YouTube/" "https://youtube.com/watch?v=dQw4w9WgXcQ"
+```
+
+Хочешь сразу в формате SRT (удобнее для большинства плееров)?
+
+```bash
+yt-dlp --write-subs --sub-lang ru --convert-subs srt --skip-download -P "D:/Downloads/YouTube/" "https://youtube.com/watch?v=dQw4w9WgXcQ"
+```
+
+Чтобы сначала проверить какие субтитры вообще доступны для этого видео:
+
+```bash
+yt-dlp --list-subs "https://youtube.com/watch?v=dQw4w9WgXcQ"
+```

@@ -1,0 +1,176 @@
+{
+  "_comment": "Make.com (Integromat) -- Описательный шаблон сценария для NocoDB",
+  "_version": "1.0",
+  "_description": "Автоматизация: новое бронирование в NocoDB -> обработка -> Telegram уведомление",
+  "_note": "Это описательный шаблон. Импортируйте модули в Make.com вручную, используя эту структуру как руководство.",
+
+  "scenario": {
+    "name": "NocoDB -- Новое бронирование -> Telegram",
+    "description": "При создании нового бронирования в NocoDB: форматирует данные и отправляет уведомление в Telegram-группу",
+    "scheduling": {
+      "type": "interval",
+      "interval_minutes": 5,
+      "_comment": "Watch Records проверяет каждые 5 минут. Для мгновенных -- используйте Webhook."
+    }
+  },
+
+  "modules": [
+    {
+      "order": 1,
+      "module": "NocoDB: Watch Records",
+      "type": "trigger",
+      "description": "Отслеживает новые записи в таблице Bookings",
+      "settings": {
+        "connection": {
+          "_comment": "Создайте NocoDB Connection в Make.com",
+          "type": "NocoDB API Token",
+          "base_url": "https://app.nocodb.com",
+          "api_token": "YOUR_NOCODB_API_TOKEN"
+        },
+        "base_id": "YOUR_BASE_ID",
+        "table_id": "YOUR_BOOKINGS_TABLE_ID",
+        "trigger_field": "CreatedAt",
+        "limit": 10,
+        "filter": {
+          "_comment": "Опционально: фильтр для Watch Records",
+          "where": "(Статус,neq,Отменено)"
+        }
+      },
+      "output_fields": [
+        "Id", "Клиент", "Продукт", "Дата", "Статус",
+        "Количество", "Цена продажи", "Агент", "Телефон клиента"
+      ]
+    },
+
+    {
+      "order": 2,
+      "module": "NocoDB: Get a Record",
+      "type": "action",
+      "description": "Получить полные данные клиента (если нужны дополнительные поля из связанной таблицы)",
+      "settings": {
+        "connection": "same_as_trigger",
+        "table_id": "YOUR_CLIENTS_TABLE_ID",
+        "record_id": "{{1.Клиент.Id}}",
+        "_comment": "Получаем данные клиента по ID из связи"
+      },
+      "output_fields": ["ФИО", "Телефон", "Email", "Telegram", "WhatsApp", "Страна"]
+    },
+
+    {
+      "order": 3,
+      "module": "Tools: Set Variable",
+      "type": "action",
+      "description": "Форматирование сообщения для Telegram",
+      "settings": {
+        "variable_name": "telegram_message",
+        "variable_value": "TEMPLATE_BELOW"
+      },
+      "template": {
+        "_comment": "Шаблон сообщения. В Make.com используйте встроенный редактор.",
+        "text_lines": [
+          "🔔 <b>Новое бронирование!</b>",
+          "",
+          "<b>Клиент:</b> {{2.ФИО}}",
+          "<b>Телефон:</b> {{2.Телефон}}",
+          "<b>Telegram:</b> {{2.Telegram}}",
+          "<b>Страна:</b> {{2.Страна}}",
+          "",
+          "<b>Продукт:</b> {{1.Продукт}}",
+          "<b>Дата:</b> {{formatDate(1.Дата; 'DD.MM.YYYY')}}",
+          "<b>Кол-во:</b> {{1.Количество}} чел.",
+          "<b>Цена:</b> {{1.Цена продажи}} AED",
+          "<b>Статус:</b> {{1.Статус}}",
+          "<b>Агент:</b> {{1.Агент}}",
+          "",
+          "📋 <a href='https://app.nocodb.com/dashboard/#/nc/YOUR_BASE_ID'>Открыть в NocoDB</a>"
+        ]
+      }
+    },
+
+    {
+      "order": 4,
+      "module": "Telegram Bot: Send a Text Message",
+      "type": "action",
+      "description": "Отправить уведомление в Telegram-группу",
+      "settings": {
+        "connection": {
+          "_comment": "Создайте Telegram Bot Connection в Make.com",
+          "bot_token": "YOUR_TELEGRAM_BOT_TOKEN"
+        },
+        "chat_id": "YOUR_TELEGRAM_CHAT_ID",
+        "text": "{{3.telegram_message}}",
+        "parse_mode": "HTML",
+        "disable_web_page_preview": true
+      }
+    }
+  ],
+
+  "error_handling": {
+    "description": "Настройте Error Handler в Make.com",
+    "recommendations": [
+      {
+        "module": "All modules",
+        "handler": "Resume",
+        "description": "При временной ошибке API -- повторить через 60 секунд"
+      },
+      {
+        "module": "Telegram Bot",
+        "handler": "Ignore",
+        "description": "Если Telegram недоступен -- пропустить (не блокировать сценарий)"
+      }
+    ]
+  },
+
+  "setup_steps": [
+    "1. Создать сценарий в Make.com (make.com -> Create a new scenario)",
+    "2. Добавить модуль 'NocoDB: Watch Records' (триггер)",
+    "3. Создать NocoDB Connection (API Token из Settings -> Tokens)",
+    "4. Выбрать Base и Table (Bookings)",
+    "5. Добавить модуль 'NocoDB: Get a Record' для данных клиента",
+    "6. Добавить модуль 'Tools: Set Variable' для форматирования",
+    "7. Добавить модуль 'Telegram Bot: Send a Text Message'",
+    "8. Создать Telegram Bot Connection (токен от @BotFather)",
+    "9. Указать Chat ID группы (узнать через @getidsbot)",
+    "10. Настроить scheduling (каждые 5 минут или по желанию)",
+    "11. Включить сценарий (toggle ON)"
+  ],
+
+  "alternative_triggers": [
+    {
+      "name": "Webhook вместо Watch Records",
+      "description": "Для мгновенных уведомлений замените Watch Records на Webhook модуль",
+      "steps": [
+        "1. В Make.com: замените триггер на 'Webhooks: Custom webhook'",
+        "2. Скопируйте URL webhook из Make.com",
+        "3. В NocoDB: Settings -> Webhooks -> Add Webhook",
+        "4. URL: вставьте URL из Make.com",
+        "5. Event: After Insert",
+        "6. Теперь уведомления приходят мгновенно"
+      ]
+    }
+  ],
+
+  "advanced_scenarios": [
+    {
+      "name": "Обновление статуса -> уведомление",
+      "trigger": "NocoDB: Watch Records (field-level: Статус)",
+      "condition": "IF Статус = 'Оплачено'",
+      "action": "Telegram: 'Бронирование оплачено! {Клиент} / {Продукт}'"
+    },
+    {
+      "name": "Ежедневный отчет",
+      "trigger": "Schedule: каждый день в 08:00",
+      "action_1": "NocoDB: Search Records (Дата = today)",
+      "action_2": "Iterator: обход записей",
+      "action_3": "Text Aggregator: формирование отчета",
+      "action_4": "Telegram: отправка сводки на день"
+    },
+    {
+      "name": "Напоминание клиенту (за день до экскурсии)",
+      "trigger": "Schedule: каждый день в 18:00",
+      "action_1": "NocoDB: Search Records (Дата = tomorrow, Статус = Оплачено)",
+      "action_2": "Iterator",
+      "action_3": "Telegram Bot / WhatsApp: напоминание клиенту"
+    }
+  ]
+}

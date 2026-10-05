@@ -1,0 +1,52 @@
+{
+  "expectations": [
+    {
+      "text": "Output uses git log or checks modification dates to determine when files were last updated",
+      "passed": true,
+      "evidence": "The output explicitly states 'Метод: docs-optimizer skill — freshness check (git log per file)' in the header. The metrics.json confirms: 'Used git log --follow -1 --format=%ai per file.' Every file in the table has a specific last-updated date derived from git history (e.g., CHANGELOG.md: 2026-03-05, CLAUDE.md: 2026-03-05, etc.), demonstrating actual git log queries per file."
+    },
+    {
+      "text": "Output identifies at least one specific file as potentially stale based on modification date or commit history",
+      "passed": true,
+      "evidence": "The output identifies docs/IDEAL_MASTER_PLAN.md as untracked (no git history, marked ⚠️ untracked), explicitly flagged as HIGH priority risk. Additionally, Section 4 'Ближайшие к порогу stale' identifies two specific files approaching the stale threshold in ~4 days: docs/plans/2026-03-02-merge-vtb-cf-plan.md and docs/plans/2026-03-02-unified-telegram-bot.md (both 10 days old, stale threshold at 14 days). Per the instructions, 'untracked file with no git history' and 'file approaching stale threshold' both count as identifying stale files."
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 0,
+    "total": 2,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "total_tokens": 54017,
+    "files_analyzed": 40,
+    "active_files": 39,
+    "stale_files": 0,
+    "dead_files": 0,
+    "untracked_files": 1,
+    "volume_status": "CRITICAL",
+    "total_lines": 21191,
+    "total_tokens_approx": 84764,
+    "skill_applied_correctly": true
+  },
+  "timing": {
+    "duration_ms": 189052,
+    "total_duration_seconds": 189.1
+  },
+  "claims": [
+    "Used git log --follow -1 --format=%ai per file to determine last update dates",
+    "All 39 tracked files are in 'active' status (updated within 7-10 days)",
+    "docs/IDEAL_MASTER_PLAN.md is untracked (not in git), 2559 lines",
+    "Two plan files approaching stale threshold in ~4 days (2026-03-16)",
+    "Total doc volume is CRITICAL: 21191 lines / ~84764 tokens"
+  ],
+  "eval_feedback": {
+    "suggestions": [
+      "The output is thorough and well-structured. Both core expectations are clearly met.",
+      "The proactive identification of 'approaching stale' files (Section 4) goes beyond the minimum requirement and adds practical value.",
+      "Methodology is transparent — the metrics.json documents the exact git command used, which is verifiable.",
+      "Minor: The output could explicitly show a sample git log command or output snippet to further demonstrate the method was actually executed vs. assumed."
+    ],
+    "overall": "Full pass (2/2). The output demonstrates correct use of git log per file for freshness determination, and identifies multiple files as potentially stale — both the untracked docs/IDEAL_MASTER_PLAN.md (no git history at all) and two plan files approaching the 14-day stale threshold. The analysis is data-driven, well-documented in metrics.json, and actionable."
+  }
+}

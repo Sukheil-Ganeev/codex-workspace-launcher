@@ -1,0 +1,22 @@
+{
+  "expectations": [
+    {
+      "text": "Упоминает deno runtime как решение для YouTube JS challenges",
+      "passed": false,
+      "evidence": "Deno runtime не упомянут вообще. Предлагает: обновить, cookies, PO Token, User-Agent, player_client — но не deno"
+    },
+    {
+      "text": "Упоминает yt-dlp -U (обновление) как первый шаг",
+      "passed": true,
+      "evidence": "'yt-dlp -U' — раздел 1, первое действие"
+    },
+    {
+      "text": "Упоминает --extractor-args youtube:player_client как альтернативный вариант",
+      "passed": true,
+      "evidence": "'yt-dlp --extractor-args \"youtube:player_client=android\"' — раздел 5"
+    }
+  ],
+  "passed": 2,
+  "total": 3,
+  "score": 0.667
+}

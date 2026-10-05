@@ -1,0 +1,12 @@
+{
+  "eval_id": 5,
+  "eval_name": "ssot-violations-duplication-map",
+  "prompt": "В проекте D:/Downloads/TouristBotEcosystem/ есть ли одна и та же информация в нескольких файлах?",
+  "assertions": [
+    "Output names at least two specific files that contain overlapping or duplicated information",
+    "Output provides at least one concrete example of content that appears in multiple files (e.g. mentions MASTER_PLAN or deployment info duplicated)",
+    "Output assigns DUP-XX codes to each identified duplication (e.g. DUP-01, DUP-02)",
+    "Output lists at least 2 distinct DUP-XX coded duplications with source and target files",
+    "Output recommends a Single Source of Truth (SSOT) location for each duplicated piece of information"
+  ]
+}

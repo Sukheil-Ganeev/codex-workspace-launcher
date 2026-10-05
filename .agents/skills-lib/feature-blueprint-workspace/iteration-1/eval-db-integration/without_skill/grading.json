@@ -1,0 +1,40 @@
+{
+  "expectations": [
+    {
+      "text": "has_moscow",
+      "passed": false,
+      "evidence": "No MoSCoW prioritization section found. The document has Scope (In scope / Out of scope) but never uses Must/Should/Could/Won't terminology or a MoSCoW framework."
+    },
+    {
+      "text": "has_architecture",
+      "passed": true,
+      "evidence": "Section '## 3. Architecture Overview' describes the system with a detailed ASCII diagram showing Cloudflare Tunnel, Next.js 15, API Routes, Prisma Client, Neon PostgreSQL, and tourism-crm (lines 43-101). Also has key architectural decisions listed."
+    },
+    {
+      "text": "has_mermaid",
+      "passed": false,
+      "evidence": "No ```mermaid code blocks found in the entire document. Architecture diagram uses ASCII art (lines 45-88). No Mermaid ERD, flowchart, or sequence diagram present."
+    },
+    {
+      "text": "has_db_schema",
+      "passed": false,
+      "evidence": "The document uses Prisma schema syntax (model WsProductExtension, model WsAvailabilitySlot, etc.) in section 4.2, but does NOT contain any CREATE TABLE SQL statements. The schema is defined entirely in Prisma DSL, not SQL."
+    },
+    {
+      "text": "has_task_breakdown",
+      "passed": true,
+      "evidence": "Section '## 7. Migration Strategy' describes 4 phases (A through D) with numbered task lists within each phase. Phase A has 7 numbered steps, Phase B has 5 numbered steps, Phase C has 5 steps, Phase D has 5 items. Although not using TASK-001 format, there are clear numbered phases with subtasks."
+    },
+    {
+      "text": "task_size_ok",
+      "passed": false,
+      "evidence": "Phase-level estimates are given in weeks: Phase A (2-3 weeks, 40-60 hours), Phase B (2-3 weeks, 40-60 hours), Phase C (1 week, 15-20 hours), Phase D (2-3 weeks, 30-50 hours). Individual tasks within phases do NOT have time estimates, so there is no way to verify they are <= 60 minutes. The granularity is too coarse."
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 4,
+    "total": 6,
+    "pass_rate": 0.33
+  }
+}

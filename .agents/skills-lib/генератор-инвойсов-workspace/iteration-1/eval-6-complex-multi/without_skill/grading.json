@@ -1,0 +1,17 @@
+{
+  "eval_id": 6,
+  "run": "without_skill",
+  "expectations": [
+    {"text": "Три строки услуг", "passed": true, "evidence": "3 строки: Jeep Safari, Airport Meet & Transfer, Modern Tour Abu Dhabi"},
+    {"text": "Total Excl. VAT = 625,00 USD", "passed": true, "evidence": "Subtotal: $625.00"},
+    {"text": "Total VAT = 31,25 USD", "passed": true, "evidence": "VAT (5%): $31.25"},
+    {"text": "Total Incl. VAT = 656,25 USD", "passed": true, "evidence": "TOTAL: $656.25"},
+    {"text": "Конвертация AED: ~2395 AED по курсу 3.65", "passed": false, "evidence": "AED показано (2,410.41 AED) но курс 3.6725 вместо 3.65 — сумма неверная для бизнес-инвойса"},
+    {"text": "Описание Jeep Safari полностью в CAPS по шаблону PRIVATE JEEP SAFARI TOUR", "passed": false, "evidence": "'Jeep Safari' — смешанный регистр, нет слова PRIVATE, нет шаблонного форматирования скилла"},
+    {"text": "Описание трансфера в CAPS: MEETING AT THE AIRPORT AND TRANSFER TO THE HOTEL BY LEXUS ES350", "passed": false, "evidence": "'Airport Meet & Transfer to Hotel (Lexus ES350)' — не CAPS, неправильная формулировка, нет точного шаблона"}
+  ],
+  "pass_count": 4,
+  "total_count": 7,
+  "pass_rate": 0.571,
+  "notes": "Математика верна, но форматирование провалено: не CAPS, неверный курс AED, шаблоны описаний услуг не применяются. Без скилла Claude не знает корпоративный стиль Marsel."
+}

@@ -1,0 +1,80 @@
+{
+  "contract_type": "tour",
+  "language": "ru",
+  "description": "Шаблон договора на тур/экскурсию",
+
+  "client": {
+    "full_name": "",
+    "full_name_en": "",
+    "passport_number": "",
+    "passport_issued": "",
+    "passport_expiry": "",
+    "nationality": "",
+    "date_of_birth": "",
+    "phone": "",
+    "email": "",
+    "address": ""
+  },
+
+  "tour": {
+    "name": "",
+    "name_en": "",
+    "description": "",
+    "date": "",
+    "time": "",
+    "duration": "",
+    "pickup_location": "",
+    "dropoff_location": "",
+    "participants": 1,
+    "children": 0,
+    "price_per_person": 0,
+    "total_price": 0,
+    "currency": "AED",
+    "includes": [
+      "Транспорт с кондиционером",
+      "Профессиональный гид",
+      "Вода в автомобиле"
+    ],
+    "excludes": [
+      "Личные расходы",
+      "Чаевые",
+      "Обед"
+    ],
+    "notes": ""
+  },
+
+  "payment": {
+    "prepayment_percent": 50,
+    "cancellation_policy": "standard"
+  },
+
+  "cancellation_policies": {
+    "strict": "7+ дней: 100% | 7-14 дней: 50% | <7 дней: 0%",
+    "standard": "3+ дней: 100% | 3-7 дней: 50% | <3 дней: 0%",
+    "flexible": "1+ дней: 100% | <1 дня: 50%",
+    "non_refundable": "Без возврата"
+  },
+
+  "common_tours": [
+    {
+      "name": "Обзорная экскурсия по Дубаю",
+      "duration": "4-5 часов",
+      "price_range": "150-250 AED/чел"
+    },
+    {
+      "name": "Сафари в пустыне",
+      "duration": "6-7 часов",
+      "price_range": "200-350 AED/чел"
+    },
+    {
+      "name": "Абу-Даби",
+      "duration": "10-12 часов",
+      "price_range": "300-450 AED/чел"
+    },
+    {
+      "name": "Дубай Марина круиз",
+      "duration": "2-3 часа",
+      "price_range": "100-200 AED/чел"
+    }
+  ]
+}

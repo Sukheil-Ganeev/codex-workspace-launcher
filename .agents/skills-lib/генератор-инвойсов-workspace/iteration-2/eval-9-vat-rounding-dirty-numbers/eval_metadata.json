@@ -1,0 +1,22 @@
+{
+  "eval_id": 9,
+  "eval_name": "vat-rounding-dirty-numbers",
+  "prompt": "Инвойс #26-078 от Mar 4, 2026. Клиент NAZAROV TIMUR, +7 927 444 5566. Jeep Safari для 3 человек 20 марта — 237.33 USD без VAT.",
+  "assertions": [
+    {
+      "id": "A9-1",
+      "name": "Price = 237.33 USD",
+      "description": "Сумма без VAT = 237.33 USD (не округлена до 237 или 237.30)"
+    },
+    {
+      "id": "A9-2",
+      "name": "VAT округлён правильно = 11.87",
+      "description": "VAT = 11.87 USD (237.33 × 0.05 = 11.8665, округлено до 11.87)"
+    },
+    {
+      "id": "A9-3",
+      "name": "Total incl. VAT = 249.20",
+      "description": "Total = 237.33 + 11.87 = 249.20 USD"
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+# Netlify конфигурация с Serverless Functions
+# Используется для: API endpoints, Webhooks, обработка данных
+
+[build]
+  # Папка с готовыми файлами после сборки
+  publish = "dist"
+
+  # Команда для сборки проекта
+  command = "npm run build"
+
+  # Папка с serverless functions
+  functions = "netlify/functions"
+
+# Настройки для functions
+[functions]
+  # Папка с исходниками functions
+  directory = "netlify/functions"
+
+  # Путь для доступа к functions (по умолчанию /.netlify/functions/)
+  # После этой настройки будет доступно по /api/function-name
+  included_files = ["data/**"]
+
+# Redirect для API endpoints (чтобы /api/* работало вместо /.netlify/functions/*)
+[[redirects]]
+  from = "/api/:function"
+  to = "/.netlify/functions/:function"
+  status = 200
+
+# SPA redirects (если нужно)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Environment variables (пример)
+[context.production.environment]
+  NODE_VERSION = "18"
+  # API_KEY = "будет взято из Netlify UI"

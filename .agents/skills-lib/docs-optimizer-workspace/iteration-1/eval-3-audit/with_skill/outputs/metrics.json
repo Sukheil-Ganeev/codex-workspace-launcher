@@ -1,0 +1,266 @@
+{
+  "audit_metadata": {
+    "project": "TouristBotEcosystem",
+    "project_path": "D:/Downloads/TouristBotEcosystem/",
+    "audit_date": "2026-03-12",
+    "skill_version": "1.0",
+    "mode": "audit",
+    "project_stage": "ACTIVE"
+  },
+  "verification_score": 3,
+  "verification_score_max": 5,
+
+  "file_counts": {
+    "total_md_files": 41,
+    "root_md_files": 5,
+    "docs_md_files": 36,
+    "active_files": 18,
+    "stale_files": 8,
+    "orphan_files": 11,
+    "archive_files": 10,
+    "archive_without_claudeignore": 10
+  },
+
+  "line_counts": {
+    "CLAUDE_md": 557,
+    "CHANGELOG_md": 1088,
+    "ISSUES_md": 110,
+    "MASTER_PLAN_md": 1900,
+    "README_md": 351,
+    "docs_total": 20300,
+    "root_total": 4006,
+    "grand_total": 24306
+  },
+
+  "token_estimates": {
+    "CLAUDE_md": 2228,
+    "CHANGELOG_md": 4352,
+    "ISSUES_md": 440,
+    "MASTER_PLAN_md": 7600,
+    "docs_total": 81224,
+    "note": "tokens = lines * 4 (approximate)"
+  },
+
+  "targets_vs_actual": {
+    "CLAUDE_md_lines": {
+      "actual": 557,
+      "target": 250,
+      "warning_threshold": 400,
+      "status": "CRITICAL",
+      "ratio": 2.23
+    },
+    "docs_total_lines": {
+      "actual": 24306,
+      "target": 5000,
+      "warning_threshold": 15000,
+      "status": "CRITICAL",
+      "ratio": 4.86
+    },
+    "CLAUDE_md_tokens": {
+      "actual": 2228,
+      "target": 2500,
+      "status": "WARNING"
+    },
+    "stale_files_percent": {
+      "actual_count": 8,
+      "actual_percent": 19.5,
+      "warning_threshold_percent": 20,
+      "status": "WARNING"
+    },
+    "orphan_files": {
+      "actual": 11,
+      "target": 0,
+      "status": "CRITICAL"
+    }
+  },
+
+  "anti_patterns_found": [
+    {
+      "id": "AP-01",
+      "name": "Context Stuffing",
+      "severity": "HIGH",
+      "file": "CLAUDE.md",
+      "detail": "557 lines vs target 250"
+    },
+    {
+      "id": "AP-07",
+      "name": "Stale Documentation",
+      "severity": "CRITICAL",
+      "files": ["MASTER_PLAN.md", "docs/DEPLOY.md", "docs/ARCHITECTURE_v1.md", "docs/UX_DESIGN_v1.md"],
+      "detail": "Oracle Cloud deploy guide superseded; MASTER_PLAN status = В ПЛАНИРОВАНИИ"
+    },
+    {
+      "id": "AP-08",
+      "name": "Missing Index",
+      "severity": "MEDIUM",
+      "file": "docs/",
+      "detail": "36 files without docs/README.md"
+    },
+    {
+      "id": "AP-09",
+      "name": "Orphan Docs",
+      "severity": "MEDIUM",
+      "files": [
+        "docs/PROJECT_ACCOMPLISHMENTS.md",
+        "docs/SERVER_RUNBOOK.md",
+        "docs/DEPLOY_LESSONS_2026-03-03.md",
+        "docs/SERVER_HEALTH_REPORT_2026-03-04.md",
+        "docs/SENTRY_GUIDE.md",
+        "docs/USER_GUIDE_admin.md",
+        "docs/USER_GUIDE_owner.md",
+        "docs/USER_GUIDE_staff.md",
+        "docs/CICD_SETUP.md",
+        "docs/ADMIN_BOT_REDESIGN.md",
+        "docs/IMPROVEMENT_MASTER_PLAN_v2.md"
+      ],
+      "count": 11
+    },
+    {
+      "id": "AP-10",
+      "name": "Code-Doc Drift",
+      "severity": "HIGH",
+      "file": "CLAUDE.md",
+      "detail": "Line 244: '11 unified routers' but actually 13; Line 285: '40 files' but actually 47 .py files in tests/"
+    },
+    {
+      "id": "AP-11",
+      "name": "Cache-Hostile Ordering",
+      "severity": "HIGH",
+      "file": "CLAUDE.md",
+      "detail": "Batch status table (dynamic) at lines 12-17 before architecture (static)"
+    },
+    {
+      "id": "AP-16",
+      "name": "Cross-File Duplication",
+      "severity": "CRITICAL",
+      "detail": "Deployment params in CLAUDE.md + DEPLOY.md + DEPLOY_GCP.md; Architecture in CLAUDE.md + ARCHITECTURE.md + ARCHITECTURE_v1.md"
+    },
+    {
+      "id": "AP-18",
+      "name": "Dead Pointers",
+      "severity": "MEDIUM",
+      "file": "CLAUDE.md",
+      "detail": "Line 337: docs/DESIGN_DECISIONS_v1.md does not exist (not in git history)"
+    },
+    {
+      "id": "AP-19",
+      "name": "Stale Issues",
+      "severity": "HIGH",
+      "file": "ISSUES.md",
+      "detail": "Version code shows v5.8.0 but current is v5.9.0 (2026-03-05)"
+    }
+  ],
+
+  "anti_patterns_count": 9,
+
+  "cross_file_duplications": [
+    {
+      "fact": "GCP VM deployment parameters",
+      "found_in": ["CLAUDE.md", "docs/DEPLOY_GCP.md"],
+      "ssot": "CLAUDE.md",
+      "action": "DEPLOY_GCP.md is on-demand reference - acceptable"
+    },
+    {
+      "fact": "Docker compose commands",
+      "found_in": ["CLAUDE.md", "docs/DEPLOY.md", "docs/DEPLOY_GCP.md"],
+      "ssot": "CLAUDE.md",
+      "action": "docs/DEPLOY.md (Oracle) -> archive"
+    },
+    {
+      "fact": "Architecture file tree",
+      "found_in": ["CLAUDE.md", "docs/ARCHITECTURE.md", "docs/ARCHITECTURE_v1.md"],
+      "ssot": "CLAUDE.md",
+      "action": "CLAUDE.md -> compact version; ARCHITECTURE_v1.md -> archive"
+    },
+    {
+      "fact": "Batch completion status",
+      "found_in": ["CLAUDE.md", "MASTER_PLAN.md"],
+      "ssot": "CLAUDE.md",
+      "action": "MASTER_PLAN.md status update or archive"
+    },
+    {
+      "fact": "FORMATTING_GUIDE path",
+      "found_in": ["CLAUDE.md", "docs/IMPROVEMENT_MASTER_PLAN.md"],
+      "ssot": "CLAUDE.md",
+      "action": "Acceptable for contextual usage"
+    },
+    {
+      "fact": "BUTTON_DESIGN_GUIDE path",
+      "found_in": ["CLAUDE.md", "docs/IMPROVEMENT_MASTER_PLAN.md"],
+      "ssot": "CLAUDE.md",
+      "action": "Acceptable for contextual usage"
+    }
+  ],
+  "cross_file_duplications_count": 6,
+
+  "broken_references": [
+    {
+      "reference": "docs/DESIGN_DECISIONS_v1.md",
+      "found_in": "CLAUDE.md line 337",
+      "exists": false,
+      "in_git_history": false,
+      "severity": "CRITICAL",
+      "recommended_fix": "Remove line or replace with docs/ARCHITECTURE.md"
+    }
+  ],
+  "broken_references_count": 1,
+
+  "issues_md_analysis": {
+    "version_in_file": "v5.8.0",
+    "actual_version": "v5.9.0",
+    "last_updated": "2026-03-04",
+    "current_date": "2026-03-12",
+    "days_since_update": 8,
+    "stale": true,
+    "open_issues": ["SEN-01", "SEN-02", "SEN-03", "SEN-04", "SEN-05", "DB-01"],
+    "open_issues_count": 6,
+    "false_opens_detected": 0,
+    "version_drift": true,
+    "note": "SEN-02 confirmed valid: gemini-2.5-flash-lite found in core/ai/models.py line 5"
+  },
+
+  "file_path_validation": {
+    "total_references_checked": 11,
+    "valid": 10,
+    "broken": 1,
+    "broken_files": ["docs/DESIGN_DECISIONS_v1.md"],
+    "external_refs_valid": ["D:/Downloads/VoiceTranscriptionBot/docs/FORMATTING_GUIDE.md"]
+  },
+
+  "memory_md_analysis": {
+    "exists": false,
+    "ap20_applicable": false
+  },
+
+  "recommendations_priority": {
+    "immediate": [
+      "Fix broken reference docs/DESIGN_DECISIONS_v1.md in CLAUDE.md",
+      "Update ISSUES.md version to v5.9.0",
+      "Fix Code-Doc Drift: 11 routers -> 13, 40 test files -> 47"
+    ],
+    "next_session": [
+      "Create .claudeignore for archive files",
+      "Move docs/DEPLOY.md to docs/archive/",
+      "Move docs/ARCHITECTURE_v1.md to docs/archive/",
+      "Add IMPROVEMENT_MASTER_PLAN_v2.md reference to CLAUDE.md",
+      "Reduce CLAUDE.md from 557 to ~300 lines"
+    ],
+    "long_term": [
+      "Cache-optimized reorder of CLAUDE.md",
+      "Create docs/README.md index",
+      "Create docs/archive/ directory"
+    ]
+  },
+
+  "savings_projection": {
+    "lines_before": 24306,
+    "lines_after_estimated": 16000,
+    "lines_reduction_percent": 34,
+    "tokens_autoloaded_before": 81224,
+    "tokens_autoloaded_after": 20000,
+    "tokens_reduction_percent": 75,
+    "CLAUDE_md_lines_before": 557,
+    "CLAUDE_md_lines_after": 300,
+    "CLAUDE_md_reduction_percent": 46
+  }
+}

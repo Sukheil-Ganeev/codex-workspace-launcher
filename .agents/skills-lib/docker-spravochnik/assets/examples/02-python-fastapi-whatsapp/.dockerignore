@@ -1,0 +1,32 @@
+# Version control
+.git
+.gitignore
+
+# Python
+__pycache__
+*.pyc
+*.pyo
+.venv
+venv
+.mypy_cache
+.pytest_cache
+
+# Environment (секреты не попадают в образ!)
+.env
+.env.*
+!.env.example
+
+# IDE
+.vscode
+.idea
+*.swp
+
+# Docker
+Dockerfile*
+docker-compose*
+compose*
+.dockerignore
+
+# Docs
+*.md
+LICENSE

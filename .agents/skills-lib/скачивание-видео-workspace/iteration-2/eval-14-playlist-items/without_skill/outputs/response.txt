@@ -1,0 +1,26 @@
+Запрос: скачать только видео с 5 по 10 из плейлиста youtube.com/playlist?list=PLxxx
+
+Для скачивания конкретного диапазона видео из плейлиста в yt-dlp используется флаг --playlist-items.
+
+Команда:
+
+yt-dlp --playlist-items 5-10 "https://www.youtube.com/playlist?list=PLxxx"
+
+Разбор флагов:
+- --playlist-items 5-10 — скачивает только видео с 5-го по 10-е включительно (по порядку в плейлисте)
+
+Дополнительные полезные варианты:
+
+# Скачать только конкретные видео (не диапазон, а перечисление):
+yt-dlp --playlist-items 5,7,9 "https://www.youtube.com/playlist?list=PLxxx"
+
+# Скачать с нужным форматом (лучшее качество mp4):
+yt-dlp --playlist-items 5-10 -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]" "https://www.youtube.com/playlist?list=PLxxx"
+
+# Скачать с нумерацией в имени файла:
+yt-dlp --playlist-items 5-10 -o "%(playlist_index)s - %(title)s.%(ext)s" "https://www.youtube.com/playlist?list=PLxxx"
+
+# Скачать только аудио (mp3):
+yt-dlp --playlist-items 5-10 -x --audio-format mp3 "https://www.youtube.com/playlist?list=PLxxx"
+
+Примечание: нумерация в --playlist-items соответствует позиции видео в плейлисте (начиная с 1), а не ID на YouTube.

@@ -1,0 +1,69 @@
+{
+  "expectations": [
+    {
+      "text": "Output lists specific files found in the docs/ directory of the project",
+      "passed": true,
+      "evidence": "Phase 1 (Discovery) contains a detailed table listing 32 specific MD files found in docs/, including subdirectories plans/, with file names, line counts, token estimates, and git dates. Examples: IDEAL_MASTER_PLAN.md (2559 lines), UX_DESIGN_v1.md (1103 lines), DEPLOY_GCP.md (1062 lines), BUTTON_DESIGN_GUIDE.md (1039 lines), etc. The listing is exhaustive and specific."
+    },
+    {
+      "text": "Output cross-checks which docs/ files are referenced from CLAUDE.md or other navigation documents and flags unreferenced ones",
+      "passed": true,
+      "evidence": "Phase 2 explicitly cross-checks CLAUDE.md references, categorizing each file as: 'Явная навигационная' (explicit nav link), 'В дереве структуры' (in tree), or 'Только в changelog-строке'. Phase 3 classifies all 32 files into REFERENCED/ACTIVE vs ORPHANED categories. A dedicated orphan list identifies 16 full orphans with no reference and 6 mentioned only in changelog rows. Each orphaned file is flagged with priority (🔴/🟡/🟢) and the specific reason it is unreferenced."
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 0,
+    "total": 2,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "total_md_files_discovered": 32,
+    "total_lines": 17114,
+    "total_tokens_approx": 68456,
+    "orphan_files_count": 22,
+    "orphan_tokens_approx": 43256,
+    "orphan_percentage": 63,
+    "explicitly_referenced_navigational": 3,
+    "referenced_in_tree_comment": 7,
+    "mentioned_only_in_changelog_row": 6,
+    "full_orphans_no_reference": 16,
+    "phases_completed": ["discovery", "reference_check", "classification", "synthesis"],
+    "skill_tokens_used": 59497
+  },
+  "timing": {
+    "total_tokens": 59497,
+    "duration_ms": 316482,
+    "total_duration_seconds": 316.5
+  },
+  "claims": [
+    {
+      "claim": "32 MD files found in docs/",
+      "verifiable": true,
+      "note": "Table lists 34 entries including subdirectory files and DESIGN_DECISIONS_v1.md noted separately; metrics.json confirms 32"
+    },
+    {
+      "claim": "63% of files are orphans (~43,000 tokens)",
+      "verifiable": true,
+      "note": "22 orphan files × average size consistent with claimed ~43,256 tokens"
+    },
+    {
+      "claim": "IDEAL_MASTER_PLAN.md is untracked in git",
+      "verifiable": true,
+      "note": "Git log shows 'untracked' flag — independently verifiable from git status"
+    },
+    {
+      "claim": "Potential token savings of ~30,000 tokens (44%) with .claudeignore",
+      "verifiable": true,
+      "note": "Selective archival of highest-token orphans supports this estimate"
+    }
+  ],
+  "eval_feedback": {
+    "suggestions": [
+      "The output could distinguish between docs/ files that are actively loaded by Claude at session start vs only read on-demand — this would sharpen the 'orphan cost' calculation",
+      "The output lists AUDIT_2026-03-03.md under orphans but also notes audit_*.md is covered by a group reference in CLAUDE.md — this minor inconsistency could be resolved with clearer categorization",
+      "Cross-checking against files other than CLAUDE.md (e.g., README.md, other navigation docs) would strengthen the reference analysis, though CLAUDE.md is the primary navigation document for this project"
+    ],
+    "overall": "Excellent output. Both expectations are fully met with strong evidence. The output performs a thorough file discovery (32 files listed with metadata), a rigorous cross-reference check against CLAUDE.md using multiple reference types (explicit nav, tree mentions, changelog-only), and clearly flags 22 orphaned files with prioritized recommendations. The analysis is actionable and well-structured."
+  }
+}

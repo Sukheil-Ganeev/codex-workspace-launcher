@@ -1,0 +1,15 @@
+{
+  "eval_id": 3,
+  "run": "without_skill",
+  "expectations": [
+    {"text": "Номер формата Sokol: #26-SKL-008", "passed": true, "evidence": "Invoice No.: #26-SKL-008 — корректный формат"},
+    {"text": "Реквизиты Sokol: Account 19346595, SOKOL CAR RENTAL L.L.C", "passed": false, "evidence": "Нет банковских реквизитов вообще. Компания указана просто как 'SOKOL CAR RENTAL', но Account 19346595 отсутствует"},
+    {"text": "Три строки услуг", "passed": false, "evidence": "Только 2 строки (аренда + tolls), депозит вынесен в Payment Summary как вычет, а не как строка услуги с VAT"},
+    {"text": "Период аренды 01.02.2026 - 28.02.2026", "passed": true, "evidence": "Toyota Land Cruiser 300 — Car Rental | 01.02.2026 – 28.02.2026"},
+    {"text": "VAT от 2400 AED = 120 AED", "passed": false, "evidence": "VAT вообще не рассчитан! Subtotal 2,450 AED, Deposit -1,000 AED, Balance 1,450 AED — без 5% VAT"}
+  ],
+  "pass_count": 2,
+  "total_count": 5,
+  "pass_rate": 0.4,
+  "notes": "Критические провалы: нет VAT (UAE обязательный НДС пропущен!), депозит трактуется как вычет а не услуга, нет реквизитов банка."
+}

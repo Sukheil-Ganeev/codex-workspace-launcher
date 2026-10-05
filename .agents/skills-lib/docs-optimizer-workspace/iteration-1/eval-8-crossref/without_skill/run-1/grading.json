@@ -1,0 +1,48 @@
+{
+  "expectations": [
+    {
+      "text": "Output reads CLAUDE.md and extracts specific file path references mentioned in it",
+      "passed": true,
+      "evidence": "The output extracted 270 file path references from CLAUDE.md (confirmed in metrics.json: total_references_checked=270). The metrics.json lists all 268 verified paths across all major subsystems: core/, bots/, config/, data/, tests/, scripts/, docs/, docker files, and deploy/ configs. The extraction is comprehensive and systematic."
+    },
+    {
+      "text": "Output reports whether each referenced path actually exists in the filesystem (pass/fail per reference)",
+      "passed": true,
+      "evidence": "The output provides a clear pass/fail verdict per reference: 268 exist (pass) and 2 are missing (fail). The missing files are explicitly listed in a table: 'core/db/migrations/runner.py' and 'docs/DESIGN_DECISIONS_v1.md', with section context and severity. metrics.json confirms existing_count=268, missing_count=2, accuracy_percent=99.26. The output also details what IS present in the directories of missing files, adding actionable context."
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 0,
+    "total": 2,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "total_references_checked": 270,
+    "existing_count": 268,
+    "missing_count": 2,
+    "accuracy_percent": 99.26,
+    "bonus_undocumented_docs": 20,
+    "bonus_undocumented_migrations": 2
+  },
+  "timing": {
+    "total_tokens": 84613,
+    "duration_ms": 379177,
+    "total_duration_seconds": 379.2
+  },
+  "claims": [
+    "270 file path references extracted from CLAUDE.md",
+    "268 references verified to exist",
+    "2 broken references found: core/db/migrations/runner.py and docs/DESIGN_DECISIONS_v1.md",
+    "20 undocumented files found in docs/ not mentioned in CLAUDE.md",
+    "2 undocumented SQL migrations found not mentioned in CLAUDE.md"
+  ],
+  "eval_feedback": {
+    "suggestions": [
+      "The output goes well beyond the minimum requirements by also reporting files that exist on disk but are NOT mentioned in CLAUDE.md (reverse direction check) — this is valuable bonus coverage.",
+      "Severity classification (moderate/low) for missing files adds useful prioritization context.",
+      "The structured metrics.json alongside the human-readable output.md is a good practice for downstream consumption."
+    ],
+    "overall": "Excellent execution. Both expectations are fully met. The output correctly extracted all file path references from CLAUDE.md (270 total) and provided a clear pass/fail verdict for each, identifying 2 missing files with detailed context. The bonus findings (undocumented files and migrations) demonstrate thorough cross-referencing in both directions."
+  }
+}

@@ -1,0 +1,23 @@
+*[X]BR APARTMENT | [AREA]*
+_[Short description]_
+───────────────
+*FEATURES*
+▫️ [X] bedrooms | [X] bathrooms | [X,XXX] sq.ft.
+▫️ Floor: [X]/[X] | View: [description]
+▫️ Furnishing: [Furnished/Unfurnished]
+▫️ Parking: [X] space(s)
+
+*BUILDING: [NAME]*
+[Pool | Gym | Concierge]
+───────────────
+💰 *SALE: [X,XXX,XXX] AED*
+_(~$[XXX,XXX])_
+_Service charge: [X] AED/sq.ft._
+
+*DOCUMENTS*
+▫️ Title Deed: [Ready/In progress]
+▫️ Mortgage: [Available]
+
+⚠️ Viewing by appointment
+
+*CONTACT:* [NAME] | [+971 XX XXX XXXX]

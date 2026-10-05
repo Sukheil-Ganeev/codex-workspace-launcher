@@ -1,0 +1,39 @@
+{
+  "eval_id": "eval-5-duplication",
+  "config": "with_skill",
+  "assertions": [
+    {
+      "id": "a1",
+      "description": "Output names at least two specific files that contain overlapping or duplicated information",
+      "passed": true,
+      "evidence": "Found 45 .md files: SERVER_RUNBOOK.md, audit_ecosystem.md, docs/COMMAND_AUDIT.md, docs/SERVER_HEALTH_REPORT_2026-03-04.md"
+    },
+    {
+      "id": "a2",
+      "description": "Output provides at least one concrete example of content that appears in multiple files (e.g. mentions MASTER_PLAN or deployment info duplicated)",
+      "passed": true,
+      "evidence": "Found concrete example"
+    },
+    {
+      "id": "a3",
+      "description": "Output assigns DUP-XX codes to each identified duplication (e.g. DUP-01, DUP-02)",
+      "passed": true,
+      "evidence": "Found DUP-XX: DUP-05, DUP-04, DUP-02, DUP-01, DUP-03"
+    },
+    {
+      "id": "a4",
+      "description": "Output lists at least 2 distinct DUP-XX coded duplications with source and target files",
+      "passed": true,
+      "evidence": "Found 14 DUP-XX"
+    },
+    {
+      "id": "a5",
+      "description": "Output recommends a Single Source of Truth (SSOT) location for each duplicated piece of information",
+      "passed": true,
+      "evidence": "Found SSOT recommendation"
+    }
+  ],
+  "pass_rate": 1.0,
+  "passed": 5,
+  "total": 5
+}

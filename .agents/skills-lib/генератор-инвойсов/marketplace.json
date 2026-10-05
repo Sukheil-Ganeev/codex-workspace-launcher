@@ -1,0 +1,68 @@
+{
+  "name": "генератор-инвойсов",
+  "version": "1.0.0",
+  "description": "Генерация инвойсов для Marsel Luxury Car Rental и Sokol Car Rental. Поддерживает туры, трансферы, яхты, билеты, аренду авто и кейтеринг.",
+  "author": "Tourism Team",
+  "license": "MIT",
+  "keywords": [
+    "инвойс",
+    "марсель",
+    "сокол",
+    "аренда авто",
+    "туризм",
+    "оаэ",
+    "дубай",
+    "туры",
+    "трансферы",
+    "яхты"
+  ],
+  "triggers": [
+    "создай инвойс",
+    "сгенерируй инвойс",
+    "новый инвойс",
+    "инвойс для",
+    "инвойс марсель",
+    "инвойс сокол",
+    "счёт марсель",
+    "счёт сокол"
+  ],
+  "files": {
+    "main": "SKILL.md",
+    "templates": [
+      "assets/templates/INVOICE_TEMPLATE.pptx"
+    ],
+    "examples": [
+      "assets/examples/simple-tour.yaml",
+      "assets/examples/corporate-multi.yaml",
+      "assets/examples/pos-terminal.yaml",
+      "assets/examples/sokol-car-rental.yaml"
+    ],
+    "references": [
+      "references/ПРАВИЛА_ГЕНЕРАЦИИ.md",
+      "references/service-types.md",
+      "references/bank-details.md",
+      "references/troubleshooting.md",
+      "references/checklist.md",
+      "references/АНАЛИЗ_PPTX.md",
+      "references/АНАЛИЗ_PDF.md"
+    ]
+  },
+  "brands": [
+    {
+      "id": "marsel",
+      "name": "Marsel Luxury Car Rental",
+      "licence": "1024110",
+      "account": "28642584"
+    },
+    {
+      "id": "sokol",
+      "name": "Sokol Car Rental L.L.C",
+      "licence": "1442819",
+      "account": "19346595"
+    }
+  ],
+  "vat_rate": 0.05,
+  "pos_commission_standard": 0.04,
+  "pos_commission_vip": 0.035,
+  "usd_to_aed_rate": 3.65
+}

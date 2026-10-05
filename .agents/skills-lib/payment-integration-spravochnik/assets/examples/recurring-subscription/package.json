@@ -1,0 +1,8 @@
+{
+  "name": "subscription",
+  "dependencies": {
+    "express": "^4.18.2",
+    "stripe": "^14.10.0",
+    "pg": "^8.11.3"
+  }
+}

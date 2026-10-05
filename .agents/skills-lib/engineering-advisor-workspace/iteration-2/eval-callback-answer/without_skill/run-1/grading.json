@@ -1,0 +1,33 @@
+{
+  "eval_name": "eval-callback-answer",
+  "config": "without_skill",
+  "expectations": [
+    {
+      "text": "CB1: Находит пропущенный callback.answer() в СУЩЕСТВУЮЩИХ 3 обработчиках",
+      "passed": false,
+      "evidence": "Файл не найден"
+    },
+    {
+      "text": "CB2: Добавляет callback.answer() в новый обработчик \"О нас\"",
+      "passed": false,
+      "evidence": "Файл не найден"
+    },
+    {
+      "text": "CB3: Объясняет почему нужен callback.answer() (спиннер зависает)",
+      "passed": false,
+      "evidence": "Файл не найден"
+    },
+    {
+      "text": "CB4: Правильно добавляет кнопку \"О нас\" с callback_data",
+      "passed": false,
+      "evidence": "Файл не найден"
+    }
+  ],
+  "summary": {
+    "passed": 0,
+    "failed": 4,
+    "total": 4,
+    "pass_rate": 0.0
+  },
+  "notes": "Файл without_skill/outputs/response.md отсутствует. Все assertions = false по условию задания. Нет данных для оценки."
+}

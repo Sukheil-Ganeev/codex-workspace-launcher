@@ -1,0 +1,51 @@
+{
+  "expectations": [
+    {
+      "text": "Output contains a Verification Score explicitly in N/5 format",
+      "passed": false,
+      "evidence": "Score is given as '7.5 / 10' (line 9: '## Итоговая оценка: 7.5 / 10') and again in the table (line 156: '**Итого** | **7.5/10**'). No N/5 format score appears anywhere in the output."
+    },
+    {
+      "text": "Output identifies CLAUDE.md exceeding 300-400 line threshold as a critical problem",
+      "passed": false,
+      "evidence": "Line 20 mentions 'CLAUDE.md — 557 строк' in the structure inventory section, but it is not flagged as a problem of any kind. The КРИТИЧНО label appears only in section 3.1 about metric inconsistencies between documents, not about CLAUDE.md size."
+    },
+    {
+      "text": "Output includes a recommendations section with ranked items (HIGH/MEDIUM/LOW or приоритет)",
+      "passed": true,
+      "evidence": "Section 6 is titled '6. Рекомендации (по приоритету)' and lists five ranked items: 'Приоритет 1: Синхронизировать метрики', 'Приоритет 2: Решить судьбу архитектурных дублей', 'Приоритет 3: Убрать node_modules', 'Приоритет 4: Закрыть или обновить SEN-01..SEN-05', 'Приоритет 5: Создать docs/DESIGN_DECISIONS_v1.md'"
+    }
+  ],
+  "summary": {
+    "passed": 1,
+    "failed": 2,
+    "total": 3,
+    "pass_rate": 0.33
+  },
+  "execution_metrics": {
+    "tool_calls": {
+      "Read": 17,
+      "Bash": 13,
+      "Grep": 0,
+      "Glob": 1,
+      "Write": 2
+    },
+    "total_tool_calls": 33,
+    "errors_encountered": 0,
+    "output_chars": 14750,
+    "files_created": ["output.md", "metrics.json"]
+  },
+  "timing": {
+    "total_tokens": 83393,
+    "duration_ms": 289865,
+    "total_duration_seconds": 289.9
+  },
+  "claims": [],
+  "eval_feedback": {
+    "suggestions": [
+      "Expectation 1 requires score in N/5 format — the output uses N/10 throughout. If the intent is a 5-point scale, the prompt or the skill output format needs to specify this explicitly.",
+      "Expectation 2 requires flagging CLAUDE.md size as a critical problem — the output only mentions the 557-line count as a factual observation in the structure section. To pass, the prompt should explicitly instruct the agent to check CLAUDE.md line count against the 300-400 line threshold and flag it as an issue."
+    ],
+    "overall": "The output is a thorough and well-structured documentation analysis (14750 chars, 33 tool calls, ~290s). It passes only 1 of 3 expectations (33%). The main failures are: using a 10-point scale instead of the required 5-point scale, and not identifying CLAUDE.md length as a critical problem despite noting it is 557 lines. The recommendations section with приоритет ranking passes cleanly."
+  }
+}

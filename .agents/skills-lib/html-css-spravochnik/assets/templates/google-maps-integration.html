@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Maps Integration</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Segoe UI, sans-serif; background: #f5f5f5; padding: 2rem; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        h1 { text-align: center; margin-bottom: 2rem; color: #333; }
+        .maps-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        .map-box { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .map-title { padding: 1rem; background: #667eea; color: white; font-weight: 600; }
+        .map-frame { width: 100%; height: 400px; background: #e0e0e0; display: flex; align-items: center; justify-content: center; color: #999; }
+        .map-info { padding: 1rem; }
+        .route-list { list-style: none; }
+        .route-list li { padding: 0.5rem 0; border-bottom: 1px solid #eee; }
+        .route-list li:last-child { border-bottom: none; }
+        .marker { display: inline-block; width: 12px; height: 12px; border-radius: 50%; margin-right: 0.5rem; }
+        .marker.start { background: #667eea; }
+        .marker.middle { background: #ffc107; }
+        .marker.end { background: #ff6b6b; }
+        .info-box { background: #f0f4ff; padding: 1rem; border-radius: 5px; margin-top: 1rem; font-size: 0.9rem; color: #666; }
+        @media (max-width: 768px) { .maps-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Tour Routes on Map</h1>
+        
+        <div class="maps-grid">
+            <div class="map-box">
+                <div class="map-title">Desert Safari Route</div>
+                <div class="map-frame">[Google Maps Would Load Here]</div>
+                <div class="map-info">
+                    <h3 style="margin-bottom: 0.5rem;">Route Details</h3>
+                    <ul class="route-list">
+                        <li><span class="marker start"></span>Start: Deira, Dubai</li>
+                        <li><span class="marker middle"></span>Stop 1: Desert Camp</li>
+                        <li><span class="marker middle"></span>Stop 2: Dune Bashing</li>
+                        <li><span class="marker end"></span>End: Deira</li>
+                    </ul>
+                    <div class="info-box">Distance: 80 km | Duration: 6 hours | Difficulty: Easy</div>
+                </div>
+            </div>
+            
+            <div class="map-box">
+                <div class="map-title">Abu Dhabi City Tour</div>
+                <div class="map-frame">[Google Maps Would Load Here]</div>
+                <div class="map-info">
+                    <h3 style="margin-bottom: 0.5rem;">Route Details</h3>
+                    <ul class="route-list">
+                        <li><span class="marker start"></span>Start: Abu Dhabi Gate</li>
+                        <li><span class="marker middle"></span>Stop 1: Grand Mosque</li>
+                        <li><span class="marker middle"></span>Stop 2: Emirates Palace</li>
+                        <li><span class="marker middle"></span>Stop 3: Corniche</li>
+                        <li><span class="marker end"></span>End: Abu Dhabi Gate</li>
+                    </ul>
+                    <div class="info-box">Distance: 45 km | Duration: 8 hours | Difficulty: Easy</div>
+                </div>
+            </div>
+            
+            <div class="map-box">
+                <div class="map-title">Mountain Hiking Route</div>
+                <div class="map-frame">[Google Maps Would Load Here]</div>
+                <div class="map-info">
+                    <h3 style="margin-bottom: 0.5rem;">Route Details</h3>
+                    <ul class="route-list">
+                        <li><span class="marker start"></span>Start: Hiking Base Camp</li>
+                        <li><span class="marker middle"></span>Stop 1: First Peak</li>
+                        <li><span class="marker middle"></span>Stop 2: Summit Point</li>
+                        <li><span class="marker end"></span>End: Base Camp</li>
+                    </ul>
+                    <div class="info-box">Distance: 15 km | Duration: 5 hours | Difficulty: Medium</div>
+                </div>
+            </div>
+            
+            <div class="map-box">
+                <div class="map-title">Yacht Cruise Route</div>
+                <div class="map-frame">[Google Maps Would Load Here]</div>
+                <div class="map-info">
+                    <h3 style="margin-bottom: 0.5rem;">Route Details</h3>
+                    <ul class="route-list">
+                        <li><span class="marker start"></span>Marina: Dubai Marina</li>
+                        <li><span class="marker middle"></span>Stop 1: Palm Jumeirah</li>
+                        <li><span class="marker middle"></span>Stop 2: Burj Al Arab View</li>
+                        <li><span class="marker end"></span>Return: Marina</li>
+                    </ul>
+                    <div class="info-box">Distance: 30 km | Duration: 4 hours | Difficulty: Easy</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

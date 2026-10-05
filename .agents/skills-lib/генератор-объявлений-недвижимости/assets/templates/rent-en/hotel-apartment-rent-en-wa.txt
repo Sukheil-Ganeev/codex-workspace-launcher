@@ -1,0 +1,31 @@
+*HOTEL APARTMENT | [AREA]*
+_[Description — serviced, fully managed]_
+───────────────
+*FEATURES*
+▫️ [Studio/1BR/2BR] | [X] sq.ft.
+▫️ Floor: [X]/[X]
+▫️ View: [Description]
+▫️ Furnishing: Fully Furnished
+
+*HOTEL SERVICES*
+▫️ Daily housekeeping: [Yes/Optional]
+▫️ Room service: [24/7]
+▫️ Concierge | Reception
+▫️ Restaurant | Lobby bar
+
+*AMENITIES*
+▫️ Pool | Gym | Spa
+▫️ Parking | Wi-Fi
+───────────────
+💰 *RENT:*
+▫️ Daily — [X,XXX] AED
+▫️ Weekly — [XX,XXX] AED
+▫️ Monthly — [XX,XXX] AED
+
+*INCLUDED*
+▫️ DEWA | Wi-Fi | Housekeeping
+▫️ All hotel services
+
+⚠️ No deposit | Flexible terms
+
+*CONTACT:* [NAME] | [+971 XX XXX XXXX]

@@ -1,0 +1,1389 @@
+[
+  {
+    "chat": 1,
+    "file": "Переписка_продаж_мероприятий_номер_один.txt",
+    "bytes": 814610,
+    "lines": 14759,
+    "words": 84667,
+    "category_counts": {
+      "explicit_rule": 10,
+      "correction": 70,
+      "pricing": 392,
+      "formatting": 440,
+      "sourcing": 470,
+      "risk": 691,
+      "vip": 1021,
+      "status": 68
+    },
+    "top_platforms": [
+      [
+        "Ticketmaster",
+        118
+      ],
+      [
+        "Etihad Arena",
+        96
+      ],
+      [
+        "F1 Experiences",
+        86
+      ],
+      [
+        "JUSS",
+        64
+      ],
+      [
+        "Migu",
+        31
+      ],
+      [
+        "Damai",
+        29
+      ],
+      [
+        "Juss Sports",
+        20
+      ],
+      [
+        "Ticombo",
+        14
+      ],
+      [
+        "Ticketon",
+        13
+      ],
+      [
+        "Trip.com",
+        12
+      ],
+      [
+        "Formula1.com",
+        11
+      ],
+      [
+        "Platinumlist",
+        10
+      ],
+      [
+        "Webook",
+        7
+      ],
+      [
+        "Fever",
+        7
+      ],
+      [
+        "Grandstand Tickets",
+        6
+      ],
+      [
+        "Viagogo",
+        5
+      ],
+      [
+        "Live Nation",
+        5
+      ],
+      [
+        "StubHub",
+        4
+      ],
+      [
+        "Formula 1 Tickets",
+        3
+      ],
+      [
+        "All Ticket",
+        3
+      ],
+      [
+        "SeatPick",
+        2
+      ]
+    ],
+    "top_events": [
+      [
+        "Dakar",
+        162
+      ],
+      [
+        "UFC Fight Night",
+        79
+      ],
+      [
+        "Imagine Dragons",
+        53
+      ],
+      [
+        "Dakar Rally",
+        43
+      ],
+      [
+        "Abu Dhabi Grand Prix",
+        40
+      ],
+      [
+        "Formula 1 Abu Dhabi Grand Prix",
+        20
+      ],
+      [
+        "Shakira",
+        17
+      ],
+      [
+        "Qatar Grand Prix",
+        16
+      ],
+      [
+        "Guns N’ Roses",
+        15
+      ],
+      [
+        "UFC Shanghai",
+        11
+      ],
+      [
+        "Kanye West",
+        11
+      ],
+      [
+        "Tarkan",
+        10
+      ],
+      [
+        "YE — Kanye West",
+        8
+      ],
+      [
+        "Monaco Grand Prix",
+        6
+      ],
+      [
+        "Andrea Bocelli",
+        4
+      ],
+      [
+        "Formula 1 Qatar Grand Prix",
+        3
+      ],
+      [
+        "Валерий Меладзе",
+        2
+      ],
+      [
+        "Super Bowl",
+        2
+      ],
+      [
+        "UFC Abu Dhabi",
+        1
+      ],
+      [
+        "Guns N' Roses",
+        1
+      ]
+    ]
+  },
+  {
+    "chat": 2,
+    "file": "Переписка_продаж_мероприятий_номер_два.txt",
+    "bytes": 612177,
+    "lines": 10748,
+    "words": 55901,
+    "category_counts": {
+      "explicit_rule": 20,
+      "correction": 40,
+      "pricing": 381,
+      "formatting": 332,
+      "sourcing": 354,
+      "risk": 602,
+      "vip": 777,
+      "status": 32
+    },
+    "top_platforms": [
+      [
+        "Ticketmaster",
+        79
+      ],
+      [
+        "Viagogo",
+        73
+      ],
+      [
+        "Etihad Arena",
+        71
+      ],
+      [
+        "Trip.com",
+        58
+      ],
+      [
+        "Ticombo",
+        50
+      ],
+      [
+        "StubHub",
+        39
+      ],
+      [
+        "Webook",
+        26
+      ],
+      [
+        "Migu",
+        26
+      ],
+      [
+        "Damai",
+        23
+      ],
+      [
+        "F1 Experiences",
+        17
+      ],
+      [
+        "SeatPick",
+        17
+      ],
+      [
+        "Live Nation",
+        16
+      ],
+      [
+        "JUSS",
+        14
+      ],
+      [
+        "TKT.GE",
+        13
+      ],
+      [
+        "Juss Sports",
+        12
+      ],
+      [
+        "HK Ticketing",
+        10
+      ],
+      [
+        "Platinumlist",
+        6
+      ],
+      [
+        "Gigsberg",
+        6
+      ],
+      [
+        "Ticketon",
+        5
+      ],
+      [
+        "Formula1.com",
+        3
+      ],
+      [
+        "Fever",
+        2
+      ],
+      [
+        "All Ticket",
+        1
+      ],
+      [
+        "Citi",
+        1
+      ]
+    ],
+    "top_events": [
+      [
+        "Dakar",
+        44
+      ],
+      [
+        "The Weeknd",
+        29
+      ],
+      [
+        "Andrea Bocelli",
+        24
+      ],
+      [
+        "UFC Fight Night",
+        20
+      ],
+      [
+        "Moby",
+        20
+      ],
+      [
+        "Abu Dhabi Grand Prix",
+        18
+      ],
+      [
+        "Formula 1 Abu Dhabi Grand Prix",
+        12
+      ],
+      [
+        "Dakar Rally",
+        12
+      ],
+      [
+        "Shakira",
+        11
+      ],
+      [
+        "Imagine Dragons",
+        7
+      ],
+      [
+        "Christina Aguilera",
+        6
+      ],
+      [
+        "Kanye West",
+        4
+      ],
+      [
+        "YE — Kanye West",
+        4
+      ],
+      [
+        "UFC Shanghai",
+        1
+      ]
+    ]
+  },
+  {
+    "chat": 3,
+    "file": "Переписка_продаж_мероприятий_номер_три.txt",
+    "bytes": 80108,
+    "lines": 839,
+    "words": 7587,
+    "category_counts": {
+      "explicit_rule": 3,
+      "correction": 2,
+      "pricing": 62,
+      "formatting": 13,
+      "sourcing": 44,
+      "risk": 72,
+      "vip": 23,
+      "status": 0
+    },
+    "top_platforms": [
+      [
+        "ADCB",
+        79
+      ],
+      [
+        "Wio",
+        49
+      ],
+      [
+        "Citi",
+        39
+      ],
+      [
+        "Aani",
+        33
+      ],
+      [
+        "FAB",
+        26
+      ],
+      [
+        "HSBC",
+        23
+      ],
+      [
+        "Mashreq",
+        17
+      ],
+      [
+        "Emirates NBD",
+        13
+      ],
+      [
+        "Citibank",
+        5
+      ],
+      [
+        "Ticketmaster",
+        4
+      ]
+    ],
+    "top_events": []
+  },
+  {
+    "chat": 4,
+    "file": "Переписка_продаж_мероприятий_номер_четыре.txt",
+    "bytes": 573594,
+    "lines": 8293,
+    "words": 56224,
+    "category_counts": {
+      "explicit_rule": 20,
+      "correction": 46,
+      "pricing": 279,
+      "formatting": 248,
+      "sourcing": 451,
+      "risk": 407,
+      "vip": 771,
+      "status": 49
+    },
+    "top_platforms": [
+      [
+        "Viagogo",
+        214
+      ],
+      [
+        "Ticketmaster",
+        90
+      ],
+      [
+        "F1 Experiences",
+        61
+      ],
+      [
+        "StubHub",
+        53
+      ],
+      [
+        "Ticombo",
+        52
+      ],
+      [
+        "HK Ticketing",
+        46
+      ],
+      [
+        "Live Nation",
+        32
+      ],
+      [
+        "Etihad Arena",
+        23
+      ],
+      [
+        "Trip.com",
+        14
+      ],
+      [
+        "Ticketon",
+        13
+      ],
+      [
+        "MotoGP Premier",
+        8
+      ],
+      [
+        "Fever",
+        7
+      ],
+      [
+        "Platinumlist",
+        6
+      ],
+      [
+        "Yas Island App",
+        3
+      ],
+      [
+        "Mashreq",
+        3
+      ],
+      [
+        "JUSS",
+        2
+      ],
+      [
+        "Juss Sports",
+        2
+      ],
+      [
+        "Damai",
+        2
+      ],
+      [
+        "Migu",
+        2
+      ],
+      [
+        "Formula1.com",
+        2
+      ],
+      [
+        "Webook",
+        1
+      ]
+    ],
+    "top_events": [
+      [
+        "Tomorrowland",
+        55
+      ],
+      [
+        "Dakar",
+        51
+      ],
+      [
+        "The Weeknd",
+        39
+      ],
+      [
+        "Linkin Park",
+        36
+      ],
+      [
+        "Shakira",
+        25
+      ],
+      [
+        "Imagine Dragons",
+        22
+      ],
+      [
+        "Abu Dhabi Grand Prix",
+        21
+      ],
+      [
+        "Dakar Rally",
+        18
+      ],
+      [
+        "Formula 1 Abu Dhabi Grand Prix",
+        12
+      ],
+      [
+        "Andrea Bocelli",
+        9
+      ],
+      [
+        "NCT 127",
+        6
+      ],
+      [
+        "UFC Shanghai",
+        4
+      ],
+      [
+        "UFC 333",
+        4
+      ],
+      [
+        "Kanye West",
+        4
+      ],
+      [
+        "MotoGP Qatar",
+        2
+      ],
+      [
+        "UFC Fight Night",
+        1
+      ]
+    ]
+  },
+  {
+    "chat": 5,
+    "file": "Переписка_продаж_мероприятий_номер_пять.txt",
+    "bytes": 3277,
+    "lines": 82,
+    "words": 419,
+    "category_counts": {
+      "explicit_rule": 0,
+      "correction": 1,
+      "pricing": 2,
+      "formatting": 3,
+      "sourcing": 0,
+      "risk": 0,
+      "vip": 8,
+      "status": 0
+    },
+    "top_platforms": [],
+    "top_events": [
+      [
+        "UFC Shanghai",
+        3
+      ]
+    ]
+  },
+  {
+    "chat": 6,
+    "file": "Переписка_продаж_мероприятий_номер_шесть.txt",
+    "bytes": 786,
+    "lines": 9,
+    "words": 74,
+    "category_counts": {
+      "explicit_rule": 0,
+      "correction": 1,
+      "pricing": 0,
+      "formatting": 1,
+      "sourcing": 0,
+      "risk": 0,
+      "vip": 1,
+      "status": 2
+    },
+    "top_platforms": [],
+    "top_events": [
+      [
+        "Spanish Super Cup",
+        1
+      ]
+    ]
+  },
+  {
+    "chat": 7,
+    "file": "Переписка_продаж_мероприятий_номер_семь.txt",
+    "bytes": 386720,
+    "lines": 7164,
+    "words": 38022,
+    "category_counts": {
+      "explicit_rule": 15,
+      "correction": 31,
+      "pricing": 206,
+      "formatting": 191,
+      "sourcing": 247,
+      "risk": 338,
+      "vip": 379,
+      "status": 26
+    },
+    "top_platforms": [
+      [
+        "Viagogo",
+        70
+      ],
+      [
+        "Ticketmaster",
+        67
+      ],
+      [
+        "Ticombo",
+        57
+      ],
+      [
+        "Etihad Arena",
+        55
+      ],
+      [
+        "StubHub",
+        38
+      ],
+      [
+        "Trip.com",
+        37
+      ],
+      [
+        "JUSS",
+        22
+      ],
+      [
+        "Migu",
+        17
+      ],
+      [
+        "All Ticket",
+        12
+      ],
+      [
+        "Live Nation",
+        11
+      ],
+      [
+        "Damai",
+        10
+      ],
+      [
+        "Juss Sports",
+        9
+      ],
+      [
+        "Webook",
+        7
+      ],
+      [
+        "Platinumlist",
+        3
+      ],
+      [
+        "Yas Island App",
+        2
+      ],
+      [
+        "MotoGP Premier",
+        1
+      ],
+      [
+        "ThaiTicketMajor",
+        1
+      ]
+    ],
+    "top_events": [
+      [
+        "UFC 333",
+        67
+      ],
+      [
+        "Tarkan",
+        36
+      ],
+      [
+        "The Weeknd",
+        35
+      ],
+      [
+        "NCT 127",
+        29
+      ],
+      [
+        "UFC Shanghai",
+        16
+      ],
+      [
+        "Shakira",
+        10
+      ],
+      [
+        "Al Nassr",
+        10
+      ],
+      [
+        "UFC Fight Night",
+        9
+      ],
+      [
+        "Spanish Super Cup",
+        8
+      ],
+      [
+        "Imagine Dragons",
+        8
+      ],
+      [
+        "Al Diriyah",
+        6
+      ],
+      [
+        "Christina Aguilera",
+        4
+      ],
+      [
+        "Formula 1 Abu Dhabi Grand Prix",
+        3
+      ],
+      [
+        "Abu Dhabi Grand Prix",
+        3
+      ],
+      [
+        "UFC Abu Dhabi",
+        3
+      ],
+      [
+        "Kanye West",
+        3
+      ],
+      [
+        "MotoGP Qatar",
+        2
+      ],
+      [
+        "Dakar",
+        2
+      ],
+      [
+        "Andrea Bocelli",
+        2
+      ],
+      [
+        "Stray Kids",
+        2
+      ],
+      [
+        "Linkin Park",
+        1
+      ]
+    ]
+  },
+  {
+    "chat": 8,
+    "file": "Переписка_продаж_мероприятий_номер_восемь.txt",
+    "bytes": 479483,
+    "lines": 6936,
+    "words": 44752,
+    "category_counts": {
+      "explicit_rule": 11,
+      "correction": 51,
+      "pricing": 213,
+      "formatting": 265,
+      "sourcing": 346,
+      "risk": 440,
+      "vip": 520,
+      "status": 29
+    },
+    "top_platforms": [
+      [
+        "Etihad Arena",
+        75
+      ],
+      [
+        "Biletwise",
+        59
+      ],
+      [
+        "Ticketmaster",
+        46
+      ],
+      [
+        "StubHub",
+        43
+      ],
+      [
+        "Viagogo",
+        40
+      ],
+      [
+        "Platinumlist",
+        29
+      ],
+      [
+        "SeatPick",
+        27
+      ],
+      [
+        "All Ticket",
+        23
+      ],
+      [
+        "Ticombo",
+        19
+      ],
+      [
+        "MotoGP Premier",
+        17
+      ],
+      [
+        "JUSS",
+        14
+      ],
+      [
+        "Webook",
+        10
+      ],
+      [
+        "ThaiTicketMajor",
+        9
+      ],
+      [
+        "Live Nation",
+        9
+      ],
+      [
+        "Yas Island App",
+        8
+      ],
+      [
+        "Juss Sports",
+        4
+      ],
+      [
+        "ATP Experiences",
+        3
+      ],
+      [
+        "Damai",
+        1
+      ],
+      [
+        "Migu",
+        1
+      ],
+      [
+        "Trip.com",
+        1
+      ],
+      [
+        "Gigsberg",
+        1
+      ]
+    ],
+    "top_events": [
+      [
+        "Spanish Super Cup",
+        75
+      ],
+      [
+        "UFC 333",
+        75
+      ],
+      [
+        "Al Nassr",
+        67
+      ],
+      [
+        "Stray Kids",
+        24
+      ],
+      [
+        "Shakira",
+        19
+      ],
+      [
+        "Tarkan",
+        16
+      ],
+      [
+        "Al Diriyah",
+        15
+      ],
+      [
+        "Rolex Shanghai Masters",
+        10
+      ],
+      [
+        "MotoGP Qatar",
+        7
+      ],
+      [
+        "UFC Abu Dhabi",
+        7
+      ],
+      [
+        "UFC Shanghai",
+        6
+      ],
+      [
+        "Christina Aguilera",
+        5
+      ],
+      [
+        "UFC Fight Night",
+        2
+      ]
+    ]
+  },
+  {
+    "chat": 9,
+    "file": "Переписка_продаж_мероприятий_номер_девять.txt",
+    "bytes": 752178,
+    "lines": 12864,
+    "words": 74906,
+    "category_counts": {
+      "explicit_rule": 19,
+      "correction": 65,
+      "pricing": 310,
+      "formatting": 407,
+      "sourcing": 437,
+      "risk": 689,
+      "vip": 908,
+      "status": 68
+    },
+    "top_platforms": [
+      [
+        "Ticketmaster",
+        167
+      ],
+      [
+        "StubHub",
+        69
+      ],
+      [
+        "Viagogo",
+        66
+      ],
+      [
+        "Etihad Arena",
+        63
+      ],
+      [
+        "Platinumlist",
+        62
+      ],
+      [
+        "Live Nation",
+        40
+      ],
+      [
+        "JUSS",
+        35
+      ],
+      [
+        "Ticombo",
+        30
+      ],
+      [
+        "Damai",
+        23
+      ],
+      [
+        "F1 Experiences",
+        17
+      ],
+      [
+        "Trip.com",
+        16
+      ],
+      [
+        "Juss Sports",
+        14
+      ],
+      [
+        "Weezevent",
+        14
+      ],
+      [
+        "HK Ticketing",
+        13
+      ],
+      [
+        "Formula1.com",
+        10
+      ],
+      [
+        "Webook",
+        8
+      ],
+      [
+        "ATP Experiences",
+        7
+      ],
+      [
+        "Grandstand Tickets",
+        7
+      ],
+      [
+        "ThaiTicketMajor",
+        5
+      ],
+      [
+        "Vidipass",
+        3
+      ],
+      [
+        "All Ticket",
+        1
+      ]
+    ],
+    "top_events": [
+      [
+        "Spanish Super Cup",
+        46
+      ],
+      [
+        "Hans Zimmer",
+        39
+      ],
+      [
+        "Sziget",
+        36
+      ],
+      [
+        "Abu Dhabi Grand Prix",
+        34
+      ],
+      [
+        "MXGP of Turkiye",
+        34
+      ],
+      [
+        "Imagine Dragons",
+        34
+      ],
+      [
+        "Rolex Shanghai Masters",
+        32
+      ],
+      [
+        "Canelo",
+        31
+      ],
+      [
+        "Tomorrowland",
+        29
+      ],
+      [
+        "Shakira",
+        26
+      ],
+      [
+        "Glastonbury",
+        25
+      ],
+      [
+        "ZAMNA",
+        24
+      ],
+      [
+        "Andrea Bocelli",
+        20
+      ],
+      [
+        "UFC 333",
+        17
+      ],
+      [
+        "Stray Kids",
+        17
+      ],
+      [
+        "EDC Las Vegas",
+        17
+      ],
+      [
+        "The Weeknd",
+        15
+      ],
+      [
+        "Super Bowl",
+        8
+      ],
+      [
+        "Formula 1 Abu Dhabi Grand Prix",
+        7
+      ],
+      [
+        "FIFA Women’s World Cup",
+        7
+      ],
+      [
+        "Rugby World Cup",
+        7
+      ],
+      [
+        "Ryder Cup",
+        7
+      ],
+      [
+        "AFC Asian Cup",
+        7
+      ],
+      [
+        "Валерий Меладзе",
+        6
+      ],
+      [
+        "FIBA Basketball World Cup",
+        6
+      ],
+      [
+        "UFC Shanghai",
+        5
+      ],
+      [
+        "Hot Wheels",
+        5
+      ],
+      [
+        "Kanye West",
+        4
+      ],
+      [
+        "Qatar Grand Prix",
+        3
+      ],
+      [
+        "Formula 1 Qatar Grand Prix",
+        1
+      ],
+      [
+        "UFC Fight Night",
+        1
+      ],
+      [
+        "Ed Sheeran",
+        1
+      ]
+    ]
+  },
+  {
+    "chat": 10,
+    "file": "Переписка_продаж_мероприятий_номер_десять.txt",
+    "bytes": 152760,
+    "lines": 3146,
+    "words": 14175,
+    "category_counts": {
+      "explicit_rule": 15,
+      "correction": 7,
+      "pricing": 63,
+      "formatting": 76,
+      "sourcing": 110,
+      "risk": 81,
+      "vip": 147,
+      "status": 18
+    },
+    "top_platforms": [
+      [
+        "Livepass",
+        46
+      ],
+      [
+        "StubHub",
+        20
+      ],
+      [
+        "ATP Experiences",
+        12
+      ],
+      [
+        "Viagogo",
+        11
+      ],
+      [
+        "Etihad Arena",
+        8
+      ],
+      [
+        "Ticketmaster",
+        6
+      ],
+      [
+        "JUSS",
+        5
+      ],
+      [
+        "Webook",
+        3
+      ],
+      [
+        "Juss Sports",
+        2
+      ],
+      [
+        "Ticombo",
+        1
+      ]
+    ],
+    "top_events": [
+      [
+        "Ed Sheeran",
+        48
+      ],
+      [
+        "Rolex Shanghai Masters",
+        27
+      ],
+      [
+        "UFC 333",
+        16
+      ],
+      [
+        "Spanish Super Cup",
+        8
+      ],
+      [
+        "Al Nassr",
+        6
+      ],
+      [
+        "Al Diriyah",
+        6
+      ],
+      [
+        "Tomorrowland",
+        5
+      ],
+      [
+        "The Weeknd",
+        4
+      ],
+      [
+        "Imagine Dragons",
+        4
+      ],
+      [
+        "Andrea Bocelli",
+        4
+      ],
+      [
+        "Shakira",
+        4
+      ],
+      [
+        "Tarkan",
+        4
+      ],
+      [
+        "NCT 127",
+        4
+      ],
+      [
+        "ZAMNA",
+        4
+      ],
+      [
+        "UFC Shanghai",
+        3
+      ],
+      [
+        "Christina Aguilera",
+        3
+      ],
+      [
+        "Stray Kids",
+        3
+      ],
+      [
+        "Canelo",
+        3
+      ],
+      [
+        "Hot Wheels",
+        3
+      ],
+      [
+        "FIFA Women’s World Cup",
+        3
+      ],
+      [
+        "Rugby World Cup",
+        3
+      ],
+      [
+        "Ryder Cup",
+        3
+      ],
+      [
+        "Super Bowl",
+        3
+      ],
+      [
+        "AFC Asian Cup",
+        3
+      ],
+      [
+        "FIBA Basketball World Cup",
+        3
+      ],
+      [
+        "Glastonbury",
+        2
+      ],
+      [
+        "EDC Las Vegas",
+        2
+      ],
+      [
+        "Sziget",
+        2
+      ],
+      [
+        "Formula 1 Abu Dhabi Grand Prix",
+        1
+      ],
+      [
+        "Formula 1 Qatar Grand Prix",
+        1
+      ],
+      [
+        "Abu Dhabi Grand Prix",
+        1
+      ],
+      [
+        "Qatar Grand Prix",
+        1
+      ],
+      [
+        "Donauinselfest",
+        1
+      ]
+    ]
+  }
+]

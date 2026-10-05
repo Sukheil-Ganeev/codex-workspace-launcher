@@ -1,0 +1,16 @@
+{
+  "eval_id": 2,
+  "run": "without_skill",
+  "expectations": [
+    {"text": "Две строки услуг (яхта + кейтеринг)", "passed": true, "evidence": "2 строки: Yacht Charter — Majesty 48FT и Catering on Yacht"},
+    {"text": "Total Excl. VAT = 470,00 USD", "passed": true, "evidence": "Subtotal: $470.00"},
+    {"text": "Total VAT = 23,50 USD", "passed": true, "evidence": "VAT 5%: $23.50"},
+    {"text": "POS комиссия 4% = 19,74 USD, строка PAYMENT VIA POS TERMINAL", "passed": true, "evidence": "POS Commission 4%: $19.74 — есть, но формулировка другая: 'POS Commission 4%' а не 'PAYMENT VIA POS TERMINAL + 4%'"},
+    {"text": "Конвертация в AED присутствует", "passed": true, "evidence": "Сумма в AED есть (1,884.88 AED), но курс 3.6725 вместо 3.65 из скилла"},
+    {"text": "Grand Total = Total incl. VAT + POS", "passed": true, "evidence": "TOTAL PAYABLE: $513.24 = $493.50 + $19.74"}
+  ],
+  "pass_count": 6,
+  "total_count": 6,
+  "pass_rate": 1.0,
+  "notes": "Математика верна. Но: неверный курс USD→AED (3.6725 вместо 3.65), нет реквизитов компании, формулировка POS не стандартная для Marsel."
+}

@@ -1,0 +1,220 @@
+{
+  "project": "TouristBotEcosystem",
+  "analysis_date": "2026-03-12",
+  "mode": "audit",
+  "skill_used": "docs-optimizer",
+
+  "file_metrics": {
+    "total_md_files": 40,
+    "total_lines": 21199,
+    "total_tokens_approx": 84796,
+    "files_scanned": [
+      {"file": "CLAUDE.md", "lines": 557, "tokens": 2228, "status": "active"},
+      {"file": "CHANGELOG.md", "lines": 1088, "tokens": 4352, "status": "active"},
+      {"file": "MASTER_PLAN.md", "lines": 1900, "tokens": 7600, "status": "stale"},
+      {"file": "ISSUES.md", "lines": 110, "tokens": 440, "status": "active"},
+      {"file": "README.md", "lines": 351, "tokens": 1404, "status": "active"},
+      {"file": "docs/ARCHITECTURE.md", "lines": 424, "tokens": 1696, "status": "active"},
+      {"file": "docs/ARCHITECTURE_v1.md", "lines": 841, "tokens": 3364, "status": "duplicate"},
+      {"file": "docs/IDEAL_MASTER_PLAN.md", "lines": 2559, "tokens": 10236, "status": "read-only"},
+      {"file": "docs/IMPROVEMENT_MASTER_PLAN.md", "lines": 879, "tokens": 3516, "status": "stale"},
+      {"file": "docs/IMPROVEMENT_MASTER_PLAN_v2.md", "lines": 255, "tokens": 1020, "status": "active"},
+      {"file": "docs/DEPLOY.md", "lines": 798, "tokens": 3192, "status": "stale"},
+      {"file": "docs/DEPLOY_GCP.md", "lines": 1062, "tokens": 4248, "status": "active"},
+      {"file": "docs/PROJECT_ACCOMPLISHMENTS.md", "lines": 628, "tokens": 2512, "status": "duplicate"},
+      {"file": "docs/SERVER_RUNBOOK.md", "lines": 361, "tokens": 1444, "status": "active"},
+      {"file": "docs/UX_DESIGN_v1.md", "lines": 1103, "tokens": 4412, "status": "active"},
+      {"file": "docs/BUTTON_DESIGN_GUIDE.md", "lines": 1039, "tokens": 4156, "status": "active"},
+      {"file": "docs/AUDIT_2026-03-03.md", "lines": 332, "tokens": 1328, "status": "stale"},
+      {"file": "docs/audit_ecosystem.md", "lines": 182, "tokens": 728, "status": "stale"},
+      {"file": "docs/audit_ai_lessons.md", "lines": 210, "tokens": 840, "status": "stale"},
+      {"file": "docs/audit_business.md", "lines": 136, "tokens": 544, "status": "stale"},
+      {"file": "docs/audit_content.md", "lines": 119, "tokens": 476, "status": "stale"},
+      {"file": "docs/audit_infra.md", "lines": 178, "tokens": 712, "status": "stale"},
+      {"file": "docs/audit_voice.md", "lines": 123, "tokens": 492, "status": "stale"},
+      {"file": "docs/USER_GUIDE_owner.md", "lines": 476, "tokens": 1904, "status": "active"},
+      {"file": "docs/USER_GUIDE_admin.md", "lines": 390, "tokens": 1560, "status": "active"},
+      {"file": "docs/USER_GUIDE_staff.md", "lines": 145, "tokens": 580, "status": "active"},
+      {"file": "docs/CICD_SETUP.md", "lines": 105, "tokens": 420, "status": "active"},
+      {"file": "docs/SENTRY_GUIDE.md", "lines": 187, "tokens": 748, "status": "active"},
+      {"file": "docs/SERVER_HEALTH_REPORT_2026-03-04.md", "lines": 142, "tokens": 568, "status": "stale"},
+      {"file": "docs/DEPLOY_LESSONS_2026-03-03.md", "lines": 166, "tokens": 664, "status": "archive"},
+      {"file": "docs/COMMAND_AUDIT.md", "lines": 218, "tokens": 872, "status": "stale"},
+      {"file": "docs/COMMAND_AUDIT_ADMIN.md", "lines": 262, "tokens": 1048, "status": "stale"},
+      {"file": "docs/DATABASE_COVERAGE_AUDIT.md", "lines": 337, "tokens": 1348, "status": "stale"},
+      {"file": "docs/CODE_REVIEW_v1.md", "lines": 385, "tokens": 1540, "status": "active"},
+      {"file": "docs/MANUAL_TESTS.md", "lines": 321, "tokens": 1284, "status": "active"},
+      {"file": "docs/WHATSAPP_BOT_REDESIGN.md", "lines": 522, "tokens": 2088, "status": "active"},
+      {"file": "docs/ADMIN_BOT_REDESIGN.md", "lines": 278, "tokens": 1112, "status": "active"},
+      {"file": "deploy/README.md", "lines": 50, "tokens": 200, "status": "active"}
+    ]
+  },
+
+  "duplication_findings": {
+    "total_duplications_found": 14,
+    "duplications": [
+      {
+        "id": "DUP-01",
+        "severity": "HIGH",
+        "fact": "GCP server IP 34.107.127.155, zone europe-west3-b, type e2-standard-2",
+        "files_count": 8,
+        "files": ["CLAUDE.md", "CHANGELOG.md", "docs/PROJECT_ACCOMPLISHMENTS.md", "docs/SERVER_HEALTH_REPORT_2026-03-04.md", "docs/CICD_SETUP.md", "docs/SENTRY_GUIDE.md", "docs/SERVER_RUNBOOK.md", "README.md"],
+        "ssot": "CLAUDE.md deploy table",
+        "token_waste_approx": 200
+      },
+      {
+        "id": "DUP-02",
+        "severity": "HIGH",
+        "fact": "Cloudflare Tunnel UUID c4645c9f and webhook URL tourists-wa.vipdxbrus.com",
+        "files_count": 9,
+        "files": ["CLAUDE.md", "CHANGELOG.md", "deploy/README.md", "docs/DEPLOY.md", "docs/DEPLOY_GCP.md", "docs/PROJECT_ACCOMPLISHMENTS.md", "docs/SERVER_RUNBOOK.md", "MASTER_PLAN.md", "README.md"],
+        "ssot": "docs/SERVER_RUNBOOK.md",
+        "token_waste_approx": 400
+      },
+      {
+        "id": "DUP-03",
+        "severity": "HIGH",
+        "fact": "Cloudflare Tunnel setup instructions (cloudflared tunnel login/create/route/dns steps)",
+        "files_count": 3,
+        "files": ["CLAUDE.md", "docs/DEPLOY.md", "docs/DEPLOY_GCP.md"],
+        "ssot": "docs/DEPLOY_GCP.md Part 9",
+        "token_waste_approx": 600
+      },
+      {
+        "id": "DUP-04",
+        "severity": "HIGH",
+        "fact": "Project statistics (tests count, .py files, LOC, env vars) — with CONFLICTING values",
+        "files_count": 2,
+        "files": ["CLAUDE.md", "README.md"],
+        "ssot": "CLAUDE.md",
+        "token_waste_approx": 100,
+        "conflicts": {
+          "tests": {"CLAUDE.md": "1263", "README.md": "1042+"},
+          "python_files": {"CLAUDE.md": "248+", "README.md": "280"},
+          "loc": {"CLAUDE.md": "~60K", "README.md": "~105K"},
+          "env_vars": {"CLAUDE.md": "~43", "README.md": "51"}
+        }
+      },
+      {
+        "id": "DUP-05",
+        "severity": "MEDIUM",
+        "fact": "Batch 1-6 status history",
+        "files_count": 5,
+        "files": ["CLAUDE.md", "CHANGELOG.md", "docs/PROJECT_ACCOMPLISHMENTS.md", "docs/ARCHITECTURE.md", "docs/audit_ecosystem.md"],
+        "ssot": "CHANGELOG.md"
+      },
+      {
+        "id": "DUP-06",
+        "severity": "MEDIUM",
+        "fact": "Business context (Suheil, Marsel, Mufamad, UAE excursions, Tecom)",
+        "files_count": 12,
+        "files": ["CLAUDE.md", "README.md", "docs/ARCHITECTURE.md", "docs/ARCHITECTURE_v1.md", "docs/MANUAL_TESTS.md", "docs/PROJECT_ACCOMPLISHMENTS.md", "docs/USER_GUIDE_admin.md", "docs/USER_GUIDE_owner.md", "docs/USER_GUIDE_staff.md", "docs/UX_DESIGN_v1.md", "docs/WHATSAPP_BOT_REDESIGN.md", "MASTER_PLAN.md"],
+        "ssot": "CLAUDE.md",
+        "note": "Acceptable in USER_GUIDE files (intended audience)"
+      },
+      {
+        "id": "DUP-07",
+        "severity": "MEDIUM",
+        "fact": "AI backend cascade table (Gemini → Claude → Groq with model IDs)",
+        "files_count": 7,
+        "files": ["CLAUDE.md", "README.md", "docs/ARCHITECTURE.md", "docs/ARCHITECTURE_v1.md", "docs/audit_ai_lessons.md", "CHANGELOG.md", "MASTER_PLAN.md"],
+        "ssot": "CLAUDE.md"
+      },
+      {
+        "id": "DUP-08",
+        "severity": "HIGH",
+        "fact": "Full architecture documentation — ARCHITECTURE.md supersedes ARCHITECTURE_v1.md",
+        "files_count": 2,
+        "files": ["docs/ARCHITECTURE.md", "docs/ARCHITECTURE_v1.md"],
+        "ssot": "docs/ARCHITECTURE.md",
+        "action": "Archive ARCHITECTURE_v1.md to docs/archive/",
+        "token_waste": 3364
+      },
+      {
+        "id": "DUP-09",
+        "severity": "HIGH",
+        "fact": "Deploy instructions — DEPLOY.md (Oracle, outdated) duplicates DEPLOY_GCP.md (current)",
+        "files_count": 2,
+        "files": ["docs/DEPLOY.md", "docs/DEPLOY_GCP.md"],
+        "ssot": "docs/DEPLOY_GCP.md",
+        "action": "Archive or mark DEPLOY.md as outdated (Oracle infrastructure)",
+        "token_waste": 3192
+      },
+      {
+        "id": "DUP-10",
+        "severity": "MEDIUM",
+        "fact": "Improvement plan — v1 (Batch 5, completed) vs v2 (Batch 7-9, active)",
+        "files_count": 2,
+        "files": ["docs/IMPROVEMENT_MASTER_PLAN.md", "docs/IMPROVEMENT_MASTER_PLAN_v2.md"],
+        "ssot": "docs/IMPROVEMENT_MASTER_PLAN_v2.md",
+        "action": "Archive v1 to docs/archive/",
+        "token_waste": 3516
+      },
+      {
+        "id": "DUP-11",
+        "severity": "MEDIUM",
+        "fact": "Docker server commands (sudo docker compose --env-file .env.prod ...)",
+        "files_count": 5,
+        "files": ["CLAUDE.md", "docs/SERVER_RUNBOOK.md", "docs/DEPLOY.md", "docs/DEPLOY_GCP.md", "docs/CICD_SETUP.md"],
+        "ssot": "docs/SERVER_RUNBOOK.md",
+        "token_waste": 400
+      },
+      {
+        "id": "DUP-12",
+        "severity": "MEDIUM",
+        "fact": "Dead reference: docs/DESIGN_DECISIONS_v1.md — file does not exist",
+        "type": "dead_reference",
+        "files_referencing": ["CLAUDE.md:337", "docs/ARCHITECTURE_v1.md:37,73,841", "MASTER_PLAN.md:468,559,574,1690", "README.md:338"],
+        "action": "Remove dead references or create the file"
+      },
+      {
+        "id": "DUP-13",
+        "severity": "HIGH",
+        "fact": "PROJECT_ACCOMPLISHMENTS.md (628 lines) duplicates CHANGELOG.md + ARCHITECTURE.md + CLAUDE.md status",
+        "files_count": 2,
+        "files": ["docs/PROJECT_ACCOMPLISHMENTS.md", "CHANGELOG.md"],
+        "ssot": "CHANGELOG.md",
+        "action": "Archive to docs/archive/",
+        "token_waste": 2512
+      },
+      {
+        "id": "DUP-14",
+        "severity": "LOW",
+        "fact": "Batch status table in audit_ecosystem.md (stale, missing Batch 5-6)",
+        "files_count": 2,
+        "files": ["docs/audit_ecosystem.md", "CLAUDE.md"],
+        "ssot": "CLAUDE.md",
+        "action": "Add STALE header to audit_ecosystem.md"
+      }
+    ]
+  },
+
+  "anti_patterns_triggered": [
+    {"id": "AP-01", "name": "Context Stuffing", "severity": "HIGH", "file": "CLAUDE.md", "detail": "557 lines, ~2.2K tokens — above 400 line critical threshold"},
+    {"id": "AP-02", "name": "Stale Docs", "severity": "HIGH", "files": ["docs/DEPLOY.md", "docs/audit_*.md (6 files)", "docs/PROJECT_ACCOMPLISHMENTS.md"]},
+    {"id": "AP-09", "name": "Code-Doc Drift", "severity": "HIGH", "detail": "4 files reference docs/DESIGN_DECISIONS_v1.md which doesn't exist"},
+    {"id": "AP-11", "name": "Duplicate Commands", "severity": "HIGH", "detail": "Docker server commands in 5 files"},
+    {"id": "AP-15", "name": "Changelog as Status", "severity": "MEDIUM", "file": "docs/PROJECT_ACCOMPLISHMENTS.md"},
+    {"id": "AP-16", "name": "Cross-File Duplication", "severity": "CRITICAL", "detail": "GCP IP in 8 files, Cloudflare URL/UUID in 9 files"},
+    {"id": "AP-19", "name": "Roadmap Rot", "severity": "MEDIUM", "file": "docs/IMPROVEMENT_MASTER_PLAN.md", "detail": "Batch 5 plan completed but not archived"}
+  ],
+
+  "savings_projection": {
+    "current_lines": 21199,
+    "current_tokens": 84796,
+    "archivable_lines": 4536,
+    "archivable_tokens": 18144,
+    "after_lines": 16663,
+    "after_tokens": 66652,
+    "reduction_percent": 21
+  },
+
+  "verification_score": {
+    "score": 2,
+    "max": 5,
+    "reason": "Significant drift: conflicting statistics between files, 14 duplications found, dead references present, multiple stale files not archived"
+  },
+
+  "project_stage": "ACTIVE",
+  "skill_application": "audit mode: SSOT duplication detection"
+}

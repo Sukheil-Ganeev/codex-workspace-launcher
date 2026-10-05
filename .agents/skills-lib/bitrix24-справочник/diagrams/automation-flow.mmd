@@ -1,0 +1,83 @@
+%% Название: Поток автоматизации -- Роботы, триггеры и бизнес-процессы Битрикс24
+%% Автор: diagram-designer
+%% Дата: 2026-02-16
+
+flowchart TD
+    %% === ТРИГГЕРЫ (СОБЫТИЯ) ===
+    subgraph TRIGGERS["Триггеры -- События"]
+        direction TB
+        T1["Входящее сообщение\nWhatsApp / Telegram"]
+        T2["Заполнение CRM-формы\nНа сайте / лендинге"]
+        T3["Входящий звонок\nТелефония"]
+        T4["Входящее письмо\nEmail-трекер"]
+        T5["Входящий вебхук\nВнешняя система"]
+        T6["Оплата счета\nПлатежная система"]
+    end
+
+    %% === АВТОМАТИЧЕСКОЕ ДЕЙСТВИЕ 1: СОЗДАНИЕ ЛИДА ===
+    T1 & T2 & T3 & T4 & T5 --> CREATE_LEAD["Робот: Создать лид\nАвтоматически из обращения"]
+
+    CREATE_LEAD --> CONDITION1{"Условие:\nИсточник обращения?"}
+
+    %% === ВЕТВЛЕНИЕ ПО ИСТОЧНИКУ ===
+    CONDITION1 -->|"WhatsApp / Telegram"| ASSIGN_ONLINE["Робот: Назначить\nна онлайн-менеджера"]
+    CONDITION1 -->|"Звонок / Email"| ASSIGN_QUEUE["Робот: Распределить\nпо очереди"]
+    CONDITION1 -->|"CRM-форма"| ASSIGN_DUTY["Робот: Назначить\nна дежурного"]
+
+    %% === УВЕДОМЛЕНИЯ ===
+    ASSIGN_ONLINE & ASSIGN_QUEUE & ASSIGN_DUTY --> NOTIFY["Робот: Уведомление\nменеджеру в чат"]
+    NOTIFY --> AUTO_REPLY["Робот: Авто-ответ\nклиенту в мессенджер"]
+
+    %% === ТАЙМЕР FOLLOW-UP ===
+    AUTO_REPLY --> TIMER1{"Контроль:\nОтвет менеджера\nв течение 15 мин?"}
+    TIMER1 -->|"Да"| WORK["Менеджер работает\nс клиентом"]
+    TIMER1 -->|"Нет"| ESCALATE["Робот: Эскалация\nУведомление руководителю"]
+    ESCALATE --> WORK
+
+    %% === ПЕРЕХОД СДЕЛКИ ПО СТАДИЯМ ===
+    WORK --> STAGE_CONFIRM["Стадия: Подтверждение"]
+    STAGE_CONFIRM --> ROBOT_TASK["Робот: Создать задачу\nгиду / водителю"]
+    ROBOT_TASK --> STAGE_PAYMENT["Стадия: Оплата"]
+
+    STAGE_PAYMENT --> ROBOT_LINK["Робот: Отправить\nссылку на оплату"]
+
+    T6 --> PAYMENT_TRIGGER["Триггер: Оплата получена\nАвтосмена стадии"]
+    ROBOT_LINK --> WAIT_PAY{"Контроль:\nОплата в течение 48ч?"}
+    WAIT_PAY -->|"Нет"| REMIND_PAY["Робот: Напоминание\nоб оплате"]
+    REMIND_PAY --> WAIT_PAY
+    WAIT_PAY -->|"Да"| PAYMENT_TRIGGER
+
+    PAYMENT_TRIGGER --> STAGE_BOOKED["Стадия: Забронировано"]
+
+    %% === ПРЕДТУРОВЫЕ НАПОМИНАНИЯ ===
+    STAGE_BOOKED --> TIMER_24H["Робот с задержкой:\nЗа 24ч до тура"]
+    TIMER_24H --> REMIND_CLIENT["Робот: Напоминание\nклиенту с деталями"]
+
+    %% === ПОСТ-ОБСЛУЖИВАНИЕ ===
+    REMIND_CLIENT --> STAGE_DONE["Стадия: Тур проведен"]
+    STAGE_DONE --> TIMER_2D["Робот с задержкой:\n+2 дня"]
+    TIMER_2D --> FOLLOWUP["Робот: Follow-up\nЗапрос отзыва"]
+
+    %% === ГЕНЕРАТОР ПОВТОРНЫХ ПРОДАЖ ===
+    FOLLOWUP --> TIMER_30D["Генератор продаж:\n+30 дней"]
+    TIMER_30D --> REPEAT_DEAL["Робот: Создать\nповторную сделку"]
+
+    %% === СТИЛИ ===
+    style TRIGGERS fill:#E3F2FD,stroke:#1565C0,stroke-width:2px
+    style CREATE_LEAD fill:#FFF9C4,stroke:#F9A825,stroke-width:2px
+    style NOTIFY fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px
+    style AUTO_REPLY fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px
+    style ESCALATE fill:#FFCDD2,stroke:#C62828,stroke-width:2px
+    style ROBOT_TASK fill:#F3E5F5,stroke:#6A1B9A,stroke-width:2px
+    style ROBOT_LINK fill:#FFF3E0,stroke:#E65100,stroke-width:2px
+    style PAYMENT_TRIGGER fill:#C8E6C9,stroke:#1B5E20,stroke-width:2px
+    style REMIND_CLIENT fill:#E0F7FA,stroke:#006064,stroke-width:2px
+    style FOLLOWUP fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px
+    style REPEAT_DEAL fill:#E0F7FA,stroke:#00838F,stroke-width:2px
+    style REMIND_PAY fill:#FFF8E1,stroke:#FF8F00,stroke-width:2px
+    style T1 fill:#25D366,stroke:#128C7E,color:#fff
+    style T2 fill:#42A5F5,stroke:#1565C0,color:#fff
+    style T3 fill:#FFA726,stroke:#E65100,color:#fff
+    style T4 fill:#78909C,stroke:#37474F,color:#fff
+    style T5 fill:#AB47BC,stroke:#6A1B9A,color:#fff
+    style T6 fill:#66BB6A,stroke:#2E7D32,color:#fff

@@ -1,0 +1,37 @@
+# =============================================================================
+# docker-compose.yml — WhatsApp-бот бронирования туров ОАЭ
+# Docker Compose v2.40+ | Февраль 2026
+#
+# Запуск: docker compose up -d
+# Логи:   docker compose logs -f whatsapp-bot
+# Стоп:   docker compose down
+# =============================================================================
+
+services:
+  whatsapp-bot:
+    build: .
+    container_name: whatsapp-booking-bot
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      - TOURS_CURRENCY=AED
+      - DEFAULT_LANGUAGE=ru
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 5s
+      start_period: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+          cpus: '0.5'
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"

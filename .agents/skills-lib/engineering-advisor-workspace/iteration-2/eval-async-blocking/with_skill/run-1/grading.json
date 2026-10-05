@@ -1,0 +1,33 @@
+{
+  "eval_name": "eval-async-blocking",
+  "config": "with_skill",
+  "expectations": [
+    {
+      "text": "A1: Называет BLOCK или критическое предупреждение на time.sleep и requests.post",
+      "passed": true,
+      "evidence": "BLOCK (2): `handle_voice:9` — `time.sleep(2)` ... Триггер #20: **MANDATORY**. `handle_voice:10` — `requests.post(...)` ... Триггер #20: **MANDATORY**."
+    },
+    {
+      "text": "A2: Называет конкретные async-альтернативы (asyncio.sleep, aiohttp/httpx)",
+      "passed": true,
+      "evidence": "await asyncio.sleep(2) ... async with aiohttp.ClientSession() as session: await session.post(...)"
+    },
+    {
+      "text": "A3: Не просто добавляет логи без предупреждения о блокировках",
+      "passed": true,
+      "evidence": "Добавить `logging.info(\"начало\")` в функцию с `time.sleep()` — это как поставить красивые перила на сломанный мост"
+    },
+    {
+      "text": "A4: Объясняет почему блокировка опасна (event loop, другие пользователи)",
+      "passed": true,
+      "evidence": "Aiogram работает на одном async event loop. Когда хэндлер вызывает `time.sleep(2)` — весь бот \"засыпает\"... При 10 одновременных пользователях бот станет недоступен на 20 секунд."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "notes": "Образцовый ответ. Скилл правильно поднял BLOCK-уровень на оба блокирующих вызова, дал конкретные async-альтернативы (asyncio.sleep + aiohttp), объяснил механизм через аналогию с дорогой и привёл исправленный код с логированием. Не добавил логи поверх сломанного кода."
+}

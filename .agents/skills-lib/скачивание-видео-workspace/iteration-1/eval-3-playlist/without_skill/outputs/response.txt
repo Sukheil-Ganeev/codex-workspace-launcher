@@ -1,0 +1,22 @@
+Вот команда для скачивания всего плейлиста с нумерацией файлов и папкой по названию плейлиста:
+
+yt-dlp -o "%(playlist_title)s/%(playlist_index)s - %(title)s.%(ext)s" "https://youtube.com/playlist?list=PLxxx"
+
+Что делает каждая часть:
+
+- %(playlist_title)s — название плейлиста станет именем папки (создастся автоматически)
+- %(playlist_index)s — порядковый номер видео в плейлисте (01, 02, 03...)
+- %(title)s — название самого видео
+- %(ext)s — расширение файла (mp4, webm и т.д.)
+
+Если хочешь скачать в лучшем качестве mp4:
+
+yt-dlp -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]" -o "%(playlist_title)s/%(playlist_index)s - %(title)s.%(ext)s" "https://youtube.com/playlist?list=PLxxx"
+
+Если плейлист большой и хочешь продолжить с места остановки (если прервалось):
+
+yt-dlp --continue -o "%(playlist_title)s/%(playlist_index)s - %(title)s.%(ext)s" "https://youtube.com/playlist?list=PLxxx"
+
+Папка создастся там, где запускаешь команду. Если хочешь указать конкретное место сохранения, добавь путь перед названием плейлиста:
+
+yt-dlp -o "D:/Downloads/%(playlist_title)s/%(playlist_index)s - %(title)s.%(ext)s" "https://youtube.com/playlist?list=PLxxx"

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; }
+    .header { text-align: right; margin-bottom: 40px; }
+    .invoice-details { margin-bottom: 30px; }
+    table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+    th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+    th { background: #f5f5f5; }
+    .total-row { font-weight: bold; font-size: 1.2em; }
+    .payment-button { display: inline-block; padding: 15px 30px; background: #0066cc; color: white; text-decoration: none; border-radius: 5px; margin-top: 30px; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>INVOICE</h1>
+    <p>Invoice #{{invoiceNumber}}</p>
+    <p>Date: {{date}}</p>
+  </div>
+
+  <div class="invoice-details">
+    <p><strong>Bill To:</strong></p>
+    <p>{{customerName}}<br>{{customerEmail}}</p>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Description</th>
+        <th>Quantity</th>
+        <th>Unit Price</th>
+        <th>Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each items}}
+      <tr>
+        <td>{{this.name}}</td>
+        <td>{{this.quantity}}</td>
+        <td>{{this.price}} {{../currency}}</td>
+        <td>{{this.total}} {{../currency}}</td>
+      </tr>
+      {{/each}}
+      <tr>
+        <td colspan="3" style="text-align: right;">Subtotal:</td>
+        <td>{{subtotal}} {{currency}}</td>
+      </tr>
+      <tr>
+        <td colspan="3" style="text-align: right;">VAT (5%):</td>
+        <td>{{vat}} {{currency}}</td>
+      </tr>
+      <tr class="total-row">
+        <td colspan="3" style="text-align: right;">Total:</td>
+        <td>{{total}} {{currency}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div style="text-align: center;">
+    <a href="{{paymentLink}}" class="payment-button">Pay Now with Stripe</a>
+  </div>
+
+  <p style="margin-top: 50px; font-size: 0.9em; color: #666;">
+    Thank you for your business!
+  </p>
+</body>
+</html>

@@ -1,0 +1,23 @@
+{
+  "expectations": [
+    {
+      "text": "Использует --playlist-items 5-10 для выбора диапазона",
+      "passed": true,
+      "evidence": "'--playlist-items 5-10' в основной команде с пояснением 'скачивает только видео с позиции 5 по 10 включительно'"
+    },
+    {
+      "text": "Указывает путь сохранения D:/Downloads/YouTube/",
+      "passed": true,
+      "evidence": "'-P D:/Downloads/YouTube/' в команде; 'Файлы сохранятся в: D:/Downloads/YouTube/[Название плейлиста]/'"
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 0,
+    "total": 2,
+    "pass_rate": 1.0
+  },
+  "timing": {
+    "executor_duration_seconds": 31.4
+  }
+}

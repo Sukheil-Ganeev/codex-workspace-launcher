@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desert Safari Tours</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-brand">Tour Landing</div>
+            <ul class="navbar-menu">
+                <li><a href="#tours">Tours</a></li>
+                <li><a href="#booking" class="btn-primary">Book Now</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h1>Desert Safari Adventures</h1>
+        <p>Best prices in Dubai</p>
+        <button onclick="document.getElementById('tours').scrollIntoView()">Explore Tours</button>
+    </section>
+
+    <section id="tours" class="tours">
+        <div class="container">
+            <h2>Our Tours</h2>
+            <div class="tour-cards">
+                <div class="card">
+                    <h3>Morning Safari</h3>
+                    <p>Price: 350 AED</p>
+                </div>
+                <div class="card">
+                    <h3>Evening Safari</h3>
+                    <p>Price: 420 AED</p>
+                </div>
+                <div class="card">
+                    <h3>Night Safari VIP</h3>
+                    <p>Price: 650 AED</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="booking" class="booking">
+        <form onsubmit="handleSubmit(event)">
+            <input type="text" placeholder="Name" required>
+            <input type="email" placeholder="Email" required>
+            <button type="submit">Book Tour</button>
+        </form>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

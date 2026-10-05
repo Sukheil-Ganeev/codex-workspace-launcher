@@ -1,0 +1,30 @@
+{
+  "expectations": [
+    {
+      "text": "valid_mermaid_syntax",
+      "passed": true,
+      "evidence": "Document contains a ```mermaid block (line 17) with 'erDiagram' keyword (line 18). Block runs from line 17 to line 94."
+    },
+    {
+      "text": "has_5_tables",
+      "passed": true,
+      "evidence": "ERD defines exactly 5 distinct entities: services (line 19), availability_slots (line 38), users (line 51), bookings (line 63), user_favorites (line 82). All have field definitions."
+    },
+    {
+      "text": "has_relationships",
+      "passed": true,
+      "evidence": "6 relationship lines present (lines 88-93): services ||--o{ availability_slots, services ||--o{ bookings, services ||--o{ user_favorites, users ||--o{ bookings, users ||--o{ user_favorites, availability_slots ||--o{ bookings. All use valid relationship notation."
+    },
+    {
+      "text": "latin_ids",
+      "passed": true,
+      "evidence": "All entity names use Latin characters only: services, availability_slots, users, bookings, user_favorites. No Cyrillic characters in any entity or field names."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  }
+}

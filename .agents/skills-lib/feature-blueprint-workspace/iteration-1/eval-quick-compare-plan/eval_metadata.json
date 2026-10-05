@@ -1,0 +1,13 @@
+{
+  "eval_id": 4,
+  "eval_name": "quick-compare-plan",
+  "prompt": "Tech Spec for Quick Compare feature (plan mode)",
+  "assertions": [
+    {"name": "has_moscow", "description": "Contains MoSCoW prioritization"},
+    {"name": "has_architecture", "description": "Contains Architecture section"},
+    {"name": "has_mermaid", "description": "Contains mermaid code block"},
+    {"name": "has_component_design", "description": "Describes React components"},
+    {"name": "has_task_breakdown", "description": "Contains numbered task list"},
+    {"name": "task_size_ok", "description": "All tasks <= 60 minutes"}
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "expectations": [
+    {
+      "text": "Использует bv* или bestvideo селектор для видео потока",
+      "passed": true,
+      "evidence": "'bestvideo[ext=mp4]' — в строке -f"
+    },
+    {
+      "text": "Использует --merge-output-format mp4",
+      "passed": true,
+      "evidence": "'--merge-output-format mp4' — явно в команде"
+    },
+    {
+      "text": "Указывает путь D:/Downloads/YouTube/",
+      "passed": false,
+      "evidence": "'-o \"D:/Downloads/%(title)s.%(ext)s\"' — путь D:/Downloads/ а не D:/Downloads/YouTube/"
+    }
+  ],
+  "passed": 2,
+  "total": 3,
+  "score": 0.667
+}

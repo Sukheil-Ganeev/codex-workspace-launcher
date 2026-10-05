@@ -1,0 +1,33 @@
+*[FULL/HALF] FLOOR | [AREA/FREE ZONE]*
+_[Description — Grade A, panoramic view]_
+───────────────
+*FEATURES*
+▫️ Type: [Full Floor/Half Floor]
+▫️ Area: [XX,XXX] sq.ft.
+▫️ Floor: [X]/[X]
+▫️ Ceiling height: [X.X]m
+▫️ Fit-out: [Shell & Core/CAT A/Fitted]
+▫️ Columns: [Yes/Column-free]
+
+*IF FITTED:*
+▫️ Workstations: [XXX]
+▫️ Meeting rooms: [X]
+▫️ Private offices: [X]
+▫️ Reception | Pantry | Server room
+
+*BUILDING: [NAME]*
+Grade [A+/A/B] | [LEED Certified]
+[24/7 access | Security | BMS]
+───────────────
+💰 *RENT: [XXX] AED/sq.ft./year*
+_Total: [XX,XXX,XXX] AED/year_
+
+*TERMS*
+▫️ Minimum: [X] year(s)
+▫️ Parking: [XX] spaces
+▫️ Service charge: [Included/XX AED/sq.ft.]
+▫️ Chiller: [Included/Separate]
+
+⚠️ Exclusive | Viewing by appointment
+
+*CONTACT:* [NAME] | [+971 XX XXX XXXX]

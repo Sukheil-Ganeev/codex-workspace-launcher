@@ -1,0 +1,65 @@
+Запрос: скачать 100 ссылок из urls.txt, пропуская уже скачанные
+
+Основная команда:
+
+yt-dlp --batch-file urls.txt --download-archive downloaded.txt -o "%(title)s.%(ext)s"
+
+Что делает каждый флаг:
+
+--batch-file urls.txt
+  Читает список ссылок из файла urls.txt (по одной ссылке на строку)
+
+--download-archive downloaded.txt
+  Ключевой флаг для пропуска уже скачанных.
+  yt-dlp сохраняет ID каждого скачанного видео в файл downloaded.txt.
+  При следующем запуске — проверяет этот файл и пропускает уже скачанные.
+
+-o "%(title)s.%(ext)s"
+  Шаблон имени файла: название видео + расширение.
+
+
+Расширенная команда (рекомендуется):
+
+yt-dlp \
+  --batch-file urls.txt \
+  --download-archive downloaded.txt \
+  -o "%(title)s.%(ext)s" \
+  --format "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best" \
+  --merge-output-format mp4 \
+  --retries 3 \
+  --fragment-retries 3 \
+  --ignore-errors \
+  --no-abort-on-error
+
+Дополнительные флаги:
+
+--format "bestvideo+bestaudio/best"
+  Скачать лучшее качество видео и аудио, объединить в mp4
+
+--retries 3
+  Повторить попытку 3 раза при ошибке сети
+
+--ignore-errors / --no-abort-on-error
+  Если одно видео недоступно — не останавливаться, перейти к следующему
+  (очень важно для пакетного скачивания 100 ссылок)
+
+
+Как пользоваться:
+
+1. Создать файл urls.txt — каждая ссылка на новой строке:
+   https://www.youtube.com/watch?v=XXXXX
+   https://www.youtube.com/watch?v=YYYYY
+   ...
+
+2. Запустить команду в той же папке где лежит urls.txt
+
+3. Файл downloaded.txt создастся автоматически
+
+4. При повторном запуске — yt-dlp сам пропустит уже скачанные
+
+
+Важно:
+- Не удалять файл downloaded.txt — в нём хранится история скачанного
+- Если видео удалено с YouTube — команда пропустит его (если стоит --ignore-errors)
+- Для Windows убрать обратные слэши и писать команду в одну строку:
+  yt-dlp --batch-file urls.txt --download-archive downloaded.txt -o "%(title)s.%(ext)s" --ignore-errors

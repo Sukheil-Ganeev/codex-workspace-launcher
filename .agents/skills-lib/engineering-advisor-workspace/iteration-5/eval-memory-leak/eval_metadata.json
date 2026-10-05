@@ -1,0 +1,27 @@
+{
+  "eval_id": 24,
+  "eval_name": "eval-memory-leak",
+  "prompt": "Вот мой rate limiter для бота, добавь ещё один лимит — не более 3 запросов к AI в минуту на пользователя:\n\n```python\n# rate_limiter.py\nfrom datetime import datetime, timedelta\n\n# Хранит счётчики запросов в памяти\nrate_limit_map = {}\nmessage_limit_map = {}\n\ndef check_message_rate(user_id: int) -> bool:\n    \"\"\"Проверяет: не более 10 сообщений в минуту на пользователя\"\"\"\n    now = datetime.now()\n    key = str(user_id)\n    \n    if key not in message_limit_map:\n        message_limit_map[key] = {'count': 1, 'reset_at': now + timedelta(minutes=1)}\n        return True\n    \n    entry = message_limit_map[key]\n    if now > entry['reset_at']:\n        message_limit_map[key] = {'count': 1, 'reset_at': now + timedelta(minutes=1)}\n        return True\n    \n    if entry['count'] >= 10:\n        return False\n    \n    entry['count'] += 1\n    return True\n\ndef check_voice_rate(user_id: int) -> bool:\n    \"\"\"Проверяет: не более 5 голосовых в минуту\"\"\"\n    now = datetime.now()\n    key = str(user_id)\n    \n    if key not in rate_limit_map:\n        rate_limit_map[key] = {'count': 1, 'reset_at': now + timedelta(minutes=1)}\n        return True\n    \n    entry = rate_limit_map[key]\n    if now > entry['reset_at']:\n        rate_limit_map[key] = {'count': 1, 'reset_at': now + timedelta(minutes=1)}\n        return True\n    \n    if entry['count'] >= 5:\n        return False\n    \n    entry['count'] += 1\n    return True\n```",
+  "assertions": [
+    {
+      "id": "L1",
+      "text": "(L1) Обнаруживает утечку памяти — словари растут без очистки (триггер #24)",
+      "discriminating": true
+    },
+    {
+      "id": "L2",
+      "text": "(L2) Предлагает механизм очистки (asyncio.create_task / threading.Timer / фоновый cleanup)",
+      "discriminating": true
+    },
+    {
+      "id": "L3",
+      "text": "(L3) Объясняет риск: бот работает неделями, словари накапливают мёртвые записи",
+      "discriminating": false
+    },
+    {
+      "id": "L4",
+      "text": "(L4) НЕ просто добавляет третий лимит с той же проблемой без предупреждения",
+      "discriminating": true
+    }
+  ]
+}

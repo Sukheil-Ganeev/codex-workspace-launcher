@@ -1,0 +1,24 @@
+{
+  "name": "stripe-deposit-balance",
+  "version": "1.0.0",
+  "description": "Stripe deposit + balance payment flow for tourism business",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "setup-db": "psql $DATABASE_URL -f database-schema.sql"
+  },
+  "keywords": ["stripe", "payment", "deposit", "tourism", "uae"],
+  "author": "Tourism UAE",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "stripe": "^14.10.0",
+    "pg": "^8.11.3",
+    "dotenv": "^16.3.1",
+    "nodemailer": "^6.9.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}

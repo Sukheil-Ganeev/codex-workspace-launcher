@@ -1,0 +1,25 @@
+{
+  "eval_id": 7,
+  "eval_name": "wrong-brand-sokol-tour",
+  "run_type": "with_skill",
+  "expectations": [
+    {
+      "text": "Предупреждение о несоответствии бренда",
+      "passed": true,
+      "evidence": "Инвойс содержит блок 'ПРЕДУПРЕЖДЕНИЕ О НЕСООТВЕТСТВИИ БРЕНДА' с явным указанием что Sokol только для аренды авто"
+    },
+    {
+      "text": "Предлагает использовать Marsel",
+      "passed": true,
+      "evidence": "Текст: 'Инвойс сгенерирован с брендом MARSEL (автоматическая коррекция согласно правилам скилла)'"
+    },
+    {
+      "text": "Реквизиты Sokol не использованы для тура",
+      "passed": true,
+      "evidence": "ACCOUNT NO: 28642584 (Marsel), компания: MARSEL LUXURY CAR RENTAL — реквизиты Sokol (19346595) отсутствуют"
+    }
+  ],
+  "pass_count": 3,
+  "total_count": 3,
+  "pass_rate": 1.0
+}

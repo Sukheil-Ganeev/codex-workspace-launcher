@@ -1,0 +1,150 @@
+# =============================================================================
+# compose.yml — Мульти-бот платформа (Telegram + WhatsApp + общее ядро)
+# Docker Engine 29.x | Compose v2.40+ | Февраль 2026
+# =============================================================================
+# Стек: Telegram Bot + WhatsApp Bot + Shared DB + Redis + Nginx
+# Каждый бот -- отдельный контейнер, общая БД и кэш
+
+services:
+  # --- Nginx Reverse Proxy (webhook для WhatsApp) ---
+  nginx:
+    image: nginx:1.27-alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      whatsapp-bot:
+        condition: service_healthy
+    networks: [frontend]
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  # --- Telegram Bot (polling) ---
+  telegram-bot:
+    build:
+      context: ./telegram-bot
+      dockerfile: Dockerfile
+    environment:
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN}
+      DATABASE_URL: postgres://postgres:${POSTGRES_PASSWORD:-secret}@db:5432/bots
+      REDIS_URL: redis://redis:6379/0
+      BOT_LANGUAGE: ru
+      TOURS_CURRENCY: AED
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks: [backend]
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8081/health')"]
+      interval: 30s
+      timeout: 5s
+      start_period: 15s
+      retries: 3
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # --- WhatsApp Bot (webhook через nginx) ---
+  whatsapp-bot:
+    build:
+      context: ./whatsapp-bot
+      dockerfile: Dockerfile
+    environment:
+      WHATSAPP_TOKEN: ${WHATSAPP_TOKEN}
+      WHATSAPP_VERIFY_TOKEN: ${WHATSAPP_VERIFY_TOKEN}
+      WHATSAPP_PHONE_ID: ${WHATSAPP_PHONE_ID}
+      DATABASE_URL: postgres://postgres:${POSTGRES_PASSWORD:-secret}@db:5432/bots
+      REDIS_URL: redis://redis:6379/1
+      BOT_LANGUAGE: ru
+      TOURS_CURRENCY: AED
+      PORT: 8000
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks: [frontend, backend]
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 5s
+      start_period: 15s
+      retries: 3
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # --- PostgreSQL (общая БД для всех ботов) ---
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: bots
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-secret}
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks: [backend]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      start_period: 30s
+      retries: 5
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M
+
+  # --- Redis (общий кэш и очереди) ---
+  redis:
+    image: redis:7-alpine
+    command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
+    volumes:
+      - redis-data:/data
+    networks: [backend]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 320M
+
+volumes:
+  db-data:
+  redis-data:
+
+networks:
+  frontend:
+  backend:
+    internal: true  # Изолирована от внешнего мира

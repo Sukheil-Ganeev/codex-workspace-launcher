@@ -1,0 +1,25 @@
+{
+  "eval_id": 7,
+  "eval_name": "wrong-brand-sokol-tour",
+  "run_type": "without_skill",
+  "expectations": [
+    {
+      "text": "Предупреждение о несоответствии бренда",
+      "passed": false,
+      "evidence": "Создан инвойс 'SOKOL TOUR' без какого-либо предупреждения о несоответствии типа услуги и бренда. Также VAT = 0% — грубая ошибка"
+    },
+    {
+      "text": "Предлагает использовать Marsel",
+      "passed": false,
+      "evidence": "Слово 'Marsel' не упомянуто ни разу. Использован выдуманный бренд 'SOKOL TOUR'"
+    },
+    {
+      "text": "Реквизиты Sokol не использованы для тура",
+      "passed": false,
+      "evidence": "Создан фиктивный бренд 'SOKOL TOUR' с выдуманными контактами. Реальные реквизиты ни Marsel ни Sokol не использованы"
+    }
+  ],
+  "pass_count": 0,
+  "total_count": 3,
+  "pass_rate": 0.0
+}

@@ -1,0 +1,91 @@
+%% Название: Карта интеграций Битрикс24 -- внешние сервисы и способы подключения
+%% Автор: diagram-designer
+%% Дата: 2026-02-16
+
+flowchart TB
+    %% === ЦЕНТР -- БИТРИКС24 ===
+    B24["БИТРИКС24\nAll-in-one платформа\nREST API / Вебхуки / OAuth 2.0"]
+
+    %% === МЕССЕНДЖЕРЫ ===
+    subgraph MESSENGERS["Мессенджеры (Open Channels)"]
+        direction LR
+        TG["Telegram\nЧерез @BotFather\nБесплатно"]
+        WA["WhatsApp\nЧерез Wazzup / Edna\nот 800 руб./мес"]
+        IG["Instagram Direct\nОфициальный коннектор\nБесплатно"]
+        FB["Facebook Messenger\nОфициальный коннектор\nБесплатно"]
+        VK["ВКонтакте\nОфициальный коннектор\nБесплатно"]
+        VB["Viber\nБизнес-аккаунт\nПлатное создание"]
+    end
+
+    %% === ТЕЛЕФОНИЯ ===
+    subgraph TELEPHONY["Телефония"]
+        direction LR
+        SIP["SIP-коннектор\nСвой VoIP-провайдер\n+971 номера (ОАЭ)"]
+        BUILTIN_TEL["Встроенная телефония\nАренда номеров\nот ~200 руб./мес"]
+    end
+
+    %% === УЧЕТНЫЕ СИСТЕМЫ ===
+    subgraph ACCOUNTING["Учетные системы"]
+        direction LR
+        ONESС["1С:Предприятие\nДвусторонняя синхронизация\nКонтакты, счета, каталог"]
+    end
+
+    %% === ОБЛАЧНЫЕ СЕРВИСЫ ===
+    subgraph CLOUD["Облачные сервисы"]
+        direction LR
+        GOOGLE["Google Workspace\nCalendar, Drive, Docs\nОфициальная интеграция"]
+        MS365["Microsoft 365\nOutlook, OneDrive\nОфициальная интеграция"]
+        ZOOM["Zoom\nВидеозвонки\nЧерез Маркетплейс"]
+        TEAMS["Microsoft Teams\nВидеозвонки\nЧерез Маркетплейс"]
+    end
+
+    %% === АВТОМАТИЗАЦИЯ ===
+    subgraph AUTOMATION_EXT["Платформы автоматизации"]
+        direction LR
+        ZAPIER["Zapier\nКоннектор\n1000+ сервисов"]
+        MAKE["Make (Integromat)\nКоннектор\nСложные сценарии"]
+    end
+
+    %% === ПЛАТЕЖНЫЕ СИСТЕМЫ ===
+    subgraph PAYMENTS["Платежные системы"]
+        direction LR
+        YUKASSA["ЮKassa\nРоссия\nРубли"]
+        STRIPE["Stripe\nМеждународный\nVisa, MC, Alipay, WeChat"]
+        ROBOKASSA["Robokassa\nРоссия\nМультивалютно"]
+        TINKOFF["Тинькофф Оплата\nРоссия\nЭквайринг"]
+    end
+
+    %% === API ===
+    subgraph DEV["Разработка"]
+        direction LR
+        REST["REST API\n2 запроса/сек\nПакетные вызовы (batch)"]
+        WEBHOOK_IN["Входящие вебхуки\nБез OAuth\n/rest/user_id/token/"]
+        WEBHOOK_OUT["Исходящие вебхуки\nСобытия -> ваш сервер\nHTTP POST"]
+        MARKET["Маркетплейс\n1000+ приложений\nУстановка в 1 клик"]
+    end
+
+    %% === СВЯЗИ ===
+    MESSENGERS <-->|"Open Channels\nАвто-создание лидов"| B24
+    TELEPHONY <-->|"Звонки, запись\nIVR, очереди"| B24
+    ACCOUNTING <-->|"Синхронизация\nсчетов и контактов"| B24
+    CLOUD <-->|"Календарь, файлы\nвидеозвонки"| B24
+    AUTOMATION_EXT <-->|"HTTP-коннекторы\nСценарии"| B24
+    PAYMENTS <-->|"CRM-магазин\nОнлайн-оплата"| B24
+    DEV <-->|"REST API\nОбмен данными"| B24
+
+    %% === СТИЛИ ===
+    style B24 fill:#1565C0,stroke:#0D47A1,stroke-width:3px,color:#fff,font-size:16px
+    style MESSENGERS fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px
+    style TELEPHONY fill:#FFF3E0,stroke:#E65100,stroke-width:2px
+    style ACCOUNTING fill:#EFEBE9,stroke:#4E342E,stroke-width:2px
+    style CLOUD fill:#E3F2FD,stroke:#1565C0,stroke-width:2px
+    style AUTOMATION_EXT fill:#F3E5F5,stroke:#6A1B9A,stroke-width:2px
+    style PAYMENTS fill:#E8F5E9,stroke:#1B5E20,stroke-width:2px
+    style DEV fill:#ECEFF1,stroke:#37474F,stroke-width:2px
+    style TG fill:#0088cc,stroke:#006699,color:#fff
+    style WA fill:#25D366,stroke:#128C7E,color:#fff
+    style IG fill:#E1306C,stroke:#C13584,color:#fff
+    style FB fill:#1877F2,stroke:#0D47A1,color:#fff
+    style VK fill:#4C75A3,stroke:#2B587A,color:#fff
+    style STRIPE fill:#635BFF,stroke:#3D37C9,color:#fff
+    style ZAPIER fill:#FF4A00,stroke:#CC3B00,color:#fff

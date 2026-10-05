@@ -1,0 +1,33 @@
+{
+  "eval_id": "eval-10-orphan-docs",
+  "config": "with_skill",
+  "assertions": [
+    {
+      "id": "a1",
+      "description": "Output lists specific files found in the docs/ directory of the project",
+      "passed": true,
+      "evidence": "Phase 1 (Discovery) contains a full table listing 32+ specific MD files found in docs/ with names, line counts, token estimates, and git dates. Examples: IDEAL_MASTER_PLAN.md (2559 lines, ~10236 tokens), UX_DESIGN_v1.md (1103 lines), DEPLOY_GCP.md (1062 lines), etc."
+    },
+    {
+      "id": "a2",
+      "description": "Output cross-checks which docs/ files are referenced from CLAUDE.md or other navigation documents and flags unreferenced ones",
+      "passed": true,
+      "evidence": "Phase 2 explicitly cross-checks CLAUDE.md references, listing explicit nav links, tree mentions, and group references. Phase 3 tier-table categorizes all files — 22 flagged as orphans with note 'Orphan: нет ссылок'. Statistics: 16 full orphans + 6 changelog-only mentions flagged."
+    },
+    {
+      "id": "a3",
+      "description": "Output classifies orphan docs into Archive tier using the specific tier name 'Archive'",
+      "passed": true,
+      "evidence": "Tier-table in Phase 3 (Synthesis) uses column 'Tier' with value 'Archive' for all 22 orphan files. Example rows: '| Archive | docs/IDEAL_MASTER_PLAN.md | Orphan: нет ссылок; untracked в git...' and '| Archive | docs/UX_DESIGN_v1.md | Orphan: нет ссылок...'"
+    },
+    {
+      "id": "a4",
+      "description": "Output assigns AP-XX codes to orphan documentation antipatterns",
+      "passed": true,
+      "evidence": "Anti-patterns section explicitly uses: 'AP-03 | docs/ directory | 22 файла из 32 не имеют навигационных ссылок из CLAUDE.md — полные orphan docs | Severity: HIGH'"
+    }
+  ],
+  "pass_rate": 1.0000,
+  "passed": 4,
+  "total": 4
+}

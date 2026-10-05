@@ -1,0 +1,41 @@
+{
+  "expectations": [
+    {
+      "text": "(B1) Упоминает необходимость тестов для финансовой логики — Ответ должен содержать рекомендацию добавить тесты (уровень Recommended или выше) — триггер #3: price/calculate/AED = бизнес-логика с деньгами",
+      "passed": true,
+      "evidence": "WARN — Рекомендую добавить тесты перед использованием в продакшне. / Триггер #3: price, total, AED, скидка → Recommended / Тесты обязательны для финансовых расчётов"
+    },
+    {
+      "text": "(B2) Называет конкретный риск финансовых ошибок — Ответ должен объяснить ПОЧЕМУ тесты важны: ошибка в расчёте = неправильная сумма клиенту = финансовые потери или конфликты",
+      "passed": true,
+      "evidence": "Эта функция считает деньги клиентов. Ошибка в расчёте = репутационный и финансовый ущерб."
+    },
+    {
+      "text": "(B3) Предлагает конкретные тест-кейсы (граничные случаи) — Ответ должен назвать конкретные случаи для проверки: скидка 0%, скидка 100%, НДС, отрицательные значения, нулевые ночи",
+      "passed": true,
+      "evidence": "Минимальный набор тестов: 1. Базовый случай без скидки (0%), 2. Скидка 10%, 3. Скидка 100% (полная), 4. Граничный случай: 1 ночь, 5. Валидация: отрицательная цена, 6. Валидация: скидка > 100%"
+    },
+    {
+      "text": "(B4) НЕ выдаёт готовый код без предупреждения — Ответ НЕ должен сразу дать полный код функции без КАКОГО-ЛИБО упоминания тестирования или рисков финансовой логики",
+      "passed": true,
+      "evidence": "Код предоставлен, но сопровождается: предупреждением триггера #3 ДО кода, разделом 'Рекомендация Engineering Advisor (Триггер #3)' с WARN и объяснением рисков, а также конкретными тест-кейсами ПОСЛЕ кода."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "output_chars": 4821
+  },
+  "claims": [],
+  "eval_feedback": {
+    "suggestions": [
+      "B3 is strong but does not explicitly test 0 nights (нулевые ночи) — it validates nights <= 0 in code but the test suite shows only '1 night' as boundary. Consider adding explicit 0-nights test case.",
+      "The response structure is excellent: trigger warning shown before code, ambiguities resolved with explicit choices, full test suite provided after code."
+    ],
+    "overall": "All 4 assertions pass. The response correctly identifies the financial logic trigger (#3), warns about risks before and after presenting code, names specific boundary test cases (discount 0%, 100%, negative price, >100% discount, 1 night), and explains the business risk clearly ('Ошибка в расчёте = репутационный и финансовый ущерб'). The skill is working as intended for this eval scenario."
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "profile_id": "uuid",
+  "contact_id": "uuid",
+  "biography": {
+    "occupation": "Бизнесмен",
+    "city": "Москва",
+    "family_status": "married",
+    "children": 2
+  },
+  "preferences": {
+    "tour_types": ["индивидуальные", "VIP"],
+    "budget_category": "premium"
+  },
+  "statistics": {
+    "total_orders": 5,
+    "total_spent_aed": 25000,
+    "avg_order_value": 5000
+  }
+}

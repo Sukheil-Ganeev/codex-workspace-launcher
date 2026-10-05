@@ -1,0 +1,16 @@
+{
+  "contact_id": "550e8400-e29b-41d4-a716-446655440000",
+  "jid": "971501234567@s.whatsapp.net",
+  "phone": "+971501234567",
+  "name": "Иван",
+  "display_name": "Иван Иванов",
+  "source": "both",
+  "is_group": false,
+  "first_message_date": "2024-01-15T10:30:00",
+  "last_message_date": "2026-01-26T12:00:00",
+  "total_messages": 127,
+  "messages_sent": 59,
+  "messages_received": 68,
+  "language": "ru",
+  "country_code": "971"
+}

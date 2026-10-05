@@ -1,0 +1,60 @@
+%%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#2F3437', 'primaryTextColor': '#fff', 'primaryBorderColor': '#E16259', 'lineColor': '#E16259', 'secondaryColor': '#37352F', 'tertiaryColor': '#F7F6F3'}}}%%
+graph TB
+    subgraph Client["Клиент / Приложение"]
+        CC["Claude Code<br/>(MCP Server)"]
+        JS["JS SDK<br/>@notionhq/client"]
+        PY["Python SDK<br/>notion-client"]
+        REST["REST Client<br/>(curl / Postman)"]
+    end
+
+    subgraph Auth["Аутентификация"]
+        INT["Internal Integration<br/>Bearer ntn_***"]
+        OAUTH["Public Integration<br/>OAuth 2.0"]
+    end
+
+    subgraph NotionAPI["Notion REST API v1<br/>https://api.notion.com/v1<br/>Rate Limit: 3 req/sec"]
+        DB["Databases API<br/>POST /databases<br/>GET /databases/{id}<br/>PATCH /databases/{id}<br/>POST /databases/{id}/query"]
+        PG["Pages API<br/>POST /pages<br/>GET /pages/{id}<br/>PATCH /pages/{id}"]
+        BL["Blocks API<br/>GET /blocks/{id}/children<br/>PATCH /blocks/{id}/children<br/>PATCH /blocks/{id}<br/>DELETE /blocks/{id}"]
+        SR["Search API<br/>POST /search"]
+        US["Users API<br/>GET /users<br/>GET /users/{id}<br/>GET /users/me"]
+        CM["Comments API<br/>POST /comments<br/>GET /comments"]
+        DS["Data Sources API<br/>(v2025-09-03)<br/>Multi-source databases"]
+        WH["Webhooks API<br/>23 event types<br/>HMAC-SHA256"]
+    end
+
+    subgraph Storage["Notion Data Model"]
+        WS["Workspace"]
+        TS["Teamspaces"]
+        PAGES["Pages"]
+        DBS["Databases"]
+        BLOCKS["Blocks"]
+        PROPS["Properties<br/>18+ типов"]
+    end
+
+    subgraph Integrations["Внешние интеграции"]
+        ZAP["Zapier<br/>6 triggers, 27 actions"]
+        MAKE["Make.com<br/>1 trigger, 4+ actions"]
+        N8N["n8n<br/>2 triggers, 14 actions"]
+        SLACK["Slack<br/>Нативная интеграция"]
+        GCAL["Google Calendar<br/>Notion Calendar"]
+    end
+
+    CC -->|"OAuth 2.1"| NotionAPI
+    JS -->|"Bearer Token"| NotionAPI
+    PY -->|"Bearer Token"| NotionAPI
+    REST -->|"Bearer Token"| NotionAPI
+
+    INT --> NotionAPI
+    OAUTH --> NotionAPI
+
+    NotionAPI --> Storage
+
+    WS --> TS
+    TS --> PAGES
+    TS --> DBS
+    PAGES --> BLOCKS
+    DBS --> PROPS
+
+    WH -->|"POST callback"| Integrations
+    NotionAPI <--> Integrations

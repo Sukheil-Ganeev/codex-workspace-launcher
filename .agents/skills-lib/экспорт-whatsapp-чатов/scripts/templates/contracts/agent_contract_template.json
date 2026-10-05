@@ -1,0 +1,157 @@
+{
+  "contract_type": "agent",
+  "language": "ru",
+  "description": "Шаблон агентского договора",
+
+  "agency": {
+    "name": "",
+    "name_en": "",
+    "trade_license": "",
+    "vat_number": "",
+    "legal_address": "",
+    "postal_address": "",
+    "website": ""
+  },
+
+  "contact": {
+    "person": "",
+    "position": "",
+    "phone": "",
+    "email": "",
+    "alternative_phone": "",
+    "alternative_email": ""
+  },
+
+  "banking": {
+    "bank_name": "",
+    "iban": "",
+    "swift": "",
+    "account_holder": "",
+    "currency": "AED"
+  },
+
+  "commission": {
+    "rate": 10,
+    "type": "percentage",
+    "types_available": ["percentage", "fixed", "tiered"],
+    "tiered_structure": [
+      {"volume_from": 0, "volume_to": 50000, "rate": 10},
+      {"volume_from": 50001, "volume_to": 100000, "rate": 12},
+      {"volume_from": 100001, "volume_to": null, "rate": 15}
+    ]
+  },
+
+  "payment": {
+    "terms": "prepaid",
+    "terms_available": ["prepaid", "postpaid", "mixed"],
+    "period_days": 7,
+    "currency": "AED"
+  },
+
+  "contract_period": {
+    "start_date": "",
+    "end_date": "",
+    "duration_months": 12,
+    "auto_renewal": true,
+    "notice_period_days": 30
+  },
+
+  "services_covered": {
+    "available": [
+      "Экскурсии по ОАЭ",
+      "Трансферы",
+      "Чартер яхт",
+      "Аренда автомобилей",
+      "Билеты в парки",
+      "Рестораны и шоу",
+      "VIP услуги"
+    ],
+    "selected": []
+  },
+
+  "territory": {
+    "exclusive": false,
+    "regions": [],
+    "worldwide": true
+  },
+
+  "obligations": {
+    "principal": [
+      "Предоставление актуальной информации о ценах",
+      "Своевременное подтверждение бронирований",
+      "Качественное оказание услуг",
+      "Предоставление рекламных материалов",
+      "Обучение персонала агента"
+    ],
+    "agent": [
+      "Активное продвижение услуг",
+      "Соблюдение ценовой политики",
+      "Своевременная передача бронирований",
+      "Ведение учёта продаж",
+      "Защита репутации бренда"
+    ]
+  },
+
+  "marketing": {
+    "materials_provided": true,
+    "co_branding_allowed": true,
+    "social_media_guidelines": true,
+    "training_included": true
+  },
+
+  "reporting": {
+    "frequency": "monthly",
+    "formats": ["email", "online_portal"],
+    "required_data": [
+      "Количество бронирований",
+      "Общая сумма продаж",
+      "Комиссия к выплате"
+    ]
+  },
+
+  "disputes": {
+    "resolution": "negotiation",
+    "arbitration_place": "Dubai, UAE",
+    "governing_law": "UAE Law"
+  },
+
+  "confidentiality": {
+    "applies": true,
+    "items_protected": [
+      "Коммерческие условия",
+      "Клиентская база",
+      "Внутренние цены",
+      "Бизнес-процессы"
+    ],
+    "duration_after_termination_years": 2
+  },
+
+  "termination": {
+    "by_notice": true,
+    "notice_period_days": 30,
+    "immediate_termination_causes": [
+      "Существенное нарушение условий",
+      "Банкротство",
+      "Мошенничество",
+      "Причинение вреда репутации"
+    ]
+  },
+
+  "standard_templates": {
+    "B2B_Standard": {
+      "commission_rate": 10,
+      "payment_terms": "prepaid",
+      "territory": "Без ограничений"
+    },
+    "B2B_Partner": {
+      "commission_rate": 15,
+      "payment_terms": "postpaid",
+      "territory": "Эксклюзивный регион"
+    },
+    "B2B_Premium": {
+      "commission_rate": 20,
+      "payment_terms": "mixed",
+      "territory": "Эксклюзивная страна"
+    }
+  }
+}

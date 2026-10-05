@@ -1,0 +1,24 @@
+*RETAIL | [TYPE] | [AREA]*
+_[Description — location, traffic]_
+───────────────
+*FEATURES*
+▫️ Area: [X,XXX] sq.ft.
+▫️ Frontage: [X]m
+▫️ Ceiling height: [X.X]m
+▫️ Storefront: [Yes/No]
+
+*LOCATION*
+▫️ Floor: [Ground/1st/Basement]
+▫️ Foot traffic: [High/Medium]
+▫️ Parking: [X] spaces
+
+*BUILDING: [NAME]*
+───────────────
+💰 *RENT: [XXX] AED/sq.ft./year*
+_Total: [X,XXX,XXX] AED/year_
+
+*TERMS*
+▫️ Minimum: [X] year(s)
+▫️ Service charge: [X] AED/sq.ft.
+
+*CONTACT:* [NAME] | [+971 XX XXX XXXX]

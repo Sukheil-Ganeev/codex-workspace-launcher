@@ -1,0 +1,10 @@
+{
+  "eval_id": 20,
+  "eval_name": "max-quality-mp4-full-command",
+  "prompt": "скачай это видео максимальным качеством в MP4, обязательно со звуком: youtube.com/watch?v=dQw4w9WgXcQ",
+  "assertions": [
+    "Использует bv* или bestvideo селектор для видео потока",
+    "Использует --merge-output-format mp4",
+    "Указывает путь D:/Downloads/YouTube/"
+  ]
+}

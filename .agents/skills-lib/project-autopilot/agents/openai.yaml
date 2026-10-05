@@ -1,0 +1,4 @@
+interface:
+  display_name: "Project Autopilot"
+  short_description: "Развитие проекта через поиск, задачи и проверки"
+  default_prompt: "Используй $project-autopilot для непрерывного развития текущего проекта по его цели, источникам, TODO и проверяемым результатам."

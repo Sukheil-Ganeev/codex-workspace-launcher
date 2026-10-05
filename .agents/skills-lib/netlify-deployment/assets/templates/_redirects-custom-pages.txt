@@ -1,0 +1,36 @@
+# _redirects с кастомными страницами ошибок и специальными редиректами
+
+# Редирект старых URL на новые (301 - постоянный)
+/old-page    /new-page    301
+/blog/old-post    /blog/new-post    301
+
+# Редирект с домена на домен
+https://old-domain.com/*    https://new-domain.com/:splat    301
+
+# Кастомная страница 404
+/404    /404.html    404
+
+# Редирект для корневых страниц
+/home    /    301
+
+# Редирект с параметрами
+/search?q=:query    /results?search=:query    301
+
+# Редирект для конкретных файлов
+/prices.pdf    /documents/latest-prices.pdf    302
+
+# Редирект с условием (по языку)
+/    /en/    302    Language=en
+/    /ru/    302    Language=ru
+
+# Проксирование API
+/api/*    /.netlify/functions/:splat    200
+
+# SPA routing (должен быть последним)
+/*    /index.html    200
+
+# КОДЫ СТАТУСОВ:
+# 200 - Success (proxy/rewrite, URL не меняется)
+# 301 - Permanent redirect (для SEO)
+# 302 - Temporary redirect
+# 404 - Not Found

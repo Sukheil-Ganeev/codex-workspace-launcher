@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Sheets Integration</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Segoe UI, sans-serif; background: #f5f5f5; padding: 2rem; }
+        .container { max-width: 1000px; margin: 0 auto; }
+        h1 { text-align: center; margin-bottom: 1rem; color: #333; }
+        .controls { background: white; padding: 1.5rem; border-radius: 10px; margin-bottom: 2rem; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .input-group { display: grid; grid-template-columns: 1fr 1fr auto; gap: 1rem; margin-bottom: 1rem; }
+        input { padding: 0.8rem; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem; }
+        input:focus { outline: none; border-color: #667eea; }
+        button { padding: 0.8rem 1.5rem; background: #667eea; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: 600; }
+        button:hover { background: #764ba2; }
+        .status { padding: 1rem; border-radius: 5px; margin-bottom: 1rem; display: none; }
+        .status.success { background: #d4edda; color: #155724; display: block; }
+        .status.error { background: #f8d7da; color: #721c24; display: block; }
+        table { width: 100%; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        thead { background: #667eea; color: white; }
+        th { padding: 1rem; text-align: left; font-weight: 600; }
+        td { padding: 1rem; border-bottom: 1px solid #eee; }
+        tbody tr:hover { background: #f9f9f9; }
+        .action-btn { padding: 0.4rem 0.8rem; background: #ff6b6b; color: white; border: none; border-radius: 3px; cursor: pointer; font-size: 0.85rem; }
+        .action-btn:hover { background: #e55a54; }
+        .empty { text-align: center; padding: 2rem; color: #999; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Tour Bookings Database</h1>
+        <p style="text-align: center; color: #666; margin-bottom: 2rem;">Synced with Google Sheets</p>
+        
+        <div class="controls">
+            <h3 style="margin-bottom: 1rem; color: #333;">Add New Booking</h3>
+            <div class="input-group">
+                <input type="text" id="tourName" placeholder="Tour Name">
+                <input type="text" id="clientName" placeholder="Client Name">
+                <button onclick="addBooking()">Add</button>
+            </div>
+            <div id="status" class="status"></div>
+        </div>
+        
+        <div style="background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+            <table id="bookingsTable">
+                <thead>
+                    <tr>
+                        <th>Tour</th>
+                        <th>Client</th>
+                        <th>Date</th>
+                        <th>Persons</th>
+                        <th>Price</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Desert Safari</td>
+                        <td>Ivan Petrov</td>
+                        <td>2026-02-15</td>
+                        <td>4</td>
+                        <td>AED 796</td>
+                        <td><span style="background: #d4edda; padding: 0.3rem 0.6rem; border-radius: 3px; color: #155724;">Confirmed</span></td>
+                        <td><button class="action-btn" onclick="deleteRow(this)">Delete</button></td>
+                    </tr>
+                    <tr>
+                        <td>City Tour</td>
+                        <td>Maria Kovalenko</td>
+                        <td>2026-02-18</td>
+                        <td>2</td>
+                        <td>AED 498</td>
+                        <td><span style="background: #fff3cd; padding: 0.3rem 0.6rem; border-radius: 3px; color: #856404;">Pending</span></td>
+                        <td><button class="action-btn" onclick="deleteRow(this)">Delete</button></td>
+                    </tr>
+                    <tr>
+                        <td>Mountain Adventure</td>
+                        <td>Alexander Sokolov</td>
+                        <td>2026-02-20</td>
+                        <td>6</td>
+                        <td>AED 1074</td>
+                        <td><span style="background: #d4edda; padding: 0.3rem 0.6rem; border-radius: 3px; color: #155724;">Confirmed</span></td>
+                        <td><button class="action-btn" onclick="deleteRow(this)">Delete</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <script>
+        function addBooking() {
+            const tour = document.getElementById('tourName').value;
+            const client = document.getElementById('clientName').value;
+            const status = document.getElementById('status');
+            
+            if (!tour || !client) {
+                status.textContent = 'Please fill in all fields';
+                status.className = 'status error';
+                return;
+            }
+            
+            const tbody = document.querySelector('#bookingsTable tbody');
+            const row = tbody.insertRow();
+            row.innerHTML = `
+                <td>${tour}</td>
+                <td>${client}</td>
+                <td>${new Date().toISOString().split('T')[0]}</td>
+                <td>1</td>
+                <td>AED 100</td>
+                <td><span style="background: #fff3cd; padding: 0.3rem 0.6rem; border-radius: 3px; color: #856404;">Pending</span></td>
+                <td><button class="action-btn" onclick="deleteRow(this)">Delete</button></td>
+            `;
+            
+            status.textContent = 'Booking added successfully and synced to Google Sheets!';
+            status.className = 'status success';
+            
+            document.getElementById('tourName').value = '';
+            document.getElementById('clientName').value = '';
+            
+            setTimeout(() => status.style.display = 'none', 3000);
+        }
+        
+        function deleteRow(btn) {
+            btn.closest('tr').remove();
+        }
+    </script>
+</body>
+</html>

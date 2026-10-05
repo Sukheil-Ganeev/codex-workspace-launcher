@@ -1,0 +1,17 @@
+Чтобы скачать только субтитры на русском без самого видео, используй такую команду:
+
+yt-dlp --write-subs --write-auto-subs --sub-langs ru --skip-download "youtube.com/watch?v=dQw4w9WgXcQ"
+
+Что делает каждый флаг:
+- --write-subs — скачивает ручные субтитры (если автор загрузил)
+- --write-auto-subs — скачивает автоматически сгенерированные субтитры (YouTube Auto-generated)
+- --sub-langs ru — только русский язык
+- --skip-download — не скачивать видео, только субтитры
+
+Субтитры сохранятся в текущую папку в формате .vtt (или .srt если добавить --convert-subs srt).
+
+Если хочешь сразу в SRT (более универсальный формат):
+
+yt-dlp --write-subs --write-auto-subs --sub-langs ru --skip-download --convert-subs srt "youtube.com/watch?v=dQw4w9WgXcQ"
+
+Примечание: для этого конкретного видео (Rick Astley - Never Gonna Give You Up) русские субтитры скорее всего будут автоматически сгенерированными, не ручными.

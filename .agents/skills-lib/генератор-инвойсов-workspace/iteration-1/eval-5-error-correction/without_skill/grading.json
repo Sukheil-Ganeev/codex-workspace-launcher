@@ -1,0 +1,14 @@
+{
+  "eval_id": 5,
+  "run": "without_skill",
+  "expectations": [
+    {"text": "Номер исправлен — добавлен # (#26-089)", "passed": false, "evidence": "Invoice No: 26-089 — символ # не добавлен"},
+    {"text": "Имя клиента в CAPS: IVANOVA MARIA", "passed": false, "evidence": "Client: Ivanova Maria — оставлено в исходном регистре без CAPS"},
+    {"text": "POS комиссия 3.5% (не 4%)", "passed": true, "evidence": "POS Commission (3.5%): 10.29 — верный процент"},
+    {"text": "Описание содержит LA PERLE SHOW, SILVER CATEGORY", "passed": true, "evidence": "La Perle Show | Silver — ключевые слова есть, но не в CAPS и нет шаблонного форматирования"}
+  ],
+  "pass_count": 2,
+  "total_count": 4,
+  "pass_rate": 0.5,
+  "notes": "Исправление ошибок не произведено: имя не CAPS, # не добавлен. Телефон 925-777-1234 оставлен без кода страны. Нет реквизитов компании."
+}

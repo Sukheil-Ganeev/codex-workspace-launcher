@@ -1,0 +1,88 @@
+%% Название: Архитектура платформы Битрикс24 -- модули и связи
+%% Автор: diagram-designer
+%% Дата: 2026-02-16
+
+flowchart TB
+    %% === ЦЕНТРАЛЬНОЕ ЯДРО ===
+    subgraph CORE["Ядро платформы"]
+        CRM["CRM\nЛиды, Сделки, Контакты\nВоронки, Аналитика\nСмарт-процессы"]
+    end
+
+    %% === МОДУЛИ ВОКРУГ ЯДРА ===
+    subgraph TASKS_MODULE["Задачи и проекты"]
+        TASKS["Задачи\nKanban, Gantt, Scrum\nУчет времени\nШаблоны"]
+    end
+
+    subgraph COMM_MODULE["Коммуникации"]
+        COMM["Мессенджер\nВидеозвонки (HD)\nКалендарь\nПочта (Email-трекер)\nБитрикс24.Диск"]
+    end
+
+    subgraph CC_MODULE["Контакт-центр"]
+        CC["Open Channels\nТелефония (SIP)\nЧат-боты\nВиджет на сайт\nМаршрутизация"]
+    end
+
+    subgraph SITES_MODULE["Сайты и магазин"]
+        SITES["Конструктор сайтов\nЛендинги\nCRM-формы\nИнтернет-магазин"]
+    end
+
+    subgraph MARKETING_MODULE["Маркетинг"]
+        MARKETING["CRM-маркетинг\nEmail / SMS рассылки\nСегментация\nСквозная аналитика\nГенератор продаж"]
+    end
+
+    subgraph AI_MODULE["BitrixGPT (AI)"]
+        AI["Генерация текстов\nРасшифровка звонков\nАвтозаполнение CRM\nДекомпозиция задач\nПомощь в переписке"]
+    end
+
+    subgraph AUTO_MODULE["Автоматизация"]
+        AUTO["Роботы\nТриггеры\nБизнес-процессы\nШаблоны автоматизации"]
+    end
+
+    subgraph API_MODULE["API и интеграции"]
+        API["REST API\nВебхуки (вх/исх)\nOAuth 2.0\nМаркетплейс\nПакетные вызовы"]
+    end
+
+    subgraph ADMIN_MODULE["Администрирование"]
+        ADMIN["Права доступа\nОргструктура\n2FA, безопасность\nИмпорт / Экспорт\nБэкапы"]
+    end
+
+    subgraph MOBILE_MODULE["Мобильное приложение"]
+        MOBILE["iOS / Android\nCRM на ходу\nЗадачи (Kanban)\nЧат и звонки\nPush-уведомления"]
+    end
+
+    %% === СВЯЗИ МЕЖДУ МОДУЛЯМИ ===
+    CRM <-->|"Задачи из сделок\nЧек-листы"| TASKS
+    CRM <-->|"Переписка в карточке\nEmail-трекер"| COMM
+    CRM <-->|"Лиды из мессенджеров\nИстория чатов"| CC
+    CRM <-->|"Лиды с сайтов\nCRM-формы"| SITES
+    CRM <-->|"Сегменты, рассылки\nROI по сделкам"| MARKETING
+    CRM <-->|"Автозаполнение\nРасшифровка звонков"| AI
+    CRM <-->|"Роботы на стадиях\nБизнес-процессы"| AUTO
+    CRM <-->|"crm.deal.*, crm.lead.*\nВебхуки"| API
+
+    TASKS <-->|"Обсуждение задач\nФайлы, комментарии"| COMM
+    CC <-->|"Запись звонков\nРасшифровка"| AI
+    SITES <-->|"Рассылки по базе\nЛендинги кампаний"| MARKETING
+    AUTO <-->|"REST-действия\nВебхуки в БП"| API
+    AI <-->|"AI в задачах\nДекомпозиция"| TASKS
+
+    ADMIN ---|"Права на все модули"| CRM
+    ADMIN ---|"Управление доступом"| TASKS
+    ADMIN ---|"Настройки каналов"| CC
+
+    MOBILE ---|"Зеркало CRM"| CRM
+    MOBILE ---|"Мобильные задачи"| TASKS
+    MOBILE ---|"Чат и звонки"| COMM
+
+    %% === СТИЛИ ===
+    style CORE fill:#E3F2FD,stroke:#1565C0,stroke-width:3px
+    style CRM fill:#BBDEFB,stroke:#0D47A1,stroke-width:2px,color:#0D47A1
+    style TASKS_MODULE fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px
+    style COMM_MODULE fill:#FFF3E0,stroke:#E65100,stroke-width:2px
+    style CC_MODULE fill:#F3E5F5,stroke:#6A1B9A,stroke-width:2px
+    style SITES_MODULE fill:#E0F7FA,stroke:#006064,stroke-width:2px
+    style MARKETING_MODULE fill:#FCE4EC,stroke:#880E4F,stroke-width:2px
+    style AI_MODULE fill:#FFF8E1,stroke:#F57F17,stroke-width:2px
+    style AUTO_MODULE fill:#E8EAF6,stroke:#283593,stroke-width:2px
+    style API_MODULE fill:#EFEBE9,stroke:#4E342E,stroke-width:2px
+    style ADMIN_MODULE fill:#ECEFF1,stroke:#37474F,stroke-width:2px
+    style MOBILE_MODULE fill:#E0F2F1,stroke:#00695C,stroke-width:2px

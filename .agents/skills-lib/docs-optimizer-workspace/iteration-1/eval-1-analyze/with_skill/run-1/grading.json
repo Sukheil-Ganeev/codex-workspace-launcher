@@ -1,0 +1,57 @@
+{
+  "expectations": [
+    {
+      "text": "Output contains a Verification Score explicitly in N/5 format",
+      "passed": true,
+      "evidence": "Line 6: 'Verification Score: 3/5' and line 236: '**Verification Score: 3/5**' — score appears both in the header and in the итоговая оценка section"
+    },
+    {
+      "text": "Output identifies CLAUDE.md exceeding 300-400 line threshold as a critical problem",
+      "passed": false,
+      "evidence": "AP-01 states '557 строк (~2,228 токенов) — ниже критического' (below critical). The output notes the architecture tree (319 lines) as a problem within CLAUDE.md, but explicitly says the total line count is below critical threshold. No mention of a 300-400 line limit being breached as a critical issue."
+    },
+    {
+      "text": "Output includes a recommendations section with ranked items (HIGH/MEDIUM/LOW or приоритет)",
+      "passed": true,
+      "evidence": "Lines 137-206: Full 'РЕКОМЕНДАЦИИ' section with subsections '### HIGH priority', '### MEDIUM priority', '### LOW priority', each item labeled [HIGH], [MEDIUM], or [LOW] inline. 13 numbered recommendations total."
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 1,
+    "total": 3,
+    "pass_rate": 0.67
+  },
+  "execution_metrics": {
+    "tool_calls": {
+      "Read": 4,
+      "Bash": 30,
+      "Grep": 0,
+      "Glob": 1,
+      "Write": 2
+    },
+    "total_tool_calls": 37,
+    "errors_encountered": 0,
+    "output_chars": 20249,
+    "files_created": ["output.md", "metrics.json"]
+  },
+  "timing": {
+    "total_tokens": 82172,
+    "duration_ms": 602938,
+    "total_duration_seconds": 602.9
+  },
+  "claims": [
+    "CLAUDE.md: 557 lines, ~2,228 tokens",
+    "38 docs files total, ~19,240 lines, ~76,960 tokens",
+    "Verification Score 3/5 with 5 negative factors listed",
+    "CLAUDE.md can be reduced from 557 to ~190 lines (-66%) by removing architecture tree and Cloudflare Tunnel section"
+  ],
+  "eval_feedback": {
+    "suggestions": [
+      "Expectation 2 uses threshold '300-400 lines' — the output explicitly says CLAUDE.md at 557 lines is 'ниже критического'. The skill should either flag 557 lines as exceeding the threshold or the expectation threshold should be adjusted to match what the skill considers critical (the skill appears to treat architecture tree bloat as the core issue, not total line count).",
+      "Consider adding an explicit threshold check in the skill: if CLAUDE.md > 400 lines, flag as HIGH severity rather than just noting the content breakdown.",
+      "The skill correctly identified 2/3 expectations cleanly. The missing expectation is a calibration issue between the evaluation criteria and the skill's severity model."
+    ],
+    "overall": "Good output quality: thorough analysis with 14 anti-patterns, SSOT violations table, file classification by status, savings forecast, and well-structured ranked recommendations. Failed only on expectation 2 because the skill treats CLAUDE.md bloat as a content/architecture issue rather than a line-count threshold violation. Pass rate 67%."
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "expectations": [
+    {
+      "text": "Output analyzes duplication between CLAUDE.md and MEMORY.md or other documentation files",
+      "passed": true,
+      "evidence": "Section 3 (DUP-01 through DUP-06) extensively analyzes duplication across documentation files. DUP-05 specifically identifies that project metrics appear in CLAUDE.md plus 3 other files (README.md, docs/ARCHITECTURE.md, docs/ARCHITECTURE_v1.md) and are out of sync. DUP-04 compares MASTER_PLAN.md vs docs/IDEAL_MASTER_PLAN.md. DUP-03 compares IMPROVEMENT_MASTER_PLAN v1 vs v2. Section 6 further lists 15 files in docs/ not registered in CLAUDE.md. Note: MEMORY.md does not appear to exist in this project — the output correctly identifies duplication between CLAUDE.md and other docs instead."
+    },
+    {
+      "text": "Output checks ISSUES.md for stale or incorrectly-open entries",
+      "passed": true,
+      "evidence": "Section 5 (ISSUES.md — оценка актуальности) explicitly checks ISSUES.md. It identifies 6 open issues: DB-01 assessed as likely still valid, and SEN-01..05 flagged as potentially stale (8 days since creation, no updates visible). The output notes that per project protocol, items open >7 days warrant review. The metrics.json also records 'open_issues_in_issues_md': 6 with days_since_creation tracked per entry. OC-08 also flags AUDIT_2026-03-03.md as marked АКТУАЛЕН but >7 days old per project rules."
+    },
+    {
+      "text": "Output validates file path references mentioned in CLAUDE.md",
+      "passed": true,
+      "evidence": "Section 1 (BL-01, BL-02) explicitly checks file existence for paths referenced in CLAUDE.md and other docs. BL-01 identifies that docs/DESIGN_DECISIONS_v1.md is referenced in README.md and docs/ARCHITECTURE_v1.md but does not physically exist. Section 2 (OC-06) validates that CLAUDE.md line 26 references docs/IMPROVEMENT_MASTER_PLAN.md (v1) but that document is closed and v2 is the current one. Section 6 cross-validates files in docs/ against what CLAUDE.md's architecture tree lists, finding 15 unregistered files. The metrics.json confirms broken_links count of 1 with file path details."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "total_tokens": 99721,
+    "files_scanned_total": 42,
+    "broken_links_found": 1,
+    "outdated_content_items": 8,
+    "duplicate_groups": 6,
+    "open_issues_in_issues_md": 6,
+    "docs_not_in_claude_md": 15
+  },
+  "timing": {
+    "duration_ms": 442353,
+    "total_duration_seconds": 442.4
+  },
+  "claims": [
+    "42 total .md files scanned (excluding worktrees and .pytest_cache)",
+    "1 broken link: docs/DESIGN_DECISIONS_v1.md missing",
+    "8 outdated content issues identified",
+    "6 duplicate document groups found",
+    "6 open issues in ISSUES.md (DB-01, SEN-01..05)",
+    "15 docs in docs/ not registered in CLAUDE.md",
+    "Server IP 34.107.127.155 in public MD files (acceptable for private repo)"
+  ],
+  "eval_feedback": {
+    "suggestions": [
+      "The output does not explicitly mention MEMORY.md by name — it correctly handles the case where MEMORY.md does not exist and pivots to analyzing CLAUDE.md vs other docs, which is appropriate",
+      "ISSUES.md staleness check could be more decisive — the output hedges with 'unknown' for SEN-01..05 rather than clearly flagging them as requiring update given the 8-day age",
+      "File path validation is thorough for CLAUDE.md references to docs/, but could also check references within the docs tree itself more systematically",
+      "The output quality is high: structured sections, evidence with line numbers, prioritized recommendations, and machine-readable metrics.json"
+    ],
+    "overall": "All three expectations are fully met. The output performs a comprehensive documentation audit covering: (1) duplication analysis across CLAUDE.md and other docs with 6 identified duplicate groups; (2) ISSUES.md staleness check identifying 6 open issues, 5 of which are flagged as potentially stale at 8 days; (3) file path validation finding 1 broken link and 15 unregistered docs. The audit is well-structured with severity ratings, specific line references, and actionable recommendations."
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "eval_id": 8,
+  "eval_name": "eval-new-dependency",
+  "prompt": "Установи httpx и используй его в боте вместо requests. Вот текущий код:\n\n```python\nimport requests\n\nasync def get_exchange_rate():\n    response = requests.get('https://api.example.com/rates')\n    return response.json()\n```\n\nПерепиши с httpx.",
+  "assertions": [
+    {
+      "id": "D1",
+      "name": "Упоминает обновление requirements.txt (триггер #16)",
+      "description": "Ответ должен указать на необходимость добавить httpx в requirements.txt — новая зависимость должна быть зафиксирована"
+    },
+    {
+      "id": "D2",
+      "name": "Обнаруживает синхронный requests в async функции (триггер #20)",
+      "description": "Ответ должен заметить что requests.get() — синхронный вызов в async функции — блокирующий вызов"
+    },
+    {
+      "id": "D3",
+      "name": "Предлагает async httpx клиент (httpx.AsyncClient)",
+      "description": "Ответ должен показать правильную async версию: `async with httpx.AsyncClient() as client: await client.get(...)`"
+    },
+    {
+      "id": "D4",
+      "name": "НЕ просто переименовывает requests в httpx без async",
+      "description": "Ответ НЕ должен дать код где просто заменён `import requests` на `import httpx` без перехода на AsyncClient"
+    }
+  ]
+}

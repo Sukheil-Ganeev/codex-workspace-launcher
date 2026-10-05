@@ -1,0 +1,376 @@
+{
+  "metadata": {
+    "skill_name": "скачивание-видео",
+    "skill_path": "C:/Users/londo/.claude/skills/скачивание-видео",
+    "executor_model": "claude-sonnet-4-6",
+    "analyzer_model": "claude-sonnet-4-6",
+    "timestamp": "2026-03-05T03:27:00Z",
+    "evals_run": [1, 2, 3, 4, 5, 6, 7, 8],
+    "runs_per_configuration": 1
+  },
+  "runs": [
+    {
+      "eval_id": 1,
+      "eval_name": "simple-1080p",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "time_seconds": 31.7,
+        "tokens": 28811,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "Содержит правильный путь D:/Downloads/YouTube/", "passed": true, "evidence": "-P \"D:/Downloads/YouTube/\" в команде"},
+        {"text": "Содержит ограничение высоты height<=1080", "passed": true, "evidence": "bv*[ext=mp4][height<=1080]"},
+        {"text": "Содержит --merge-output-format mp4", "passed": true, "evidence": "--merge-output-format mp4"},
+        {"text": "Содержит format-селектор с ext=mp4", "passed": true, "evidence": "[ext=mp4] в селекторе"}
+      ]
+    },
+    {
+      "eval_id": 1,
+      "eval_name": "simple-1080p",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.75,
+        "passed": 3,
+        "failed": 1,
+        "total": 4,
+        "time_seconds": 21.0,
+        "tokens": 17848,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "Содержит правильный путь D:/Downloads/YouTube/", "passed": false, "evidence": "Использует D:/Downloads/%(title)s.%(ext)s — не тот путь"},
+        {"text": "Содержит ограничение высоты height<=1080", "passed": true, "evidence": "bestvideo[height<=1080]"},
+        {"text": "Содержит --merge-output-format mp4", "passed": true, "evidence": "--merge-output-format mp4"},
+        {"text": "Содержит format-селектор с ext=mp4", "passed": true, "evidence": "[ext=mp4] есть"}
+      ]
+    },
+    {
+      "eval_id": 2,
+      "eval_name": "mp3-with-metadata",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 5,
+        "failed": 0,
+        "total": 5,
+        "time_seconds": 29.3,
+        "tokens": 28773,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "Содержит флаг -x", "passed": true, "evidence": "-x в команде"},
+        {"text": "Содержит --audio-format mp3", "passed": true, "evidence": "--audio-format mp3"},
+        {"text": "Содержит --embed-thumbnail", "passed": true, "evidence": "--embed-thumbnail"},
+        {"text": "Содержит --audio-quality 0", "passed": true, "evidence": "--audio-quality 0"},
+        {"text": "Содержит правильный путь D:/Downloads/YouTube/", "passed": true, "evidence": "-P \"D:/Downloads/YouTube/\""}
+      ]
+    },
+    {
+      "eval_id": 2,
+      "eval_name": "mp3-with-metadata",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.8,
+        "passed": 4,
+        "failed": 1,
+        "total": 5,
+        "time_seconds": 16.4,
+        "tokens": 17732,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "Содержит флаг -x", "passed": true, "evidence": "-x в команде"},
+        {"text": "Содержит --audio-format mp3", "passed": true, "evidence": "--audio-format mp3"},
+        {"text": "Содержит --embed-thumbnail", "passed": true, "evidence": "--embed-thumbnail"},
+        {"text": "Содержит --audio-quality 0", "passed": true, "evidence": "--audio-quality 0"},
+        {"text": "Содержит правильный путь D:/Downloads/YouTube/", "passed": false, "evidence": "Показывает D:/Music/ как пример, основная команда без пути"}
+      ]
+    },
+    {
+      "eval_id": 3,
+      "eval_name": "playlist-numbered",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "time_seconds": 45.4,
+        "tokens": 32196,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "Содержит %(playlist)s", "passed": true, "evidence": "%(playlist)s/ в шаблоне -o"},
+        {"text": "Содержит %(playlist_index)", "passed": true, "evidence": "%(playlist_index)02d"},
+        {"text": "Использует 02d для ведущего нуля", "passed": true, "evidence": "%(playlist_index)02d — формат 01, 02, 03"},
+        {"text": "Содержит правильный путь D:/Downloads/YouTube/", "passed": true, "evidence": "-P \"D:/Downloads/YouTube/\""}
+      ]
+    },
+    {
+      "eval_id": 3,
+      "eval_name": "playlist-numbered",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.25,
+        "passed": 1,
+        "failed": 3,
+        "total": 4,
+        "time_seconds": 19.2,
+        "tokens": 17847,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "Содержит %(playlist)s", "passed": false, "evidence": "Использует %(playlist_title)s — другая переменная"},
+        {"text": "Содержит %(playlist_index)", "passed": true, "evidence": "%(playlist_index)s есть"},
+        {"text": "Использует 02d для ведущего нуля", "passed": false, "evidence": "%(playlist_index)s без 02d — будет 1, 2 вместо 01, 02"},
+        {"text": "Содержит правильный путь D:/Downloads/YouTube/", "passed": false, "evidence": "Показывает D:/Downloads/ как опцию, нет /YouTube/"}
+      ]
+    },
+    {
+      "eval_id": 4,
+      "eval_name": "tiktok-download",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "time_seconds": 39.5,
+        "tokens": 32058,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "Содержит правильный путь D:/Downloads/YouTube/", "passed": true, "evidence": "-P \"D:/Downloads/YouTube/\" в основной команде"},
+        {"text": "Содержит ссылку на TikTok", "passed": true, "evidence": "tiktok.com есть"},
+        {"text": "Команда содержит yt-dlp", "passed": true, "evidence": "yt-dlp есть"},
+        {"text": "Нет лишних YouTube-флагов [ext=mp4]", "passed": true, "evidence": "Основная команда без YouTube-специфичных фильтров"}
+      ]
+    },
+    {
+      "eval_id": 4,
+      "eval_name": "tiktok-download",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.75,
+        "passed": 3,
+        "failed": 1,
+        "total": 4,
+        "time_seconds": 17.5,
+        "tokens": 17697,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "Содержит правильный путь D:/Downloads/YouTube/", "passed": false, "evidence": "Основная команда без пути. Пример: D:/Downloads/%(uploader)s..."},
+        {"text": "Содержит ссылку на TikTok", "passed": true, "evidence": "tiktok.com есть"},
+        {"text": "Команда содержит yt-dlp", "passed": true, "evidence": "yt-dlp есть"},
+        {"text": "Нет лишних YouTube-флагов [ext=mp4]", "passed": true, "evidence": "Нет YouTube-специфичных фильтров"}
+      ]
+    },
+    {
+      "eval_id": 5,
+      "eval_name": "subtitles-only",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "time_seconds": 36.7,
+        "tokens": 32191,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "Содержит --skip-download", "passed": true, "evidence": "--skip-download в команде"},
+        {"text": "Содержит --write-subs или --write-auto-subs", "passed": true, "evidence": "--write-subs есть"},
+        {"text": "Содержит ru для языка субтитров", "passed": true, "evidence": "--sub-lang ru"},
+        {"text": "Содержит правильный путь D:/Downloads/YouTube/", "passed": true, "evidence": "-P \"D:/Downloads/YouTube/\""}
+      ]
+    },
+    {
+      "eval_id": 5,
+      "eval_name": "subtitles-only",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.75,
+        "passed": 3,
+        "failed": 1,
+        "total": 4,
+        "time_seconds": 16.0,
+        "tokens": 17723,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "Содержит --skip-download", "passed": true, "evidence": "--skip-download есть"},
+        {"text": "Содержит --write-subs или --write-auto-subs", "passed": true, "evidence": "--write-subs и --write-auto-subs оба есть"},
+        {"text": "Содержит ru для языка субтитров", "passed": true, "evidence": "--sub-langs ru"},
+        {"text": "Содержит правильный путь D:/Downloads/YouTube/", "passed": false, "evidence": "Нет пути — сохраняет в текущую папку"}
+      ]
+    },
+    {
+      "eval_id": 6,
+      "eval_name": "time-segment",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 3,
+        "failed": 0,
+        "total": 3,
+        "time_seconds": 41.4,
+        "tokens": 32025,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "Содержит --download-sections", "passed": true, "evidence": "--download-sections \"*00:00:00-00:03:00\""},
+        {"text": "Содержит корректный диапазон 3 минуты", "passed": true, "evidence": "00:03:00 — точное совпадение"},
+        {"text": "Содержит правильный путь D:/Downloads/YouTube/", "passed": true, "evidence": "-P \"D:/Downloads/YouTube/\""}
+      ]
+    },
+    {
+      "eval_id": 6,
+      "eval_name": "time-segment",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.67,
+        "passed": 2,
+        "failed": 1,
+        "total": 3,
+        "time_seconds": 31.0,
+        "tokens": 21170,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "Содержит --download-sections", "passed": true, "evidence": "--download-sections \"*0:00-3:00\""},
+        {"text": "Содержит корректный диапазон 3 минуты", "passed": true, "evidence": "3:00 в диапазоне"},
+        {"text": "Содержит правильный путь D:/Downloads/YouTube/", "passed": false, "evidence": "Нет пути. Первая команда с -x --audio-format mp3 (неправильная для видео)"}
+      ]
+    },
+    {
+      "eval_id": 7,
+      "eval_name": "age-restriction",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "time_seconds": 38.0,
+        "tokens": 32198,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "Содержит --cookies-from-browser", "passed": true, "evidence": "--cookies-from-browser chrome"},
+        {"text": "Называет браузер (chrome/firefox/edge/brave)", "passed": true, "evidence": "Все 4 варианта перечислены"},
+        {"text": "Объясняет зачем нужны cookies", "passed": true, "evidence": "Объясняет авторизацию через Google и подтверждение возраста"},
+        {"text": "Содержит правильный путь D:/Downloads/YouTube/", "passed": true, "evidence": "-P \"D:/Downloads/YouTube/\""}
+      ]
+    },
+    {
+      "eval_id": 7,
+      "eval_name": "age-restriction",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.75,
+        "passed": 3,
+        "failed": 1,
+        "total": 4,
+        "time_seconds": 17.5,
+        "tokens": 17759,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "Содержит --cookies-from-browser", "passed": true, "evidence": "--cookies-from-browser chrome"},
+        {"text": "Называет браузер (chrome/firefox/edge/brave)", "passed": true, "evidence": "chrome, firefox, edge, brave упомянуты"},
+        {"text": "Объясняет зачем нужны cookies", "passed": true, "evidence": "Объясняет авторизацию и возрастное ограничение"},
+        {"text": "Содержит правильный путь D:/Downloads/YouTube/", "passed": false, "evidence": "Показывает D:/Downloads/ как опцию, не D:/Downloads/YouTube/"}
+      ]
+    },
+    {
+      "eval_id": 8,
+      "eval_name": "max-quality-sponsorblock",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 5,
+        "failed": 0,
+        "total": 5,
+        "time_seconds": 40.6,
+        "tokens": 32364,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "Содержит --sponsorblock-remove all", "passed": true, "evidence": "--sponsorblock-remove all"},
+        {"text": "Содержит --embed-subs", "passed": true, "evidence": "--embed-subs"},
+        {"text": "Содержит --embed-thumbnail", "passed": true, "evidence": "--embed-thumbnail"},
+        {"text": "Содержит format-селектор bv* или bestvideo", "passed": true, "evidence": "-f \"bv*[ext=mp4]+ba[ext=m4a]/b[ext=mp4]\""},
+        {"text": "Содержит правильный путь D:/Downloads/YouTube/", "passed": true, "evidence": "-P \"D:/Downloads/YouTube/\""}
+      ]
+    },
+    {
+      "eval_id": 8,
+      "eval_name": "max-quality-sponsorblock",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.6,
+        "passed": 3,
+        "failed": 2,
+        "total": 5,
+        "time_seconds": 23.2,
+        "tokens": 18267,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "Содержит --sponsorblock-remove all", "passed": true, "evidence": "--sponsorblock-remove all"},
+        {"text": "Содержит --embed-subs", "passed": true, "evidence": "--embed-subs"},
+        {"text": "Содержит --embed-thumbnail", "passed": true, "evidence": "--embed-thumbnail"},
+        {"text": "Содержит format-селектор bv* или bestvideo", "passed": false, "evidence": "Использует bestvideo+bestaudio/best — длинная форма без bv*. bestvideo есть, но не bv*"},
+        {"text": "Содержит правильный путь D:/Downloads/YouTube/", "passed": false, "evidence": "Нет пути D:/Downloads/YouTube/, показывает D:/Downloads/ как опцию"}
+      ]
+    }
+  ],
+  "run_summary": {
+    "with_skill": {
+      "pass_rate": {"mean": 1.0, "stddev": 0.0, "min": 1.0, "max": 1.0},
+      "time_seconds": {"mean": 37.8, "stddev": 5.1, "min": 29.3, "max": 45.4},
+      "tokens": {"mean": 31327, "stddev": 1520, "min": 28773, "max": 32364}
+    },
+    "without_skill": {
+      "pass_rate": {"mean": 0.67, "stddev": 0.17, "min": 0.25, "max": 0.80},
+      "time_seconds": {"mean": 20.2, "stddev": 4.9, "min": 16.0, "max": 31.0},
+      "tokens": {"mean": 18255, "stddev": 1530, "min": 17697, "max": 21170}
+    },
+    "delta": {
+      "pass_rate": "+0.33",
+      "time_seconds": "+17.6",
+      "tokens": "+13072"
+    }
+  },
+  "notes": [
+    "Путь D:/Downloads/YouTube/ — главный дифференциатор: со скиллом всегда корректный путь, без скилла — никогда",
+    "Eval 3 (playlist) самый показательный: без скилла %(playlist_title)s вместо %(playlist)s и нет 02d-форматирования",
+    "Eval 6 (time-segment): без скилла первая команда ошибочно предлагает аудио (-x), а не видео",
+    "Eval 8 (max-quality): без скилла выбирает MKV-контейнер вместо MP4",
+    "Качественные assertions (cookies, объяснение) одинаково проходят в обоих конфигурациях — хорошие знания yt-dlp у базового Claude",
+    "Скилл стоит дополнительно ~17.6 сек и ~13K токенов, но даёт +33% точности по assertions"
+  ]
+}

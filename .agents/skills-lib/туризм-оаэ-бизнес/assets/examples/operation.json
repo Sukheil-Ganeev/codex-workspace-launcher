@@ -1,0 +1,12 @@
+{
+  "operation_id": "uuid",
+  "contact_id": "uuid",
+  "type": "tour",
+  "description": "Экскурсия в Абу-Даби",
+  "date": "2026-01-25",
+  "pax": 4,
+  "amount": 2000,
+  "currency": "AED",
+  "status": "completed",
+  "profit": 500
+}

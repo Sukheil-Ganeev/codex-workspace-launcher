@@ -1,0 +1,27 @@
+Запрос: скачать видео максимальным качеством в MP4 со звуком
+URL: youtube.com/watch?v=dQw4w9WgXcQ
+
+Команда для скачивания:
+
+yt-dlp -f "bv*[ext=mp4][height<=1080]+ba[ext=m4a]/b[ext=mp4]" --merge-output-format mp4 -P "D:/Downloads/YouTube/" "https://youtube.com/watch?v=dQw4w9WgXcQ"
+
+Что делает эта команда:
+- bv*[ext=mp4][height<=1080] — выбирает лучший видеопоток в формате MP4, до 1080p включительно
+- +ba[ext=m4a] — добавляет лучший аудиопоток в формате M4A (звук обязательно будет)
+- /b[ext=mp4] — fallback: если раздельных потоков нет — берёт лучший комбинированный MP4
+- --merge-output-format mp4 — FFmpeg склеивает видео и аудио в один MP4-файл
+- -P "D:/Downloads/YouTube/" — сохраняет в папку D:/Downloads/YouTube/
+
+Если нужно максимальное качество без ограничения по высоте (4K если доступно):
+
+yt-dlp -f "bv*[ext=mp4]+ba[ext=m4a]/b[ext=mp4]" --merge-output-format mp4 --embed-metadata --embed-thumbnail --embed-chapters -P "D:/Downloads/YouTube/" "https://youtube.com/watch?v=dQw4w9WgXcQ"
+
+Если запускаешь из Git Bash — путь меняется:
+
+yt-dlp -f "bv*[ext=mp4][height<=1080]+ba[ext=m4a]/b[ext=mp4]" --merge-output-format mp4 -P "/d/Downloads/YouTube/" "https://youtube.com/watch?v=dQw4w9WgXcQ"
+
+Важно:
+- FFmpeg должен быть в PATH (версия 8.0.1 уже настроена в системе)
+- Без FFmpeg YouTube выдаст максимум 720p — видео и аудио там хранятся раздельно для HD+
+- Файл сохранится в D:/Downloads/YouTube/
+- Если yt-dlp выдаёт ошибку "sign in" или "failed to extract" — сначала обновить: yt-dlp -U

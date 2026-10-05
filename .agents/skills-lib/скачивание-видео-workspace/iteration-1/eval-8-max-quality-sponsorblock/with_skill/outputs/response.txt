@@ -1,0 +1,28 @@
+Вот команда для максимального качества + удаление рекламных вставок через SponsorBlock + встроенные субтитры и обложка:
+
+```bash
+yt-dlp \
+  -f "bv*[ext=mp4]+ba[ext=m4a]/b[ext=mp4]" \
+  --merge-output-format mp4 \
+  --sponsorblock-remove all \
+  --embed-subs --write-auto-subs --sub-lang ru,en \
+  --embed-thumbnail \
+  --embed-metadata \
+  --embed-chapters \
+  -P "D:/Downloads/YouTube/" \
+  "https://youtube.com/watch?v=dQw4w9WgXcQ"
+```
+
+Что делает каждый флаг:
+
+- `-f "bv*[ext=mp4]+ba[ext=m4a]/..."` — берёт лучшее видео + лучшее аудио и объединяет через FFmpeg. Если есть 4K — возьмёт 4K. Если 1080p — возьмёт 1080p.
+- `--merge-output-format mp4` — итоговый файл будет MP4
+- `--sponsorblock-remove all` — вырезает все отмеченные сообществом вставки: спонсорские блоки, интро, аутро, заставки и напоминания подписаться
+- `--embed-subs --write-auto-subs --sub-lang ru,en` — встраивает субтитры прямо в файл (русский и английский). `--write-auto-subs` нужен потому что у большинства видео субтитры автоматические, а не ручные
+- `--embed-thumbnail` — встраивает обложку видео как постер
+- `--embed-metadata` — название, описание, дата, канал и т.д.
+- `--embed-chapters` — главы видео (если есть)
+
+Файл сохранится в `D:/Downloads/YouTube/`.
+
+Важно: FFmpeg должен быть установлен — без него 1080p+ не скачается (YouTube хранит видео и аудио раздельно). Если вдруг нет — проверь командой `ffmpeg -version`.

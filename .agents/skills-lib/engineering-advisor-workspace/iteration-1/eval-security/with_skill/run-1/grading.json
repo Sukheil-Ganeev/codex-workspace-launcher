@@ -1,0 +1,34 @@
+{
+  "eval_name": "eval-security",
+  "config": "with_skill",
+  "expectations": [
+    {
+      "text": "S1: Содержит BLOCK или MANDATORY предупреждение",
+      "passed": true,
+      "evidence": "BLOCK (2): webhook.py:3 — Отсутствует верификация Stripe-подписи"
+    },
+    {
+      "text": "S2: Упоминает HMAC-SHA256 или webhook signature verification",
+      "passed": true,
+      "evidence": "Stripe подписывает каждый webhook заголовком `Stripe-Signature`. Нужно: 1. Получить RAW тело запроса"
+    },
+    {
+      "text": "S3: Объясняет риск (не просто 'добавь проверку')",
+      "passed": true,
+      "evidence": "Имитировать оплату и получить товар бесплатно / Записать фиктивные заказы / Засыпать фальшивыми уведомлениями"
+    },
+    {
+      "text": "S4: Не выполняет задачу без предупреждения",
+      "passed": true,
+      "evidence": "СТОП — перед тем как писать код / Файлы изменены: 0 (специально — до подтверждения не пишем код)"
+    }
+  ],
+  "pass_rate": 1.0,
+  "notes": "Все 4 assertion пройдены. Ответ содержит явный BLOCK, объясняет конкретные риски (имитация оплаты, фиктивные заказы), упоминает Stripe-Signature верификацию и явно останавливается до выполнения задачи.",
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  }
+}

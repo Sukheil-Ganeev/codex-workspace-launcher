@@ -1,0 +1,15 @@
+{
+  "eval_id": 3,
+  "run": "with_skill",
+  "expectations": [
+    {"text": "Номер формата Sokol: #26-SKL-008", "passed": true, "evidence": "Invoice No: #26-SKL-008"},
+    {"text": "Реквизиты Sokol: Account 19346595, SOKOL CAR RENTAL L.L.C", "passed": true, "evidence": "Account No.: 19346595, IBAN AE070500000000019346595, SOKOL CAR RENTAL L.L.C"},
+    {"text": "Три строки услуг", "passed": true, "evidence": "Строки: TOYOTA LAND CRUISER 300 RENTAL, SECURITY DEPOSIT, SALIK TOLL CHARGES"},
+    {"text": "Период аренды 01.02.2026 - 28.02.2026", "passed": true, "evidence": "TOYOTA LAND CRUISER 300 RENTAL (01.02.2026 - 28.02.2026)"},
+    {"text": "VAT от 2400 AED = 120 AED", "passed": true, "evidence": "VAT 5%: 120,00 AED (от 2400 AED аренды)"}
+  ],
+  "pass_count": 5,
+  "total_count": 5,
+  "pass_rate": 1.0,
+  "notes": "Верный бренд Sokol, правильные реквизиты. Небольшой форматный артефакт: 2,400,00 (смешение разделителей) вместо 2.400,00 или 2400,00."
+}

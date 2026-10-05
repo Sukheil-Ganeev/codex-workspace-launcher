@@ -1,0 +1,69 @@
+# =============================================================================
+# Dockerfile.python -- Multi-stage шаблон для Python
+# Docker Engine 29.x | Python 3.13 | Февраль 2026
+#
+# Использование:
+#   docker build -t myapp -f Dockerfile.python .
+#   docker run -d -p 8000:8000 --name myapp myapp
+#
+# Замени app.main:app на свой ASGI/WSGI модуль.
+# =============================================================================
+
+# --- Stage 1: Builder ---
+FROM python:3.13-slim-bookworm AS builder
+
+WORKDIR /app
+
+# Не писать .pyc файлы, не буферизовать stdout/stderr
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
+
+# Создаём virtualenv для чистого копирования в production
+RUN python -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+
+# Копируем файлы зависимостей отдельно (кэширование слоёв)
+COPY requirements.txt .
+
+# Установка зависимостей с кэшированием pip
+# ВНИМАНИЕ: --no-cache-dir для уменьшения размера, НЕ --no-deps!
+RUN --mount=type=cache,target=/root/.cache/pip \
+    pip install --no-cache-dir -r requirements.txt
+
+# Копируем исходный код
+COPY . .
+
+# --- Stage 2: Production ---
+FROM python:3.13-slim-bookworm AS production
+
+WORKDIR /app
+
+# Создаём непривилегированного пользователя
+RUN addgroup --system --gid 1001 app && \
+    adduser --system --uid 1001 --ingroup app app
+
+# Копируем virtualenv из builder
+COPY --from=builder --chown=app:app /opt/venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH" \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
+
+# Копируем исходный код
+COPY --from=builder --chown=app:app /app .
+
+# Переключаемся на непривилегированного пользователя
+USER app
+
+# Документируем порт
+EXPOSE 8000
+
+# Проверка здоровья
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+    CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')" || exit 1
+
+# Запуск через gunicorn (4 воркера, production-ready)
+CMD ["gunicorn", "app.main:app", \
+     "--bind", "0.0.0.0:8000", \
+     "--workers", "4", \
+     "--worker-class", "uvicorn.workers.UvicornWorker", \
+     "--access-logfile", "-"]

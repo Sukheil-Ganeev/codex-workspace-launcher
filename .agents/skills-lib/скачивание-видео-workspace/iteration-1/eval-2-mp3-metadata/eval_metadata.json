@@ -1,0 +1,27 @@
+{
+  "eval_id": 2,
+  "eval_name": "mp3-with-metadata",
+  "prompt": "хочу скачать только звук с этого видео как mp3 и чтобы обложка тоже встроилась: youtube.com/watch?v=dQw4w9WgXcQ",
+  "assertions": [
+    {
+      "text": "Содержит флаг -x (извлечение аудио)",
+      "check": "contains -x "
+    },
+    {
+      "text": "Содержит --audio-format mp3",
+      "check": "contains --audio-format mp3"
+    },
+    {
+      "text": "Содержит --embed-thumbnail (встроить обложку)",
+      "check": "contains --embed-thumbnail"
+    },
+    {
+      "text": "Содержит --audio-quality 0 (лучшее качество)",
+      "check": "contains --audio-quality 0"
+    },
+    {
+      "text": "Содержит правильный путь D:/Downloads/YouTube/",
+      "check": "contains D:/Downloads/YouTube/"
+    }
+  ]
+}

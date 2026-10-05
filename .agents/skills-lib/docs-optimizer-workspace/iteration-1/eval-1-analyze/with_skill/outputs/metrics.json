@@ -1,0 +1,13 @@
+{
+  "tool_calls": {
+    "Read": 4,
+    "Bash": 30,
+    "Grep": 0,
+    "Glob": 1,
+    "Write": 2
+  },
+  "total_tool_calls": 37,
+  "errors_encountered": 0,
+  "output_chars": 20249,
+  "files_created": ["output.md", "metrics.json"]
+}

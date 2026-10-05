@@ -1,0 +1,53 @@
+{
+  "name": "git-github-справочник",
+  "displayName": "Git/GitHub — Полный справочник",
+  "version": "1.0.0",
+  "description": "Универсальный справочник по Git и GitHub: от установки до продвинутых тем. Специально для Windows + Git Bash. Branches, PRs, GitHub Actions, деплой.",
+  "author": "Сухейль",
+  "tags": [
+    "git",
+    "github",
+    "version-control",
+    "deployment",
+    "collaboration",
+    "windows",
+    "git-bash",
+    "справочник"
+  ],
+  "category": "development",
+  "triggers": [
+    "git",
+    "github",
+    "commit",
+    "push",
+    "pull",
+    "branch",
+    "merge",
+    "pull request",
+    "authentication failed",
+    "git bash"
+  ],
+  "language": "ru",
+  "license": "Private",
+  "useCases": [
+    "Установка и настройка Git на Windows",
+    "Основы Git: commit, push, pull, branches",
+    "GitHub Integration: PAT, SSH",
+    "Командная работа: fork, PRs, code review",
+    "GitHub Actions для CI/CD",
+    "Deployment на Netlify, Vercel, GitHub Pages",
+    ".gitignore шаблоны",
+    "Решение типичных ошибок (Authentication failed, merge conflicts)"
+  ],
+  "businessContext": "Туристический бизнес ОАЭ — деплой проектов, автоматизация, командная работа",
+  "skillLevel": "beginner-to-advanced",
+  "estimatedReadTime": "60 минут",
+  "lastUpdated": "2026-02-04",
+  "dependencies": [],
+  "relatedSkills": [
+    "netlify-deployment",
+    "vercel-деплой"
+  ],
+  "windowsSpecific": true,
+  "gitBashOptimized": true
+}

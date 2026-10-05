@@ -1,0 +1,33 @@
+{
+  "expectations": [
+    {
+      "text": "Использует флаг -a urls.txt для пакетной загрузки из файла",
+      "passed": true,
+      "evidence": "Использует '--batch-file urls.txt' — это полная форма флага -a, функционально идентично. Сам флаг -a не упомянут, но функция та же."
+    },
+    {
+      "text": "Использует --download-archive для хранения ID скачанных видео",
+      "passed": true,
+      "evidence": "'--download-archive downloaded.txt' с объяснением работы"
+    },
+    {
+      "text": "Указывает путь сохранения D:/Downloads/YouTube/",
+      "passed": false,
+      "evidence": "Путь не указан. Команда использует только '-o %(title)s.%(ext)s' без указания папки — видео сохранится в текущую директорию."
+    },
+    {
+      "text": "Упоминает --no-overwrites для пропуска существующих файлов",
+      "passed": false,
+      "evidence": "Флаг --no-overwrites не упомянут. Вместо него используются --ignore-errors и --no-abort-on-error, которые не делают то же самое."
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 2,
+    "total": 4,
+    "pass_rate": 0.5
+  },
+  "timing": {
+    "executor_duration_seconds": 36.9
+  }
+}

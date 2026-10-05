@@ -1,0 +1,29 @@
+# .claudeignore — Controls what Claude Code auto-loads into context
+#
+# IMPORTANT: This only affects automatic context loading at session start.
+# It does NOT block search tools (Glob, Grep) from finding files in these dirs.
+# To prevent search tools from scanning ignored dirs, always pass the `path`
+# parameter: e.g., path: "src/" instead of searching the entire project.
+
+# Dependencies
+node_modules/
+
+# Build output (add your framework's build dir here)
+dist/
+build/
+
+# Binary assets (add your project's asset dirs here)
+# public/img/
+# public/fonts/
+
+# Large generated files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Local tools and cached data (session notes are accessed explicitly)
+# local/tools/
+# local/scripts/
+
+# Large content dirs that waste context (uncomment and adapt)
+# src/content/blog/

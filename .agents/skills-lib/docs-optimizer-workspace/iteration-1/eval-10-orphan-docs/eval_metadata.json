@@ -1,0 +1,11 @@
+{
+  "eval_id": 10,
+  "eval_name": "orphan-docs-unreferenced-files",
+  "prompt": "Какие файлы в папке docs/ проекта D:/Downloads/TouristBotEcosystem/ Claude скорее всего никогда не читает?",
+  "assertions": [
+    "Output lists specific files found in the docs/ directory of the project",
+    "Output cross-checks which docs/ files are referenced from CLAUDE.md or other navigation documents and flags unreferenced ones",
+    "Output classifies orphan docs into Archive tier using the specific tier name 'Archive'",
+    "Output assigns AP-XX codes to orphan documentation antipatterns"
+  ]
+}

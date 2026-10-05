@@ -1,0 +1,172 @@
+{
+  "contract_type": "yacht",
+  "language": "ru",
+  "description": "Шаблон договора чартера яхты",
+
+  "client": {
+    "full_name": "",
+    "full_name_en": "",
+    "passport_number": "",
+    "nationality": "",
+    "phone": "",
+    "email": "",
+    "address": ""
+  },
+
+  "yacht": {
+    "name": "",
+    "type": "motor",
+    "types_available": ["motor", "sailing", "catamaran"],
+    "length": "",
+    "capacity": 10,
+    "year_built": null,
+    "manufacturer": ""
+  },
+
+  "charter": {
+    "date": "",
+    "departure_time": "",
+    "return_time": "",
+    "duration_hours": 4,
+    "departure_marina": "",
+    "route_description": "",
+    "stops": []
+  },
+
+  "guests": {
+    "count": 1,
+    "children": 0,
+    "special_requirements": ""
+  },
+
+  "crew": {
+    "included": true,
+    "captain_name": "",
+    "crew_members": 0
+  },
+
+  "pricing": {
+    "base_price": 0,
+    "per_hour_rate": 0,
+    "overtime_rate": 0,
+    "total_price": 0,
+    "currency": "AED"
+  },
+
+  "deposit": {
+    "amount": 0,
+    "refundable": true,
+    "conditions": "Полный возврат при отсутствии повреждений"
+  },
+
+  "catering": {
+    "included": false,
+    "description": "",
+    "price": 0,
+    "options": [
+      {
+        "name": "Легкие закуски",
+        "description": "Фрукты, сэндвичи, напитки",
+        "price_range": "300-500 AED"
+      },
+      {
+        "name": "BBQ на борту",
+        "description": "Гриль, салаты, напитки",
+        "price_range": "800-1500 AED"
+      },
+      {
+        "name": "Премиум кейтеринг",
+        "description": "Полный сервис с шеф-поваром",
+        "price_range": "2000-5000 AED"
+      }
+    ]
+  },
+
+  "fuel": {
+    "included": true,
+    "policy": "Топливо включено в стоимость",
+    "extra_charges": "Дополнительная плата за выход за пределы согласованного маршрута"
+  },
+
+  "additional_services": {
+    "water_sports": {
+      "jet_ski": 500,
+      "kayak": 100,
+      "paddleboard": 100,
+      "snorkeling_gear": 50,
+      "fishing_equipment": 200
+    },
+    "decorations": {
+      "birthday": 300,
+      "anniversary": 500,
+      "proposal": 800,
+      "wedding": 2000
+    },
+    "entertainment": {
+      "dj": 1500,
+      "photographer": 800,
+      "videographer": 1200
+    }
+  },
+
+  "rules": {
+    "boarding_time": "15 минут до отправления",
+    "max_capacity_strict": true,
+    "prohibited": [
+      "Запрещённые вещества",
+      "Курение в закрытых помещениях",
+      "Открытый огонь",
+      "Небезопасные прыжки в воду"
+    ],
+    "safety_briefing": "Обязательный инструктаж перед отправлением"
+  },
+
+  "cancellation": {
+    "policy": "standard",
+    "weather_clause": "Бесплатная отмена/перенос при неблагоприятных погодных условиях"
+  },
+
+  "marinas": [
+    {
+      "name": "Dubai Marina Yacht Club",
+      "location": "Dubai Marina"
+    },
+    {
+      "name": "Dubai Harbour",
+      "location": "Palm Jumeirah"
+    },
+    {
+      "name": "JBR Marina",
+      "location": "Jumeirah Beach Residence"
+    },
+    {
+      "name": "Creek Marina",
+      "location": "Dubai Creek"
+    }
+  ],
+
+  "popular_routes": [
+    {
+      "name": "Dubai Marina Tour",
+      "duration": "2-3 часа",
+      "highlights": ["Ain Dubai", "JBR Beach", "Marina Skyline"]
+    },
+    {
+      "name": "Palm Jumeirah Cruise",
+      "duration": "3-4 часа",
+      "highlights": ["Atlantis", "Palm Villas", "Burj Al Arab"]
+    },
+    {
+      "name": "Sunset Cruise",
+      "duration": "2 часа",
+      "highlights": ["Закат", "Skyline", "Фото сессия"]
+    },
+    {
+      "name": "Fishing Trip",
+      "duration": "4-6 часов",
+      "highlights": ["Глубоководная рыбалка", "Снаряжение включено"]
+    }
+  ],
+
+  "special_requests": []
+}

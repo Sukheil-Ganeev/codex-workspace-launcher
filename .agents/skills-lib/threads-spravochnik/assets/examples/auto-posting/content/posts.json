@@ -1,0 +1,30 @@
+[
+  {
+    "id": "morning_post_1",
+    "schedule": "0 9 * * *",
+    "text": "Good morning Dubai! ☀️\n\nStart your day with an amazing tour experience.\n\nBook now: Link in bio\n\n#DubaiTourism #MorningVibes #UAE",
+    "imageUrl": null,
+    "posted": false
+  },
+  {
+    "id": "afternoon_post_1",
+    "schedule": "0 14 * * *",
+    "text": "Desert Safari Adventure 🏜️\n\nExperience the thrill of dune bashing and traditional BBQ dinner under the stars.\n\nPrice: $80/person (all-inclusive)\n\n#DesertSafari #DubaiDesert #UAETravel",
+    "imageUrl": "https://example.com/desert-safari.jpg",
+    "posted": false
+  },
+  {
+    "id": "evening_post_1",
+    "schedule": "0 20 * * *",
+    "text": "Dubai Marina by night 🌃\n\nYacht tours available daily!\n\nLuxury experience starting at $150/person.\n\n#DubaiMarina #YachtLife #LuxuryDubai",
+    "imageUrl": "https://example.com/marina-night.jpg",
+    "posted": false
+  },
+  {
+    "id": "weekend_special",
+    "schedule": "0 10 * * 6",
+    "text": "🔥 Weekend Special: 20% OFF all tours!\n\nBook this Saturday only.\n\nUse code: WEEKEND20\n\n#WeekendDeals #DubaiTours #SpecialOffer",
+    "imageUrl": null,
+    "posted": false
+  }
+]

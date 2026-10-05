@@ -1,0 +1,17 @@
+{
+  "eval_id": 6,
+  "run": "with_skill",
+  "expectations": [
+    {"text": "Три строки услуг", "passed": true, "evidence": "3 строки: PRIVATE JEEP SAFARI TOUR, MEETING AT THE AIRPORT, PRIVATE MODERN TOUR IN ABU DHABI"},
+    {"text": "Total Excl. VAT = 625,00 USD", "passed": true, "evidence": "Total (Excl. VAT): 625,00 USD (240+75+310)"},
+    {"text": "Total VAT = 31,25 USD", "passed": true, "evidence": "Total VAT: 31,25 USD (625 × 0.05)"},
+    {"text": "Total Incl. VAT = 656,25 USD", "passed": true, "evidence": "Total (Incl. VAT): 656,25 USD"},
+    {"text": "Конвертация AED: ~2395 AED по курсу 3.65", "passed": true, "evidence": "Total in AED (1 USD = 3,65 AED): 2 395,31 AED — точный расчёт по правильному курсу"},
+    {"text": "Описание Jeep Safari полностью в CAPS по шаблону PRIVATE JEEP SAFARI TOUR", "passed": true, "evidence": "PRIVATE JEEP SAFARI TOUR (for 4 persons) 28 FEBRUARY — все слова заглавными, шаблон соблюдён"},
+    {"text": "Описание трансфера в CAPS: MEETING AT THE AIRPORT AND TRANSFER TO THE HOTEL BY LEXUS ES350", "passed": true, "evidence": "MEETING AT THE AIRPORT AND TRANSFER TO THE HOTEL BY LEXUS ES350 — точная формулировка из скилла, полностью CAPS"}
+  ],
+  "pass_count": 7,
+  "total_count": 7,
+  "pass_rate": 1.0,
+  "notes": "Идеальный результат. Все три шаблона применены точно: PRIVATE JEEP SAFARI TOUR, MEETING AT THE AIRPORT..., PRIVATE MODERN TOUR IN ABU DHABI. AED курс 3.65."
+}

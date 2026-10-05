@@ -1,0 +1,28 @@
+{
+  "eval_name": "eval-fix-loop",
+  "config": "with_skill",
+  "expectations": [
+    {
+      "text": "F1: Распознаёт петлю ошибок (3+ раза)",
+      "passed": true,
+      "evidence": "WARN (1): Trigger #8 — петля ошибок: одна и та же ошибка 3 раза"
+    },
+    {
+      "text": "F2: Предлагает проверить определение dataclass/NamedTuple",
+      "passed": true,
+      "evidence": "Открой файл и посмотри на @dataclass или NamedTuple определение. Там будет список полей."
+    },
+    {
+      "text": "F3: Объясняет ПОЧЕМУ ошибка повторяется",
+      "passed": true,
+      "evidence": "тесты не ловят этот баг, потому что используют MagicMock() без spec=. MagicMock возвращает новый MagicMock на ЛЮБОЙ атрибут"
+    },
+    {
+      "text": "F4: Упоминает поиск по всему проекту (grep/search)",
+      "passed": true,
+      "evidence": "grep -rn 'class PipelineResult' --include='*.py' . / grep -rn 'result\\.text\\|\\.text' --include='*.py' ."
+    }
+  ],
+  "pass_rate": 1.0,
+  "notes": "Все 4 assertion пройдены. Скилл явно распознал петлю ошибок через триггер #8, указал на dataclass/NamedTuple, объяснил причину через MagicMock без spec=, предложил grep по всему проекту."
+}

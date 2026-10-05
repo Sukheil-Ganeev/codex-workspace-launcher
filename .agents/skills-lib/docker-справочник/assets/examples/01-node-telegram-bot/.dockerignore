@@ -1,0 +1,27 @@
+# Version control
+.git
+.gitignore
+
+# Dependencies
+node_modules
+.npm
+
+# Environment (секреты не попадают в образ!)
+.env
+.env.*
+!.env.example
+
+# IDE
+.vscode
+.idea
+*.swp
+
+# Docker
+Dockerfile*
+docker-compose*
+compose*
+.dockerignore
+
+# Docs
+*.md
+LICENSE

@@ -1,0 +1,17 @@
+Чтобы скачать только звук в формате MP3 и встроить обложку, используй такую команду:
+
+yt-dlp -x --audio-format mp3 --audio-quality 0 --embed-thumbnail --add-metadata "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+
+Что делает каждый флаг:
+
+-x — извлечь только аудио (без видео)
+--audio-format mp3 — конвертировать в MP3
+--audio-quality 0 — максимальное качество (VBR ~320k)
+--embed-thumbnail — встроить обложку прямо в MP3-файл
+--add-metadata — добавить метаданные (название, исполнитель и т.д.)
+
+Важно: для встраивания обложки нужен установленный ffmpeg. Если его нет — скачай с ffmpeg.org и добавь в PATH, иначе --embed-thumbnail не сработает.
+
+Файл сохранится в текущую папку. Если хочешь указать конкретную папку:
+
+yt-dlp -x --audio-format mp3 --audio-quality 0 --embed-thumbnail --add-metadata -o "D:/Music/%(title)s.%(ext)s" "https://www.youtube.com/watch?v=dQw4w9WgXcQ"

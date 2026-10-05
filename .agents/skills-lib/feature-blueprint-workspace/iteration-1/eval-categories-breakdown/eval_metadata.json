@@ -1,0 +1,13 @@
+{
+  "eval_id": 6,
+  "eval_name": "categories-breakdown",
+  "prompt": "Breakdown: 5 new categories I-73..I-77 (breakdown mode)",
+  "assertions": [
+    {"name": "has_numbered_tasks", "description": "Contains numbered tasks"},
+    {"name": "task_size_ok", "description": "All tasks 15-60 minutes"},
+    {"name": "has_file_paths", "description": "Tasks reference file paths"},
+    {"name": "has_dependencies", "description": "Tasks declare dependencies"},
+    {"name": "has_verification", "description": "Includes verification step"},
+    {"name": "covers_all_5", "description": "Mentions all 5 categories"}
+  ]
+}

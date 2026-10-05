@@ -1,0 +1,22 @@
+*[X]BR APARTMENT | [AREA]*
+_[Short description]_
+───────────────
+*FEATURES*
+▫️ [X] bedrooms | [X] bathrooms | [X,XXX] sq.ft.
+▫️ Floor: [X]/[X] | View: [Sea/Marina/City]
+▫️ Furnishing: [Furnished/Unfurnished]
+▫️ Parking: [X] space(s)
+
+*BUILDING: [NAME]*
+[Pool | Gym | Concierge]
+───────────────
+💰 *RENT: [XXX,XXX] AED/year*
+_(~[XX,XXX] AED/month)_
+
+*TERMS*
+▫️ Cheques: [1/2/4]
+▫️ DEWA: [Included/Excluded]
+
+⚠️ Available from [DATE]
+
+*CONTACT:* [NAME] | [+971 XX XXX XXXX]

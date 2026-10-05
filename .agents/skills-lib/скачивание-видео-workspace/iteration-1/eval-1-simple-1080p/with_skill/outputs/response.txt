@@ -1,0 +1,20 @@
+Держи команду для скачивания в 1080p MP4:
+
+```bash
+yt-dlp -f "bv*[ext=mp4][height<=1080]+ba[ext=m4a]/b[ext=mp4]" --merge-output-format mp4 -P "D:/Downloads/YouTube/" "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+```
+
+Что делает каждый параметр:
+
+- `-f "bv*[ext=mp4][height<=1080]+ba[ext=m4a]/b[ext=mp4]"` — выбирает лучшее видео в MP4 до 1080p + аудио в m4a, с fallback на цельный MP4-файл
+- `--merge-output-format mp4` — объединяет video и audio в один MP4-файл (YouTube хранит их раздельно для HD)
+- `-P "D:/Downloads/YouTube/"` — папка назначения
+
+Видео сохранится в `D:/Downloads/YouTube/`.
+
+Важно: для 1080p обязательно нужен FFmpeg (он объединяет потоки). Если не установлен — максимум будет 720p. Проверить: `ffmpeg -version`.
+
+Если хочешь сначала посмотреть все доступные форматы:
+```bash
+yt-dlp -F "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+```

@@ -1,0 +1,61 @@
+%%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#2F3437', 'primaryTextColor': '#fff', 'primaryBorderColor': '#E16259', 'lineColor': '#E16259'}}}%%
+graph LR
+    subgraph NotionCore["Notion"]
+        API["REST API v1<br/>3 req/sec"]
+        MCP_H["Hosted MCP<br/>mcp.notion.com/mcp<br/>OAuth 2.1"]
+        MCP_OS["Open-Source MCP<br/>@notionhq/notion-mcp-server<br/>Bearer Token"]
+        WH["Webhooks<br/>23 event types"]
+        AUTO["Database Automations<br/>No-code triggers"]
+    end
+
+    subgraph SDK["SDK"]
+        JS["JavaScript<br/>@notionhq/client v5.9<br/>Node >= 18"]
+        PY["Python<br/>notion-client v2.7<br/>Sync + Async"]
+    end
+
+    subgraph AutoPlatforms["Платформы автоматизации"]
+        ZAP["Zapier<br/>6 instant triggers<br/>27 actions<br/>8000+ apps<br/>100 tasks/мес free"]
+        MAKE["Make.com<br/>1 watch trigger<br/>4+ actions<br/>1500+ apps<br/>1000 ops/мес free"]
+        N8N["n8n<br/>2 polling triggers<br/>14 actions<br/>400+ nodes<br/>Unlimited self-hosted"]
+    end
+
+    subgraph AI["AI и Agents"]
+        CC["Claude Code"]
+        CD["Claude Desktop"]
+        BOT["Custom AI Bot"]
+    end
+
+    subgraph External["Внешние сервисы"]
+        SLACK["Slack<br/>нативная интеграция<br/>/notion create"]
+        GCAL["Google Calendar<br/>Notion Calendar<br/>2-way sync"]
+        GFORM["Google Forms"]
+        WA["WhatsApp"]
+        TG["Telegram"]
+        EMAIL["Email"]
+    end
+
+    JS --> API
+    PY --> API
+
+    CC --> MCP_H
+    CD --> MCP_OS
+
+    ZAP <--> API
+    MAKE <--> API
+    N8N <--> API
+
+    WH -->|"POST callback"| ZAP
+    WH -->|"POST callback"| MAKE
+    WH -->|"POST callback"| N8N
+    WH -->|"POST callback"| BOT
+
+    AUTO -->|"Slack notification"| SLACK
+    AUTO -->|"Webhook action"| N8N
+
+    SLACK <-->|"Native"| API
+    GCAL <-->|"Notion Calendar"| API
+
+    GFORM -->|"Zapier/Make"| ZAP
+    WA -->|"n8n webhook"| N8N
+    TG -->|"n8n/Zapier"| ZAP
+    EMAIL -->|"Zapier"| ZAP

@@ -1,0 +1,124 @@
+%% Tourism CRM for UAE on NocoDB
+%% CRM-система для семейного туристического бизнеса Сухейля
+
+graph TB
+    %% Вход заявок
+    subgraph intake["Входящие заявки"]
+        wa["WhatsApp"]
+        tg["Telegram"]
+        ig["Instagram"]
+        walkin["Walk-in<br/>Офис Tecom"]
+        referral["Referral<br/>Рекомендации"]
+    end
+
+    %% Форма заявки
+    formView["NocoDB Form View<br/>Публичная форма заявки"]
+
+    %% 4 таблицы CRM
+    subgraph crm["NocoDB CRM (4 таблицы)"]
+        direction TB
+
+        subgraph clientsDB["Clients (Клиенты)"]
+            clFields["ФИО, Телефон, Email<br/>Telegram, WhatsApp<br/>Страна, Источник, VIP"]
+        end
+
+        subgraph bookingsDB["Bookings (Бронирования)"]
+            bkFields["Клиент, Дата, Продукт<br/>Статус, Количество<br/>Цена продажи, Себестоимость<br/>Валюта, Способ оплаты<br/>Агент, Поставщик<br/>Прибыль (формула)<br/>Маржа % (формула)"]
+        end
+
+        subgraph productsDB["Products (Услуги)"]
+            prFields["Название, Категория<br/>Эмират, Цена AED<br/>Сезон High / Low<br/>Фото, Активен"]
+        end
+
+        subgraph suppliersDB["Suppliers (Поставщики)"]
+            spFields["Компания, Контакт<br/>Телефон, WhatsApp<br/>Тип услуг, Комиссия %<br/>Рейтинг"]
+        end
+    end
+
+    %% Связи между таблицами
+    clientsDB -- "1:N" --> bookingsDB
+    productsDB -- "1:N" --> bookingsDB
+    suppliersDB -- "1:N" --> bookingsDB
+
+    %% Kanban Pipeline
+    subgraph pipeline["Kanban Pipeline (Bookings)"]
+        s1["Заявка"]
+        s2["Подтверждено"]
+        s3["Оплачено"]
+        s4["Завершено"]
+        s5["Отменено"]
+        s1 --> s2 --> s3 --> s4
+        s2 -.-> s5
+    end
+
+    %% Views
+    subgraph views["Views"]
+        vKanban["Kanban<br/>Pipeline по статусам"]
+        vCalendar["Calendar<br/>Расписание дня"]
+        vGallery["Gallery<br/>Каталог для клиентов"]
+        vGrid["Grid: Мои заявки<br/>Фильтр по агенту"]
+        vToday["Grid: Сегодня<br/>Фильтр по дате"]
+    end
+
+    %% 3 Брата - агенты
+    subgraph agents["Агенты (3 брата)"]
+        suh["Сухейль<br/>Экскурсии, Билеты"]
+        mar["Марсель<br/>Авто, Трансферы, МВУ"]
+        muf["Муфамад<br/>Яхты, Водные развлечения"]
+    end
+
+    %% Автоматизация
+    subgraph auto["Автоматизация"]
+        webhook["NocoDB Webhook v3<br/>After Insert / Update"]
+        n8n["n8n (self-hosted)"]
+        tgbot["Telegram Bot<br/>Группа: Новые заявки"]
+    end
+
+    %% Валюты
+    subgraph currency["Мультивалютность"]
+        aed["AED (наличные, банк)"]
+        usd["USD (наличные)"]
+        rub["RUB (Сбер)"]
+        kzt["KZT (Kaspi)"]
+        crypto["Crypto (кошелёк)"]
+    end
+
+    %% Потоки
+    intake --> formView
+    formView --> bookingsDB
+
+    bookingsDB --> pipeline
+    bookingsDB --> views
+
+    agents --> vGrid
+
+    %% Автоматизация
+    bookingsDB --> webhook
+    webhook --> n8n
+    n8n --> tgbot
+
+    %% Оплата
+    currency --> bookingsDB
+
+    %% Стили
+    classDef intakeStyle fill:#3498DB,stroke:#2E86C1,color:#FFFFFF
+    classDef formStyle fill:#E74C3C,stroke:#C0392B,color:#FFFFFF
+    classDef tableStyle fill:#2C3E50,stroke:#1A252F,color:#FFFFFF
+    classDef fieldStyle fill:#566573,stroke:#2C3E50,color:#ECF0F1
+    classDef pipelineStyle fill:#F39C12,stroke:#D68910,color:#FFFFFF
+    classDef cancelStyle fill:#95A5A6,stroke:#7F8C8D,color:#FFFFFF
+    classDef viewStyle fill:#27AE60,stroke:#1E8449,color:#FFFFFF
+    classDef agentStyle fill:#8E44AD,stroke:#7D3C98,color:#FFFFFF
+    classDef autoStyle fill:#1ABC9C,stroke:#16A085,color:#FFFFFF
+    classDef currencyStyle fill:#D4AC0D,stroke:#B7950B,color:#FFFFFF
+
+    class wa,tg,ig,walkin,referral intakeStyle
+    class formView formStyle
+    class clientsDB,bookingsDB,productsDB,suppliersDB tableStyle
+    class clFields,bkFields,prFields,spFields fieldStyle
+    class s1,s2,s3,s4 pipelineStyle
+    class s5 cancelStyle
+    class vKanban,vCalendar,vGallery,vGrid,vToday viewStyle
+    class suh,mar,muf agentStyle
+    class webhook,n8n,tgbot autoStyle
+    class aed,usd,rub,kzt,crypto currencyStyle

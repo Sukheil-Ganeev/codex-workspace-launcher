@@ -1,0 +1,113 @@
+{
+  "contract_type": "car_rental",
+  "language": "ru",
+  "description": "Шаблон договора аренды автомобиля",
+
+  "client": {
+    "full_name": "",
+    "full_name_en": "",
+    "passport_number": "",
+    "driving_license": "",
+    "license_issued": "",
+    "license_expiry": "",
+    "nationality": "",
+    "date_of_birth": "",
+    "phone": "",
+    "email": "",
+    "address": ""
+  },
+
+  "vehicle": {
+    "make": "",
+    "model": "",
+    "year": 2024,
+    "color": "",
+    "plate_number": "",
+    "vin_number": "",
+    "mileage_start": 0
+  },
+
+  "rental": {
+    "start_date": "",
+    "end_date": "",
+    "pickup_location": "",
+    "dropoff_location": "",
+    "pickup_time": "",
+    "dropoff_time": "",
+    "total_days": 1,
+    "mileage_limit": null
+  },
+
+  "pricing": {
+    "daily_rate": 0,
+    "weekly_rate": null,
+    "monthly_rate": null,
+    "total_price": 0,
+    "currency": "AED"
+  },
+
+  "deposit": {
+    "amount": 0,
+    "type": "cash",
+    "types_available": ["cash", "card_hold", "bank_transfer"]
+  },
+
+  "insurance": {
+    "type": "basic",
+    "types_available": ["basic", "full", "premium"],
+    "included": true,
+    "excess_amount": 0,
+    "coverage_description": {
+      "basic": "Основная страховка (франшиза 3000-5000 AED)",
+      "full": "Полная страховка (франшиза 1000-2000 AED)",
+      "premium": "Премиум без франшизы (0 AED)"
+    }
+  },
+
+  "additional_options": {
+    "additional_driver": false,
+    "additional_driver_fee": 50,
+    "gps": false,
+    "gps_fee": 25,
+    "child_seat": false,
+    "child_seat_fee": 30,
+    "delivery_fee": 0
+  },
+
+  "fuel_policy": {
+    "type": "full_to_full",
+    "types_available": ["full_to_full", "same_to_same", "prepaid"],
+    "description": {
+      "full_to_full": "Полный бак при получении, полный при возврате",
+      "same_to_same": "Тот же уровень топлива при возврате",
+      "prepaid": "Предоплаченное топливо"
+    }
+  },
+
+  "rules": {
+    "min_age": 21,
+    "min_age_luxury": 25,
+    "license_held_years": 1,
+    "prohibited": [
+      "Передача управления третьим лицам",
+      "Использование в качестве такси",
+      "Выезд за пределы ОАЭ",
+      "Курение в салоне",
+      "Перевозка животных",
+      "Управление в нетрезвом виде"
+    ]
+  },
+
+  "special_conditions": [],
+
+  "fleet_categories": {
+    "economy": ["Toyota Yaris", "Nissan Sunny", "Hyundai Accent"],
+    "compact": ["Toyota Corolla", "Honda Civic", "Mazda 3"],
+    "sedan": ["Toyota Camry", "Honda Accord", "Nissan Altima"],
+    "suv": ["Toyota RAV4", "Nissan X-Trail", "Honda CR-V"],
+    "luxury_sedan": ["Mercedes E-Class", "BMW 5 Series", "Audi A6"],
+    "luxury_suv": ["Mercedes GLE", "BMW X5", "Porsche Cayenne"],
+    "sports": ["Ford Mustang", "Chevrolet Camaro", "Dodge Challenger"],
+    "supercar": ["Lamborghini Huracan", "Ferrari 488", "McLaren 720S"]
+  }
+}

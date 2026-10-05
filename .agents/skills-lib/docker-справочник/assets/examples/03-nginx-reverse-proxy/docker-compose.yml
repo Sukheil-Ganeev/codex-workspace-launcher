@@ -1,0 +1,170 @@
+# =============================================================================
+# docker-compose.yml — Fullstack: Nginx + Backend + WhatsApp Bot + PostgreSQL + Redis
+# Docker Compose v2.40+ | Февраль 2026
+#
+# Архитектура микросервисов для туристического бизнеса ОАЭ:
+#   nginx (80) -> backend (3000) + whatsapp-bot (8000)
+#   backend -> postgres + redis
+#
+# Запуск: docker compose up -d
+# Логи:   docker compose logs -f
+# Стоп:   docker compose down
+# =============================================================================
+
+services:
+  # --- Nginx Reverse Proxy ---
+  nginx:
+    build: .
+    container_name: nginx-proxy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+      whatsapp-bot:
+        condition: service_healthy
+    networks:
+      - frontend
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost/health"]
+      interval: 30s
+      timeout: 5s
+      start_period: 5s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+          cpus: '0.25'
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # --- Backend API (Node.js) ---
+  backend:
+    image: node:22-slim
+    container_name: booking-backend
+    restart: unless-stopped
+    working_dir: /app
+    volumes:
+      - ./backend:/app
+    command: ["node", "app.js"]
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://postgres:${POSTGRES_PASSWORD:-secret}@postgres:5432/bookings
+      - REDIS_URL=redis://redis:6379
+      - TOURS_CURRENCY=AED
+      - DEFAULT_LANGUAGE=ru
+      - PORT=3000
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - frontend
+      - backend
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000/health', (r) => r.statusCode === 200 ? process.exit(0) : process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      start_period: 15s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+          cpus: '0.5'
+
+  # --- WhatsApp Bot (FastAPI) ---
+  whatsapp-bot:
+    image: python:3.13-slim-bookworm
+    container_name: whatsapp-bot
+    restart: unless-stopped
+    working_dir: /app
+    volumes:
+      - ./whatsapp:/app
+    command: ["python", "-m", "uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
+    env_file:
+      - .env
+    environment:
+      - TOURS_CURRENCY=AED
+      - DEFAULT_LANGUAGE=ru
+    networks:
+      - frontend
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 5s
+      start_period: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+          cpus: '0.5'
+
+  # --- PostgreSQL ---
+  postgres:
+    image: postgres:17-alpine
+    container_name: booking-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: bookings
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-secret}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - backend
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      start_period: 30s
+      retries: 5
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+          cpus: '0.5'
+
+  # --- Redis ---
+  redis:
+    image: redis:7-alpine
+    container_name: booking-redis
+    restart: unless-stopped
+    command: ["redis-server", "--maxmemory", "64mb", "--maxmemory-policy", "allkeys-lru"]
+    volumes:
+      - redisdata:/data
+    networks:
+      - backend
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      start_period: 5s
+      retries: 5
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+          cpus: '0.25'
+
+# --- Именованные тома (данные переживают пересоздание контейнеров) ---
+volumes:
+  pgdata:
+    name: booking-pgdata
+  redisdata:
+    name: booking-redisdata
+
+# --- Сети ---
+networks:
+  frontend:
+    name: booking-frontend
+  backend:
+    name: booking-backend
+    internal: true  # Изолирована от внешнего мира — только backend <-> db/redis

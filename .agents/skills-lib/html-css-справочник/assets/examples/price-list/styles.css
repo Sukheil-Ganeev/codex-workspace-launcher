@@ -1,0 +1,19 @@
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Segoe UI,sans-serif;background:#f5f5f5;color:#333}
+.container{max-width:1200px;margin:0 auto;padding:0 20px}
+.navbar{background:linear-gradient(135deg,#667eea,#764ba2);color:white;padding:2rem;text-align:center}
+h2{text-align:center;margin:2rem 0}
+.price-controls{background:white;padding:2rem;margin:2rem 0;border-radius:8px;display:flex;justify-content:center;gap:2rem;box-shadow:0 2px 10px rgba(0,0,0,0.1)}
+.price-controls label{display:flex;align-items:center;gap:0.5rem;font-weight:500}
+.price-controls select,.price-controls input{padding:0.5rem;border:1px solid #ddd;border-radius:4px;font-size:1rem}
+.price-section{padding:2rem}
+table{width:100%;border-collapse:collapse;background:white;border-radius:8px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,0.1)}
+table thead{background:#667eea;color:white}
+table th,table td{padding:1rem;text-align:left;border-bottom:1px solid #eee}
+table tbody tr:hover{background:#f9f9f9}
+.group-discount{padding:3rem 2rem}
+.discount-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:2rem;margin-top:2rem}
+.discount-card{background:white;padding:2rem;border-radius:8px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,0.1);border-top:4px solid #FF6B35}
+.discount-card h3{margin-bottom:1rem;color:#667eea}
+.discount{font-size:2.5rem;font-weight:bold;color:#FF6B35}
+@media(max-width:768px){.price-controls{flex-direction:column}}

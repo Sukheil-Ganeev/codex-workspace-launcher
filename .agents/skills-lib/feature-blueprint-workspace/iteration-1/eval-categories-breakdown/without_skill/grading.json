@@ -1,0 +1,40 @@
+{
+  "expectations": [
+    {
+      "text": "has_numbered_tasks",
+      "passed": true,
+      "evidence": "8 tasks numbered Task 0 through Task 7. Task 0 (Preparation), Task 1 (SPA), Task 2 (Shopping Tours), Task 3 (Photoshoots), Task 4 (Visas), Task 5 (Apartments), Task 6 (Cross-cutting Registry Updates), Task 7 (Verification & Build Check). Each has goal, files, details, and estimate."
+    },
+    {
+      "text": "task_size_ok",
+      "passed": true,
+      "evidence": "All 8 tasks estimated at <= 60 minutes: Task 0 (~30min), Task 1 (~25min), Task 2 (~25min), Task 3 (~25min), Task 4 (~25min), Task 5 (~25min), Task 6 (~30min), Task 7 (~15min). All within 15-30 minute range."
+    },
+    {
+      "text": "has_file_paths",
+      "passed": true,
+      "evidence": "Tasks reference specific file paths: src/data/types.ts, src/data/translations.ts, src/data/spa.ts, src/app/spa/page.tsx, src/app/spa/[slug]/page.tsx, src/app/spa/[slug]/SpaClient.tsx, src/lib/search-index.ts, src/lib/city-services.ts, src/app/sitemap.ts, src/components/Navigation.tsx, src/components/Footer.tsx, src/data/services.ts, src/components/CategoryGrid.tsx. File Impact Summary lists 20 new files and 7 modified files with paths."
+    },
+    {
+      "text": "has_dependencies",
+      "passed": true,
+      "evidence": "Execution plan defines 4 waves with explicit dependencies: Wave 1 (Task 0 foundation), Wave 2 (Tasks 1-5 parallel, depend on Task 0), Wave 3 (Task 6 sequential after Wave 2), Wave 4 (Task 7 after Wave 3). Risks section notes 'Task 0 completes ALL type definitions first; Wave 2 agents only READ types.ts'."
+    },
+    {
+      "text": "has_verification",
+      "passed": true,
+      "evidence": "Task 7 'Verification & Build Check' with 6 steps: run npm run typecheck, run npm run build, verify new pages in build output, spot-check 1 catalog + 1 detail page per category in dev, verify search-index includes new services, verify sitemap output includes new URLs."
+    },
+    {
+      "text": "covers_all_5",
+      "passed": true,
+      "evidence": "All 5 categories explicitly covered: SPA & Wellness (Task 1, I-73), Shopping Tours (Task 2, I-74), Photoshoots (Task 3, I-75), Visas (Task 4, I-76), Apartments & Villas (Task 5, I-77). Overview table lists all 5 with issue numbers, slugs, and type names."
+    }
+  ],
+  "summary": {
+    "passed": 6,
+    "failed": 0,
+    "total": 6,
+    "pass_rate": 1.0
+  }
+}

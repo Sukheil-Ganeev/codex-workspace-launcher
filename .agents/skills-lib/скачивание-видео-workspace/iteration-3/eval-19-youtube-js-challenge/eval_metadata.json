@@ -1,0 +1,10 @@
+{
+  "eval_id": 19,
+  "eval_name": "youtube-bot-check-deno-runtime",
+  "prompt": "yt-dlp вдруг перестал скачивать с YouTube, пишет что-то про 'Sign in to confirm you're not a bot' или ошибку при получении информации о видео",
+  "assertions": [
+    "Упоминает deno runtime как решение для YouTube JS challenges",
+    "Упоминает yt-dlp -U (обновление) как первый шаг",
+    "Упоминает --extractor-args youtube:player_client как альтернативный вариант"
+  ]
+}

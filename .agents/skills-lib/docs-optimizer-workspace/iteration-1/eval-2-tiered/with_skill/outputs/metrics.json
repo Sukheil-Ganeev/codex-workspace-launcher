@@ -1,0 +1,59 @@
+{
+  "eval_id": "eval-2-tiered",
+  "mode": "tiered",
+  "skill_used": true,
+  "skill_path": "C:/Users/londo/.claude/skills/docs-optimizer/SKILL.md",
+  "project": "D:/Downloads/TouristBotEcosystem/",
+  "date": "2026-03-12",
+
+  "tool_calls": {
+    "Read": 2,
+    "Glob": 2,
+    "Bash": 10,
+    "Write": 2,
+    "total": 16
+  },
+
+  "discovery": {
+    "files_analyzed": 37,
+    "root_md_files": 3,
+    "docs_md_files": 34,
+    "total_lines": 18869,
+    "total_tokens_estimated": 75456
+  },
+
+  "tiers": {
+    "essential_files": 1,
+    "essential_tokens_before": 2228,
+    "essential_tokens_after": 800,
+    "ondemand_files": 13,
+    "ondemand_tokens_total": 23852,
+    "archive_files": 23,
+    "archive_tokens_total": 49444
+  },
+
+  "savings": {
+    "auto_load_before_tokens": 2228,
+    "auto_load_after_tokens": 800,
+    "auto_load_savings_tokens": 1428,
+    "auto_load_savings_pct": 64,
+    "archive_protected_tokens": 49444,
+    "typical_session_before_tokens": 52000,
+    "typical_session_after_tokens": 3800,
+    "typical_session_savings_pct": 93
+  },
+
+  "claudeignore_entries": 14,
+
+  "output_chars": 7842,
+  "output_lines": 218,
+
+  "anti_patterns_found": [
+    "AP-01: Context Stuffing (CLAUDE.md 557 строк, ~2228 токенов — цель <2500, но сильно выше 250 строк)",
+    "AP-04: Cache-Hostile Order (динамические данные перемешаны со статическими)",
+    "AP-13: Flat Hierarchy (audit_*.md в docs/ без подпапки archive/)",
+    "AP-03: Orphan Docs (docs/IDEAL_MASTER_PLAN.md — методология, не проектная doc)",
+    "AP-02: Stale Docs (ARCHITECTURE_v1.md, UX_DESIGN_v1.md, DEPLOY.md — дублируются)",
+    "AP-19: Roadmap Rot (IMPROVEMENT_MASTER_PLAN.md заменён v2, но оба живут в docs/)"
+  ]
+}

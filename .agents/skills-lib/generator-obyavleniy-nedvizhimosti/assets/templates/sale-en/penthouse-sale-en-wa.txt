@@ -1,0 +1,33 @@
+*PENTHOUSE | [AREA]*
+_[Exclusive description — type, uniqueness]_
+───────────────
+*FEATURES*
+▫️ [X] bedrooms | [X] bathrooms
+▫️ Type: [Half-floor/Full-floor/Duplex/Triplex]
+▫️ Area: [XX,XXX] sq.ft.
+▫️ Terrace: [X,XXX] sq.ft.
+▫️ Floor: [X-X]/[X]
+▫️ Ceiling height: [X.X]m
+
+*EXCLUSIVE FEATURES*
+▫️ Private elevator: [Yes/No]
+▫️ Rooftop pool: [Yes/No]
+▫️ View: [360°/Sea/Landmark/City]
+▫️ [Jacuzzi/Outdoor kitchen/Rooftop lounge]
+▫️ Staff quarters: [X] rooms
+▫️ Private parking: [X] spaces
+
+*BUILDING: [NAME]*
+[Prestige, special features]
+───────────────
+💰 *SALE: [XXX,XXX,XXX] AED*
+_(~$[XX,XXX,XXX])_
+
+*TERMS*
+▫️ Title Deed: [Status]
+▫️ Exclusive listing
+▫️ Viewing: By appointment only
+
+*CONTACT:* [NAME] | [+971 XX XXX XXXX]
+
+⚠️ Confidentiality guaranteed

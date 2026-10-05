@@ -1,0 +1,9 @@
+# Core runtime for Giga-only transcription
+# Install these inside:
+# D:\Downloads\_SYSTEM\Tools_And_Runtime\_gigaam_venv
+
+gigaam
+torch
+
+# Optional utilities
+rich

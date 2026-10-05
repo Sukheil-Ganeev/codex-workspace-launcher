@@ -1,0 +1,9 @@
+{
+  "name": "selling-event-tickets",
+  "version": "1.0.6",
+  "language": "ru",
+  "format": "agentskills-compatible",
+  "entrypoint": "SKILL.md",
+  "source_basis": "10 internal event-ticketing conversations and the consolidated knowledge-base archive dated 2026-09-02",
+  "confidentiality": "internal-use-only"
+}

@@ -1,0 +1,19 @@
+{
+  "eval_id": 6,
+  "eval_name": "time-segment",
+  "prompt": "скачай только первые 3 минуты этого видео с ютуба: youtube.com/watch?v=dQw4w9WgXcQ",
+  "assertions": [
+    {
+      "text": "Содержит --download-sections",
+      "check": "contains --download-sections"
+    },
+    {
+      "text": "Содержит корректный временной диапазон (00:03:00 или 0:03:00 или 180)",
+      "check": "contains 00:03:00 or 0:03:00 or 3:00"
+    },
+    {
+      "text": "Содержит правильный путь D:/Downloads/YouTube/",
+      "check": "contains D:/Downloads/YouTube/"
+    }
+  ]
+}

@@ -1,0 +1,486 @@
+/**
+ * ============================================================
+ * ШАБЛОН: CSS сниппеты для кастомизации Taplink
+ * ============================================================
+ *
+ * КАК ИСПОЛЬЗОВАТЬ:
+ * Способ 1 (для отдельных сниппетов):
+ *   Taplink -> Добавить блок -> HTML-код -> оберните CSS в <style>...</style>
+ *
+ * Способ 2 (для глобальных стилей, тариф Business):
+ *   Настройки -> Общие -> HTML-код -> вставьте <style>...</style>
+ *   Код попадёт в <head> на ВСЕХ страницах
+ *
+ * ВАЖНО:
+ * - Используйте !important для переопределения встроенных стилей Taplink
+ * - Тестируйте на мобильных устройствах (основной трафик)
+ * - Классы Taplink могут меняться — проверяйте через DevTools
+ *
+ * Содержание:
+ * 1. CSS переменные для быстрой настройки
+ * 2. Кастомный header с градиентом
+ * 3. Стилизация кнопок (hover, active, ripple)
+ * 4. Карточки товаров/услуг
+ * 5. Анимации (fade-in, slide-up, pulse)
+ * 6. Media queries для мобильных
+ * 7. Утилиты и хелперы
+ * ============================================================
+ */
+
+
+/* ==========================================================
+   1. CSS ПЕРЕМЕННЫЕ — Настройте цвета под ваш бренд
+   ========================================================== */
+
+:root {
+  /* Основные цвета — ЗАМЕНИТЕ на свои */
+  --tp-primary: #D4A056;         /* Основной (золотисто-песочный) */
+  --tp-primary-dark: #8B6914;    /* Тёмный вариант */
+  --tp-primary-light: #E8C170;   /* Светлый вариант */
+  --tp-accent: #2563EB;          /* Акцентный (синий) */
+  --tp-accent-dark: #1D4ED8;     /* Тёмный акцентный */
+
+  /* Фон */
+  --tp-bg-primary: #FFFFFF;      /* Основной фон */
+  --tp-bg-secondary: #F8F9FA;    /* Вторичный фон */
+  --tp-bg-dark: #1A1A2E;         /* Тёмный фон */
+
+  /* Текст */
+  --tp-text-primary: #1F2937;    /* Основной текст */
+  --tp-text-secondary: #6B7280;  /* Вторичный текст */
+  --tp-text-light: #9CA3AF;      /* Светлый текст */
+  --tp-text-white: #FFFFFF;      /* Белый текст */
+
+  /* Мессенджеры */
+  --tp-whatsapp: #25D366;
+  --tp-telegram: #0088CC;
+  --tp-instagram: #E4405F;
+
+  /* Размеры и отступы */
+  --tp-radius-sm: 8px;
+  --tp-radius-md: 12px;
+  --tp-radius-lg: 16px;
+  --tp-radius-full: 50px;        /* Полное скругление */
+
+  --tp-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --tp-shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
+  --tp-shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.16);
+
+  /* Шрифт — подключите через Google Fonts */
+  --tp-font-main: 'Montserrat', sans-serif;
+  --tp-font-body: 'Open Sans', sans-serif;
+}
+
+
+/* ==========================================================
+   2. КАСТОМНЫЙ HEADER С ГРАДИЕНТОМ
+   ========================================================== */
+
+/*
+ * Применяется к верхнему текстовому блоку.
+ * Вставьте этот CSS в HTML-блок ПЕРЕД текстовым блоком,
+ * или используйте глобальный HTML (Business).
+ */
+
+/* Градиентный фон для шапки страницы */
+.tp-header-gradient {
+  background: linear-gradient(135deg, var(--tp-primary-dark) 0%, var(--tp-primary) 50%, var(--tp-primary-light) 100%) !important;
+  padding: 32px 20px !important;
+  border-radius: 0 0 var(--tp-radius-lg) var(--tp-radius-lg) !important;
+  color: var(--tp-text-white) !important;
+  text-align: center !important;
+}
+
+/* Вариант: тёмный header */
+.tp-header-dark {
+  background: linear-gradient(135deg, #0F0C29 0%, #302B63 50%, #24243E 100%) !important;
+  padding: 32px 20px !important;
+  color: var(--tp-text-white) !important;
+}
+
+/* Вариант: header с фоновым паттерном */
+.tp-header-pattern {
+  background:
+    linear-gradient(135deg, rgba(212,160,86,0.9), rgba(139,105,20,0.9)),
+    url('data:image/svg+xml,<svg width="40" height="40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="1" fill="rgba(255,255,255,0.1)"/></svg>') !important;
+  background-size: auto, 40px 40px !important;
+  padding: 40px 20px !important;
+  color: var(--tp-text-white) !important;
+  text-align: center !important;
+}
+
+
+/* ==========================================================
+   3. СТИЛИЗАЦИЯ КНОПОК
+   ========================================================== */
+
+/* Общий стиль для всех кнопок-ссылок Taplink */
+.link-block {
+  border-radius: var(--tp-radius-full) !important;
+  font-family: var(--tp-font-main) !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.5px !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+/* Hover-эффект: подъём + тень */
+.link-block:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: var(--tp-shadow-md) !important;
+}
+
+/* Active-эффект: нажатие */
+.link-block:active {
+  transform: translateY(-1px) !important;
+  box-shadow: var(--tp-shadow-sm) !important;
+}
+
+/* Ripple-эффект при клике (CSS-only) */
+.link-block::after {
+  content: '' !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: rgba(255, 255, 255, 0.3) !important;
+  border-radius: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  transition: width 0.6s ease, height 0.6s ease !important;
+}
+
+.link-block:active::after {
+  width: 300px !important;
+  height: 300px !important;
+}
+
+/* Кнопка с градиентом (основная CTA) */
+.tp-btn-gradient {
+  background: linear-gradient(135deg, var(--tp-primary-dark), var(--tp-primary)) !important;
+  color: var(--tp-text-white) !important;
+  border: none !important;
+  box-shadow: 0 4px 16px rgba(212, 160, 86, 0.3) !important;
+}
+
+.tp-btn-gradient:hover {
+  box-shadow: 0 6px 24px rgba(212, 160, 86, 0.4) !important;
+}
+
+/* Кнопка с обводкой (вторичная) */
+.tp-btn-outline {
+  background: transparent !important;
+  border: 2px solid var(--tp-primary) !important;
+  color: var(--tp-primary) !important;
+}
+
+.tp-btn-outline:hover {
+  background: var(--tp-primary) !important;
+  color: var(--tp-text-white) !important;
+}
+
+/* Кнопка WhatsApp */
+.tp-btn-whatsapp {
+  background: var(--tp-whatsapp) !important;
+  color: var(--tp-text-white) !important;
+  box-shadow: 0 4px 16px rgba(37, 211, 102, 0.3) !important;
+}
+
+/* Кнопка Telegram */
+.tp-btn-telegram {
+  background: var(--tp-telegram) !important;
+  color: var(--tp-text-white) !important;
+  box-shadow: 0 4px 16px rgba(0, 136, 204, 0.3) !important;
+}
+
+
+/* ==========================================================
+   4. КАРТОЧКИ ТОВАРОВ/УСЛУГ
+   ========================================================== */
+
+/*
+ * Используйте в HTML-блоке Taplink.
+ * Пример HTML:
+ * <div class="tp-service-card">
+ *   <div class="tp-service-card__badge">Хит</div>
+ *   <h3 class="tp-service-card__title">Desert Safari</h3>
+ *   <p class="tp-service-card__desc">Катание по дюнам, BBQ-ужин, шоу</p>
+ *   <div class="tp-service-card__price">от 150 AED</div>
+ * </div>
+ */
+
+.tp-service-card {
+  background: var(--tp-bg-primary);
+  border-radius: var(--tp-radius-lg);
+  padding: 24px;
+  margin: 8px 0;
+  box-shadow: var(--tp-shadow-sm);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.tp-service-card:hover {
+  box-shadow: var(--tp-shadow-md);
+  transform: translateY(-4px);
+}
+
+/* Бейдж (Хит, Новинка, Скидка) */
+.tp-service-card__badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: linear-gradient(135deg, var(--tp-primary-dark), var(--tp-primary));
+  color: var(--tp-text-white);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 4px 12px;
+  border-radius: var(--tp-radius-full);
+}
+
+.tp-service-card__title {
+  font-family: var(--tp-font-main);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--tp-text-primary);
+  margin: 0 0 8px;
+}
+
+.tp-service-card__desc {
+  font-size: 14px;
+  color: var(--tp-text-secondary);
+  line-height: 1.5;
+  margin: 0 0 16px;
+}
+
+.tp-service-card__price {
+  font-family: var(--tp-font-main);
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--tp-primary-dark);
+}
+
+/* Сетка из двух карточек в ряд (для десктопа) */
+.tp-cards-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+
+/* ==========================================================
+   5. АНИМАЦИИ
+   ========================================================== */
+
+/* --- Fade In (плавное появление) --- */
+@keyframes tp-fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.tp-animate-fadeIn {
+  animation: tp-fadeIn 0.6s ease-out both;
+}
+
+/* --- Slide Up (появление снизу вверх) --- */
+@keyframes tp-slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tp-animate-slideUp {
+  animation: tp-slideUp 0.6s ease-out both;
+}
+
+/* Задержки для последовательного появления элементов */
+.tp-delay-1 { animation-delay: 0.1s; }
+.tp-delay-2 { animation-delay: 0.2s; }
+.tp-delay-3 { animation-delay: 0.3s; }
+.tp-delay-4 { animation-delay: 0.4s; }
+.tp-delay-5 { animation-delay: 0.5s; }
+
+/* --- Pulse (пульсация для CTA-кнопок) --- */
+@keyframes tp-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(212, 160, 86, 0.5); }
+  70% { box-shadow: 0 0 0 15px rgba(212, 160, 86, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(212, 160, 86, 0); }
+}
+
+.tp-animate-pulse {
+  animation: tp-pulse 2s infinite;
+}
+
+/* --- Shake (встряхивание для привлечения внимания) --- */
+@keyframes tp-shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-4px); }
+  20%, 40%, 60%, 80% { transform: translateX(4px); }
+}
+
+.tp-animate-shake {
+  animation: tp-shake 0.6s ease-in-out;
+}
+
+/* --- Bounce (подпрыгивание) --- */
+@keyframes tp-bounce {
+  0%, 20%, 53%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-20px); }
+  43% { transform: translateY(-20px); }
+  70% { transform: translateY(-10px); }
+  80% { transform: translateY(0); }
+  90% { transform: translateY(-4px); }
+}
+
+.tp-animate-bounce {
+  animation: tp-bounce 1s ease both;
+}
+
+/* --- Gradient Shift (анимированный градиент для фона) --- */
+@keyframes tp-gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.tp-animated-gradient {
+  background: linear-gradient(270deg, var(--tp-primary-dark), var(--tp-primary), var(--tp-primary-light), var(--tp-primary));
+  background-size: 300% 300%;
+  animation: tp-gradientShift 6s ease infinite;
+}
+
+
+/* ==========================================================
+   6. MEDIA QUERIES ДЛЯ МОБИЛЬНЫХ
+   ========================================================== */
+
+/* Мобильные устройства (до 480px) — основной трафик Taplink */
+@media (max-width: 480px) {
+  /* Уменьшаем отступы */
+  .tp-service-card {
+    padding: 16px !important;
+  }
+
+  /* Карточки в одну колонку */
+  .tp-cards-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Уменьшаем размер заголовков */
+  .tp-service-card__title {
+    font-size: 16px !important;
+  }
+
+  .tp-service-card__price {
+    font-size: 20px !important;
+  }
+
+  /* Убираем скругления для полноширинных блоков */
+  .tp-header-gradient,
+  .tp-header-dark,
+  .tp-header-pattern {
+    border-radius: 0 !important;
+  }
+}
+
+/* Планшеты (481px — 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .tp-cards-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 10px !important;
+  }
+}
+
+/* Десктоп (769px+) — редко для Taplink, но на всякий случай */
+@media (min-width: 769px) {
+  .tp-service-card {
+    max-width: 600px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}
+
+/* Предпочтение уменьшенной анимации (accessibility) */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+
+/* ==========================================================
+   7. УТИЛИТЫ И ХЕЛПЕРЫ
+   ========================================================== */
+
+/* Кастомный шрифт Montserrat (подключите в <head> или HTML-блоке) */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap');
+
+/* Применить Montserrat ко всей странице */
+body {
+  font-family: var(--tp-font-body) !important;
+}
+
+/* Скрытие логотипа Taplink в футере (тариф Business) */
+.taplink-footer {
+  display: none !important;
+}
+
+/* Скругление всех кнопок-ссылок */
+.link-block {
+  border-radius: var(--tp-radius-full) !important;
+}
+
+/* Текстовые утилиты */
+.tp-text-center { text-align: center !important; }
+.tp-text-left { text-align: left !important; }
+.tp-text-bold { font-weight: 700 !important; }
+.tp-text-uppercase { text-transform: uppercase !important; letter-spacing: 1px !important; }
+.tp-text-small { font-size: 12px !important; }
+.tp-text-large { font-size: 18px !important; }
+.tp-text-muted { color: var(--tp-text-light) !important; }
+.tp-text-primary { color: var(--tp-primary) !important; }
+.tp-text-accent { color: var(--tp-accent) !important; }
+
+/* Отступы */
+.tp-mt-1 { margin-top: 8px !important; }
+.tp-mt-2 { margin-top: 16px !important; }
+.tp-mt-3 { margin-top: 24px !important; }
+.tp-mb-1 { margin-bottom: 8px !important; }
+.tp-mb-2 { margin-bottom: 16px !important; }
+.tp-mb-3 { margin-bottom: 24px !important; }
+.tp-p-1 { padding: 8px !important; }
+.tp-p-2 { padding: 16px !important; }
+.tp-p-3 { padding: 24px !important; }
+
+/* Разделитель с текстом */
+.tp-divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: var(--tp-text-light);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin: 16px 0;
+}
+
+.tp-divider::before,
+.tp-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.1);
+}

@@ -1,0 +1,50 @@
+{
+  "skill_name": "feature-blueprint",
+  "evals": [
+    {
+      "id": 1,
+      "name": "db-integration-plan",
+      "prompt": "Напиши Tech Spec для интеграции сайта vipdxbrus.com с PostgreSQL через tourism-crm. Сейчас 24 статичных .ts файла (src/data/), 82 продукта. Нужно перевести на БД: бронирования (AvailabilityCalendar с демо-данными), отзывы (52 демо), AI чат (без истории), избранное (localStorage), каталог продуктов. Стек: Next.js 15 + TypeScript + Prisma + Neon PostgreSQL (eu-central-1). Уже есть tourism-crm с 49 Prisma моделями на той же Neon DB.",
+      "expected_output": "Tech Spec с секциями: MoSCoW, Architecture (+ Mermaid diagram), DB Schema (CREATE TABLE), Task Breakdown (задачи по 15-60 мин)",
+      "mode": "plan",
+      "files": [],
+      "assertions": [
+        {"name": "has_moscow", "description": "Contains MoSCoW prioritization section"},
+        {"name": "has_architecture", "description": "Contains Architecture section with system design"},
+        {"name": "has_mermaid", "description": "Contains at least one ```mermaid code block"},
+        {"name": "has_db_schema", "description": "Contains CREATE TABLE SQL statements"},
+        {"name": "has_task_breakdown", "description": "Contains numbered task list (TASK-001 or similar)"},
+        {"name": "task_size_ok", "description": "All tasks are estimated at <= 60 minutes"}
+      ]
+    },
+    {
+      "id": 2,
+      "name": "reviews-db-design",
+      "prompt": "Спроектируй таблицу reviews для реальных отзывов клиентов туристического сайта vipdxbrus.com. Требования: модерация (pending/approved/rejected), фото к отзывам, ответы владельца, привязка к services по slug, рейтинг 1-5. PostgreSQL, Prisma-совместимо.",
+      "expected_output": "CREATE TABLE reviews с правильными типами, индексами, Mermaid ERD, миграция",
+      "mode": "db-design",
+      "files": [],
+      "assertions": [
+        {"name": "has_create_table", "description": "Contains CREATE TABLE reviews statement"},
+        {"name": "has_indexes", "description": "Contains CREATE INDEX statements"},
+        {"name": "has_erd", "description": "Contains Mermaid erDiagram"},
+        {"name": "has_moderation_status", "description": "Schema includes moderation status (pending/approved/rejected)"},
+        {"name": "has_timestamptz", "description": "Uses TIMESTAMPTZ for date columns"}
+      ]
+    },
+    {
+      "id": 3,
+      "name": "booking-erd-diagram",
+      "prompt": "Нарисуй Mermaid ERD для системы бронирований туристического сайта. Таблицы: services (каталог услуг), availability_slots (доступные слоты по датам), bookings (бронирования клиентов), users (пользователи), user_favorites (избранное). Покажи связи и кардинальность.",
+      "expected_output": "Валидный Mermaid erDiagram с 5+ таблицами, правильными связями и кардинальностью",
+      "mode": "diagram",
+      "files": [],
+      "assertions": [
+        {"name": "valid_mermaid_syntax", "description": "Output contains valid erDiagram syntax"},
+        {"name": "has_5_tables", "description": "ERD includes at least 5 tables"},
+        {"name": "has_relationships", "description": "ERD includes at least 4 relationship lines (||--o{ or similar)"},
+        {"name": "latin_ids", "description": "All Mermaid node IDs use Latin characters (no Cyrillic in IDs)"}
+      ]
+    }
+  ]
+}

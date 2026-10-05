@@ -1,0 +1,60 @@
+# Пример 2: Корпоративный инвойс с несколькими услугами
+# Использование: для B2B клиентов из ОАЭ
+
+invoice:
+  number: "#26-042"
+  date: "Jan 25, 2026"
+
+brand: "marsel"
+
+client:
+  name: "ABC TOURISM LLC"        # Название компании (не CAPS)
+  phone: "+971 50 123 4567"
+  address: "Dubai, UAE"          # Обязателен для корпоративных
+  trn: "100123456789012"         # TRN для B2B в ОАЭ
+
+services:
+  - type: "TRANSFER"
+    description: "TRANSFER ON MERCEDES V-CLASS FROM DXB AIRPORT TO ATLANTIS THE PALM"
+    date: "26 JANUARY"
+    time: ""
+    quantity: 1
+    price_excl_vat: 142.86
+
+  - type: "PRIVATE_TOUR"
+    description: "PRIVATE MODERN TOUR IN DUBAI WITH GUIDE (for 4 persons)"
+    date: "27 JANUARY"
+    time: "START AT 09:00 AM"
+    quantity: 1
+    price_excl_vat: 380.95
+
+  - type: "YACHT"
+    description: "YACHT MAJESTY 48FT 3 HOURS TRIP (for 4 persons)"
+    date: "28 JANUARY"
+    time: "FROM 14:00 TO 17:00"
+    quantity: 1
+    price_excl_vat: 571.43
+
+  - type: "TRANSFER"
+    description: "TRANSFER ON MERCEDES V-CLASS FROM ATLANTIS THE PALM TO DXB AIRPORT"
+    date: "29 JANUARY"
+    time: ""
+    quantity: 1
+    price_excl_vat: 142.86
+
+payment:
+  pos_terminal: false
+
+bank_details:
+  use_default: true
+
+currency:
+  primary: "USD"
+  show_aed_conversion: true      # Показать итоги в AED
+  usd_to_aed_rate: 3.65
+
+# Ожидаемые итоги:
+# Total (Excl. VAT): $1,238.10
+# Total VAT: $61.90
+# Total (Incl. VAT): $1,300.00
+# В AED: 4,745.00 AED

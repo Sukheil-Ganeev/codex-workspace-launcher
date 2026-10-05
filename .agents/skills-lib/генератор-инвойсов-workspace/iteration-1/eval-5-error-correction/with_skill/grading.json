@@ -1,0 +1,14 @@
+{
+  "eval_id": 5,
+  "run": "with_skill",
+  "expectations": [
+    {"text": "Номер исправлен — добавлен # (#26-089)", "passed": true, "evidence": "INVOICE #: #26-089 — символ # добавлен корректно"},
+    {"text": "Имя клиента в CAPS: IVANOVA MARIA", "passed": true, "evidence": "Client Name: IVANOVA MARIA — преобразовано из 'Ivanova Maria'"},
+    {"text": "POS комиссия 3.5% (не 4%)", "passed": true, "evidence": "PAYMENT VIA POS TERMINAL + 3.5%: 10,29 USD — правильный процент"},
+    {"text": "Описание содержит LA PERLE SHOW, SILVER CATEGORY", "passed": true, "evidence": "LA PERLE SHOW SILVER CATEGORY FOR 2 ADULT 1 CHILD — полный шаблон"}
+  ],
+  "pass_count": 4,
+  "total_count": 4,
+  "pass_rate": 1.0,
+  "notes": "Все ошибки исправлены. Скилл явно перечислил что исправил — хорошая прозрачность. Добавил +7 к телефону и формат Mar 7, 2026."
+}

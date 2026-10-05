@@ -1,0 +1,149 @@
+# Yandex Cloud API Gateway для туристического бизнеса
+# OpenAPI 3.0 спецификация
+
+openapi: 3.0.0
+info:
+  title: Tourism API
+  version: 1.0.0
+  description: API для туристического бизнеса в ОАЭ
+
+servers:
+  - url: https://your-api-gateway-id.apigw.yandexcloud.net
+
+paths:
+  /tours:
+    get:
+      summary: Список всех туров
+      x-yc-apigateway-integration:
+        type: cloud_functions
+        function_id: YOUR_FUNCTION_ID
+      responses:
+        200:
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  tours:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Tour'
+
+  /tours/{id}:
+    get:
+      summary: Детали тура
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      x-yc-apigateway-integration:
+        type: cloud_functions
+        function_id: YOUR_FUNCTION_ID
+      responses:
+        200:
+          description: Tour details
+        404:
+          description: Tour not found
+
+  /bookings:
+    post:
+      summary: Создать бронирование
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookingRequest'
+      x-yc-apigateway-integration:
+        type: cloud_functions
+        function_id: YOUR_FUNCTION_ID
+      responses:
+        201:
+          description: Booking created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Booking'
+
+  /bookings/{id}:
+    get:
+      summary: Получить бронирование
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      x-yc-apigateway-integration:
+        type: cloud_functions
+        function_id: YOUR_FUNCTION_ID
+      responses:
+        200:
+          description: Booking details
+
+components:
+  schemas:
+    Tour:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        price_aed:
+          type: number
+        duration_hours:
+          type: integer
+        category:
+          type: string
+
+    BookingRequest:
+      type: object
+      required:
+        - tour_id
+        - customer_name
+        - customer_email
+        - booking_date
+        - participants
+      properties:
+        tour_id:
+          type: integer
+        customer_name:
+          type: string
+        customer_email:
+          type: string
+          format: email
+        customer_phone:
+          type: string
+        booking_date:
+          type: string
+          format: date
+        participants:
+          type: integer
+          minimum: 1
+
+    Booking:
+      type: object
+      properties:
+        id:
+          type: integer
+        tour_id:
+          type: integer
+        customer_name:
+          type: string
+        customer_email:
+          type: string
+        booking_date:
+          type: string
+        participants:
+          type: integer
+        total_amount:
+          type: number
+        status:
+          type: string
+          enum: [pending, confirmed, cancelled, completed]

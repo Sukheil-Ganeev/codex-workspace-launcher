@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout - UAE Tourism</title>
+  <script src="https://js.stripe.com/v3/"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #f5f5f5;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .checkout-container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* Progress indicator */
+    .progress-bar {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 40px;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .progress-step {
+      flex: 1;
+      text-align: center;
+      position: relative;
+    }
+
+    .progress-step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      top: 20px;
+      left: 60%;
+      width: 80%;
+      height: 2px;
+      background: #e0e0e0;
+      z-index: 0;
+    }
+
+    .progress-step.active .step-number {
+      background: #667eea;
+      color: white;
+    }
+
+    .progress-step.completed .step-number {
+      background: #4caf50;
+      color: white;
+    }
+
+    .progress-step.completed::after {
+      background: #4caf50;
+    }
+
+    .step-number {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #e0e0e0;
+      color: #999;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      margin-bottom: 8px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .step-label {
+      font-size: 14px;
+      color: #666;
+      font-weight: 500;
+    }
+
+    /* Step content */
+    .step-content {
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      display: none;
+    }
+
+    .step-content.active {
+      display: block;
+    }
+
+    h2 {
+      margin-bottom: 24px;
+      color: #1a1a1a;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group.full-width {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #333;
+      font-size: 14px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 16px;
+      font-family: inherit;
+      transition: border-color 0.3s;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    /* Tour selection */
+    .tour-card {
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 16px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .tour-card:hover {
+      border-color: #667eea;
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+    }
+
+    .tour-card.selected {
+      border-color: #667eea;
+      background: #f0f4ff;
+    }
+
+    .tour-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .tour-name {
+      font-weight: 600;
+      font-size: 18px;
+      color: #1a1a1a;
+    }
+
+    .tour-price {
+      font-size: 20px;
+      font-weight: 700;
+      color: #667eea;
+    }
+
+    .tour-description {
+      color: #666;
+      font-size: 14px;
+    }
+
+    /* Order summary */
+    .order-summary {
+      background: #f9f9f9;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 24px;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      font-size: 14px;
+    }
+
+    .summary-row.total {
+      font-size: 18px;
+      font-weight: 700;
+      padding-top: 12px;
+      border-top: 2px solid #e0e0e0;
+      margin-top: 12px;
+      color: #667eea;
+    }
+
+    /* Buttons */
+    .button-group {
+      display: flex;
+      gap: 16px;
+      margin-top: 32px;
+    }
+
+    button {
+      flex: 1;
+      padding: 14px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: #667eea;
+      border: 2px solid #667eea;
+    }
+
+    .btn-secondary:hover {
+      background: #f0f4ff;
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    #card-element {
+      padding: 12px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      margin-bottom: 8px;
+    }
+
+    .error {
+      color: #d32f2f;
+      font-size: 14px;
+      margin-top: 8px;
+    }
+
+    @media (max-width: 768px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .progress-bar {
+        padding: 20px 10px;
+      }
+
+      .step-label {
+        font-size: 12px;
+      }
+
+      .step-content {
+        padding: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="checkout-container">
+    <!-- Progress Indicator -->
+    <div class="progress-bar">
+      <div class="progress-step active" data-step="1">
+        <div class="step-number">1</div>
+        <div class="step-label">Select Tour</div>
+      </div>
+      <div class="progress-step" data-step="2">
+        <div class="step-number">2</div>
+        <div class="step-label">Your Details</div>
+      </div>
+      <div class="progress-step" data-step="3">
+        <div class="step-number">3</div>
+        <div class="step-label">Payment</div>
+      </div>
+    </div>
+
+    <!-- Step 1: Tour Selection -->
+    <div class="step-content active" id="step-1">
+      <h2>Choose Your Experience</h2>
+
+      <div class="tour-card" data-tour="desert-safari" data-price="250">
+        <div class="tour-header">
+          <div class="tour-name">🏜️ Desert Safari Tour</div>
+          <div class="tour-price">250 AED</div>
+        </div>
+        <div class="tour-description">
+          Dune bashing, camel ride, BBQ dinner, and traditional entertainment
+        </div>
+      </div>
+
+      <div class="tour-card" data-tour="burj-khalifa" data-price="180">
+        <div class="tour-header">
+          <div class="tour-name">🏙️ Burj Khalifa At The Top</div>
+          <div class="tour-price">180 AED</div>
+        </div>
+        <div class="tour-description">
+          124th & 125th floor observation deck with stunning city views
+        </div>
+      </div>
+
+      <div class="tour-card" data-tour="yacht-cruise" data-price="450">
+        <div class="tour-header">
+          <div class="tour-name">⛵ Luxury Yacht Cruise</div>
+          <div class="tour-price">450 AED</div>
+        </div>
+        <div class="tour-description">
+          2-hour private yacht cruise with refreshments and Dubai Marina views
+        </div>
+      </div>
+
+      <div class="button-group">
+        <button class="btn-primary" onclick="nextStep()" id="step1-next" disabled>
+          Continue to Details
+        </button>
+      </div>
+    </div>
+
+    <!-- Step 2: Customer Details -->
+    <div class="step-content" id="step-2">
+      <h2>Your Information</h2>
+
+      <form id="customer-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="firstName">First Name *</label>
+            <input type="text" id="firstName" required>
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name *</label>
+            <input type="text" id="lastName" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input type="email" id="email" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone *</label>
+            <input type="tel" id="phone" required placeholder="+971 50 123 4567">
+          </div>
+        </div>
+
+        <div class="form-group full-width">
+          <label for="hotel">Hotel / Address</label>
+          <input type="text" id="hotel" placeholder="For pickup arrangements">
+        </div>
+
+        <div class="form-group full-width">
+          <label for="notes">Special Requests</label>
+          <textarea id="notes" placeholder="Dietary restrictions, accessibility needs, etc."></textarea>
+        </div>
+      </form>
+
+      <div class="button-group">
+        <button class="btn-secondary" onclick="prevStep()">Back</button>
+        <button class="btn-primary" onclick="nextStep()">Continue to Payment</button>
+      </div>
+    </div>
+
+    <!-- Step 3: Payment -->
+    <div class="step-content" id="step-3">
+      <h2>Complete Payment</h2>
+
+      <div class="order-summary">
+        <h3 style="margin-bottom: 16px; font-size: 16px;">Order Summary</h3>
+        <div class="summary-row">
+          <span id="summary-tour">Desert Safari Tour</span>
+          <span id="summary-price">250 AED</span>
+        </div>
+        <div class="summary-row">
+          <span>VAT (5%)</span>
+          <span id="summary-vat">12.50 AED</span>
+        </div>
+        <div class="summary-row total">
+          <span>Total</span>
+          <span id="summary-total">262.50 AED</span>
+        </div>
+      </div>
+
+      <form id="payment-form">
+        <div class="form-group">
+          <label for="card-element">Card Details</label>
+          <div id="card-element"></div>
+          <div id="card-errors" class="error"></div>
+        </div>
+
+        <div class="button-group">
+          <button type="button" class="btn-secondary" onclick="prevStep()">Back</button>
+          <button type="submit" class="btn-primary" id="submit-payment">
+            Pay <span id="pay-amount">262.50 AED</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // State management
+    let currentStep = 1;
+    let selectedTour = null;
+    let bookingData = {};
+
+    // Initialize Stripe (replace with your key)
+    const stripe = Stripe('pk_test_YOUR_KEY_HERE');
+    const elements = stripe.elements();
+    const cardElement = elements.create('card');
+
+    // Tour selection
+    document.querySelectorAll('.tour-card').forEach(card => {
+      card.addEventListener('click', function() {
+        document.querySelectorAll('.tour-card').forEach(c => c.classList.remove('selected'));
+        this.classList.add('selected');
+        selectedTour = {
+          id: this.dataset.tour,
+          name: this.querySelector('.tour-name').textContent,
+          price: parseFloat(this.dataset.price)
+        };
+        document.getElementById('step1-next').disabled = false;
+      });
+    });
+
+    function nextStep() {
+      if (currentStep === 1 && !selectedTour) {
+        alert('Please select a tour');
+        return;
+      }
+
+      if (currentStep === 2) {
+        // Validate customer form
+        const form = document.getElementById('customer-form');
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return;
+        }
+
+        // Save customer data
+        bookingData = {
+          firstName: document.getElementById('firstName').value,
+          lastName: document.getElementById('lastName').value,
+          email: document.getElementById('email').value,
+          phone: document.getElementById('phone').value,
+          hotel: document.getElementById('hotel').value,
+          notes: document.getElementById('notes').value,
+        };
+
+        // Update order summary
+        const vat = selectedTour.price * 0.05;
+        const total = selectedTour.price + vat;
+        document.getElementById('summary-tour').textContent = selectedTour.name;
+        document.getElementById('summary-price').textContent = selectedTour.price + ' AED';
+        document.getElementById('summary-vat').textContent = vat.toFixed(2) + ' AED';
+        document.getElementById('summary-total').textContent = total.toFixed(2) + ' AED';
+        document.getElementById('pay-amount').textContent = total.toFixed(2) + ' AED';
+
+        // Mount card element
+        cardElement.mount('#card-element');
+      }
+
+      // Update UI
+      document.querySelector(`.step-content.active`).classList.remove('active');
+      document.querySelector(`.progress-step[data-step="${currentStep}"]`).classList.add('completed');
+
+      currentStep++;
+
+      document.getElementById(`step-${currentStep}`).classList.add('active');
+      document.querySelector(`.progress-step[data-step="${currentStep}"]`).classList.add('active');
+
+      window.scrollTo(0, 0);
+    }
+
+    function prevStep() {
+      document.querySelector(`.step-content.active`).classList.remove('active');
+      document.querySelector(`.progress-step[data-step="${currentStep}"]`).classList.remove('active');
+
+      currentStep--;
+
+      document.querySelector(`.progress-step[data-step="${currentStep}"]`).classList.remove('completed');
+      document.getElementById(`step-${currentStep}`).classList.add('active');
+
+      window.scrollTo(0, 0);
+    }
+
+    // Payment submission
+    document.getElementById('payment-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const submitBtn = document.getElementById('submit-payment');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Processing...';
+
+      const vat = selectedTour.price * 0.05;
+      const total = selectedTour.price + vat;
+      const amountInFils = Math.round(total * 100); // Convert to smallest unit
+
+      try {
+        // Create PaymentIntent
+        const response = await fetch('/api/create-payment-intent', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            amount: amountInFils,
+            currency: 'aed',
+            email: bookingData.email,
+            metadata: {
+              tour_id: selectedTour.id,
+              tour_name: selectedTour.name,
+              customer_name: `${bookingData.firstName} ${bookingData.lastName}`,
+              customer_phone: bookingData.phone,
+            },
+          }),
+        });
+
+        const { clientSecret } = await response.json();
+
+        // Confirm payment
+        const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+          payment_method: {
+            card: cardElement,
+            billing_details: {
+              name: `${bookingData.firstName} ${bookingData.lastName}`,
+              email: bookingData.email,
+              phone: bookingData.phone,
+            },
+          },
+        });
+
+        if (error) {
+          document.getElementById('card-errors').textContent = error.message;
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = 'Pay <span id="pay-amount">' + total.toFixed(2) + ' AED</span>';
+        } else {
+          // Success! Redirect or show confirmation
+          window.location.href = '/booking-confirmation?id=' + paymentIntent.id;
+        }
+      } catch (err) {
+        document.getElementById('card-errors').textContent = 'Payment failed. Please try again.';
+        submitBtn.disabled = false;
+        console.error(err);
+      }
+    });
+  </script>
+</body>
+</html>

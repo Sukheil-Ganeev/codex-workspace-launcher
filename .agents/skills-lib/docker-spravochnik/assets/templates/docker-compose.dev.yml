@@ -1,0 +1,74 @@
+# =============================================================================
+# docker-compose.dev.yml -- Dev-окружение с hot-reload
+# Docker Engine 29.x | Compose v2.40+ | Февраль 2026
+#
+# Использование:
+#   cp .env.example .env
+#   docker compose -f docker-compose.dev.yml up -d
+#   docker compose -f docker-compose.dev.yml watch   # hot-reload
+#
+# Замени ./app на путь к своему приложению.
+# =============================================================================
+
+services:
+  # --- Приложение ---
+  app:
+    build:
+      context: .
+      target: builder                   # dev-stage из multi-stage Dockerfile
+    ports:
+      - "3000:3000"                     # Замени на свой порт
+    volumes:
+      - ./src:/app/src                  # Bind mount для hot-reload
+      - ./package.json:/app/package.json
+    env_file: .env
+    environment:
+      - NODE_ENV=development
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    develop:
+      watch:
+        - action: sync                  # Синхронизация файлов без рестарта
+          path: ./src
+          target: /app/src
+        - action: rebuild               # Пересборка при изменении зависимостей
+          path: ./package.json
+
+  # --- PostgreSQL ---
+  db:
+    image: postgres:17-alpine
+    ports:
+      - "5432:5432"                     # Доступ с хоста для IDE/pgAdmin
+    environment:
+      POSTGRES_DB: ${DB_NAME:-app}
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-devpassword}
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  # --- Redis ---
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"                     # Доступ с хоста для redis-cli
+    command: redis-server --appendonly yes
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+volumes:
+  db-data:                              # Данные PostgreSQL
+  redis-data:                           # Данные Redis

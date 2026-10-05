@@ -1,0 +1,81 @@
+Ошибка HTTP Error 403: Forbidden при скачивании с TikTok через yt-dlp
+
+Эта ошибка означает, что сервер TikTok отклонил запрос — чаще всего из-за блокировки по User-Agent, отсутствия cookies или геоблокировки. Вот что можно попробовать:
+
+---
+
+1. ОБНОВИТЬ yt-dlp ДО ПОСЛЕДНЕЙ ВЕРСИИ
+
+TikTok часто меняет API. Устаревшая версия yt-dlp не знает новых правил.
+
+  pip install -U yt-dlp
+  # или
+  yt-dlp -U
+
+---
+
+2. ПЕРЕДАТЬ COOKIES ИЗ БРАУЗЕРА
+
+TikTok требует авторизации для многих видео. Передай cookies из браузера, где ты залогинен:
+
+  yt-dlp --cookies-from-browser chrome "https://www.tiktok.com/..."
+  # или Firefox:
+  yt-dlp --cookies-from-browser firefox "https://www.tiktok.com/..."
+
+Альтернатива — экспортировать cookies вручную (расширение "Get cookies.txt") и передать файл:
+
+  yt-dlp --cookies cookies.txt "https://www.tiktok.com/..."
+
+---
+
+3. ИЗМЕНИТЬ USER-AGENT
+
+TikTok блокирует запросы с нестандартным User-Agent. Используй мобильный или браузерный:
+
+  yt-dlp --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" "https://www.tiktok.com/..."
+
+---
+
+4. ДОБАВИТЬ ЗАДЕРЖКУ МЕЖДУ ЗАПРОСАМИ
+
+TikTok может блокировать при слишком частых запросах (rate limiting):
+
+  yt-dlp --sleep-interval 3 --max-sleep-interval 10 "https://www.tiktok.com/..."
+
+---
+
+5. ИСПОЛЬЗОВАТЬ ПРОКСИ ИЛИ VPN
+
+Если проблема в геоблокировке:
+
+  yt-dlp --proxy "socks5://127.0.0.1:1080" "https://www.tiktok.com/..."
+  # или http прокси:
+  yt-dlp --proxy "http://proxy_ip:port" "https://www.tiktok.com/..."
+
+---
+
+6. ДОБАВИТЬ ЗАГОЛОВКИ ВРУЧНУЮ
+
+  yt-dlp --add-header "Referer:https://www.tiktok.com/" --add-header "Origin:https://www.tiktok.com" "https://www.tiktok.com/..."
+
+---
+
+7. КОМБИНИРОВАННЫЙ ВАРИАНТ (рекомендуется попробовать первым)
+
+  yt-dlp --cookies-from-browser chrome --user-agent "Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15" "https://www.tiktok.com/..."
+
+---
+
+ДИАГНОСТИКА — посмотреть подробности ошибки:
+
+  yt-dlp -v "https://www.tiktok.com/..."
+
+Флаг -v покажет полный HTTP-запрос и ответ сервера, что помогает понять точную причину 403.
+
+---
+
+ЕСЛИ НИЧЕГО НЕ ПОМОГЛО:
+
+- Проверь, не является ли видео приватным или удалённым
+- Попробуй скачать через другую сеть (мобильный интернет вместо Wi-Fi)
+- Иногда достаточно подождать несколько минут — TikTok снимает временную блокировку по IP

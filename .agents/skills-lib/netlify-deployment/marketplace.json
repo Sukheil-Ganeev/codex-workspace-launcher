@@ -1,0 +1,47 @@
+{
+  "name": "netlify-deployment",
+  "displayName": "Netlify Deployment",
+  "version": "1.0.0",
+  "description": "Полный справочник по деплою на Netlify: Drop, GitHub, CLI. Serverless functions, webhooks, автоматизация для туристического бизнеса ОАЭ.",
+  "author": "Сухейль",
+  "tags": [
+    "netlify",
+    "deployment",
+    "serverless",
+    "hosting",
+    "webhook",
+    "automation",
+    "туризм-оаэ",
+    "справочник"
+  ],
+  "category": "deployment",
+  "triggers": [
+    "netlify",
+    "деплой",
+    "deploy",
+    "serverless function",
+    "netlify drop",
+    "netlify cli",
+    "webhook netlify"
+  ],
+  "language": "ru",
+  "license": "Private",
+  "useCases": [
+    "Деплой статичных сайтов (прайс-листы, лендинги)",
+    "Serverless functions для ботов и webhooks",
+    "Интеграция Google Sheets API",
+    "Netlify Forms для сбора лидов",
+    "Custom domains и HTTPS",
+    "Environment variables для API ключей"
+  ],
+  "businessContext": "Туристический бизнес ОАЭ — автоматизация, прайс-листы, боты, CRM",
+  "skillLevel": "beginner-to-advanced",
+  "estimatedReadTime": "45 минут",
+  "lastUpdated": "2026-02-04",
+  "dependencies": [],
+  "relatedSkills": [
+    "git-github-справочник",
+    "vercel-деплой",
+    "туризм-оаэ-автоматизация"
+  ]
+}

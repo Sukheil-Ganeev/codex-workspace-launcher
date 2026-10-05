@@ -1,0 +1,8 @@
+{
+  "archive_name": "Марсель_Ticketing_Knowledge_Base_2026-09-02.zip",
+  "sha256": "9c33969ea9d64d95c92d31833252e400795e9aa6b7bf3d70af212e381e80abb5",
+  "size_bytes": 2960853,
+  "purpose": "Immutable full source archive for audit and traceability; not intended for routine skill loading.",
+  "validation": "16/16 package checks PASS",
+  "originals": "byte-for-byte"
+}

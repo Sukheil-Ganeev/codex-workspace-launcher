@@ -1,0 +1,33 @@
+{
+  "eval_name": "eval-callback-answer",
+  "config": "with_skill",
+  "expectations": [
+    {
+      "text": "CB1: Находит пропущенный callback.answer() в СУЩЕСТВУЮЩИХ 3 обработчиках",
+      "passed": true,
+      "evidence": "WARN (1): handlers.py:14,19,23 — три CallbackQuery handler без callback.answer(). Спиннер у пользователя будет висеть ~30 сек."
+    },
+    {
+      "text": "CB2: Добавляет callback.answer() в новый обработчик \"О нас\"",
+      "passed": true,
+      "evidence": "@router.callback_query(F.data == \"about\") async def handle_about(callback: CallbackQuery): await callback.answer()  # убирает спиннер"
+    },
+    {
+      "text": "CB3: Объясняет почему нужен callback.answer() (спиннер зависает)",
+      "passed": true,
+      "evidence": "Спиннер у пользователя будет висеть ~30 сек. Исправлено в коде ниже. ... `callback.answer()` — убирает спиннер"
+    },
+    {
+      "text": "CB4: Правильно добавляет кнопку \"О нас\" с callback_data",
+      "passed": true,
+      "evidence": "InlineKeyboardButton(text=\"О нас\", callback_data=\"about\")  # добавлено"
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "notes": "Скилл сработал точно: нашёл все 3 существующих handlers без callback.answer() (строки 14, 19, 23), добавил кнопку \"О нас\" с правильным callback_data=\"about\", создал handle_about с callback.answer(). Дополнительно проверил порядок хэндлеров по EXP-053 и подтвердил что F.text == \"Меню\" — не catch-all."
+}

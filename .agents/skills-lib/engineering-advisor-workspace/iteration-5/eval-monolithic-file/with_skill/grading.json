@@ -1,0 +1,86 @@
+{
+  "expectations": [
+    {
+      "text": "(M1) Обнаруживает триггер #22 — монолитный файл >1000 строк",
+      "passed": true,
+      "evidence": "Response explicitly states 'WARN (2): handlers.py:1200 строк — монолитный файл' in the summary block and 'WARN 1: handlers.py — монолитный файл 1200 строк (Триггер #22, Advisory)' in the body. Summary line confirms 'Триггеры сработали: #22 (монолит)'. metrics.json also lists '#22_WARN' in triggers_fired."
+    },
+    {
+      "text": "(M2) Предлагает план разделения файла на модули ПЕРЕД добавлением нового кода",
+      "passed": true,
+      "evidence": "The refactoring plan (handlers/ directory structure with commands.py, callbacks.py, media.py, services/transcription.py) appears in the WARN section (lines 103-115 of response), which precedes the 'Минимальная версия нового хэндлера' code example (lines 189-223). The summary table places 'Запланировать разделение handlers.py' as item 4, after the BLOCK fix, with note 'позже' — so refactoring is flagged before the code is provided, though marked as deferred action."
+    },
+    {
+      "text": "(M3) Упоминает конкретные модули для разделения (например: handlers_commands.py, handlers_callbacks.py, handlers_media.py)",
+      "passed": true,
+      "evidence": "Response proposes: 'handlers/__init__.py, handlers/commands.py (команды /start, /help, /book...), handlers/callbacks.py (book_*, pay_* CallbackQuery handlers), handlers/media.py (F.photo, F.document, F.voice), handlers/services/transcription.py'. These are concrete, named modules matching the expected pattern."
+    },
+    {
+      "text": "(M4) НЕ просто добавляет хэндлер без комментария про размер файла",
+      "passed": true,
+      "evidence": "The WARN section explicitly calls out the 1200-line file as a 'классический God Object' before providing any code. The new handler code is labeled 'Минимальная версия нового хэндлера (безопасная)' and comes after the full analysis including the monolith warning. The response does not silently add the handler — it comments on the file size issue prominently."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "tool_calls": 4,
+    "total_steps": 5,
+    "errors_encountered": 0,
+    "output_chars": 6847,
+    "triggers_fired": ["#20_BLOCK", "#22_WARN", "#19_WARN", "#21_INFO", "#3_INFO"],
+    "severity_counts": {
+      "BLOCK": 1,
+      "WARN": 2,
+      "INFO": 2
+    },
+    "experience_applied": ["EXP-053", "EXP-001", "WARN-006"],
+    "skill_version": "4.1"
+  },
+  "timing": {
+    "executor_duration_seconds": 99.3,
+    "grader_duration_seconds": null,
+    "total_duration_seconds": 99.3
+  },
+  "claims": [
+    {
+      "claim": "Engineering Advisor activated and loaded 5 critical lessons from experience",
+      "type": "process",
+      "verified": true,
+      "evidence": "Response states 'Загружено 5 критических уроков из опыта' and lists applied lessons EXP-053, EXP-001, WARN-006. metrics.json confirms experience_applied."
+    },
+    {
+      "claim": "Trigger #22 fired as WARN (Advisory level, not BLOCK)",
+      "type": "factual",
+      "verified": true,
+      "evidence": "metrics.json lists '#22_WARN', response marks it as 'WARN 1' and '(Триггер #22, Advisory)' — correctly Advisory level, not mandatory BLOCK."
+    },
+    {
+      "claim": "The response proposes refactoring BEFORE providing the new handler code",
+      "type": "quality",
+      "verified": true,
+      "evidence": "Structurally, the WARN section with the refactoring plan appears earlier in the document than the handler code example. However, the summary table places refactoring as item 4 with 'позже', meaning the advisor acknowledges it but doesn't block on it — this is a reasonable Advisory behavior."
+    }
+  ],
+  "user_notes_summary": {
+    "uncertainties": [],
+    "needs_review": [],
+    "workarounds": []
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "assertion": "(M2) Предлагает план разделения файла на модули ПЕРЕД добавлением нового кода",
+        "reason": "The assertion passes because the plan appears textually before the code, but the summary table explicitly deprioritizes refactoring to item 4 with 'позже'. A stronger assertion would check whether the advisor recommends the user refactor FIRST before adding new code, or at minimum whether adding code to the monolith is explicitly discouraged. The current behavior gives a plan but still provides ready-to-use code for the monolith."
+      },
+      {
+        "reason": "No assertion checks whether the advisor correctly classifies the trigger severity — #22 should be Advisory/WARN, not BLOCK. A misclassification (e.g., blocking the user entirely because of file size) would pass all 4 assertions but represent incorrect skill behavior. Consider adding: 'Триггер #22 помечен как WARN (Advisory), а не BLOCK'."
+      }
+    ],
+    "overall": "All 4 assertions pass with clear evidence. The evals cover the main behaviors well. Main gap: M2 could be tightened to distinguish between 'plan appears before code in the document' vs 'plan is recommended as prerequisite to adding code'."
+  }
+}

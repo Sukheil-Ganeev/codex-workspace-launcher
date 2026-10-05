@@ -1,0 +1,13 @@
+{
+  "eval_id": 1,
+  "eval_name": "db-integration-plan",
+  "prompt": "Напиши Tech Spec для интеграции сайта vipdxbrus.com с PostgreSQL через tourism-crm.",
+  "assertions": [
+    {"name": "has_moscow", "description": "Contains MoSCoW prioritization section"},
+    {"name": "has_architecture", "description": "Contains Architecture section"},
+    {"name": "has_mermaid", "description": "Contains ```mermaid code block"},
+    {"name": "has_db_schema", "description": "Contains CREATE TABLE SQL"},
+    {"name": "has_task_breakdown", "description": "Contains numbered task list"},
+    {"name": "task_size_ok", "description": "All tasks <= 60 minutes"}
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "run_id": "eval-1-simple-1080p-with_skill",
+  "expectations": [
+    {
+      "text": "Содержит правильный путь D:/Downloads/YouTube/",
+      "passed": true,
+      "evidence": "Строка: -P \"D:/Downloads/YouTube/\" — есть в команде"
+    },
+    {
+      "text": "Содержит ограничение высоты 1080 (height<=1080 или height=1080)",
+      "passed": true,
+      "evidence": "bv*[ext=mp4][height<=1080] — точное совпадение"
+    },
+    {
+      "text": "Содержит --merge-output-format mp4",
+      "passed": true,
+      "evidence": "--merge-output-format mp4 — есть в команде"
+    },
+    {
+      "text": "Содержит корректный format-селектор с ext=mp4",
+      "passed": true,
+      "evidence": "[ext=mp4] — есть в селекторе"
+    }
+  ],
+  "pass_rate": 1.0
+}

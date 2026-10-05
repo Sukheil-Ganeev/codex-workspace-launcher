@@ -1,0 +1,131 @@
+# =============================================================================
+# NocoDB + PostgreSQL + Redis -- Production-ready Docker Compose
+# =============================================================================
+# Использование:
+#   1. Скопировать файл и создать .env рядом (см. переменные ниже)
+#   2. docker compose up -d
+#   3. Открыть http://localhost:8080
+#
+# Требования: Docker 20.10+, Docker Compose v2
+# =============================================================================
+
+version: '3.8'
+
+services:
+  # ---------------------------------------------------------------------------
+  # NocoDB -- основной сервис
+  # ---------------------------------------------------------------------------
+  nocodb:
+    image: nocodb/nocodb:latest  # Для production фиксируйте версию: nocodb/nocodb:0.301.2
+    container_name: nocodb-app
+    restart: unless-stopped
+    ports:
+      - "${NOCODB_PORT:-8080}:8080"
+    environment:
+      # --- Подключение к базе данных (обязательно для production) ---
+      NC_DB: "pg://db:5432?u=${POSTGRES_USER:-nocodb}&p=${POSTGRES_PASSWORD:-CHANGE_ME_STRONG_PASSWORD}&d=${POSTGRES_DB:-nocodb}"
+
+      # --- JWT секрет (ОБЯЗАТЕЛЬНО сменить!) ---
+      # Генерация: openssl rand -hex 32
+      NC_AUTH_JWT_SECRET: "${NC_AUTH_JWT_SECRET:-CHANGE_ME_GENERATE_WITH_openssl_rand_hex_32}"
+
+      # --- Публичный URL (для корректных ссылок в письмах/webhooks) ---
+      NC_PUBLIC_URL: "${NC_PUBLIC_URL:-http://localhost:8080}"
+
+      # --- Redis для кэширования (рекомендуется для 10+ пользователей) ---
+      NC_REDIS_URL: "redis://redis:6379"
+
+      # --- Безопасность ---
+      NC_INVITE_ONLY_SIGNUP: "${NC_INVITE_ONLY_SIGNUP:-true}"    # Регистрация только по приглашению
+      NC_ALLOW_LOCAL_HOOKS: "false"                               # Запрет локальных webhooks
+      NC_SECURE_ATTACHMENTS: "true"                               # Подписанные URL для вложений
+
+      # --- Пагинация ---
+      DB_QUERY_LIMIT_DEFAULT: "25"
+      DB_QUERY_LIMIT_MAX: "1000"
+    volumes:
+      - nc_data:/usr/app/data    # Данные NocoDB (вложения, плагины)
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:8080/api/v1/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"    # Ротация логов -- максимум 10 МБ на файл
+        max-file: "3"      # Хранить не более 3 файлов
+
+  # ---------------------------------------------------------------------------
+  # PostgreSQL -- база данных
+  # ---------------------------------------------------------------------------
+  db:
+    image: postgres:16-alpine
+    container_name: nocodb-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: "${POSTGRES_DB:-nocodb}"
+      POSTGRES_USER: "${POSTGRES_USER:-nocodb}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD:-CHANGE_ME_STRONG_PASSWORD}"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-nocodb} -d ${POSTGRES_DB:-nocodb}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    # Не публикуем порт наружу! Доступ только из Docker-сети.
+    # Для отладки: раскомментируйте строку ниже
+    # ports:
+    #   - "5432:5432"
+
+  # ---------------------------------------------------------------------------
+  # Redis -- кэширование и PubSub
+  # ---------------------------------------------------------------------------
+  redis:
+    image: redis:7-alpine
+    container_name: nocodb-redis
+    restart: unless-stopped
+    command: redis-server --maxmemory 128mb --maxmemory-policy allkeys-lru
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+# =============================================================================
+# Volumes -- персистентное хранилище
+# =============================================================================
+volumes:
+  nc_data:
+    driver: local
+  pg_data:
+    driver: local
+
+# =============================================================================
+# .env файл (создайте рядом с docker-compose.yml):
+# =============================================================================
+# NOCODB_PORT=8080
+# POSTGRES_DB=nocodb
+# POSTGRES_USER=nocodb
+# POSTGRES_PASSWORD=ваш_надёжный_пароль_минимум_24_символа
+# NC_AUTH_JWT_SECRET=результат_команды_openssl_rand_hex_32
+# NC_PUBLIC_URL=https://nocodb.yourdomain.com
+# NC_INVITE_ONLY_SIGNUP=true
+# =============================================================================

@@ -1,0 +1,52 @@
+{
+  "name": "генератор-объявлений-недвижимости",
+  "version": "1.0.0",
+  "description": "Генерация объявлений о недвижимости ОАЭ для WhatsApp/Telegram рассылки",
+  "author": "Claude Code AI",
+  "created": "2026-01-30",
+  "updated": "2026-01-30",
+  "language": "ru",
+  "category": "real-estate",
+  "tags": [
+    "недвижимость",
+    "ОАЭ",
+    "Дубай",
+    "WhatsApp",
+    "Telegram",
+    "аренда",
+    "продажа",
+    "апартаменты",
+    "виллы",
+    "офисы"
+  ],
+  "triggers": [
+    "объявление о недвижимости",
+    "объявление квартиры",
+    "объявление виллы",
+    "рассылка недвижимость",
+    "создать объявление",
+    "карточка объекта"
+  ],
+  "supportedTypes": {
+    "residential": [
+      "apartments",
+      "villas",
+      "townhouses",
+      "penthouses"
+    ],
+    "commercial": [
+      "offices",
+      "floors",
+      "retail"
+    ]
+  },
+  "supportedOperations": [
+    "sale",
+    "rent"
+  ],
+  "supportedMessengers": [
+    "whatsapp",
+    "telegram"
+  ],
+  "relatedProject": "D:/Downloads/НЕДВИЖИМОСТЬ_ОАЭ_АВТОМАТИЗАЦИЯ/"
+}

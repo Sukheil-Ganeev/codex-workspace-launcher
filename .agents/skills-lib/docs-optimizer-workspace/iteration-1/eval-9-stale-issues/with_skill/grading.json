@@ -1,0 +1,33 @@
+{
+  "eval_id": "eval-9-stale-issues",
+  "config": "with_skill",
+  "assertions": [
+    {
+      "id": "a1",
+      "description": "Output reads ISSUES.md from D:/Downloads/TouristBotEcosystem/ and reports its content",
+      "passed": true,
+      "evidence": "Found ISSUES.md reference"
+    },
+    {
+      "id": "a2",
+      "description": "Output reports the status of each issue or at minimum the overall breakdown (open vs closed count)",
+      "passed": true,
+      "evidence": "Found issue status breakdown"
+    },
+    {
+      "id": "a3",
+      "description": "Output cross-references issue statuses with git log or code to verify if open issues are actually resolved",
+      "passed": true,
+      "evidence": "Found git/code cross-reference"
+    },
+    {
+      "id": "a4",
+      "description": "Output provides a Verification Score in N/5 format for issue tracking hygiene",
+      "passed": true,
+      "evidence": "Found N/5: 0/5"
+    }
+  ],
+  "pass_rate": 1.0,
+  "passed": 4,
+  "total": 4
+}

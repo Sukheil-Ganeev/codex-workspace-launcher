@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Booking Sheet</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar"><h1>Booking Management</h1></nav>
+    <div class="container">
+        <div class="sheet-section">
+            <h2>Your Bookings</h2>
+            <button id="loadBtn" onclick="loadBookings()">Load Bookings</button>
+            <table id="bookingTable" style="display:none">
+                <thead>
+                    <tr><th>Name</th><th>Email</th><th>Tour</th><th>Date</th><th>Status</th></tr>
+                </thead>
+                <tbody id="tableBody"></tbody>
+            </table>
+            <div id="noData" style="text-align:center;padding:2rem;color:#999;">Click Load to fetch bookings</div>
+        </div>
+        <div class="add-section">
+            <h2>Add New Booking</h2>
+            <form onsubmit="addBooking(event)">
+                <input type="text" placeholder="Name" required>
+                <input type="email" placeholder="Email" required>
+                <input type="date" required>
+                <select required>
+                    <option>Morning Safari</option>
+                    <option>Evening Safari</option>
+                    <option>Night VIP</option>
+                </select>
+                <button type="submit">Add Booking</button>
+            </form>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

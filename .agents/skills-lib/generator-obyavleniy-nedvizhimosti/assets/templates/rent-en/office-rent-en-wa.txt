@@ -1,0 +1,20 @@
+*OFFICE | [AREA/FREE ZONE]*
+_[Description]_
+───────────────
+*FEATURES*
+▫️ Area: [X,XXX] sq.ft.
+▫️ Type: [Shell & Core/CAT A/Fitted]
+▫️ Floor: [X]/[X]
+▫️ Parking: [X] spaces
+
+*BUILDING: [NAME]*
+Grade [A/B] | [24/7 access]
+───────────────
+💰 *RENT: [XXX] AED/sq.ft./year*
+_Total: [X,XXX,XXX] AED/year_
+
+*TERMS*
+▫️ Minimum: [X] years
+▫️ Service charge: [Included/Excluded]
+
+*CONTACT:* [NAME] | [+971 XX XXX XXXX]

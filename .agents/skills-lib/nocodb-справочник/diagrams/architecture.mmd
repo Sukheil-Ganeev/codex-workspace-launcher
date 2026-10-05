@@ -1,0 +1,90 @@
+%% NocoDB Architecture Diagram
+%% Показывает NocoDB как middleware поверх SQL БД с API и интеграциями
+
+graph TB
+    %% Клиентский слой
+    subgraph clients["Клиенты / Consumers"]
+        browser["Browser UI<br/>Vue.js / Nuxt"]
+        sdk["nocodb-sdk<br/>npm package"]
+        curl["curl / Postman<br/>HTTP клиенты"]
+        mcp["MCP Server<br/>Claude / Cursor"]
+        webhookConsumer["Webhook Consumer<br/>n8n / Zapier / Make"]
+    end
+
+    %% Аутентификация
+    subgraph auth["Аутентификация"]
+        xctoken["xc-token<br/>API Token (рекомендуется)"]
+        xcauth["xc-auth<br/>JWT (deprecated)"]
+        bearer["Authorization: Bearer<br/>v0.264.7+"]
+    end
+
+    %% NocoDB Core
+    subgraph nocodb["NocoDB Core (Node.js)"]
+        restapi["REST API v2 (stable)"]
+        dataapi["Data APIs<br/>CRUD записей"]
+        metaapi["Meta APIs<br/>Таблицы, поля, views"]
+        webhookEngine["Webhook Engine v3<br/>Триггеры и события"]
+        viewEngine["View Engine<br/>Grid / Kanban / Gallery<br/>Form / Calendar"]
+    end
+
+    %% Кэширование
+    redis["Redis<br/>Кэш + PubSub<br/>(для 10+ юзеров)"]
+
+    %% Слой данных
+    subgraph databases["SQL Backends"]
+        pg["PostgreSQL<br/>(рекомендуется)"]
+        mysql["MySQL / MariaDB"]
+        sqlite["SQLite<br/>(dev only)"]
+        mssql["SQL Server"]
+        oracle["Oracle"]
+    end
+
+    %% Хранилище файлов
+    s3["S3 / MinIO<br/>Вложения + CDN"]
+
+    %% Связи: клиенты -> аутентификация -> NocoDB
+    browser --> restapi
+    sdk --> restapi
+    curl --> restapi
+    mcp --> restapi
+
+    xctoken -.-> restapi
+    xcauth -.-> restapi
+    bearer -.-> restapi
+
+    restapi --> dataapi
+    restapi --> metaapi
+
+    %% NocoDB -> данные
+    dataapi --> pg
+    dataapi --> mysql
+    dataapi --> sqlite
+    dataapi --> mssql
+    dataapi --> oracle
+
+    metaapi --> pg
+    metaapi --> mysql
+
+    %% Кэш
+    nocodb --> redis
+
+    %% Webhooks
+    webhookEngine --> webhookConsumer
+
+    %% Файлы
+    nocodb --> s3
+
+    %% Стили
+    classDef clientStyle fill:#4A90D9,stroke:#2C5F8A,color:#FFFFFF
+    classDef authStyle fill:#F5A623,stroke:#D4891A,color:#FFFFFF
+    classDef coreStyle fill:#7B68EE,stroke:#5A4DB0,color:#FFFFFF
+    classDef dbStyle fill:#50C878,stroke:#3A9A5C,color:#FFFFFF
+    classDef cacheStyle fill:#FF6B6B,stroke:#CC5555,color:#FFFFFF
+    classDef storageStyle fill:#95A5A6,stroke:#7F8C8D,color:#FFFFFF
+
+    class browser,sdk,curl,mcp,webhookConsumer clientStyle
+    class xctoken,xcauth,bearer authStyle
+    class restapi,dataapi,metaapi,webhookEngine,viewEngine coreStyle
+    class pg,mysql,sqlite,mssql,oracle dbStyle
+    class redis cacheStyle
+    class s3 storageStyle

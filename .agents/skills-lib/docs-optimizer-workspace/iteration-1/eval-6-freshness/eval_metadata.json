@@ -1,0 +1,11 @@
+{
+  "eval_id": 6,
+  "eval_name": "freshness-check-stale-files",
+  "prompt": "Какие файлы документации в D:/Downloads/TouristBotEcosystem/ давно не обновлялись?",
+  "assertions": [
+    "Output uses git log or checks modification dates to determine when files were last updated",
+    "Output identifies at least one specific file as potentially stale based on modification date or commit history",
+    "Output assigns AP-XX codes to freshness-related antipatterns (e.g. AP-XX for stale documentation)",
+    "Output provides a Verification Score in N/5 format for documentation freshness"
+  ]
+}

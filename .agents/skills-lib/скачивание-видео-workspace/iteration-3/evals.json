@@ -1,0 +1,47 @@
+{
+  "skill_name": "скачивание-видео",
+  "iteration": 3,
+  "description": "Дискриминирующие тесты — уникальные знания скилла (deno, конфиг, Git Bash, формат MP4)",
+  "evals": [
+    {
+      "id": 17,
+      "eval_name": "git-bash-path-transformation",
+      "prompt": "запускаю yt-dlp из Git Bash на Windows, у меня папка D:/Downloads/YouTube/ — как правильно указать путь чтобы работало?",
+      "assertions": [
+        "Указывает /d/Downloads/YouTube/ как правильный Git Bash путь",
+        "Объясняет трансформацию D:\\ → /d/ для Git Bash",
+        "Различает поведение в Git Bash vs CMD/PowerShell"
+      ]
+    },
+    {
+      "id": 18,
+      "eval_name": "config-file-location-and-setup",
+      "prompt": "где на Windows лежит конфиг yt-dlp и как его настроить чтобы не указывать путь каждый раз?",
+      "assertions": [
+        "Упоминает %APPDATA%\\yt-dlp\\config как точный путь к конфигу",
+        "Показывает как прописать путь D:/Downloads/YouTube/ в конфиге",
+        "Упоминает что конфиг уже настроен с нужными параметрами"
+      ]
+    },
+    {
+      "id": 19,
+      "eval_name": "youtube-bot-check-deno-runtime",
+      "prompt": "yt-dlp вдруг перестал скачивать с YouTube, пишет что-то про 'Sign in to confirm you're not a bot' или ошибку при получении информации о видео",
+      "assertions": [
+        "Упоминает deno runtime как решение для YouTube JS challenges",
+        "Упоминает yt-dlp -U (обновление) как первый шаг",
+        "Упоминает --extractor-args youtube:player_client как альтернативный вариант"
+      ]
+    },
+    {
+      "id": 20,
+      "eval_name": "max-quality-mp4-full-command",
+      "prompt": "скачай это видео максимальным качеством в MP4, обязательно со звуком: youtube.com/watch?v=dQw4w9WgXcQ",
+      "assertions": [
+        "Использует bv* или bestvideo селектор для видео потока",
+        "Использует --merge-output-format mp4",
+        "Указывает путь D:/Downloads/YouTube/"
+      ]
+    }
+  ]
+}

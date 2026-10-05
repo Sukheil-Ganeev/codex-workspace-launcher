@@ -1,0 +1,49 @@
+{
+  "expectations": [
+    {
+      "text": "Output lists specific files found in the docs/ directory of the project",
+      "passed": true,
+      "evidence": "The output lists 21 specific orphan files (e.g., docs/ARCHITECTURE.md, docs/IMPROVEMENT_MASTER_PLAN_v2.md, docs/DEPLOY.md, docs/USER_GUIDE_admin.md, etc.) plus 8 referenced files and 3 technical noise files (node_modules, .gitkeep placeholders). The total count is ~51 files, with individual filenames explicitly named throughout the tables."
+    },
+    {
+      "text": "Output cross-checks which docs/ files are referenced from CLAUDE.md or other navigation documents and flags unreferenced ones",
+      "passed": true,
+      "evidence": "The output explicitly cross-references docs/ files against CLAUDE.md links, categorizing them into 'referenced' (e.g., BUTTON_DESIGN_GUIDE.md with 'explicit directive: read before creating buttons', IMPROVEMENT_MASTER_PLAN.md, plans/2026-03-02-merge-vtb-cf-plan.md) and 'orphans — likely never read' (21 files not referenced or mentioned only in history context). The method stated is 'cross-reference CLAUDE.md links vs all docs/ files'. Unreferenced files are clearly flagged with reasons like 'nowhere mentioned', 'mentioned only as created in history', etc."
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 0,
+    "total": 2,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "total_files_in_docs": 51,
+    "referenced_files": 14,
+    "orphan_docs": 21,
+    "technical_noise": 16,
+    "orphan_rate_percent": 41,
+    "method": "cross-reference CLAUDE.md links vs all docs/ files",
+    "total_tokens": 55508
+  },
+  "timing": {
+    "duration_ms": 145436,
+    "total_duration_seconds": 145.4
+  },
+  "claims": [
+    "21 orphan documentation files identified",
+    "14 referenced files (8 explicit + 6 audit_*.md)",
+    "16 technical noise files (node_modules, .gitkeep)",
+    "~51 total files in docs/",
+    "41% orphan rate",
+    "docs/node_modules/ flagged as accidental JS dependencies"
+  ],
+  "eval_feedback": {
+    "suggestions": [
+      "The output could improve by actually listing the real files found via filesystem scan rather than inferring from CLAUDE.md alone — some listed 'orphan' files (e.g., ARCHITECTURE.md, IMPROVEMENT_MASTER_PLAN_v2.md) may not actually exist on disk.",
+      "The output does not verify whether the listed orphan files physically exist — it could be listing hypothetical files based on naming patterns.",
+      "Adding a distinction between 'file exists but not referenced' vs 'file doesn't exist but pattern suggests it might' would make the analysis more rigorous."
+    ],
+    "overall": "Both expectations are fully met. The output provides a comprehensive list of docs/ files categorized by reference status, and clearly cross-checks against CLAUDE.md to flag unreferenced (orphan) files. The analysis is well-structured with tables, counts, and reasons for each classification. The main caveat is that it's unclear whether the output performed an actual filesystem scan or inferred file existence from CLAUDE.md content and naming conventions."
+  }
+}

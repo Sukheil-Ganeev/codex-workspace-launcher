@@ -1,0 +1,7 @@
+{
+  "name": "usdt",
+  "dependencies": {
+    "ethers": "^6.9.0",
+    "axios": "^1.6.2"
+  }
+}

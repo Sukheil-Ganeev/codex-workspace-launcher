@@ -1,0 +1,21 @@
+{
+  "run_id": "eval-6-time-segment-with_skill",
+  "expectations": [
+    {
+      "text": "Содержит --download-sections",
+      "passed": true,
+      "evidence": "--download-sections \"*00:00:00-00:03:00\" — есть"
+    },
+    {
+      "text": "Содержит корректный временной диапазон (00:03:00 или 0:03:00 или 3:00)",
+      "passed": true,
+      "evidence": "00:03:00 — точное совпадение"
+    },
+    {
+      "text": "Содержит правильный путь D:/Downloads/YouTube/",
+      "passed": true,
+      "evidence": "-P \"D:/Downloads/YouTube/\" — есть"
+    }
+  ],
+  "pass_rate": 1.0
+}

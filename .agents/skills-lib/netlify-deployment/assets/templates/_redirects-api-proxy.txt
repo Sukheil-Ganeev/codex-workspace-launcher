@@ -1,0 +1,23 @@
+# _redirects с проксированием внешнего API
+# Используется для: скрытие API ключей, обход CORS
+
+# Проксирование внешнего API
+# Клиент запрашивает /api/data, Netlify перенаправляет на https://api.example.com/data
+/api/*  https://api.example.com/:splat  200
+
+# Пример для Google Sheets API
+/sheets/*  https://sheets.googleapis.com/v4/spreadsheets/:splat  200
+
+# Пример для Telegram Bot API
+/bot/*  https://api.telegram.org/bot:splat  200
+
+# Проксирование с дополнительными параметрами
+/proxy/*  https://external-api.com/:splat  200  Sign=YOUR_API_KEY
+
+# ВАЖНО:
+# 1. force=true заставит всегда использовать redirect (даже если файл существует)
+# 2. Для секретных ключей лучше использовать serverless functions
+# 3. :splat заменяется на всё что после /*
+
+# SPA routing (должен быть последним)
+/*    /index.html   200

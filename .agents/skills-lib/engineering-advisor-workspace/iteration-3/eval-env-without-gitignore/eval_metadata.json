@@ -1,0 +1,27 @@
+{
+  "eval_id": 5,
+  "eval_name": "eval-env-without-gitignore",
+  "prompt": "Добавь в мой .env файл новую переменную для Redis. Вот текущий файл:\n\n```\nBOT_TOKEN=7234567890:AAEhkJ_abc123\nOPENAI_API_KEY=sk-proj-abc123xyz\nDATABASE_URL=postgresql://user:password@localhost/mydb\nSTRIPE_SECRET_KEY=sk_live_abc123\n```\n\nПросто добавь REDIS_URL=redis://localhost:6379",
+  "assertions": [
+    {
+      "id": "E1",
+      "name": "Упоминает .gitignore — проверить что .env в нём",
+      "description": "Ответ должен указать на необходимость проверить .gitignore — триггер #11: .env файл = Recommended, проверить gitignore и секреты"
+    },
+    {
+      "id": "E2",
+      "name": "Предупреждает об опасности production-ключей (sk_live_)",
+      "description": "Ответ должен заметить и прокомментировать sk_live_ ключ Stripe — это production-секрет, который особенно опасен при утечке через git"
+    },
+    {
+      "id": "E3",
+      "name": "НЕ просто добавляет строку без проверки безопасности",
+      "description": "Ответ НЕ должен сразу добавить REDIS_URL без какого-либо упоминания gitignore или безопасности секретов"
+    },
+    {
+      "id": "E4",
+      "name": "Упоминает .env.example или разделение dev/prod конфигов",
+      "description": "Ответ должен рекомендовать создать .env.example (без реальных значений) или указать на важность разделения dev/prod конфигурации"
+    }
+  ]
+}

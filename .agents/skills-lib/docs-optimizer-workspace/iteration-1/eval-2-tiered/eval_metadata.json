@@ -1,0 +1,14 @@
+{
+  "eval_id": 2,
+  "eval_name": "tiered-loading-classification",
+  "prompt": "Сэкономь токены — покажи что загружается в каждой сессии при работе с проектом D:/Downloads/TouristBotEcosystem/",
+  "assertions": [
+    "Output classifies files into three named tiers: Essential, On-demand, and Archive",
+    "Output provides at least one numeric token estimate (e.g. '~800 токенов' or similar)",
+    "Output suggests .claudeignore content or archiving strategy",
+    "Output explicitly uses the tier name 'Essential' for always-loaded files",
+    "Output explicitly uses the tier name 'On-demand' for conditionally-loaded files",
+    "Output explicitly uses the tier name 'Archive' for rarely-needed files",
+    "Output uses the specific score format N/5 for overall documentation quality"
+  ]
+}

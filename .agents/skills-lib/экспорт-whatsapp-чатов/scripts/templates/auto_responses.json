@@ -1,0 +1,188 @@
+{
+  "version": "1.0",
+  "last_updated": "2025-01-26",
+  "languages": ["ru", "en", "ar"],
+  "categories": {
+    "greeting": {
+      "name_ru": "Приветствие",
+      "name_en": "Greeting",
+      "keywords": ["привет", "здравствуй", "добр", "hi", "hello", "hey", "good morning", "good afternoon", "доброе утро", "добрый день", "добрый вечер", "مرحبا", "السلام عليكم"],
+      "templates": {
+        "ru": {
+          "morning": "Доброе утро, {name}! Чем могу помочь?",
+          "afternoon": "Добрый день, {name}! Рад вас слышать!",
+          "evening": "Добрый вечер, {name}! Как я могу помочь?",
+          "default": "Здравствуйте, {name}! Добро пожаловать!"
+        },
+        "en": {
+          "morning": "Good morning, {name}! How can I help you?",
+          "afternoon": "Good afternoon, {name}! Nice to hear from you!",
+          "evening": "Good evening, {name}! How may I assist you?",
+          "default": "Hello, {name}! Welcome!"
+        },
+        "ar": {
+          "default": "مرحبا {name}! كيف يمكنني مساعدتك؟"
+        }
+      }
+    },
+    "farewell": {
+      "name_ru": "Прощание",
+      "name_en": "Farewell",
+      "keywords": ["пока", "до свидания", "до связи", "всего доброго", "goodbye", "bye", "see you", "take care", "مع السلامة"],
+      "templates": {
+        "ru": {
+          "default": "До свидания, {name}! Хорошего дня!",
+          "booked": "Спасибо за бронирование, {name}! До скорой встречи!",
+          "inquiry": "Благодарю за обращение! Если возникнут вопросы - пишите!"
+        },
+        "en": {
+          "default": "Goodbye, {name}! Have a great day!",
+          "booked": "Thank you for booking, {name}! See you soon!",
+          "inquiry": "Thank you for your inquiry! Feel free to reach out if you have more questions!"
+        }
+      }
+    },
+    "prices": {
+      "name_ru": "Цены на туры",
+      "name_en": "Tour Prices",
+      "keywords": ["цена", "сколько стоит", "стоимость", "прайс", "price", "cost", "how much", "rate", "كم سعر", "السعر"],
+      "intents": ["ask_price", "request_quote"],
+      "templates": {
+        "ru": {
+          "default": "{name}, вот актуальные цены:\n\n{product_list}\n\nЦены указаны в AED. Детям до 12 лет скидка 50%.",
+          "single_product": "{name}, стоимость «{product_name}»: {price} AED/чел.\n\n{description}\n\nВключено: {includes}",
+          "not_found": "{name}, к сожалению, данный продукт временно недоступен. Могу предложить альтернативы!"
+        },
+        "en": {
+          "default": "{name}, here are current prices:\n\n{product_list}\n\nPrices in AED. 50% off for children under 12.",
+          "single_product": "{name}, the price for «{product_name}» is {price} AED/person.\n\n{description}\n\nIncludes: {includes}"
+        }
+      },
+      "dynamic_data": "products.json"
+    },
+    "availability": {
+      "name_ru": "Наличие/доступность",
+      "name_en": "Availability",
+      "keywords": ["есть места", "есть свободн", "доступн", "свободн", "available", "when can", "какая дата", "на какой день", "متاح", "متى"],
+      "templates": {
+        "ru": {
+          "available": "{name}, да, {product_name} доступен на {date}! Бронируем?",
+          "unavailable": "{name}, к сожалению, на {date} мест нет. Ближайшие доступные даты: {alt_dates}",
+          "check": "{name}, уточняю наличие мест. Отвечу в течение 15 минут.",
+          "default": "{name}, все наши услуги доступны ежедневно. Когда планируете?"
+        },
+        "en": {
+          "available": "{name}, yes, {product_name} is available on {date}! Shall I book it?",
+          "unavailable": "{name}, unfortunately no availability on {date}. Next available dates: {alt_dates}",
+          "default": "{name}, all our services are available daily. When are you planning?"
+        }
+      }
+    },
+    "booking_terms": {
+      "name_ru": "Условия бронирования",
+      "name_en": "Booking Terms",
+      "keywords": ["бронирован", "заказ", "оформ", "booking", "reservation", "book", "reserve", "الحجز"],
+      "templates": {
+        "ru": {
+          "default": "{name}, для бронирования нужно:\n\n1. Выбрать дату и время\n2. Указать количество человек\n3. Предоплата 30% (или полная оплата)\n4. Прислать имена как в паспорте\n\nГотовы оформить?",
+          "group": "{name}, для групп от 6 человек действует скидка 10%! Нужны имена всех участников.",
+          "vip": "{name}, для VIP услуг предоплата 50%. Можем добавить любые дополнительные опции."
+        },
+        "en": {
+          "default": "{name}, to book:\n\n1. Choose date and time\n2. Number of persons\n3. 30% deposit (or full payment)\n4. Names as per passport\n\nReady to proceed?"
+        }
+      }
+    },
+    "payment": {
+      "name_ru": "Способы оплаты",
+      "name_en": "Payment Methods",
+      "keywords": ["оплат", "перевод", "карт", "нал", "payment", "pay", "card", "cash", "transfer", "الدفع"],
+      "templates": {
+        "ru": {
+          "default": "{name}, принимаем:\n\n- Наличные (AED, USD, RUB)\n- Перевод на карту РФ\n- Перевод на IBAN ОАЭ\n- USDT (TRC-20)\n\nКакой способ удобен?",
+          "card_ru": "{name}, для оплаты на карту РФ:\n\nСбербанк: [номер карты]\nПолучатель: [ФИО]\n\nПосле перевода пришлите скриншот.",
+          "iban": "{name}, для банковского перевода в ОАЭ:\n\nBank: [название]\nIBAN: [IBAN]\nSWIFT: [SWIFT]\nBeneficiary: [получатель]",
+          "crypto": "{name}, для оплаты USDT (TRC-20):\n\nАдрес: [адрес]\n\nПришлите хэш транзакции после перевода."
+        },
+        "en": {
+          "default": "{name}, we accept:\n\n- Cash (AED, USD)\n- Bank transfer (UAE IBAN)\n- USDT (TRC-20)\n\nWhich method do you prefer?"
+        }
+      }
+    },
+    "cancellation": {
+      "name_ru": "Отмена/возврат",
+      "name_en": "Cancellation/Refund",
+      "keywords": ["отмен", "возврат", "cancel", "refund", "change", "reschedule", "الإلغاء", "استرداد"],
+      "templates": {
+        "ru": {
+          "default": "{name}, условия отмены:\n\n- За 48+ часов: полный возврат\n- За 24-48 часов: 50% возврат\n- Менее 24 часов: возврат невозможен\n\nПеренос бесплатно за 24+ часа.",
+          "reschedule": "{name}, конечно! На какую дату хотите перенести? Перенос бесплатный.",
+          "confirm_cancel": "{name}, подтверждаю отмену бронирования #{booking_id}. Возврат будет в течение 3 рабочих дней."
+        },
+        "en": {
+          "default": "{name}, cancellation policy:\n\n- 48+ hours: full refund\n- 24-48 hours: 50% refund\n- Less than 24 hours: no refund\n\nFree rescheduling with 24+ hours notice."
+        }
+      }
+    },
+    "contacts": {
+      "name_ru": "Контактная информация",
+      "name_en": "Contact Information",
+      "keywords": ["контакт", "телефон", "позвон", "связ", "contact", "phone", "call", "whatsapp", "الاتصال"],
+      "templates": {
+        "ru": {
+          "default": "{name}, наши контакты:\n\nWhatsApp: +971 XX XXX XXXX\nТелеграм: @company\nEmail: info@company.com\n\nРаботаем ежедневно 9:00-22:00 (время ОАЭ)",
+          "office": "{name}, офис находится в Dubai Marina. Можем организовать встречу!",
+          "urgent": "{name}, для срочных вопросов звоните: +971 XX XXX XXXX (24/7)"
+        },
+        "en": {
+          "default": "{name}, contact us:\n\nWhatsApp: +971 XX XXX XXXX\nTelegram: @company\nEmail: info@company.com\n\nOpen daily 9:00-22:00 (UAE time)"
+        }
+      }
+    },
+    "thanks": {
+      "name_ru": "Благодарность",
+      "name_en": "Thanks",
+      "keywords": ["спасибо", "благодар", "thank", "thanks", "appreciate", "شكرا"],
+      "templates": {
+        "ru": {
+          "default": "Всегда рад помочь, {name}! Обращайтесь!",
+          "review": "Спасибо, {name}! Если понравилось - будем благодарны за отзыв!"
+        },
+        "en": {
+          "default": "You're welcome, {name}! Happy to help!",
+          "review": "Thank you, {name}! We'd appreciate a review if you enjoyed our service!"
+        }
+      }
+    },
+    "unknown": {
+      "name_ru": "Неизвестный запрос",
+      "name_en": "Unknown Request",
+      "templates": {
+        "ru": {
+          "default": "{name}, уточните, пожалуйста, ваш вопрос. Чем именно могу помочь?",
+          "forward": "{name}, передаю ваш вопрос менеджеру. Ответим в ближайшее время!"
+        },
+        "en": {
+          "default": "{name}, could you please clarify your question? How can I help?",
+          "forward": "{name}, I'm forwarding your question to a manager. We'll respond shortly!"
+        }
+      }
+    }
+  },
+  "quick_replies": {
+    "ru": [
+      {"text": "Цены на экскурсии", "trigger": "prices", "category": "prices"},
+      {"text": "Как забронировать", "trigger": "booking", "category": "booking_terms"},
+      {"text": "Способы оплаты", "trigger": "payment", "category": "payment"},
+      {"text": "Отменить/перенести", "trigger": "cancel", "category": "cancellation"},
+      {"text": "Контакты", "trigger": "contacts", "category": "contacts"}
+    ],
+    "en": [
+      {"text": "Tour prices", "trigger": "prices", "category": "prices"},
+      {"text": "How to book", "trigger": "booking", "category": "booking_terms"},
+      {"text": "Payment methods", "trigger": "payment", "category": "payment"},
+      {"text": "Cancel/Reschedule", "trigger": "cancel", "category": "cancellation"},
+      {"text": "Contact us", "trigger": "contacts", "category": "contacts"}
+    ]
+  }
+}

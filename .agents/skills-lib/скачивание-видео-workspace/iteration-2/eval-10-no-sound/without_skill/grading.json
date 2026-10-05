@@ -1,0 +1,28 @@
+{
+  "expectations": [
+    {
+      "text": "Называет отсутствие FFmpeg или его некорректную установку как причину проблемы",
+      "passed": true,
+      "evidence": "'Обязательное условие — наличие ffmpeg... Если не установлен — скачать и добавить в PATH. Без ffmpeg yt-dlp не сможет склеить'"
+    },
+    {
+      "text": "Упоминает --merge-output-format или слияние видео/аудио потоков через FFmpeg",
+      "passed": true,
+      "evidence": "Вариант 1: '--merge-output-format mp4' в команде bestvideo+bestaudio"
+    },
+    {
+      "text": "Объясняет как проверить FFmpeg: команда ffmpeg -version",
+      "passed": true,
+      "evidence": "'Проверить: ffmpeg -version'"
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "timing": {
+    "executor_duration_seconds": 43.3
+  }
+}

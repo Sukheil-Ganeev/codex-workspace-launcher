@@ -1,0 +1,28 @@
+*LAND PLOT | [TYPE] | [AREA]*
+_[Description — purpose, location]_
+───────────────
+*FEATURES*
+▫️ Plot size: [XX,XXX] sq.ft.
+▫️ Zoning: [Residential/Commercial/Mixed-Use]
+▫️ FAR (Floor Area Ratio): [X.X]
+▫️ Max floors: [X]
+▫️ Plot coverage: [XX]%
+
+*LOCATION*
+▫️ District: [Name]
+▫️ Frontage: [X]m
+▫️ Access: [Corner/Main road/Back]
+▫️ Utilities: [Connected/Nearby]
+
+*DOCUMENTS*
+▫️ Title Deed: [Ready]
+▫️ NOC: [Available/N/A]
+▫️ Building permit: [Ready/Obtainable]
+───────────────
+💰 *SALE: [XX,XXX,XXX] AED*
+_(~$[X,XXX,XXX])_
+_[XXX] AED/sq.ft._
+
+⚠️ Freehold for foreigners: [Yes/No]
+
+*CONTACT:* [NAME] | [+971 XX XXX XXXX]

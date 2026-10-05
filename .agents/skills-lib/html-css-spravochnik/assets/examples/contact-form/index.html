@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar"><h1>Contact Us</h1></nav>
+    <div class="container">
+        <div class="contact-container">
+            <div class="contact-form">
+                <h2>Send us a message</h2>
+                <form id="contactForm" onsubmit="submitForm(event)">
+                    <div class="form-group"><input type="text" placeholder="Your Name" required></div>
+                    <div class="form-group"><input type="email" placeholder="Your Email" required></div>
+                    <div class="form-group"><input type="tel" placeholder="Phone Number"></div>
+                    <div class="form-group">
+                        <select required>
+                            <option value="">Select Subject</option>
+                            <option>Tour Inquiry</option>
+                            <option>Booking Issue</option>
+                            <option>Feedback</option>
+                        </select>
+                    </div>
+                    <div class="form-group"><textarea placeholder="Message" rows="5" required></textarea></div>
+                    <button type="submit">Send Message</button>
+                    <div id="status"></div>
+                </form>
+            </div>
+            <div class="contact-info">
+                <h2>Contact Info</h2>
+                <div class="info-item"><strong>Phone:</strong> +971 56 123 4567</div>
+                <div class="info-item"><strong>Email:</strong> info@desertsafari.ae</div>
+                <div class="info-item"><strong>Address:</strong> Tecom, Dubai, UAE</div>
+                <div class="info-item"><strong>Hours:</strong> Daily 6:00 AM - 10:00 PM</div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

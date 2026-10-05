@@ -1,0 +1,131 @@
+{
+  "eval_id": "eval-9-stale-issues",
+  "skill": "docs-optimizer",
+  "mode": "audit",
+  "anti_pattern": "AP-18",
+  "project": "TouristBotEcosystem",
+  "analysis_date": "2026-03-12",
+
+  "issues_md": {
+    "last_updated": "2026-03-04T19:57:00+04:00",
+    "days_since_update": 8,
+    "declared_status": "АКТУАЛЕН",
+    "actual_status": "ЧАСТИЧНО УСТАРЕЛ",
+    "file_staleness_warning": true,
+    "file_staleness_threshold_days": 7
+  },
+
+  "issues_breakdown": {
+    "total_sections": 5,
+    "phase9_code_review": {
+      "total": 11,
+      "closed": 11,
+      "open": 0,
+      "stale": 0
+    },
+    "phase8_testing": {
+      "total": 6,
+      "closed": 6,
+      "open": 0,
+      "stale": 0
+    },
+    "open_issues": {
+      "total": 1,
+      "dormant": 1,
+      "open": 0,
+      "stale": 0
+    },
+    "closed_issues": {
+      "total": 25,
+      "closed": 25,
+      "open": 0,
+      "stale": 0
+    },
+    "sentry_issues": {
+      "total": 5,
+      "closed": 0,
+      "open": 5,
+      "stale": 0,
+      "notes": "All 5 genuinely open, no false positives. SEN-03 possibly partially resolved by docker healthcheck."
+    }
+  },
+
+  "ap18_analysis": {
+    "stale_issues_found": 0,
+    "stale_ratio_percent": 0.0,
+    "threshold_warning_percent": 10,
+    "threshold_critical_percent": 10,
+    "ap18_violated": false,
+    "ap18_verdict": "PASS — no closed issues marked as open"
+  },
+
+  "sentry_issues_detail": [
+    {
+      "id": "SEN-01",
+      "status": "OPEN",
+      "is_stale": false,
+      "days_open": 8,
+      "verdict": "Genuinely open — requires manual Sentry dashboard review"
+    },
+    {
+      "id": "SEN-02",
+      "status": "OPEN",
+      "is_stale": false,
+      "days_open": 8,
+      "code_check": "gemini-2.5-flash-lite still present in core/ai/models.py:5",
+      "verdict": "Genuinely open — model ID still in codebase"
+    },
+    {
+      "id": "SEN-03",
+      "status": "OPEN",
+      "is_stale": false,
+      "days_open": 8,
+      "code_check": "docker-compose.yml has depends_on + service_healthy condition for postgres",
+      "verdict": "Possibly partially resolved — healthcheck present, but no formal closure in ISSUES.md"
+    },
+    {
+      "id": "SEN-04",
+      "status": "OPEN",
+      "is_stale": false,
+      "days_open": 8,
+      "verdict": "Genuinely open — no RetryAfter handling added"
+    },
+    {
+      "id": "SEN-05",
+      "status": "OPEN",
+      "is_stale": true,
+      "days_open": 8,
+      "verdict": "Borderline stale — condition was 'after next deploy', 11+ deploys happened since, result not documented"
+    }
+  ],
+
+  "commits_after_issues_update": 11,
+  "current_version": "v5.9.0",
+  "issues_md_version": "v5.8.0",
+
+  "recommendations": [
+    {
+      "priority": "HIGH",
+      "action": "Update ISSUES.md header status from АКТУАЛЕН to ЧАСТИЧНО УСТАРЕЛ and update date"
+    },
+    {
+      "priority": "HIGH",
+      "action": "SEN-05: check Sentry dashboard, close or document new baseline"
+    },
+    {
+      "priority": "MEDIUM",
+      "action": "SEN-03: verify docker healthcheck resolves race condition, close if confirmed"
+    },
+    {
+      "priority": "LOW",
+      "action": "SEN-01, SEN-02, SEN-04: review in next Sentry-focused session"
+    }
+  ],
+
+  "overall_score": {
+    "ap18_stale_ratio": "0%",
+    "file_freshness": "WARNING (8 days > 7 day threshold)",
+    "false_positives_found": 0,
+    "audit_verdict": "PASS with warnings"
+  }
+}

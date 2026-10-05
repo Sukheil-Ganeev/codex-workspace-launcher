@@ -1,0 +1,12 @@
+{
+  "eval_id": 2,
+  "eval_name": "reviews-db-design",
+  "prompt": "Спроектируй таблицу reviews для реальных отзывов клиентов туристического сайта.",
+  "assertions": [
+    {"name": "has_create_table", "description": "Contains CREATE TABLE reviews"},
+    {"name": "has_indexes", "description": "Contains CREATE INDEX"},
+    {"name": "has_erd", "description": "Contains Mermaid erDiagram"},
+    {"name": "has_moderation_status", "description": "Schema includes moderation status"},
+    {"name": "has_timestamptz", "description": "Uses TIMESTAMPTZ for dates"}
+  ]
+}

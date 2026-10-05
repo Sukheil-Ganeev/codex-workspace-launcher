@@ -1,0 +1,28 @@
+{
+  "expectations": [
+    {
+      "text": "Даёт корректную команду yt-dlp с VK URL (vk.com или vkvideo.ru)",
+      "passed": true,
+      "evidence": "'yt-dlp -P D:/Downloads/YouTube/ https://vk.com/video-123456_789' — полный корректный URL"
+    },
+    {
+      "text": "Указывает путь сохранения D:/Downloads/YouTube/",
+      "passed": true,
+      "evidence": "'-P D:/Downloads/YouTube/' присутствует во всех командах; явно указано 'Файл сохранится в: D:/Downloads/YouTube/'"
+    },
+    {
+      "text": "Упоминает cookies (--cookies-from-browser) как возможное требование для ВК",
+      "passed": true,
+      "evidence": "Раздел ВАЖНО: 'yt-dlp --cookies-from-browser chrome' с объяснением когда нужны cookies"
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "timing": {
+    "executor_duration_seconds": 35.4
+  }
+}

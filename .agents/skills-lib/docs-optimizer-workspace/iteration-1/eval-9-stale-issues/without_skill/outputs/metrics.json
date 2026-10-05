@@ -1,0 +1,68 @@
+{
+  "analysis_date": "2026-03-12",
+  "issues_file": "D:/Downloads/TouristBotEcosystem/ISSUES.md",
+  "issues_file_last_updated": "2026-03-04",
+  "days_since_update": 8,
+  "current_project_version": "v5.9.0",
+  "issues_file_version": "v5.8.0",
+
+  "total_issues_analyzed": 46,
+  "sections": {
+    "phase9_code_review": {"count": 11, "all_closed": true},
+    "phase8_testing": {"count": 6, "all_closed": true},
+    "open_issues": {"count": 1, "correctly_tracked": 1},
+    "sentry_issues": {"count": 5, "all_marked_open": true},
+    "closed_issues": {"count": 22, "all_correctly_closed": true},
+    "old_numbered_issues": {"count": 4, "all_closed": true}
+  },
+
+  "stale_or_suspect_issues": [
+    {
+      "id": "SEN-01",
+      "current_status": "OPEN",
+      "verdict": "possibly_stale",
+      "reason": "File not updated for 8 days; several deploys happened since SEN issues were added; needs Sentry dashboard check"
+    },
+    {
+      "id": "SEN-02",
+      "current_status": "OPEN",
+      "verdict": "likely_still_valid",
+      "reason": "gemini-2.5-flash-lite constant confirmed present in core/ai/models.py:5, used in DEFAULT_CASCADE and GEMINI_MODELS"
+    },
+    {
+      "id": "SEN-03",
+      "current_status": "OPEN",
+      "verdict": "possibly_valid",
+      "reason": "Startup race condition with asyncpg — no retry/wait logic visible; depends_on condition not verified"
+    },
+    {
+      "id": "SEN-04",
+      "current_status": "OPEN",
+      "verdict": "possibly_stale",
+      "reason": "TelegramRetryAfter — needs Sentry check; activity has calmed since active Batch 5 development"
+    },
+    {
+      "id": "SEN-05",
+      "current_status": "OPEN",
+      "verdict": "likely_stale",
+      "reason": "Task was 'check error count after next deploy' — multiple deploys happened since (v5.8.0 PRs #75,#76; v5.9.0 PRs #78,#79,#80) but ISSUES.md never updated"
+    }
+  ],
+
+  "correctly_open": ["DB-01"],
+  "correctly_closed_count": 22,
+
+  "file_metadata_accuracy": {
+    "status_field_says": "АКТУАЛЕН",
+    "actual_status": "OUTDATED",
+    "days_stale": 8,
+    "versions_behind": 1
+  },
+
+  "recommendations": [
+    "Check Sentry dashboard for SEN-01, SEN-04, SEN-05 to close or confirm",
+    "Update ISSUES.md header: version v5.8.0 → v5.9.0, date and status",
+    "SEN-02 remains open — gemini-2.5-flash-lite is used in code",
+    "SEN-03 check docker-compose.yml for postgres healthcheck dependency"
+  ]
+}

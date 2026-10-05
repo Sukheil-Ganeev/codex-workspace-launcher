@@ -1,0 +1,28 @@
+Subject: [EVENT] — [QTY] Tickets / Availability and All-In Quote
+
+Dear Team,
+
+I am looking to purchase [QTY] tickets for the following event:
+
+Event: [EVENT]
+Date/session: [DATE / SESSION]
+Venue: [VENUE]
+Preferred category/section: [CATEGORY / SECTION]
+Seating requirement: [QTY together / acceptable split]
+
+Could you please confirm:
+
+- current availability;
+- exact category, section, row and seat numbers, if assigned;
+- whether the tickets are already secured/in hand or are a future allocation;
+- the final all-inclusive price, including every ticket, booking, service, processing, tax and delivery charge;
+- accepted payment methods and whether a secure payment link is available;
+- ticket delivery/collection method and expected delivery date;
+- passport, real-name, lead-booker or ID requirements;
+- transfer/name-change restrictions;
+- refund/cancellation terms.
+
+I am ready to proceed once the above details are confirmed.
+
+Kind regards,
+Marsel

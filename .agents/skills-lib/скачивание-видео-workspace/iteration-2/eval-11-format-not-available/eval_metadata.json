@@ -1,0 +1,9 @@
+{
+  "eval_id": 11,
+  "eval_name": "troubleshooting-format-not-available",
+  "prompt": "получаю ошибку 'ERROR: Requested format not available'. вот ссылка: youtube.com/watch?v=xxx",
+  "assertions": [
+    "Предлагает yt-dlp -F URL для просмотра доступных форматов",
+    "Предлагает fallback формат (например best, или без строгих ограничений по качеству)"
+  ]
+}

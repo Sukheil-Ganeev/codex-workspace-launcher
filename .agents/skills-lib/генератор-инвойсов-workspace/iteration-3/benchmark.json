@@ -1,0 +1,85 @@
+{
+  "skill_name": "генератор-инвойсов",
+  "iteration": 3,
+  "configurations": [
+    {
+      "name": "with_skill",
+      "label": "Со скиллом",
+      "pass_rate": 1.0,
+      "pass_count": 20,
+      "total_assertions": 20,
+      "mean_duration_seconds": 38.3,
+      "stddev_duration_seconds": 15.1,
+      "mean_tokens": 29715,
+      "stddev_tokens": 1325
+    },
+    {
+      "name": "without_skill",
+      "label": "Без скилла (baseline)",
+      "pass_rate": 0.85,
+      "pass_count": 17,
+      "total_assertions": 20,
+      "mean_duration_seconds": 19.3,
+      "stddev_duration_seconds": 2.6,
+      "mean_tokens": 17988,
+      "stddev_tokens": 87
+    }
+  ],
+  "delta": {
+    "pass_rate": "+15.0%",
+    "duration_seconds": "+19.0s (скилл медленнее — читает SKILL.md)",
+    "tokens": "+11727 (скилл использует больше токенов)"
+  },
+  "per_eval": [
+    {
+      "eval_id": 11,
+      "eval_name": "discount-20-percent",
+      "prompt_summary": "Desert Safari скидка 20% (300 → 240 USD)",
+      "with_skill": {"pass_rate": 1.0, "passed": 4, "total": 4, "duration_seconds": 29.0, "tokens": 29028},
+      "without_skill": {"pass_rate": 1.0, "passed": 4, "total": 4, "duration_seconds": 21.7, "tokens": 18024}
+    },
+    {
+      "eval_id": 12,
+      "eval_name": "deposit-partial-payment",
+      "prompt_summary": "Rolls-Royce Ghost 1800 USD, аванс 500",
+      "with_skill": {"pass_rate": 1.0, "passed": 3, "total": 3, "duration_seconds": 31.3, "tokens": 29026},
+      "without_skill": {"pass_rate": 1.0, "passed": 3, "total": 3, "duration_seconds": 19.9, "tokens": 17956}
+    },
+    {
+      "eval_id": 13,
+      "eval_name": "aed-only-invoice",
+      "prompt_summary": "Ferrari F8 без водителя — Sokol, AED",
+      "with_skill": {"pass_rate": 1.0, "passed": 4, "total": 4, "duration_seconds": 32.5, "tokens": 29173},
+      "without_skill": {"pass_rate": 0.75, "passed": 3, "total": 4, "duration_seconds": 18.8, "tokens": 17962}
+    },
+    {
+      "eval_id": 14,
+      "eval_name": "adult-child-pricing",
+      "prompt_summary": "Dubai Frame 2 взрослых + 1 ребёнок",
+      "with_skill": {"pass_rate": 1.0, "passed": 3, "total": 3, "duration_seconds": 34.4, "tokens": 29092},
+      "without_skill": {"pass_rate": 1.0, "passed": 3, "total": 3, "duration_seconds": 14.5, "tokens": 17939}
+    },
+    {
+      "eval_id": 15,
+      "eval_name": "refund-credit-note",
+      "prompt_summary": "Credit Note / Refund к инвойсу #26-047",
+      "with_skill": {"pass_rate": 1.0, "passed": 3, "total": 3, "duration_seconds": 69.6, "tokens": 32835},
+      "without_skill": {"pass_rate": 1.0, "passed": 3, "total": 3, "duration_seconds": 19.8, "tokens": 17914}
+    },
+    {
+      "eval_id": 16,
+      "eval_name": "group-invoice-multi-clients",
+      "prompt_summary": "Группа 3 клиента — Abu Dhabi Tour 450 USD",
+      "with_skill": {"pass_rate": 1.0, "passed": 3, "total": 3, "duration_seconds": 33.0, "tokens": 29135},
+      "without_skill": {"pass_rate": 0.333, "passed": 1, "total": 3, "duration_seconds": 20.9, "tokens": 18132}
+    }
+  ],
+  "analyst_observations": [
+    "Тест 11 (скидка), 12 (аванс), 14 (дети), 15 (refund): оба варианта 100% — недискриминирующие тесты",
+    "Тест 13 (Sokol+AED): скилл 100% vs baseline 75% — знание реквизитов Sokol критично",
+    "Тест 16 (группа): скилл 100% vs baseline 33% — baseline сделал gross-up ошибку: 450 total→excl (428.57), вместо 450 excl→total (472.50)",
+    "T15 (refund): оба варианта справились — LLM умна достаточно для edge cases без явных инструкций",
+    "Discriminating tests: T13 (Sokol brand) и T16 (VAT direction) — именно здесь скилл даёт +25%",
+    "Non-discriminating: T11, T12, T14, T15 — математика + аванс + refund модель знает без скилла"
+  ]
+}

@@ -1,0 +1,31 @@
+*OFFICE | [AREA/FREE ZONE]*
+_[Description — type, condition, feature]_
+───────────────
+*FEATURES*
+▫️ Area: [X,XXX] sq.ft.
+▫️ Type: [Shell & Core/CAT A/Fitted]
+▫️ Floor: [X]/[X]
+▫️ Ceiling height: [X.X]m
+▫️ Parking: [X] spaces
+
+*IF FITTED:*
+▫️ Workstations: [X]
+▫️ Meeting rooms: [X]
+▫️ Pantry: [Yes/No]
+▫️ Reception: [Yes/No]
+▫️ Server room: [Yes/No]
+
+*BUILDING: [NAME]*
+Grade [A/B] | [Free Zone/Mainland]
+───────────────
+💰 *SALE: [X,XXX] AED/sq.ft.*
+_Total: [X,XXX,XXX] AED_
+_(~$[XXX,XXX])_
+
+*COMMERCIAL TERMS*
+▫️ Service charge: [X] AED/sq.ft./year
+▫️ Title Deed: [Status]
+▫️ Tenants: [Occupied/Vacant]
+▫️ ROI: [X]% (if leased)
+
+*CONTACT:* [NAME] | [+971 XX XXX XXXX]

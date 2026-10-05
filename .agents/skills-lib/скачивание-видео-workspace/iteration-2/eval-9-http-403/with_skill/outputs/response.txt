@@ -1,0 +1,98 @@
+HTTP Error 403: Forbidden при скачивании с TikTok — это одна из самых частых ошибок. Вот что делать по порядку:
+
+---
+
+## Шаг 1: Обновить yt-dlp (делать первым ВСЕГДА)
+
+```bash
+yt-dlp -U
+```
+
+TikTok регулярно меняет API, и 90% ошибок 403 решаются просто обновлением. Если хочешь самую свежую версию:
+
+```bash
+yt-dlp --update-to nightly
+```
+
+---
+
+## Шаг 2: Добавить cookies из браузера
+
+TikTok часто требует аутентификацию. Если в браузере залогинен в TikTok — передай cookies:
+
+```bash
+yt-dlp --cookies-from-browser chrome "https://www.tiktok.com/@user/video/123456"
+```
+
+Или Firefox/Edge если Chrome не работает:
+
+```bash
+yt-dlp --cookies-from-browser firefox "URL"
+yt-dlp --cookies-from-browser edge "URL"
+```
+
+Важно: перед запуском закрой браузер — иначе cookies могут не читаться.
+
+---
+
+## Шаг 3: Геоблокировка
+
+Если TikTok заблокирован или ограничен в твоём регионе:
+
+```bash
+yt-dlp --geo-bypass "URL"
+yt-dlp --geo-bypass-country US "URL"
+```
+
+Или через прокси/VPN:
+
+```bash
+yt-dlp --proxy "socks5://host:port" "URL"
+yt-dlp --proxy "http://host:port" "URL"
+```
+
+---
+
+## Шаг 4: Если скачивал много видео подряд (бан по IP)
+
+TikTok может временно заблокировать IP при массовом скачивании. Добавь паузы:
+
+```bash
+yt-dlp --sleep-interval 10 --max-sleep-interval 30 "URL"
+```
+
+---
+
+## Итоговая команда (всё сразу)
+
+Для одного видео с TikTok, с максимальными шансами на успех:
+
+```bash
+yt-dlp --cookies-from-browser chrome --geo-bypass -P "D:/Downloads/YouTube/" "https://www.tiktok.com/@user/video/123456"
+```
+
+---
+
+## Диагностика (если ничего не помогло)
+
+Запусти с verbose-логом — увидишь точную причину:
+
+```bash
+yt-dlp -v "URL"
+```
+
+Лог в файл для детального анализа:
+
+```bash
+yt-dlp -v "URL" 2>&1 | tee debug.log
+```
+
+---
+
+## Порядок действий кратко
+
+1. `yt-dlp -U` — обновить
+2. `--cookies-from-browser chrome` — добавить cookies
+3. `--geo-bypass` — обойти геоблок
+4. `--sleep-interval 10` — если скачивал много
+5. `yt-dlp -v "URL"` — если всё ещё не работает, смотреть лог

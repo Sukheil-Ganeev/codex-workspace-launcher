@@ -1,0 +1,77 @@
+%% Название: Воронка CRM -- путь клиента в туристическом бизнесе ОАЭ
+%% Автор: diagram-designer
+%% Дата: 2026-02-16
+
+flowchart TD
+    %% === ВХОДЯЩИЕ КАНАЛЫ ===
+    subgraph CHANNELS["Входящие каналы"]
+        direction LR
+        WA["WhatsApp"]
+        TG["Telegram"]
+        IG["Instagram"]
+        SITE["Сайт / CRM-форма"]
+        PHONE["Телефон"]
+    end
+
+    %% === ОСНОВНАЯ ВОРОНКА ===
+    WA & TG & IG & SITE & PHONE --> LEAD
+
+    LEAD["Лид\nНовая заявка"]
+    LEAD --> QUALIFY{"Квалификация\nИнтерес подтвержден?"}
+
+    QUALIFY -->|"Да"| CONTACT["Контакт\nКарточка клиента"]
+    QUALIFY -->|"Нет ответа 48ч"| ESCALATION["Эскалация\nУведомление руководителю"]
+    QUALIFY -->|"Отказ"| REJECT_LEAD["Отказ\nНецелевой лид"]
+
+    ESCALATION --> QUALIFY
+
+    CONTACT --> CONSULT["Консультация\nПодбор тура / услуги"]
+    CONSULT --> DEAL["Сделка\nБронирование"]
+
+    DEAL --> CONFIRM{"Подтверждение\nКлиент согласен?"}
+    CONFIRM -->|"Да"| INVOICE["Счет\nОтправка реквизитов"]
+    CONFIRM -->|"Думает"| FOLLOWUP["Follow-up\nНапоминание через 24ч"]
+    CONFIRM -->|"Отказ"| REJECT_DEAL["Сделка провалена"]
+
+    FOLLOWUP --> CONFIRM
+
+    INVOICE --> PAYMENT{"Оплата\nПолучена?"}
+    PAYMENT -->|"Да"| BOOKED["Забронировано\nЗадача гиду / водителю"]
+    PAYMENT -->|"Нет 48ч"| PAYMENT_REMIND["Напоминание об оплате"]
+    PAYMENT_REMIND --> PAYMENT
+
+    BOOKED --> COMPLETED["Тур проведен"]
+    COMPLETED --> REVIEW["Отзыв\nFollow-up через 2 дня"]
+
+    %% === ПОВТОРНЫЕ ПРОДАЖИ ===
+    REVIEW --> REPEAT{"Повторный клиент?\nГенератор продаж (30 дней)"}
+    REPEAT -->|"Да"| UPSELL["Up-sell\nНовое предложение"]
+    REPEAT -->|"Нет"| ARCHIVE["Архив\nБаза клиентов"]
+
+    UPSELL --> DEAL
+
+    %% === VIP ОТВЕТВЛЕНИЕ ===
+    DEAL -->|"Сумма > $500"| VIP["VIP-клиент\nПерсональное сопровождение"]
+    VIP --> CONFIRM
+
+    %% === ПРОВАЛЫ --> ПОВТОРНОЕ ОБРАЩЕНИЕ ===
+    REJECT_DEAL -->|"Повторное обращение"| CONSULT
+    REJECT_LEAD -->|"Повторное обращение"| LEAD
+
+    %% === СТИЛИ ===
+    style CHANNELS fill:#e8f4f8,stroke:#2196F3,stroke-width:2px
+    style LEAD fill:#FFF9C4,stroke:#FBC02D,stroke-width:2px
+    style CONTACT fill:#E1F5FE,stroke:#0288D1,stroke-width:2px
+    style DEAL fill:#E8F5E9,stroke:#388E3C,stroke-width:2px
+    style INVOICE fill:#FFF3E0,stroke:#F57C00,stroke-width:2px
+    style BOOKED fill:#E8F5E9,stroke:#4CAF50,stroke-width:2px
+    style COMPLETED fill:#C8E6C9,stroke:#2E7D32,stroke-width:2px
+    style REVIEW fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px
+    style VIP fill:#FCE4EC,stroke:#C62828,stroke-width:2px
+    style REJECT_LEAD fill:#FFCDD2,stroke:#D32F2F,stroke-width:2px
+    style REJECT_DEAL fill:#FFCDD2,stroke:#D32F2F,stroke-width:2px
+    style UPSELL fill:#E0F7FA,stroke:#00838F,stroke-width:2px
+    style ESCALATION fill:#FFF8E1,stroke:#FF8F00,stroke-width:2px
+    style WA fill:#25D366,stroke:#128C7E,color:#fff
+    style TG fill:#0088cc,stroke:#006699,color:#fff
+    style IG fill:#E1306C,stroke:#C13584,color:#fff

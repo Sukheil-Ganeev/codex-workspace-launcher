@@ -1,0 +1,100 @@
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Your Tour Company",
+  "image": "https://example.com/logo.png",
+  "description": "Professional tour operator offering desert safaris, yacht tours, and excursions across Dubai, Abu Dhabi, and UAE. Competitive prices with professional guides.",
+  "telephone": "+971-4-XXXXXXX",
+  "email": "info@example.com",
+  "url": "https://example.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "123 Sheikh Zayed Road, Building A, Tecom",
+    "addressLocality": "Dubai",
+    "addressRegion": "Dubai",
+    "postalCode": "000000",
+    "addressCountry": "AE"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "25.1884",
+    "longitude": "55.2719"
+  },
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday"],
+      "opens": "09:00",
+      "closes": "18:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": "Friday",
+      "opens": "10:00",
+      "closes": "16:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": "Saturday",
+      "opens": "10:00",
+      "closes": "16:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": "Sunday",
+      "opens": "10:00",
+      "closes": "16:00"
+    }
+  ],
+  "serviceArea": {
+    "@type": "City",
+    "name": ["Dubai", "Abu Dhabi", "Sharjah", "Ajman"]
+  },
+  "sameAs": [
+    "https://facebook.com/yourtourcompany",
+    "https://instagram.com/yourtourcompany",
+    "https://twitter.com/yourtourcompany",
+    "https://www.tripadvisor.com/Profile/yourtourcompany"
+  ],
+  "priceRange": "AED 150 - 500",
+  "areaServed": {
+    "@type": "City",
+    "name": "United Arab Emirates"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.7",
+    "ratingCount": "312",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "review": [
+    {
+      "@type": "Review",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5"
+      },
+      "reviewBody": "Fantastic experience! Professional guides and great value for money. Highly recommended!",
+      "author": {
+        "@type": "Person",
+        "name": "Maria Garcia"
+      },
+      "datePublished": "2026-01-20"
+    }
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+971-4-XXXXXXX",
+    "contactType": "Customer Service",
+    "availableLanguage": ["en", "ru", "ar"]
+  },
+  "potentialAction": {
+    "@type": "ReserveAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://example.com/booking",
+      "actionPlatform": ["DesktopWebPlatform", "MobileWebPlatform"]
+    }
+  }
+}

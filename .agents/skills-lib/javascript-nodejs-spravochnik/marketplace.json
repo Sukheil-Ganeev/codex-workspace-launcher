@@ -1,0 +1,117 @@
+{
+  "name": "javascript-nodejs-справочник",
+  "version": "1.0.0",
+  "description": "Production-ready JavaScript/Node.js справочник для туристического бизнеса - serverless functions, REST API, database integration",
+  "author": "Tourism Tech Team",
+  "category": "Backend Development",
+  "tags": [
+    "javascript",
+    "nodejs",
+    "express",
+    "serverless",
+    "api",
+    "backend",
+    "postgresql",
+    "authentication",
+    "webhooks",
+    "rest-api",
+    "jwt",
+    "database",
+    "netlify",
+    "vercel",
+    "tourism",
+    "booking"
+  ],
+  "triggers": [
+    "javascript",
+    "node",
+    "nodejs",
+    "express",
+    "serverless",
+    "api",
+    "backend",
+    "webhook",
+    "function",
+    "rest",
+    "endpoint",
+    "server",
+    "backend-api"
+  ],
+  "integrations": [
+    "html-css-справочник",
+    "database-sql-справочник",
+    "netlify-deployment",
+    "vercel-деплой",
+    "api-туризм-оаэ",
+    "payment-integration",
+    "email-service"
+  ],
+  "requirements": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "features": [
+    "Express.js REST API development",
+    "Serverless functions (Netlify, Vercel)",
+    "Database integration (PostgreSQL, MongoDB)",
+    "JWT authentication & OAuth",
+    "Webhook processing",
+    "Error handling & logging",
+    "API security best practices",
+    "Testing (Jest, Mocha)",
+    "Production deployment",
+    "Performance optimization"
+  ],
+  "structure": {
+    "main": "SKILL.md",
+    "references": [
+      "express-api.md",
+      "serverless.md",
+      "database.md",
+      "authentication.md",
+      "webhooks.md",
+      "error-handling.md",
+      "security.md",
+      "testing.md",
+      "deployment.md",
+      "performance.md"
+    ],
+    "templates": [
+      "express-starter",
+      "serverless-api",
+      "booking-webhook"
+    ],
+    "examples": [
+      "payment-integration.js",
+      "booking-api.js",
+      "email-notifications.js"
+    ],
+    "scripts": [
+      "setup-project.sh",
+      "run-tests.sh",
+      "deploy.sh"
+    ]
+  },
+  "use_cases": [
+    "Booking system API for tours and tickets",
+    "Payment webhook integration",
+    "Customer management backend",
+    "Email notification service",
+    "Authentication system",
+    "Third-party API integrations",
+    "Serverless microservices"
+  ],
+  "learning_path": [
+    "Read SKILL.md for overview",
+    "Study express-api.md for REST API basics",
+    "Learn serverless.md for cloud functions",
+    "Implement authentication.md for security",
+    "Use templates as starting points",
+    "Reference examples for real-world patterns"
+  ],
+  "experience_system": true,
+  "documentation_language": "Russian",
+  "code_language": "JavaScript/Node.js",
+  "last_updated": "2026-02-04",
+  "status": "active"
+}

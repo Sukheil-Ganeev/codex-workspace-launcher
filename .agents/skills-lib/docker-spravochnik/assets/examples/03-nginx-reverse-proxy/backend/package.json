@@ -1,0 +1,15 @@
+{
+  "name": "booking-backend",
+  "version": "1.0.0",
+  "description": "Backend API бронирования туров ОАЭ",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.21.0"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  }
+}

@@ -1,0 +1,3 @@
+interface:
+  display_name: "Universal Testing Toolchain"
+  short_description: "Choose and build the right test stack for web, API, Python, visual, OCR/PDF/font, CI, and agent projects."

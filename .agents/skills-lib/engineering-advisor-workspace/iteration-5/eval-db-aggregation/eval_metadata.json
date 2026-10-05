@@ -1,0 +1,27 @@
+{
+  "eval_id": 25,
+  "eval_name": "eval-db-aggregation",
+  "prompt": "Вот мой код статистики для CRM, добавь ещё подсчёт заказов по статусам (pending/confirmed/cancelled):\n\n```typescript\n// stats.service.ts\nimport { PrismaClient } from '@prisma/client';\n\nconst prisma = new PrismaClient();\n\nexport async function getDashboardStats() {\n  // Получаем ВСЕ заказы из БД\n  const orders = await prisma.order.findMany();\n  \n  // Фильтруем в JS\n  const paidOrders = orders.filter(o => o.status === 'paid');\n  const total = paidOrders.length;\n  \n  // Считаем сумму тоже в JS\n  const revenue = paidOrders.reduce((sum, o) => sum + o.amount, 0);\n  \n  // Получаем ВСЕ клиенты\n  const customers = await prisma.customer.findMany();\n  const activeCustomers = customers.filter(c => c.lastOrderAt && \n    new Date(c.lastOrderAt) > new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)\n  ).length;\n  \n  return {\n    totalPaidOrders: total,\n    totalRevenue: revenue,\n    activeCustomers\n  };\n}\n```",
+  "assertions": [
+    {
+      "id": "D1",
+      "text": "(D1) Обнаруживает антипаттерн findMany + JS агрегация (триггер #25)",
+      "discriminating": true
+    },
+    {
+      "id": "D2",
+      "text": "(D2) Предлагает prisma.order.groupBy() или prisma.order.count({ where }) как альтернативу",
+      "discriminating": true
+    },
+    {
+      "id": "D3",
+      "text": "(D3) Объясняет проблему производительности — загрузка всех записей в память",
+      "discriminating": true
+    },
+    {
+      "id": "D4",
+      "text": "(D4) НЕ просто добавляет ещё один orders.filter() без предупреждения",
+      "discriminating": true
+    }
+  ]
+}

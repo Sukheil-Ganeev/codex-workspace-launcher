@@ -1,0 +1,85 @@
+{
+  "skill_name": "скачивание-видео",
+  "iteration": 2,
+  "evals": [
+    {
+      "id": 9,
+      "eval_name": "troubleshooting-http-403",
+      "prompt": "yt-dlp выдаёт ошибку HTTP Error 403: Forbidden при скачивании с тиктока, что делать?",
+      "assertions": [
+        "Упоминает yt-dlp -U или обновление yt-dlp как одно из решений",
+        "Упоминает --cookies-from-browser как способ передать авторизацию",
+        "Упоминает -v или --verbose для диагностики ошибки"
+      ]
+    },
+    {
+      "id": 10,
+      "eval_name": "troubleshooting-no-sound",
+      "prompt": "скачал видео с ютуба, а звука нет — только картинка. что пошло не так?",
+      "assertions": [
+        "Называет отсутствие FFmpeg или его некорректную установку как причину проблемы",
+        "Упоминает --merge-output-format или слияние видео/аудио потоков через FFmpeg",
+        "Объясняет как проверить FFmpeg: команда ffmpeg -version"
+      ]
+    },
+    {
+      "id": 11,
+      "eval_name": "troubleshooting-format-not-available",
+      "prompt": "получаю ошибку 'ERROR: Requested format not available'. вот ссылка: youtube.com/watch?v=xxx",
+      "assertions": [
+        "Предлагает yt-dlp -F URL для просмотра доступных форматов",
+        "Предлагает fallback формат (например best, или без строгих ограничений по качеству)"
+      ]
+    },
+    {
+      "id": 12,
+      "eval_name": "niche-platform-vkontakte",
+      "prompt": "скачай это видео с ВКонтакте: vk.com/video-123456_789",
+      "assertions": [
+        "Даёт корректную команду yt-dlp с VK URL (vk.com или vkvideo.ru)",
+        "Указывает путь сохранения D:/Downloads/YouTube/",
+        "Упоминает cookies (--cookies-from-browser) как возможное требование для ВК"
+      ]
+    },
+    {
+      "id": 13,
+      "eval_name": "batch-download-with-archive",
+      "prompt": "у меня есть файл urls.txt со 100 ссылками ютуба, хочу скачать все но пропускать уже скачанные",
+      "assertions": [
+        "Использует флаг -a urls.txt для пакетной загрузки из файла",
+        "Использует --download-archive для хранения ID скачанных видео",
+        "Указывает путь сохранения D:/Downloads/YouTube/",
+        "Упоминает --no-overwrites для пропуска существующих файлов"
+      ]
+    },
+    {
+      "id": 14,
+      "eval_name": "playlist-specific-items",
+      "prompt": "скачай только видео с 5 по 10 из этого плейлиста: youtube.com/playlist?list=PLxxx",
+      "assertions": [
+        "Использует --playlist-items 5-10 для выбора диапазона",
+        "Указывает путь сохранения D:/Downloads/YouTube/"
+      ]
+    },
+    {
+      "id": 15,
+      "eval_name": "ambiguous-request-no-url",
+      "prompt": "скачай видео про котиков с ютуба",
+      "assertions": [
+        "Просит пользователя предоставить конкретную ссылку на видео",
+        "Не выдумывает и не угадывает URL видео",
+        "Не пытается выполнить команду скачивания без ссылки"
+      ]
+    },
+    {
+      "id": 16,
+      "eval_name": "info-without-downloading",
+      "prompt": "хочу посмотреть какие форматы и качество доступны для видео, но не скачивать его: youtube.com/watch?v=dQw4w9WgXcQ",
+      "assertions": [
+        "Использует yt-dlp -F URL для просмотра доступных форматов",
+        "Объясняет что означают колонки или ID форматов в выводе",
+        "Не предлагает команду скачивания как основное действие"
+      ]
+    }
+  ]
+}

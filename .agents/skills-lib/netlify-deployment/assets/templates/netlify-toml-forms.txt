@@ -1,0 +1,40 @@
+# Netlify конфигурация с Netlify Forms
+# Используется для: формы заявок, контактные формы, сбор лидов
+
+[build]
+  publish = "."
+  command = ""
+
+# Настройки для форм
+[forms]
+  # Автоматическая обработка spam
+  spam_protection = true
+
+# Настройки уведомлений (опционально, настраивается через UI)
+# После заполнения формы можно отправлять email, webhook, Slack notification
+
+# Пример редиректа после отправки формы
+[[redirects]]
+  from = "/thank-you"
+  to = "/thank-you.html"
+  status = 200
+
+# Security headers
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# ВАЖНО: В HTML форма должна иметь атрибут netlify
+# <form name="contact" method="POST" data-netlify="true">
+#   <input type="text" name="name" required />
+#   <input type="email" name="email" required />
+#   <textarea name="message" required></textarea>
+#   <button type="submit">Отправить</button>
+# </form>
+
+# Для защиты от спама добавьте honeypot:
+# <input type="hidden" name="bot-field" />
+# data-netlify-honeypot="bot-field"

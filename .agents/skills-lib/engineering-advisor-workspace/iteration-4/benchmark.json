@@ -1,0 +1,289 @@
+{
+  "metadata": {
+    "skill_name": "engineering-advisor",
+    "skill_path": "C:/Users/londo/.claude/skills/engineering-advisor/SKILL.md",
+    "executor_model": "claude-sonnet-4-6",
+    "analyzer_model": "claude-sonnet-4-6",
+    "timestamp": "2026-03-05T10:00:00Z",
+    "evals_run": [6, 7, 8],
+    "runs_per_configuration": 1
+  },
+  "runs": [
+    {
+      "eval_id": 6,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "time_seconds": 77.1,
+        "tokens": 41655,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "(N1) Обнаруживает N+1 проблему (SELECT в цикле)",
+          "passed": true,
+          "evidence": "Триггер #12 (N+1 queries): SELECT в цикле — явно указано в диагностике. Также: 'Цикл по tourists делает 1 + N запросов к БД.' и в итоговой таблице 'Запросов к БД | 1 + N (на каждого туриста)'"
+        },
+        {
+          "text": "(N2) Объясняет риск производительности",
+          "passed": true,
+          "evidence": "Прямо указано: '100 туристов = 101 запрос. 1000 туристов = 1001 запрос. Это замедляет бота и создаёт нагрузку на БД.' Также аналогия с офисом и 200 звонками, итоговая таблица с 'Медленно при росте базы'."
+        },
+        {
+          "text": "(N3) Предлагает JOIN или subqueryload как решение",
+          "passed": true,
+          "evidence": "Два конкретных решения: Вариант 1 — 'JOIN + GROUP BY (один запрос, быстро)' с outerjoin(); Вариант 2 — 'joinedload(Tourist.orders)' (eager loading). Оба варианта с полным рабочим кодом."
+        },
+        {
+          "text": "(N4) НЕ просто отвечает на вопрос про форматирование",
+          "passed": true,
+          "evidence": "Ответ в основном посвящён N+1 проблеме. Форматирование вывода затронуто только в конце (секция 'Как красиво вывести в боте'), но это дополнение к основному анализу N+1, а не замена ему."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 7,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "time_seconds": 83.8,
+        "tokens": 42428,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "(A1) Обнаруживает отсутствие авторизации (триггер #13) — Ответ должен указать что эндпоинт открыт без авторизации — любой может создать заказ",
+          "passed": true,
+          "evidence": "Line 3: 'Trigger detected: #13 — Creating API endpoint (authorization + validation + rate limit required)'. Lines 29-30: '**1. No Authorization** — Anyone on the internet can POST to /api/orders and create an order in your database. Bots, competitors, random people.' Clear and explicit."
+        },
+        {
+          "text": "(A2) Указывает на отсутствие валидации (dict вместо Pydantic) — Ответ должен указать что `data: dict` опасно — нет валидации входных данных",
+          "passed": true,
+          "evidence": "Lines 32-33: '**2. No Input Validation** — `data: dict` accepts literally anything. You can pass {\"price\": -99999}, or an empty object, or fields that don't exist in the model — and Python will crash with an unhandled error.' Fix replaces dict with a Pydantic OrderCreate model with Field validators."
+        },
+        {
+          "text": "(A3) Уровень Recommended или выше для API endpoint — Ответ должен использовать уровень Recommended или MANDATORY",
+          "passed": true,
+          "evidence": "Line 4: '**Level:** Recommended' — explicitly set in the response header."
+        },
+        {
+          "text": "(A4) НЕ просто добавляет return order.id без предупреждений — Ответ НЕ должен сразу дать одну строку return без упоминания безопасности/валидации",
+          "passed": true,
+          "evidence": "The response leads with a full security section ('What Is Wrong With the Current Code') covering 3 issues before providing any code fix. The fix itself integrates authorization, Pydantic validation, and rate limiting alongside the requested db.refresh(). Security is not an afterthought — it is the primary content."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 8,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "time_seconds": 83.4,
+        "tokens": 41958,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "(D1) Упоминает обновление requirements.txt (триггер #16) — Ответ должен указать на необходимость добавить httpx в requirements.txt",
+          "passed": true,
+          "evidence": "WARN блок явно говорит: 'httpx не зафиксирован в requirements.txt. Добавить httpx>=0.27.0 в requirements.txt.' Раздел 'Шаг #16: requirements.txt' показывает конкретную строку для добавления и bash-команду для автоматического добавления."
+        },
+        {
+          "text": "(D2) Обнаруживает синхронный requests в async функции (триггер #20) — Ответ должен заметить что requests.get() — синхронный вызов в async функции — блокирующий вызов, опасно",
+          "passed": true,
+          "evidence": "BLOCK блок явно: 'requests.get() в async функции. Блокирует весь event loop бота пока ждёт ответ от API. Пока один запрос висит — ВСЕ остальные пользователи ждут.' Раздел 'BLOCK: requests.get в async' объясняет это простыми словами с аналогией про 50 клиентов."
+        },
+        {
+          "text": "(D3) Предлагает async httpx клиент (httpx.AsyncClient) — Ответ должен показать правильную async версию с await client.get(...)",
+          "passed": true,
+          "evidence": "Исправленный код показывает: 'async with httpx.AsyncClient() as client: response = await client.get(...)'. Также предложен оптимизированный вариант с переиспользованием клиента и startup/shutdown хуками для aiogram."
+        },
+        {
+          "text": "(D4) НЕ просто переименовывает requests в httpx без async — Ответ НЕ должен дать код где просто заменён import requests на import httpx без перехода на AsyncClient и await",
+          "passed": true,
+          "evidence": "Код использует httpx.AsyncClient с await: 'async with httpx.AsyncClient() as client: response = await client.get(...)'. Это полноценный async переход, а не просто переименование import. Раздел 'Что изменилось' явно перечисляет все три изменения включая переход на await."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 6,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "time_seconds": 35.1,
+        "tokens": 18470,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "(N1) Обнаруживает N+1 проблему (SELECT в цикле)",
+          "passed": true,
+          "evidence": "Response explicitly states: 'Твой код делает N+1 запросов к базе данных: 1 запрос — получить всех туристов, N запросов — для каждого туриста отдельный запрос за заказами'"
+        },
+        {
+          "text": "(N2) Объясняет риск производительности",
+          "passed": true,
+          "evidence": "Response states: 'Если туристов 500 — будет 501 запрос. Это медленно.' — directly explains the scaling problem with a concrete example"
+        },
+        {
+          "text": "(N3) Предлагает JOIN или subqueryload как решение",
+          "passed": true,
+          "evidence": "Response proposes 'from sqlalchemy.orm import joinedload' and 'db.query(Tourist).options(joinedload(Tourist.orders)).all()' as the concrete fix, noting it reduces to 1-2 queries"
+        },
+        {
+          "text": "(N4) НЕ просто отвечает на вопрос про форматирование",
+          "passed": true,
+          "evidence": "Response addresses BOTH N+1 (first section) AND formatting (Telegram bot pretty output with HTML, icons, pagination). N+1 is the primary focus, formatting is secondary."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 7,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.0,
+        "passed": 0,
+        "failed": 4,
+        "total": 4,
+        "time_seconds": 21.7,
+        "tokens": 18021,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "(A1) Обнаруживает отсутствие авторизации (триггер #13) — Ответ должен указать что эндпоинт открыт без авторизации — любой может создать заказ",
+          "passed": false,
+          "evidence": "Ответ не упоминает авторизацию ни разу. Весь фокус — на db.refresh(order) для получения ID и db.rollback() для обработки ошибок БД. Слова 'авторизация', 'аутентификация', 'auth', 'любой пользователь' отсутствуют."
+        },
+        {
+          "text": "(A2) Указывает на отсутствие валидации (dict вместо Pydantic) — Ответ должен указать что data: dict опасно — нет валидации входных данных",
+          "passed": false,
+          "evidence": "Во всех примерах кода сохраняется `data: dict` без каких-либо замечаний. Pydantic, валидация входных данных, типизация не упоминаются вообще."
+        },
+        {
+          "text": "(A3) Уровень Recommended или выше для API endpoint — Ответ должен использовать уровень Recommended или MANDATORY (explicit engineering advisory level)",
+          "passed": false,
+          "evidence": "Ответ не содержит никакого явного уровня рекомендации — ни 'Recommended', ни 'MANDATORY', ни аналогичных меток. Структура ответа — просто 'Что изменилось' и 'Дополнительные рекомендации' без уровней."
+        },
+        {
+          "text": "(A4) НЕ просто добавляет return order.id без предупреждений безопасности — Ответ НЕ должен давать код без упоминания авторизации или валидации",
+          "passed": false,
+          "evidence": "Ответ даёт код (с db.refresh и try/except) без единого упоминания авторизации или валидации входных данных. Единственное дополнение — db.rollback() при ошибке БД, что по условиям оценки не считается предупреждением о безопасности."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 8,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.75,
+        "passed": 3,
+        "failed": 1,
+        "total": 4,
+        "time_seconds": 21.6,
+        "tokens": 18285,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "(D1) Упоминает обновление requirements.txt (триггер #16)",
+          "passed": false,
+          "evidence": "Response only mentions 'pip install httpx' but never references requirements.txt or pip freeze > requirements.txt. The trigger to update the requirements file is completely absent."
+        },
+        {
+          "text": "(D2) Обнаруживает синхронный requests в async функции как проблему (триггер #20)",
+          "passed": true,
+          "evidence": "Line 5: 'requests — синхронная библиотека, она блокирует event loop в async-коде'. Table row explicitly states 'Синхронный вызов (блокирует loop)' vs 'Асинхронный вызов (не блокирует)'. The blocking nature is flagged as the core reason for the switch."
+        },
+        {
+          "text": "(D3) Предлагает async httpx клиент (httpx.AsyncClient)",
+          "passed": true,
+          "evidence": "Lines 19-20: 'async with httpx.AsyncClient() as client:' followed by 'response = await client.get(...)'. Multiple code examples all use AsyncClient with await."
+        },
+        {
+          "text": "(D4) НЕ просто переименовывает requests в httpx без async",
+          "passed": true,
+          "evidence": "Response correctly uses httpx.AsyncClient with await throughout all code examples. The function is async and uses await client.get(...), not a synchronous drop-in replacement."
+        }
+      ],
+      "notes": []
+    }
+  ],
+  "run_summary": {
+    "with_skill": {
+      "pass_rate": {
+        "mean": 1.0,
+        "stddev": 0.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "time_seconds": {
+        "mean": 81.4,
+        "stddev": 3.65,
+        "min": 77.1,
+        "max": 83.8
+      },
+      "tokens": {
+        "mean": 42013.67,
+        "stddev": 397.77,
+        "min": 41655,
+        "max": 42428
+      }
+    },
+    "without_skill": {
+      "pass_rate": {
+        "mean": 0.583,
+        "stddev": 0.412,
+        "min": 0.0,
+        "max": 1.0
+      },
+      "time_seconds": {
+        "mean": 26.13,
+        "stddev": 7.78,
+        "min": 21.6,
+        "max": 35.1
+      },
+      "tokens": {
+        "mean": 18258.67,
+        "stddev": 228.26,
+        "min": 18021,
+        "max": 18470
+      }
+    },
+    "delta": {
+      "pass_rate": "+0.42",
+      "time_seconds": "+55.3",
+      "tokens": "+23755"
+    }
+  },
+  "notes": []
+}

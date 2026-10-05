@@ -1,0 +1,16 @@
+# Core dependencies
+requests>=2.31.0
+rich>=13.7.0
+
+# Optional - Audio analysis
+pydub>=0.25.1
+
+# Optional - Testing
+pytest>=7.4.0
+pytest-cov>=4.1.0
+
+# Note: pydub requires ffmpeg to be installed separately
+# Install ffmpeg:
+#   - Windows: choco install ffmpeg OR download from https://ffmpeg.org
+#   - macOS: brew install ffmpeg
+#   - Linux: apt-get install ffmpeg OR yum install ffmpeg

@@ -1,0 +1,34 @@
+*PENTHOUSE | [AREA]*
+_[Exclusive description — type, uniqueness]_
+───────────────
+*FEATURES*
+▫️ [X] bedrooms | [X] bathrooms
+▫️ Type: [Half-floor/Full-floor/Duplex/Triplex]
+▫️ Area: [XX,XXX] sq.ft.
+▫️ Terrace: [X,XXX] sq.ft.
+▫️ Floor: [X-X]/[X]
+▫️ Ceiling height: [X.X]m
+
+*EXCLUSIVE FEATURES*
+▫️ Private elevator: [Yes/No]
+▫️ Terrace pool: [Yes/No]
+▫️ View: [360°/Sea/Landmark/City]
+▫️ [Jacuzzi/Outdoor kitchen/Rooftop lounge]
+▫️ Staff quarters: [X] room(s)
+▫️ Private parking: [X] space(s)
+
+*BUILDING: [NAME]*
+[Building prestige, features]
+───────────────
+💰 *RENT: [X,XXX,XXX] AED/year*
+_(~[XXX,XXX] AED/month)_
+
+*TERMS*
+▫️ Cheques: [1-4]
+▫️ Minimum: [X] year(s)
+▫️ Furnishing: [Furnished/Unfurnished]
+▫️ Viewing: by appointment only
+
+*CONTACT:* [NAME] | [+971 XX XXX XXXX]
+
+⚠️ Confidentiality guaranteed

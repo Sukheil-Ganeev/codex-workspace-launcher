@@ -1,0 +1,26 @@
+{
+  "run_id": "eval-1-simple-1080p-without_skill",
+  "expectations": [
+    {
+      "text": "Содержит правильный путь D:/Downloads/YouTube/",
+      "passed": false,
+      "evidence": "Основная команда без пути. Пример в конце: -o \"D:/Downloads/%(title)s.%(ext)s\" — не тот путь (нет /YouTube/)"
+    },
+    {
+      "text": "Содержит ограничение высоты 1080 (height<=1080 или height=1080)",
+      "passed": true,
+      "evidence": "bestvideo[height<=1080] — есть"
+    },
+    {
+      "text": "Содержит --merge-output-format mp4",
+      "passed": true,
+      "evidence": "--merge-output-format mp4 — есть"
+    },
+    {
+      "text": "Содержит корректный format-селектор с ext=mp4",
+      "passed": true,
+      "evidence": "[ext=mp4] — есть в bestvideo[height<=1080][ext=mp4]"
+    }
+  ],
+  "pass_rate": 0.75
+}

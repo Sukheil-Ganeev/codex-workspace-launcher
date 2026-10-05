@@ -1,0 +1,1 @@
+CREATE TABLE payment_links (id SERIAL PRIMARY KEY, phone VARCHAR(50), amount NUMERIC(10,2));

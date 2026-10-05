@@ -1,0 +1,6 @@
+CREATE TABLE users (id SERIAL PRIMARY KEY, email VARCHAR(255) UNIQUE NOT NULL, phone VARCHAR(50), password_hash VARCHAR(255), first_name VARCHAR(100), last_name VARCHAR(100), role VARCHAR(50), status VARCHAR(50), created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP);
+CREATE TABLE user_sessions (id SERIAL PRIMARY KEY, user_id INTEGER REFERENCES users(id), session_token VARCHAR(500) UNIQUE, ip_address VARCHAR(50), user_agent VARCHAR(500), login_at TIMESTAMPTZ, logout_at TIMESTAMPTZ, expires_at TIMESTAMPTZ);
+CREATE TABLE user_permissions (id SERIAL PRIMARY KEY, user_id INTEGER REFERENCES users(id), permission_name VARCHAR(255), resource_type VARCHAR(100), grant_date TIMESTAMPTZ);
+CREATE TABLE password_resets (id SERIAL PRIMARY KEY, user_id INTEGER REFERENCES users(id), reset_token VARCHAR(500) UNIQUE, requested_at TIMESTAMPTZ, expires_at TIMESTAMPTZ, completed_at TIMESTAMPTZ);
+CREATE TABLE login_attempts (id SERIAL PRIMARY KEY, email VARCHAR(255), ip_address VARCHAR(50), attempt_time TIMESTAMPTZ, success BOOLEAN, failure_reason VARCHAR(255));
+CREATE TABLE api_keys (id SERIAL PRIMARY KEY, user_id INTEGER REFERENCES users(id), key_value VARCHAR(500) UNIQUE, is_active BOOLEAN DEFAULT TRUE, created_at TIMESTAMPTZ, expires_at TIMESTAMPTZ);

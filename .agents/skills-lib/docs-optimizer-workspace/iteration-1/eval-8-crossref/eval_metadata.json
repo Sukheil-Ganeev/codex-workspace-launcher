@@ -1,0 +1,10 @@
+{
+  "eval_id": 8,
+  "eval_name": "broken-links-crossref-validation",
+  "prompt": "Найди все ссылки на файлы и пути в CLAUDE.md проекта D:/Downloads/TouristBotEcosystem/ — какие из них ведут на несуществующие файлы?",
+  "assertions": [
+    "Output reads CLAUDE.md and extracts specific file path references mentioned in it",
+    "Output reports whether each referenced path actually exists in the filesystem (pass/fail per reference)",
+    "Output assigns AP-XX codes to broken link antipatterns found in documentation"
+  ]
+}

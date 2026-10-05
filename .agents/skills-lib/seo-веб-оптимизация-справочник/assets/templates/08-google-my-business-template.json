@@ -1,0 +1,230 @@
+{
+  "businessProfile": {
+    "id": "YOUR_GMB_ID",
+    "businessName": "Your Tour Company",
+    "headline": "Professional Tours & Tickets in Dubai and UAE",
+    "description": "Book authentic desert safaris, yacht tours, city tours, and excursions across Dubai and Abu Dhabi. Competitive prices, professional guides, and unforgettable experiences.",
+    "primaryPhone": "+971-4-XXXXXXX",
+    "secondaryPhone": "+971-50-XXXXXXX",
+    "primaryEmail": "info@example.com",
+    "secondaryEmail": "bookings@example.com",
+    "websiteUrl": "https://example.com",
+    "reservationUrl": "https://example.com/booking",
+
+    "businessCategories": [
+      "Tour Operator",
+      "Travel Agency",
+      "Tour Guide",
+      "Travel & Tourism"
+    ],
+
+    "address": {
+      "formattedAddress": "123 Sheikh Zayed Road, Building A, Tecom, Barsha Heights, Dubai, United Arab Emirates",
+      "addressLines": ["123 Sheikh Zayed Road, Building A"],
+      "locality": "Dubai",
+      "administrativeArea": "Dubai",
+      "postalCode": "000000",
+      "countryCode": "AE"
+    },
+
+    "geoPoint": {
+      "latitude": 25.1884,
+      "longitude": 55.2719
+    },
+
+    "businessHours": {
+      "openingHours": [
+        {
+          "dayOfWeek": "MONDAY",
+          "openTime": "09:00",
+          "closeTime": "18:00",
+          "openNow": false
+        },
+        {
+          "dayOfWeek": "TUESDAY",
+          "openTime": "09:00",
+          "closeTime": "18:00",
+          "openNow": false
+        },
+        {
+          "dayOfWeek": "WEDNESDAY",
+          "openTime": "09:00",
+          "closeTime": "18:00",
+          "openNow": false
+        },
+        {
+          "dayOfWeek": "THURSDAY",
+          "openTime": "09:00",
+          "closeTime": "18:00",
+          "openNow": false
+        },
+        {
+          "dayOfWeek": "FRIDAY",
+          "openTime": "10:00",
+          "closeTime": "16:00",
+          "openNow": false
+        },
+        {
+          "dayOfWeek": "SATURDAY",
+          "openTime": "10:00",
+          "closeTime": "16:00",
+          "openNow": false
+        },
+        {
+          "dayOfWeek": "SUNDAY",
+          "openTime": "10:00",
+          "closeTime": "16:00",
+          "openNow": false
+        }
+      ]
+    },
+
+    "serviceAreas": {
+      "serviceAreaLocality": [
+        {
+          "name": "Dubai",
+          "countryCode": "AE"
+        },
+        {
+          "name": "Abu Dhabi",
+          "countryCode": "AE"
+        },
+        {
+          "name": "Sharjah",
+          "countryCode": "AE"
+        },
+        {
+          "name": "Ajman",
+          "countryCode": "AE"
+        }
+      ]
+    },
+
+    "businessAttributes": {
+      "acceptsCreditCards": true,
+      "acceptsDebitCards": true,
+      "acceptsCash": true,
+      "acceptsWireTransfers": true,
+      "acceptsOnlineBooking": true,
+      "acceptsReservations": true,
+      "onSitePickup": true,
+      "delivery": true,
+      "dineIn": false,
+      "takeout": false,
+      "hasParking": true,
+      "hasWifi": true,
+      "wheelchairAccessible": true,
+      "hasMultilanguageStaff": true
+    },
+
+    "photos": [
+      {
+        "photoUrl": "https://example.com/photos/office-exterior.jpg",
+        "description": "Office exterior - Tecom, Dubai",
+        "uploadedTime": "2026-01-15T10:00:00Z"
+      },
+      {
+        "photoUrl": "https://example.com/photos/office-interior.jpg",
+        "description": "Office interior - Booking counter",
+        "uploadedTime": "2026-01-15T10:05:00Z"
+      },
+      {
+        "photoUrl": "https://example.com/photos/desert-safari-dunes.jpg",
+        "description": "Desert safari - Golden sand dunes",
+        "uploadedTime": "2026-01-20T14:30:00Z"
+      },
+      {
+        "photoUrl": "https://example.com/photos/desert-safari-camel.jpg",
+        "description": "Desert safari - Traditional camel ride",
+        "uploadedTime": "2026-01-20T14:35:00Z"
+      },
+      {
+        "photoUrl": "https://example.com/photos/desert-safari-dinner.jpg",
+        "description": "Desert safari - Traditional Bedouin dinner",
+        "uploadedTime": "2026-01-20T14:40:00Z"
+      },
+      {
+        "photoUrl": "https://example.com/photos/yacht-tour.jpg",
+        "description": "Luxury yacht tour - Marina Dubai",
+        "uploadedTime": "2026-01-25T16:00:00Z"
+      },
+      {
+        "photoUrl": "https://example.com/photos/city-tour.jpg",
+        "description": "Dubai city tour - Burj Khalifa view",
+        "uploadedTime": "2026-01-25T16:05:00Z"
+      },
+      {
+        "photoUrl": "https://example.com/photos/team.jpg",
+        "description": "Our professional guides team",
+        "uploadedTime": "2026-01-30T11:00:00Z"
+      }
+    ],
+
+    "videos": [
+      {
+        "youtubeUrl": "https://www.youtube.com/watch?v=XXXXXXXXX",
+        "description": "Desert Safari - Full Tour Experience"
+      },
+      {
+        "youtubeUrl": "https://www.youtube.com/watch?v=YYYYYYYYY",
+        "description": "Yacht Tour - Dubai Marina Sunset"
+      }
+    ],
+
+    "businessProfiles": [
+      {
+        "networkType": "FACEBOOK",
+        "uri": "https://www.facebook.com/yourtourcompany"
+      },
+      {
+        "networkType": "INSTAGRAM",
+        "uri": "https://www.instagram.com/yourtourcompany"
+      },
+      {
+        "networkType": "TWITTER",
+        "uri": "https://twitter.com/yourtourcompany"
+      },
+      {
+        "networkType": "YOUTUBE",
+        "uri": "https://www.youtube.com/c/yourtourcompany"
+      }
+    ],
+
+    "reviews": {
+      "totalReviewCount": 312,
+      "averageRating": 4.7,
+      "ratingDistribution": {
+        "5": 218,
+        "4": 78,
+        "3": 12,
+        "2": 3,
+        "1": 1
+      }
+    },
+
+    "languagesSpoken": [
+      "en",
+      "ru",
+      "ar",
+      "hi",
+      "fr"
+    ],
+
+    "priceRange": "AED 150 - 500",
+
+    "attributes": {
+      "tours_and_activities": true,
+      "sightseeing_tour": true,
+      "outdoor_activities": true,
+      "desert_safari": true,
+      "yacht_charter": true,
+      "city_tour": true
+    },
+
+    "creationTime": "2025-01-01T00:00:00Z",
+    "lastModifyingAdminEmail": "admin@example.com",
+    "lastModifyingDateTime": "2026-02-04T12:00:00Z",
+    "isVerified": true,
+    "isEnabled": true
+  }
+}

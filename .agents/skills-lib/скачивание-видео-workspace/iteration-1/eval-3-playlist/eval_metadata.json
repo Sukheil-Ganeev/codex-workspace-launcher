@@ -1,0 +1,23 @@
+{
+  "eval_id": 3,
+  "eval_name": "playlist-numbered",
+  "prompt": "скачай весь плейлист с ютуба, хочу чтобы файлы были пронумерованы и в отдельной папке с названием плейлиста: youtube.com/playlist?list=PLxxx",
+  "assertions": [
+    {
+      "text": "Содержит %(playlist)s в шаблоне (папка с именем плейлиста)",
+      "check": "contains %(playlist)s"
+    },
+    {
+      "text": "Содержит %(playlist_index) в шаблоне (нумерация файлов)",
+      "check": "contains %(playlist_index)"
+    },
+    {
+      "text": "Использует 02d или аналогичный ведущий ноль в нумерации",
+      "check": "contains 02d"
+    },
+    {
+      "text": "Содержит правильный путь D:/Downloads/YouTube/",
+      "check": "contains D:/Downloads/YouTube/"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "expectations": [
+    {
+      "text": "Упоминает yt-dlp -U или обновление yt-dlp как одно из решений",
+      "passed": true,
+      "evidence": "Раздел 1: 'pip install -U yt-dlp' и 'yt-dlp -U' упомянуты"
+    },
+    {
+      "text": "Упоминает --cookies-from-browser как способ передать авторизацию",
+      "passed": true,
+      "evidence": "Раздел 2: 'yt-dlp --cookies-from-browser chrome' с вариантами firefox"
+    },
+    {
+      "text": "Упоминает -v или --verbose для диагностики ошибки",
+      "passed": true,
+      "evidence": "Раздел ДИАГНОСТИКА: 'yt-dlp -v' с пояснением 'покажет полный HTTP-запрос'"
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "timing": {
+    "executor_duration_seconds": 50.0
+  }
+}

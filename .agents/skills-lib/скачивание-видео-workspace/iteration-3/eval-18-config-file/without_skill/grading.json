@@ -1,0 +1,22 @@
+{
+  "expectations": [
+    {
+      "text": "Упоминает %APPDATA%\\yt-dlp\\config как точный путь к конфигу",
+      "passed": true,
+      "evidence": "'%APPDATA%\\yt-dlp\\config (рекомендуется)' — в пункте 1 списка"
+    },
+    {
+      "text": "Показывает как прописать путь D:/Downloads/YouTube/ в конфиге",
+      "passed": true,
+      "evidence": "'-o D:/Downloads/%(title)s.%(ext)s' — показывает как прописать путь (хотя D:/Downloads/ а не D:/Downloads/YouTube/)"
+    },
+    {
+      "text": "Упоминает что конфиг уже настроен с нужными параметрами",
+      "passed": false,
+      "evidence": "Описывает создание конфига с нуля ('Если папки нет — создайте её вручную'), не знает что конфиг уже настроен"
+    }
+  ],
+  "passed": 2,
+  "total": 3,
+  "score": 0.667
+}

@@ -1,0 +1,337 @@
+# GitHub Actions CI/CD Pipeline — VIP-DXB-CatalogBot
+# Integration Guardian — assets/templates/github-actions-ci.yml
+#
+# Структура:
+#   lint (parallel) ──────────────────────────────────────────────────┐
+#   test + PostgreSQL (parallel) ──────────────────────────────────────┤→ security-scan → build → deploy
+#
+# Деплой:
+#   - Только при push в main
+#   - SSH → GCP VM tourist-bot (europe-west3-b)
+#   - docker compose --env-file .env.prod -f deploy/docker-compose.prod.yml up -d --build
+#
+# Секреты (GitHub repo settings → Secrets and variables → Actions):
+#   SERVER_HOST         — IP или hostname GCP VM
+#   SERVER_USER         — SSH user (обычно: ubuntu или catalog)
+#   SSH_PRIVATE_KEY     — приватный ключ для SSH
+
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:    # Ручной запуск из GitHub UI
+
+# Отменять предыдущий run для той же ветки при новом push
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PYTHON_VERSION: "3.13"
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  # ---------------------------------------------------------------------------
+  # JOB 1: Lint — проверка стиля кода
+  # ---------------------------------------------------------------------------
+  lint:
+    name: Lint (flake8 + black)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ env.PYTHON_VERSION }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+
+      - name: Install lint dependencies
+        run: |
+          pip install flake8 black isort
+
+      - name: Run Black (format check)
+        run: black --check --diff .
+        continue-on-error: true   # Предупреждение, не блокирующее
+
+      - name: Run flake8
+        run: |
+          flake8 bot/ vk_bot/ instagram_bot/ whatsapp_bot/ \
+                 facebook_bot/ viber_bot/ core/ data/ miniapp/ \
+            --max-line-length=120 \
+            --extend-ignore=E203,W503,E501 \
+            --count --statistics
+
+      - name: Run isort (import order check)
+        run: isort --check-only --diff .
+        continue-on-error: true   # Предупреждение, не блокирующее
+
+  # ---------------------------------------------------------------------------
+  # JOB 2: Test — pytest с реальной PostgreSQL
+  # ---------------------------------------------------------------------------
+  test:
+    name: Test (pytest + PostgreSQL)
+    runs-on: ubuntu-latest
+
+    # PostgreSQL service container
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      TEST_DATABASE_URL: postgresql://postgres:postgres@localhost:5432/postgres
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ env.PYTHON_VERSION }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run pytest
+        run: |
+          pytest tests/ \
+            -q \
+            -p no:cacheprovider \
+            --tb=short \
+            --timeout=120 \
+            -x                    # Остановить при первом провале
+        env:
+          TEST_DATABASE_URL: ${{ env.TEST_DATABASE_URL }}
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results
+          path: |
+            .pytest_cache/
+            test-results.xml
+
+  # ---------------------------------------------------------------------------
+  # JOB 3: Security Scan — БЛОКИРУЮЩИЙ gate перед деплоем
+  # ---------------------------------------------------------------------------
+  security-scan:
+    name: Security Scan (pip-audit + bandit)
+    runs-on: ubuntu-latest
+    needs: [lint, test]   # Запускать только после lint и test
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ env.PYTHON_VERSION }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+
+      - name: Install security tools
+        run: |
+          pip install pip-audit bandit[toml]
+
+      # pip-audit: CVE в зависимостях
+      - name: Run pip-audit
+        id: pip_audit
+        run: |
+          pip-audit -r requirements.txt \
+            --format=json \
+            -o pip-audit-results.json || true
+
+          pip-audit -r requirements.txt \
+            --desc=on 2>&1 | tee pip-audit-output.txt
+
+          # Провалить при critical или high CVE
+          if grep -qiE "^[A-Z]+-[0-9]+.*CRITICAL|^[A-Z]+-[0-9]+.*HIGH" pip-audit-output.txt; then
+            echo "::error::Critical or High CVE found in dependencies — blocking deploy"
+            cat pip-audit-output.txt
+            exit 1
+          fi
+          echo "pip-audit: no critical/high CVE found"
+
+      # Bandit: SAST — статический анализ Python кода
+      - name: Run Bandit SAST
+        id: bandit
+        run: |
+          bandit -r \
+            bot/ vk_bot/ instagram_bot/ whatsapp_bot/ \
+            facebook_bot/ viber_bot/ core/ data/ miniapp/ \
+            -f json -o bandit-results.json \
+            --skip B101,B601 \
+            -ll \
+            --quiet || true
+
+          # Проверить количество high-severity проблем
+          HIGH_ISSUES=$(python3 -c "
+          import json, sys
+          try:
+              with open('bandit-results.json') as f:
+                  data = json.load(f)
+              high = [r for r in data.get('results', [])
+                      if r.get('issue_severity') in ('HIGH', 'CRITICAL')]
+              print(len(high))
+          except Exception:
+              print(0)
+          ")
+
+          echo "Bandit high/critical issues: $HIGH_ISSUES"
+          if [ "$HIGH_ISSUES" -gt "0" ]; then
+            echo "::error::Bandit found $HIGH_ISSUES high-severity security issues"
+            python3 -m json.tool bandit-results.json
+            exit 1
+          fi
+          echo "bandit: no high-severity issues found"
+
+      # Поиск hardcoded secrets в коде
+      - name: Check for hardcoded secrets
+        run: |
+          # Простая проверка без gitleaks (для простых случаев)
+          FOUND=$(grep -rn \
+            --include="*.py" \
+            -E "(password\s*=\s*['\"][^'\"]{8,}['\"]|secret\s*=\s*['\"][^'\"]{8,}['\"]|api_key\s*=\s*['\"][^'\"]{8,}['\"])" \
+            --exclude-dir={__pycache__,tests,.git} \
+            . || true)
+
+          if [ -n "$FOUND" ]; then
+            echo "::warning::Potential hardcoded secrets found:"
+            echo "$FOUND" | head -20
+            # warning, не error — может быть test fixture
+          fi
+
+      - name: Upload security results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: security-results
+          path: |
+            pip-audit-results.json
+            pip-audit-output.txt
+            bandit-results.json
+
+  # ---------------------------------------------------------------------------
+  # JOB 4: Build — Docker образ
+  # ---------------------------------------------------------------------------
+  build:
+    name: Build Docker Image
+    runs-on: ubuntu-latest
+    needs: [security-scan]   # Только после прохождения security-scan
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image (no push — только проверка сборки)
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./deploy/Dockerfile
+          push: false
+          tags: catalog-bot:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          build-args: |
+            BUILD_DATE=${{ github.event.head_commit.timestamp }}
+            GIT_COMMIT=${{ github.sha }}
+
+  # ---------------------------------------------------------------------------
+  # JOB 5: Deploy — только на main branch
+  # ---------------------------------------------------------------------------
+  deploy:
+    name: Deploy to GCP (tourist-bot)
+    runs-on: ubuntu-latest
+    needs: [build]   # После успешного build
+    environment: production
+
+    # Деплоить ТОЛЬКО при push в main (не на PR)
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy via SSH to GCP VM
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          timeout: 300s
+          script: |
+            set -e
+
+            echo "=== Deploy started at $(date) ==="
+            cd /opt/catalog-bot
+
+            # Получить последние изменения
+            git fetch origin main
+            git reset --hard origin/main
+
+            echo "=== Current commit: $(git log --oneline -1) ==="
+
+            # Запустить docker compose
+            docker compose \
+              --env-file .env.prod \
+              -f deploy/docker-compose.prod.yml \
+              up -d --build \
+              --remove-orphans
+
+            echo "=== Waiting for containers to be healthy ==="
+            sleep 10
+
+            # Проверить статус контейнеров
+            docker compose \
+              --env-file .env.prod \
+              -f deploy/docker-compose.prod.yml \
+              ps
+
+            echo "=== Deploy completed at $(date) ==="
+
+      - name: Verify deployment
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            # Проверить что основные контейнеры запущены
+            RUNNING=$(docker ps --filter "name=catalog" --filter "status=running" --format "{{.Names}}" | wc -l)
+            echo "Running catalog containers: $RUNNING"
+            if [ "$RUNNING" -lt "2" ]; then
+              echo "WARNING: Less than 2 containers running after deploy"
+              docker ps -a --filter "name=catalog"
+            fi
+
+      - name: Notify deployment result
+        if: always()
+        run: |
+          STATUS="${{ job.status }}"
+          COMMIT="${{ github.sha }}"
+          BRANCH="${{ github.ref_name }}"
+          echo "Deploy $STATUS: $BRANCH @ ${COMMIT:0:7}"
+          # Здесь можно добавить уведомление в Telegram через Bot API

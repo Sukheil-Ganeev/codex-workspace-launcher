@@ -1,0 +1,2 @@
+# config
+pinme -help

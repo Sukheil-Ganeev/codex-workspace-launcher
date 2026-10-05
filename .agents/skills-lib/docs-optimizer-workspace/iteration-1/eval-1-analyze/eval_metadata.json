@@ -1,0 +1,13 @@
+{
+  "eval_id": 1,
+  "eval_name": "analyze-score-and-antipatterns",
+  "prompt": "Проверь документацию проекта D:/Downloads/TouristBotEcosystem/ и дай оценку — что там с качеством документации?",
+  "assertions": [
+    "Output contains a Verification Score explicitly in N/5 format",
+    "Output identifies CLAUDE.md exceeding 300-400 line threshold as a critical problem",
+    "Output includes a recommendations section with ranked items (HIGH/MEDIUM/LOW or приоритет)",
+    "Output contains antipattern codes in AP-XX format (e.g. AP-01, AP-02)",
+    "Output uses the specific score format N/5 (e.g. 2/5, 3/5) not percentage or other scales",
+    "Output lists at least 3 distinct AP-XX coded antipatterns with descriptions"
+  ]
+}

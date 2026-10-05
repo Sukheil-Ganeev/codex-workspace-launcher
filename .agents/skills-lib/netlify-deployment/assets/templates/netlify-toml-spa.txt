@@ -1,0 +1,25 @@
+# Netlify конфигурация для SPA (Single Page Application)
+# Используется для: React, Vue, Angular, Svelte и других SPA фреймворков
+
+[build]
+  # Папка с готовыми файлами после сборки
+  publish = "dist"
+
+  # Команда для сборки проекта
+  command = "npm run build"
+
+# Redirect всех запросов на index.html (для client-side routing)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Опционально: настройки для production
+[context.production.environment]
+  NODE_VERSION = "18"
+
+# Опционально: кэширование
+[[headers]]
+  for = "/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

@@ -1,0 +1,117 @@
+# Redis конфигурация для deploy/docker-compose.prod.yml
+#
+# КАК ДОБАВИТЬ:
+# 1. Скопируй секцию services.redis в deploy/docker-compose.prod.yml
+# 2. Добавь redis_data в раздел volumes
+# 3. Добавь REDIS_URL в .env.prod
+# 4. Зависимые сервисы: добавь depends_on: [redis]
+#
+# ПРИМЕР ИТОГОВОГО docker-compose.prod.yml:
+#
+#   services:
+#     postgres:    ...
+#     redis:       (вставить ниже)
+#     telegram:    ... depends_on: [postgres, redis]
+#     vk:          ... depends_on: [postgres, redis]
+#     instagram:   ... depends_on: [postgres, redis]
+#     whatsapp:    ... depends_on: [postgres, redis]
+#     facebook:    ... depends_on: [postgres, redis]
+#     viber:       ... depends_on: [postgres, redis]
+#     miniapp:     ... depends_on: [postgres, redis]
+#
+#   volumes:
+#     postgres_data:
+#     redis_data:     (добавить)
+
+services:
+  redis:
+    image: redis:7-alpine
+    container_name: catalog-redis
+    restart: unless-stopped
+
+    # Конфигурация:
+    # - appendonly yes: persistence (AOF журнал — данные сохраняются при рестарте)
+    # - maxmemory 256mb: лимит памяти (достаточно для 285 блоков + FSM + dedup)
+    # - maxmemory-policy allkeys-lru: при достижении лимита вытесняем LRU ключи
+    # - hz 20: частота фоновых задач (default 10, 20 = быстрее expire)
+    # - lazyfree-lazy-expire yes: async expire (не блокирует event loop)
+    command: >
+      redis-server
+      --appendonly yes
+      --maxmemory 256mb
+      --maxmemory-policy allkeys-lru
+      --hz 20
+      --lazyfree-lazy-expire yes
+      --lazyfree-lazy-eviction yes
+
+    volumes:
+      - redis_data:/data
+
+    networks:
+      - catalog-network
+
+    # Не публикуем порт наружу — только внутри Docker сети
+    # Для локальной диагностики раскомментировать:
+    # ports:
+    #   - "6379:6379"
+
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+
+    # Ограничения ресурсов
+    deploy:
+      resources:
+        limits:
+          memory: 300M     # немного выше maxmemory для служебных нужд Redis
+          cpus: "0.5"
+        reservations:
+          memory: 64M
+
+volumes:
+  redis_data:
+    driver: local
+
+# ------------------------------------------------------------------
+# .env.prod — добавить:
+# ------------------------------------------------------------------
+# REDIS_URL=redis://redis:6379
+#
+# (в Docker имя сервиса = hostname; локально = redis://localhost:6379)
+
+# ------------------------------------------------------------------
+# Зависимость в существующих сервисах (пример для telegram):
+# ------------------------------------------------------------------
+#
+#   telegram:
+#     build: .
+#     depends_on:
+#       postgres:
+#         condition: service_healthy
+#       redis:
+#         condition: service_healthy    # добавить эту строку
+#     environment:
+#       - REDIS_URL=redis://redis:6379  # добавить эту строку
+
+# ------------------------------------------------------------------
+# Мониторинг Redis в production:
+# ------------------------------------------------------------------
+#
+# Подключиться к redis-cli внутри Docker:
+#   docker exec -it catalog-redis redis-cli
+#
+# Полезные команды:
+#   INFO memory               # использование памяти
+#   INFO stats                # hits/misses статистика
+#   DBSIZE                    # количество ключей
+#   KEYS "catalog:*"          # ключи каталога (осторожно на проде!)
+#   TTL "catalog:block:42"    # оставшийся TTL
+#   MONITOR                   # live поток команд (только для debugging!)
+#
+# Метрики для мониторинга (ops-sentinel):
+#   keyspace_hits / keyspace_misses → cache hit rate
+#   used_memory_rss_human           → текущее потребление
+#   evicted_keys                    → если > 0, нужно увеличить maxmemory

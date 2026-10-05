@@ -1,0 +1,22 @@
+{
+  "expectations": [
+    {
+      "text": "Указывает /d/Downloads/YouTube/ как правильный Git Bash путь",
+      "passed": true,
+      "evidence": "'yt-dlp -P \"/d/Downloads/YouTube/\" \"URL\"' — явно в первом примере"
+    },
+    {
+      "text": "Объясняет трансформацию D:\\ → /d/ для Git Bash",
+      "passed": true,
+      "evidence": "Таблица трансформации: 'D:\\  →  /d/', 'C:\\  →  /c/', '\\  →  /'"
+    },
+    {
+      "text": "Различает поведение в Git Bash vs CMD/PowerShell",
+      "passed": true,
+      "evidence": "'Для сравнения — в CMD и PowerShell работает оригинальный Windows-путь: yt-dlp -P \"D:/Downloads/YouTube/\"'"
+    }
+  ],
+  "passed": 3,
+  "total": 3,
+  "score": 1.0
+}

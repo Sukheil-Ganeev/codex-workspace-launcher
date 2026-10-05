@@ -1,0 +1,21 @@
+{
+  "run_id": "eval-6-time-segment-without_skill",
+  "expectations": [
+    {
+      "text": "Содержит --download-sections",
+      "passed": true,
+      "evidence": "--download-sections \"*0:00-3:00\" — есть, хотя формат немного другой"
+    },
+    {
+      "text": "Содержит корректный временной диапазон (00:03:00 или 0:03:00 или 3:00)",
+      "passed": true,
+      "evidence": "3:00 — есть в *0:00-3:00"
+    },
+    {
+      "text": "Содержит правильный путь D:/Downloads/YouTube/",
+      "passed": false,
+      "evidence": "Нет пути в основной команде. Первая команда — аудио (-x --audio-format mp3), что неправильно для запроса видео"
+    }
+  ],
+  "pass_rate": 0.67
+}

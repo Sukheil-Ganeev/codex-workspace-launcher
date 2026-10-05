@@ -1,0 +1,365 @@
+openapi: 3.0.3
+
+info:
+  title: "VIP-DXB-CatalogBot — [PLATFORM] Bot"
+  version: "1.0.0"
+  description: |
+    [PLATFORM] webhook receiver for VIP-DXB-CatalogBot.
+    Tourist excursion catalog bot for UAE (Dubai, Abu Dhabi, Ras Al Khaimah, Fujairah).
+
+    Supported platforms: Telegram, VK, Instagram, WhatsApp, Facebook, Viber, Max.
+
+    Security: POST /webhook requires HMAC-SHA256 signature verification.
+    Health: GET /health returns service status for Docker healthcheck.
+
+    Owner: VIP DXB | @Dubaiexursions_bot | Dubai, UAE
+  contact:
+    name: VIP DXB Support
+    url: https://t.me/Dubaiexursions_bot
+  license:
+    name: Proprietary
+    identifier: proprietary
+
+servers:
+  - url: "http://localhost:[PORT]"
+    description: "Local development (replace [PORT] with actual port)"
+    variables:
+      port:
+        default: "8081"
+        description: "IG:8081 | WA:8082 | FB:8083 | VB:8084 | MAX:8085"
+  - url: "https://[YOUR_DOMAIN]"
+    description: "Production — nginx reverse proxy to container"
+
+# Security applied by default to all endpoints that need verification
+# Override per-endpoint with security: [] to disable
+security:
+  - HmacSignature: []
+
+tags:
+  - name: Webhook
+    description: "Platform-specific webhook endpoints (verify + receive)"
+  - name: System
+    description: "Health checks and service info"
+
+paths:
+  /webhook:
+    get:
+      summary: "Webhook verification (GET)"
+      description: |
+        Platform calls this endpoint once to verify webhook ownership.
+        For Meta platforms (IG, WA, FB): returns hub.challenge if hub.verify_token matches.
+        For Viber: not used (Viber uses POST for all events including subscription).
+        For Max: returns challenge string.
+      operationId: verifyWebhook
+      tags: [Webhook]
+      security: []
+      parameters:
+        - name: "hub.mode"
+          in: query
+          required: false
+          description: "Meta only: always 'subscribe'"
+          schema:
+            type: string
+            enum: [subscribe]
+        - name: "hub.challenge"
+          in: query
+          required: false
+          description: "Meta only: random integer, must be echoed back"
+          schema:
+            type: integer
+        - name: "hub.verify_token"
+          in: query
+          required: false
+          description: "Meta only: must match VERIFY_TOKEN env var"
+          schema:
+            type: string
+      responses:
+        '200':
+          description: "Verification successful — returns challenge"
+          content:
+            text/plain:
+              schema:
+                type: integer
+                example: 1234567890
+        '403':
+          description: "Verification failed — token mismatch"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                detail: "Verification failed"
+
+    post:
+      summary: "Receive incoming messages (POST)"
+      description: |
+        Main webhook endpoint — receives all incoming events from the platform.
+
+        Processing flow:
+        1. Verify HMAC-SHA256 signature (header varies by platform)
+        2. Parse event type (text message, postback, quick reply, attachment)
+        3. Route to appropriate handler (catalog, booking, search, common)
+        4. Return HTTP 200 immediately (async processing continues after response)
+
+        IMPORTANT: Always returns 200. Never return 4xx/5xx to platforms —
+        they may disable the webhook on repeated errors.
+      operationId: receiveWebhook
+      tags: [Webhook]
+      requestBody:
+        required: true
+        description: "Platform-specific JSON payload"
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlatformPayload'
+            examples:
+              instagram_text:
+                summary: "Instagram — incoming text message"
+                value:
+                  object: "instagram"
+                  entry:
+                    - id: "17841400008460056"
+                      messaging:
+                        - sender:
+                            id: "7654321098"
+                          recipient:
+                            id: "17841400008460056"
+                          timestamp: 1709290000000
+                          message:
+                            mid: "m_abc123xyz"
+                            text: "Привет, что есть в Дубае?"
+              facebook_postback:
+                summary: "Facebook — Get Started button"
+                value:
+                  object: "page"
+                  entry:
+                    - id: "123456789"
+                      messaging:
+                        - sender:
+                            id: "7654321098"
+                          recipient:
+                            id: "123456789"
+                          timestamp: 1709290000000
+                          postback:
+                            title: "Get Started"
+                            payload: "GET_STARTED"
+              whatsapp_text:
+                summary: "WhatsApp — incoming text message"
+                value:
+                  object: "whatsapp_business_account"
+                  entry:
+                    - id: "123456789"
+                      changes:
+                        - value:
+                            messaging_product: "whatsapp"
+                            contacts:
+                              - profile:
+                                  name: "Ivan"
+                                wa_id: "971501234567"
+                            messages:
+                              - from: "971501234567"
+                                id: "wamid.abc123"
+                                timestamp: "1709290000"
+                                type: "text"
+                                text:
+                                  body: "Привет!"
+      responses:
+        '200':
+          description: "Always returns 200 — processing is async"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookResponse'
+              example:
+                status: ok
+        '403':
+          description: "Invalid HMAC signature — request rejected before processing"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /health:
+    get:
+      summary: "Health check"
+      description: |
+        Returns service health status.
+        Used by:
+        - Docker HEALTHCHECK in docker-compose.prod.yml
+        - nginx upstream health probing
+        - GitHub Actions smoke test after deploy
+      operationId: healthCheck
+      tags: [System]
+      security: []
+      responses:
+        '200':
+          description: "Service is healthy and accepting requests"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+              example:
+                status: ok
+                platform: instagram
+                version: "1.0.0"
+
+components:
+  securitySchemes:
+    HmacSignature:
+      type: apiKey
+      in: header
+      name: "X-Hub-Signature-256"
+      description: |
+        HMAC-SHA256 of raw request body.
+
+        Platform-specific header names:
+        - Instagram/Facebook/WhatsApp: X-Hub-Signature-256
+          Key: META_APP_SECRET (shared across IG/WA/FB)
+          Format: "sha256=<hex_digest>"
+        - Viber: X-Viber-Content-Signature
+          Key: VIBER_AUTH_TOKEN
+          Format: "<hex_digest>" (no prefix)
+        - Max: X-Max-Signature (TBD based on Max Bot API docs)
+          Key: MAX_APP_SECRET
+
+  schemas:
+    WebhookResponse:
+      type: object
+      description: "Standard success response for webhook POST"
+      required: [status]
+      properties:
+        status:
+          type: string
+          enum: [ok]
+          example: ok
+
+    HealthResponse:
+      type: object
+      required: [status, platform, version]
+      properties:
+        status:
+          type: string
+          enum: [ok, degraded, down]
+          example: ok
+        platform:
+          type: string
+          description: "Which bot platform this service handles"
+          example: instagram
+          enum: [instagram, whatsapp, facebook, viber, max, miniapp]
+        version:
+          type: string
+          description: "Service version from CHANGELOG.md"
+          example: "1.0.0"
+
+    ErrorResponse:
+      type: object
+      required: [detail]
+      properties:
+        detail:
+          type: string
+          description: "Human-readable error description"
+          example: "Verification failed"
+
+    # --- Platform payloads (generic schema — extend per platform) ---
+
+    PlatformPayload:
+      type: object
+      description: "Platform-specific webhook payload. Schema varies by platform."
+      properties:
+        object:
+          type: string
+          description: "Meta: 'instagram' | 'page' (FB) | 'whatsapp_business_account'. Viber/Max: varies."
+          example: "instagram"
+        entry:
+          type: array
+          items:
+            type: object
+          description: "Meta platforms: array of entry objects with messaging events"
+
+    # --- Mini App API schemas (if this is miniapp service) ---
+
+    BlockCard:
+      type: object
+      description: "Catalog block — excursion, ticket, or attraction"
+      required: [id, title, price, currency, category, emirate]
+      properties:
+        id:
+          type: integer
+          example: 42
+        title:
+          type: string
+          example: "Dubai Frame — входной билет"
+        description:
+          type: string
+          nullable: true
+          example: "Знаковая достопримечательность Дубая высотой 150 метров"
+        price:
+          type: number
+          format: float
+          example: 50.0
+        currency:
+          type: string
+          enum: [AED, USD]
+          example: AED
+        category:
+          type: string
+          example: attractions
+        emirate:
+          type: string
+          enum: [dubai, abudhabi, ras-al-khaimah, fujairah, sharjah, ajman, umm-al-quwain]
+          example: dubai
+        image_url:
+          type: string
+          nullable: true
+          format: uri
+          example: "https://storage.googleapis.com/vip-dxb/blocks/42.jpg"
+        rating:
+          type: number
+          format: float
+          nullable: true
+          minimum: 1.0
+          maximum: 5.0
+          example: 4.8
+
+    BookingRequest:
+      type: object
+      description: "New booking request body for POST /api/bookings"
+      required: [block_id, user_name, phone, date, adults]
+      properties:
+        block_id:
+          type: integer
+          example: 42
+          description: "ID from blocks table"
+        user_name:
+          type: string
+          minLength: 2
+          maxLength: 100
+          example: "Иван Петров"
+        phone:
+          type: string
+          example: "+971501234567"
+          description: "International format required"
+        date:
+          type: string
+          format: date
+          example: "2026-04-15"
+        adults:
+          type: integer
+          minimum: 1
+          maximum: 20
+          example: 2
+        children:
+          type: integer
+          minimum: 0
+          maximum: 20
+          example: 1
+        language:
+          type: string
+          enum: [ru, en, ar]
+          default: ru
+          example: ru
+        comment:
+          type: string
+          nullable: true
+          maxLength: 500
+          example: "Нужен трансфер из Marina"

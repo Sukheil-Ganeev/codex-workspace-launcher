@@ -1,0 +1,12 @@
+{
+    "tours": [
+        {"id": 1, "name": "Morning Safari", "price": 350, "currency": "AED", "duration": "5h"},
+        {"id": 2, "name": "Evening Safari", "price": 420, "currency": "AED", "duration": "6h"},
+        {"id": 3, "name": "Night Safari VIP", "price": 650, "currency": "AED", "duration": "7h"}
+    ],
+    "exchange_rates": {
+        "AED": 1,
+        "USD": 0.27,
+        "RUB": 27
+    }
+}

@@ -1,0 +1,1 @@
+CREATE TABLE subscriptions (id SERIAL PRIMARY KEY, customer_email VARCHAR(255), stripe_subscription_id VARCHAR(255), status VARCHAR(50));

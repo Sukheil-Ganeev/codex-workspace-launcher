@@ -1,0 +1,70 @@
+{
+  "expectations": [
+    {
+      "text": "Output classifies files into three named tiers: Essential, On-demand, and Archive",
+      "passed": true,
+      "evidence": "Output contains three clearly labeled sections: 'TIER 1: ESSENTIAL (~800 токенов в сессии)', 'TIER 2: ON-DEMAND (~500 токенов каждый, читать по запросу)', and 'TIER 3: ARCHIVE (0 токенов автозагрузки, в .claudeignore)'. Each tier has a dedicated table listing classified files."
+    },
+    {
+      "text": "Output provides at least one numeric token estimate (e.g. '~800 токенов' or similar)",
+      "passed": true,
+      "evidence": "Output is dense with token estimates. Examples: CLAUDE.md '~2 228' tokens, TIER 1 target '~800 токенов', total 'СУММАРНО (до): ~75 456 токенов', ON-DEMAND total '~23 852 токенов', ARCHIVE total '~49 444 токенов', and savings summary '~3 800 токенов vs ~52 000 токенов'. metrics.json also confirms estimated totals."
+    },
+    {
+      "text": "Output suggests .claudeignore content or archiving strategy",
+      "passed": true,
+      "evidence": "Output contains a full section 'ГЕНЕРИРУЕМЫЙ .claudeignore' with ready-to-use .claudeignore file content including 14 entries covering: docs/plans/, docs/audit_*.md, COMMAND_AUDIT files, v1 docs, redesign docs, one-time reports, and methodology docs. metrics.json confirms claudeignore_entries: 14."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "files_analyzed": 37,
+    "root_md_files": 3,
+    "docs_md_files": 34,
+    "total_lines": 18869,
+    "total_tokens_estimated": 75456,
+    "essential_files": 1,
+    "essential_tokens_before": 2228,
+    "essential_tokens_after": 800,
+    "ondemand_files": 13,
+    "ondemand_tokens_total": 23852,
+    "archive_files": 23,
+    "archive_tokens_total": 49444,
+    "claudeignore_entries": 14,
+    "tool_calls_total": 16,
+    "output_chars": 7842,
+    "output_lines": 218,
+    "anti_patterns_found": 6
+  },
+  "timing": {
+    "total_tokens": 59760,
+    "duration_ms": 256525,
+    "total_duration_seconds": 256.5
+  },
+  "claims": [
+    "37 files analyzed across root + docs/",
+    "~75 456 total tokens before optimization",
+    "~800 tokens target for CLAUDE.md (Essential tier)",
+    "~23 852 tokens in ON-DEMAND tier (13 files)",
+    "~49 444 tokens in ARCHIVE tier (23 files)",
+    "~64% savings on auto-load per session (2228 → 800 tokens)",
+    "~93% savings in typical working session (52000 → 3800 tokens)",
+    "14 .claudeignore entries generated",
+    "6 anti-patterns identified"
+  ],
+  "eval_feedback": {
+    "suggestions": [
+      "Output is exemplary: all three tiers are named and clearly defined with separate tables.",
+      "Token estimates are pervasive and specific — every file gets an individual estimate, plus tier totals and session-level summaries.",
+      ".claudeignore content is production-ready: copy-paste ready with comments, grouped by category.",
+      "The 'ЧТО ЗАГРУЖАЕТСЯ В КАЖДОЙ СЕССИИ' section adds practical value by showing before/after loading behavior.",
+      "metrics.json is well-structured and machine-readable, making automated grading straightforward."
+    ],
+    "overall": "Perfect score: 3/3. The output fully satisfies all three expectations with high quality. All files are classified into exactly the three required tiers with explicit names, extensive token estimates are provided at file, tier, and session levels, and a complete ready-to-use .claudeignore is generated with 14 entries grouped by archival reason."
+  }
+}

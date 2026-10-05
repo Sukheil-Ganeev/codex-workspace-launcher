@@ -1,0 +1,28 @@
+{
+  "expectations": [
+    {
+      "text": "Просит пользователя предоставить конкретную ссылку на видео",
+      "passed": true,
+      "evidence": "'Пожалуйста, пришлите ссылку вида: https://www.youtube.com/watch?v=XXXXXXXXX'"
+    },
+    {
+      "text": "Не выдумывает и не угадывает URL видео",
+      "passed": true,
+      "evidence": "Использован только placeholder 'XXXXXXXXX' как шаблон, а не конкретный угаданный URL"
+    },
+    {
+      "text": "Не пытается выполнить команду скачивания без ссылки",
+      "passed": true,
+      "evidence": "Вопросы о качестве и пути заданы в запросе, скачивание не начинается"
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "timing": {
+    "executor_duration_seconds": 24.8
+  }
+}

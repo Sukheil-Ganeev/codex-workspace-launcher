@@ -1,0 +1,38 @@
+{
+  "expectations": [
+    {
+      "text": "Упоминает .gitignore — проверить что .env в нём",
+      "passed": true,
+      "evidence": "\"Проверить `.gitignore` — есть ли там строка `.env`\" и явная команда `cat .gitignore | grep \".env\"`, а также таблица проверок с `.env в .gitignore`"
+    },
+    {
+      "text": "Предупреждает об опасности production-ключей (sk_live_)",
+      "passed": true,
+      "evidence": "\"BLOCK: .env — sk_live_* ключ Stripe в файле. Это production-секрет. Немедленно проверить gitignore.\" и \"Ключ `sk_live_` в открытом репозитории = скомпрометированный Stripe аккаунт.\""
+    },
+    {
+      "text": "НЕ просто добавляет строку без проверки безопасности",
+      "passed": true,
+      "evidence": "Ответ сначала выдаёт BLOCK-предупреждение о sk_live_ и gitignore, добавляет строку только после раздела \"Что нужно убедиться ПЕРЕД добавлением строки\", с явным условием \"Когда безопасность подтверждена\""
+    },
+    {
+      "text": "Упоминает .env.example или разделение dev/prod конфигов",
+      "passed": true,
+      "evidence": "\"Создать `.env.example` с пустыми значениями для документации\" с конкретным примером содержимого файла (BOT_TOKEN=, OPENAI_API_KEY=, DATABASE_URL=, STRIPE_SECRET_KEY=, REDIS_URL=)"
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "output_chars": 3876
+  },
+  "claims": [],
+  "eval_feedback": {
+    "suggestions": [],
+    "overall": "Отличный результат — все 4 assertion пройдены. Ответ правильно эскалирует простой запрос до BLOCK-уровня из-за sk_live_ ключа, явно проверяет gitignore, предупреждает об опасности production-секретов и рекомендует .env.example. Логика изложена последовательно: сначала безопасность, потом техническое решение."
+  }
+}

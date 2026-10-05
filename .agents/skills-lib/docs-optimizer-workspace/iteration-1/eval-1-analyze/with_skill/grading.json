@@ -1,0 +1,45 @@
+{
+  "eval_id": "eval-1-analyze",
+  "config": "with_skill",
+  "assertions": [
+    {
+      "id": "a1",
+      "description": "Output contains a Verification Score explicitly in N/5 format",
+      "passed": true,
+      "evidence": "Found score: 3/5"
+    },
+    {
+      "id": "a2",
+      "description": "Output identifies CLAUDE.md exceeding 300-400 line threshold as a critical problem",
+      "passed": true,
+      "evidence": "Found '557' + 'CLAUDE.md' mention"
+    },
+    {
+      "id": "a3",
+      "description": "Output includes a recommendations section with ranked items (HIGH/MEDIUM/LOW or приоритет)",
+      "passed": true,
+      "evidence": "Found recommendations with ranking"
+    },
+    {
+      "id": "a4",
+      "description": "Output contains antipattern codes in AP-XX format (e.g. AP-01, AP-02)",
+      "passed": true,
+      "evidence": "Found AP-XX: AP-01, AP-04, AP-20, AP-16, AP-10"
+    },
+    {
+      "id": "a5",
+      "description": "Output uses the specific score format N/5 (e.g. 2/5, 3/5) not percentage or other scales",
+      "passed": true,
+      "evidence": "Found N/5: 3/5"
+    },
+    {
+      "id": "a6",
+      "description": "Output lists at least 3 distinct AP-XX coded antipatterns with descriptions",
+      "passed": true,
+      "evidence": "Found 15 AP-XX: AP-01, AP-02, AP-03, AP-04, AP-09"
+    }
+  ],
+  "pass_rate": 1.0,
+  "passed": 6,
+  "total": 6
+}

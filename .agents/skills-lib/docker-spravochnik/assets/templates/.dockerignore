@@ -1,0 +1,68 @@
+# =============================================================================
+# .dockerignore -- Универсальный шаблон для Node.js + Python проектов
+# Docker Engine 29.x | Февраль 2026
+#
+# Копируй в корень проекта рядом с Dockerfile.
+# Уменьшает build context, ускоряет сборку, защищает секреты.
+# =============================================================================
+
+# --- Version control ---
+.git
+.gitignore
+.gitattributes
+
+# --- Dependencies (устанавливаются в контейнере) ---
+node_modules
+.npm
+__pycache__
+*.pyc
+*.pyo
+.venv
+venv
+.eggs
+*.egg-info
+
+# --- Environment и секреты ---
+.env
+.env.*
+!.env.example
+secrets/
+*.pem
+*.key
+*.crt
+
+# --- IDE ---
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# --- Docker (не нужны внутри контейнера) ---
+Dockerfile*
+docker-compose*
+compose*
+.dockerignore
+
+# --- Документация и тесты ---
+*.md
+LICENSE
+tests/
+docs/
+coverage/
+.pytest_cache
+.nyc_output
+htmlcov/
+
+# --- OS ---
+.DS_Store
+Thumbs.db
+
+# --- Логи ---
+*.log
+logs/
+
+# --- Build артефакты ---
+dist/
+build/
+*.tar.gz

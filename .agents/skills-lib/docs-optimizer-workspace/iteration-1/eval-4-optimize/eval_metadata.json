@@ -1,0 +1,12 @@
+{
+  "eval_id": 4,
+  "eval_name": "optimize-claude-md-shorten",
+  "prompt": "Оптимизируй CLAUDE.md в проекте D:/Downloads/TouristBotEcosystem/ — сделай его значительно короче",
+  "assertions": [
+    "Output proposes a condensed CLAUDE.md structure targeting 200-250 lines or mentions a significant reduction",
+    "Output includes explicit before/after line count or token count comparison",
+    "Output generates a draft outline or structure of an optimized CLAUDE.md",
+    "Output references AP-XX antipattern codes that the optimization addresses",
+    "Output classifies content into Essential, On-demand, and Archive tiers to justify what stays and what moves"
+  ]
+}

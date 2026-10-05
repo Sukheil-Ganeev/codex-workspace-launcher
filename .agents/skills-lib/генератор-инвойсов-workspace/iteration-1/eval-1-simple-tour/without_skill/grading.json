@@ -1,0 +1,16 @@
+{
+  "eval_id": 1,
+  "run": "without_skill",
+  "expectations": [
+    {"text": "Правильный номер инвойса (#26-047)", "passed": false, "evidence": "Показано '26-047' без символа # в поле Invoice #"},
+    {"text": "VAT рассчитан верно (9.50 USD = 190 × 0.05)", "passed": true, "evidence": "VAT (5%): $9.50 — математика верна"},
+    {"text": "Amount incl. VAT = 199.50 USD", "passed": true, "evidence": "TOTAL DUE: $199.50 — верно"},
+    {"text": "Реквизиты Marsel (не Sokol)", "passed": false, "evidence": "Компания 'VIP Dubai Tours' — неверное название, реквизиты Marsel отсутствуют"},
+    {"text": "Имя клиента в CAPS: PETROV ALEXEY", "passed": true, "evidence": "PETROV ALEXEY — написано заглавными"},
+    {"text": "Описание услуги содержит TOUR, DUBAI, 2 persons", "passed": false, "evidence": "Описание 'Dubai Tour' — не содержит PRIVATE, for 2 persons, нет шаблонного форматирования"}
+  ],
+  "pass_count": 3,
+  "total_count": 6,
+  "pass_rate": 0.5,
+  "notes": "Критические провалы: неверная компания (VIP Dubai Tours вместо Marsel), нет формата #26-047, описание услуги не следует шаблону скилла."
+}

@@ -1,0 +1,22 @@
+{
+  "expectations": [
+    {
+      "text": "Указывает /d/Downloads/YouTube/ как правильный Git Bash путь",
+      "passed": true,
+      "evidence": "'-o \"/d/Downloads/YouTube/%(title)s.%(ext)s\"' — в первом примере"
+    },
+    {
+      "text": "Объясняет трансформацию D:\\ → /d/ для Git Bash",
+      "passed": true,
+      "evidence": "'Правило простое: D:\\ → /d/, C:\\ → /c/'"
+    },
+    {
+      "text": "Различает поведение в Git Bash vs CMD/PowerShell",
+      "passed": false,
+      "evidence": "Описывает только Git Bash, CMD/PowerShell не упомянуты вообще"
+    }
+  ],
+  "passed": 2,
+  "total": 3,
+  "score": 0.667
+}

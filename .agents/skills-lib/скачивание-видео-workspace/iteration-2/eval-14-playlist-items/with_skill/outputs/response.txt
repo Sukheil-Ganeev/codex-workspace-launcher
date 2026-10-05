@@ -1,0 +1,20 @@
+Чтобы скачать только видео с 5 по 10 из плейлиста, используй флаг --playlist-items:
+
+yt-dlp --playlist-items 5-10 -P "D:/Downloads/YouTube/" -o "%(playlist)s/%(playlist_index)02d - %(title)s.%(ext)s" "youtube.com/playlist?list=PLxxx"
+
+Что делает каждый флаг:
+- --playlist-items 5-10 — скачивает только видео с позиции 5 по 10 включительно
+- -P "D:/Downloads/YouTube/" — сохраняет в стандартную папку
+- -o "%(playlist)s/%(playlist_index)02d - %(title)s.%(ext)s" — создаёт подпапку с именем плейлиста, файлы нумеруются (05 - Название.mp4)
+
+Если нужно лучшее качество в MP4:
+
+yt-dlp --playlist-items 5-10 -f "bv*[ext=mp4][height<=1080]+ba[ext=m4a]/b[ext=mp4]" --merge-output-format mp4 -P "D:/Downloads/YouTube/" -o "%(playlist)s/%(playlist_index)02d - %(title)s.%(ext)s" "youtube.com/playlist?list=PLxxx"
+
+Дополнительные варианты выбора видео из плейлиста:
+- --playlist-items 1,3,5,7     — конкретные номера через запятую
+- --playlist-items 1-5         — первые пять
+- --playlist-items -3:         — последние три
+- -I 1::2                      — каждое второе видео
+
+Файлы сохранятся в: D:/Downloads/YouTube/[Название плейлиста]/

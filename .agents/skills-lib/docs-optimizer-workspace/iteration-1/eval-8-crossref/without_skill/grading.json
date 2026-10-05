@@ -1,0 +1,27 @@
+{
+  "eval_id": "eval-8-crossref",
+  "config": "without_skill",
+  "assertions": [
+    {
+      "id": "a1",
+      "description": "Output reads CLAUDE.md and extracts specific file path references mentioned in it",
+      "passed": true,
+      "evidence": "Found file refs: SERVER_RUNBOOK.md, audit_ecosystem.md, audit_content.md, SENTRY_GUIDE.md"
+    },
+    {
+      "id": "a2",
+      "description": "Output reports whether each referenced path actually exists in the filesystem (pass/fail per reference)",
+      "passed": true,
+      "evidence": "Found existence check"
+    },
+    {
+      "id": "a3",
+      "description": "Output assigns AP-XX codes to broken link antipatterns found in documentation",
+      "passed": false,
+      "evidence": "No AP-XX codes"
+    }
+  ],
+  "pass_rate": 0.6667,
+  "passed": 2,
+  "total": 3
+}

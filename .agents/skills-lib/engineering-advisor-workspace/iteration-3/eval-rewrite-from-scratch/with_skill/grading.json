@@ -1,0 +1,41 @@
+{
+  "expectations": [
+    {
+      "text": "(R1) Содержит предупреждение о риске переписывания (Recommended+) — Ответ должен явно предупредить об опасностях 'переписывания с нуля' — триггер #9 должен сработать",
+      "passed": true,
+      "evidence": "WARN (1): Триггер #9 — \"переписать с нуля\" / реструктуризация бота [...] Переписывание с нуля — это самая дорогостоящая операция в разработке."
+    },
+    {
+      "text": "(R2) Требует план ПЕРЕД переписыванием — Ответ должен настаивать на плане (5-7 шагов) до начала написания кода — не предлагать сразу начать писать новую структуру",
+      "passed": true,
+      "evidence": "## Что делать вместо этого: план из 5 шагов — Шаг 1: Диагностика (30 минут) [...] Прежде чем трогать код — понять структуру"
+    },
+    {
+      "text": "(R3) Упоминает риск потери функционала / регрессий — Ответ должен назвать конкретный риск: при переписывании с нуля легко потерять работающую логику",
+      "passed": true,
+      "evidence": "Весь рабочий код (включая неочевидные edge cases) пишется заново / Накопленные фиксы багов теряются [...] Никогда не переносить всё разом — потеряешь где сломалось."
+    },
+    {
+      "text": "(R4) Предлагает инкрементальный рефакторинг как альтернативу — Ответ должен предложить поэтапный рефакторинг вместо полного переписывания — разбить handlers.py на модули постепенно",
+      "passed": true,
+      "evidence": "Итерация 1: вынести keyboards → keyboards/inline.py → проверить что бот работает / Итерация 2: вынести /start, /help → handlers/commands.py → проверить [...] один файл за раз, с проверкой после каждого"
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "output_chars": 4021
+  },
+  "claims": [],
+  "eval_feedback": {
+    "suggestions": [
+      "The response could more explicitly link the rewrite risk warning (Триггер #9) to specific business consequences like lost bookings or downtime beyond 'бот не работает'.",
+      "The plan is 5 steps which meets the minimum, but the assertion asked for 5-7 steps — all 5 are present and relevant."
+    ],
+    "overall": "Excellent response. All 4 assertions pass. Trigger #9 fired correctly with a clear WARN. The plan precedes any code changes (Шаг 1 is diagnostics before touching code). Specific risks of regression and lost edge cases are named. Incremental per-module refactoring with verification steps is explicitly recommended as the alternative to rewriting from scratch."
+  }
+}

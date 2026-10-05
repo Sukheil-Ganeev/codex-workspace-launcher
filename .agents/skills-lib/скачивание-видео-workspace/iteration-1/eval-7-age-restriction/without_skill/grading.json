@@ -1,0 +1,26 @@
+{
+  "run_id": "eval-7-age-restriction-without_skill",
+  "expectations": [
+    {
+      "text": "Содержит --cookies-from-browser",
+      "passed": true,
+      "evidence": "--cookies-from-browser chrome — есть"
+    },
+    {
+      "text": "Называет конкретный браузер (chrome, firefox, edge или brave)",
+      "passed": true,
+      "evidence": "chrome, firefox, edge, brave — упоминаются"
+    },
+    {
+      "text": "Объясняет зачем нужны cookies (авторизация/возраст)",
+      "passed": true,
+      "evidence": "Объясняет: 'YouTube проверяет, вошёл ли ты в аккаунт и подтвердил ли возраст'"
+    },
+    {
+      "text": "Содержит правильный путь D:/Downloads/YouTube/",
+      "passed": false,
+      "evidence": "Нет пути D:/Downloads/YouTube/. Пример: -o \"D:/Downloads/%(title)s.%(ext)s\""
+    }
+  ],
+  "pass_rate": 0.75
+}

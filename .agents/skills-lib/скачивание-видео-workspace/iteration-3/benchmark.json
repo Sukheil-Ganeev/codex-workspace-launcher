@@ -1,0 +1,105 @@
+{
+  "metadata": {
+    "skill_name": "скачивание-видео",
+    "skill_path": "C:/Users/londo/.claude/skills/скачивание-видео",
+    "executor_model": "claude-sonnet-4-6",
+    "timestamp": "2026-03-05T05:20:00Z",
+    "evals_run": [17, 18, 19, 20],
+    "runs_per_configuration": 1,
+    "description": "Дискриминирующие тесты — уникальные знания скилла (Git Bash, конфиг, deno, max quality MP4)"
+  },
+  "results": {
+    "with_skill": {
+      "score": 1.0,
+      "passed": 12,
+      "total": 12,
+      "evals": [
+        {
+          "eval_id": 17,
+          "eval_name": "git-bash-path-transformation",
+          "passed": 3,
+          "total": 3,
+          "score": 1.0,
+          "timing": {"total_tokens": 38033, "duration_ms": 51851}
+        },
+        {
+          "eval_id": 18,
+          "eval_name": "config-file-location-and-setup",
+          "passed": 3,
+          "total": 3,
+          "score": 1.0,
+          "timing": {"total_tokens": 32861, "duration_ms": 42238}
+        },
+        {
+          "eval_id": 19,
+          "eval_name": "youtube-bot-check-deno-runtime",
+          "passed": 3,
+          "total": 3,
+          "score": 1.0,
+          "timing": {"total_tokens": 33079, "duration_ms": 40982}
+        },
+        {
+          "eval_id": 20,
+          "eval_name": "max-quality-mp4-full-command",
+          "passed": 3,
+          "total": 3,
+          "score": 1.0,
+          "timing": {"total_tokens": 33232, "duration_ms": 36570}
+        }
+      ]
+    },
+    "without_skill": {
+      "score": 0.667,
+      "passed": 8,
+      "total": 12,
+      "evals": [
+        {
+          "eval_id": 17,
+          "eval_name": "git-bash-path-transformation",
+          "passed": 2,
+          "total": 3,
+          "score": 0.667,
+          "failed_assertions": ["Различает поведение в Git Bash vs CMD/PowerShell"],
+          "timing": {"total_tokens": 21096, "duration_ms": 35796}
+        },
+        {
+          "eval_id": 18,
+          "eval_name": "config-file-location-and-setup",
+          "passed": 2,
+          "total": 3,
+          "score": 0.667,
+          "failed_assertions": ["Упоминает что конфиг уже настроен с нужными параметрами"],
+          "timing": {"total_tokens": 21519, "duration_ms": 42437}
+        },
+        {
+          "eval_id": 19,
+          "eval_name": "youtube-bot-check-deno-runtime",
+          "passed": 2,
+          "total": 3,
+          "score": 0.667,
+          "failed_assertions": ["Упоминает deno runtime как решение для YouTube JS challenges"],
+          "timing": {"total_tokens": 21501, "duration_ms": 37983}
+        },
+        {
+          "eval_id": 20,
+          "eval_name": "max-quality-mp4-full-command",
+          "passed": 2,
+          "total": 3,
+          "score": 0.667,
+          "failed_assertions": ["Указывает путь D:/Downloads/YouTube/"],
+          "timing": {"total_tokens": 21129, "duration_ms": 30538}
+        }
+      ]
+    }
+  },
+  "summary": {
+    "delta": 0.333,
+    "with_skill_score": 1.0,
+    "without_skill_score": 0.667,
+    "improvement_percentage": 33.3,
+    "consistent_failures_without_skill": [
+      "Все 4 теста провалили по 1 assertion каждый",
+      "Главный паттерн: уникальные знания этой системы (deno, конфиг, Git Bash vs CMD, точный путь)"
+    ]
+  }
+}

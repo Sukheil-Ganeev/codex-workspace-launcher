@@ -1,0 +1,4 @@
+interface:
+  display_name: "Adapter Chat Factory"
+  short_description: "Safe 10-chat adapter factory workflow"
+  default_prompt: "Use $adapter-parallel-chat-factory-safe to split adapter work across isolated Codex chats."

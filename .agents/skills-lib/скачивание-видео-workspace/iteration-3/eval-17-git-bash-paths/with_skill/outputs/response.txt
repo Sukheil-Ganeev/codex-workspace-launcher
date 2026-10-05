@@ -1,0 +1,39 @@
+Вопрос: как правильно указать путь D:/Downloads/YouTube/ в yt-dlp при запуске из Git Bash на Windows?
+
+---
+
+При запуске yt-dlp из Git Bash Windows-пути нужно трансформировать по следующему правилу:
+
+  D:\  →  /d/
+  C:\  →  /c/
+  \    →  /
+
+То есть твой путь D:/Downloads/YouTube/ в Git Bash записывается так:
+
+  /d/Downloads/YouTube/
+
+Правильная команда для Git Bash:
+
+  yt-dlp -P "/d/Downloads/YouTube/" "URL"
+
+Для сравнения — в CMD и PowerShell работает оригинальный Windows-путь:
+
+  yt-dlp -P "D:/Downloads/YouTube/" "URL"
+
+Важно: в Git Bash именно /d/ (с буквой диска в нижнем регистре и слэшами), а не D:/ и не /D/.
+
+Примеры с трансформированным путём для Git Bash:
+
+# Скачать видео лучшего качества
+yt-dlp -P "/d/Downloads/YouTube/" "URL"
+
+# Скачать в MP4 1080p
+yt-dlp -f "bv*[ext=mp4][height<=1080]+ba[ext=m4a]/b[ext=mp4]" --merge-output-format mp4 -P "/d/Downloads/YouTube/" "URL"
+
+# Извлечь аудио в MP3
+yt-dlp -x --audio-format mp3 --audio-quality 0 -P "/d/Downloads/YouTube/" "URL"
+
+# Скачать плейлист
+yt-dlp -P "/d/Downloads/YouTube/" -o "%(playlist)s/%(playlist_index)02d - %(title)s.%(ext)s" "PLAYLIST_URL"
+
+Кстати: если путь по умолчанию уже прописан в конфиге (%APPDATA%\yt-dlp\config), флаг -P можно вообще не указывать — конфиг сработает автоматически независимо от того, из какого шелла запускаешь.

@@ -1,0 +1,37 @@
+%%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#2F3437', 'primaryTextColor': '#fff', 'primaryBorderColor': '#E16259', 'lineColor': '#E16259'}}}%%
+sequenceDiagram
+    participant Dev as Разработчик
+    participant Notion as notion.so/profile/integrations
+    participant App as Приложение
+    participant API as Notion API<br/>api.notion.com/v1
+    participant User as Пользователь<br/>(OAuth)
+
+    rect rgb(240, 240, 240)
+        Note over Dev, API: Internal Integration (для одного workspace)
+        Dev->>Notion: 1. Создать интеграцию
+        Notion-->>Dev: 2. Получить токен ntn_***
+        Dev->>Notion: 3. Share страницы/БД с интеграцией
+        App->>API: 4. Authorization: Bearer ntn_***<br/>Notion-Version: 2025-09-03
+        API-->>App: 5. JSON response
+        Note over App, API: Токен не истекает<br/>Capabilities настраиваются при создании
+    end
+
+    rect rgb(230, 245, 255)
+        Note over Dev, User: Public Integration (OAuth 2.0, для чужих workspaces)
+        Dev->>Notion: 1. Создать Public Integration<br/>(redirect_uri, client_id, client_secret)
+        User->>API: 2. GET /oauth/authorize<br/>?client_id=...&response_type=code<br/>&owner=user&redirect_uri=...
+        API-->>User: 3. Показать Consent Screen
+        User->>App: 4. Redirect с ?code=AUTH_CODE
+        App->>API: 5. POST /oauth/token<br/>Basic: base64(client_id:client_secret)<br/>grant_type=authorization_code&code=AUTH_CODE
+        API-->>App: 6. access_token + workspace_id + bot_id
+        App->>API: 7. Authorization: Bearer {access_token}
+        API-->>App: 8. JSON response
+        Note over App, API: Можно отозвать:<br/>POST /oauth/revoke
+    end
+
+    rect rgb(255, 245, 230)
+        Note over Dev, API: Обязательные заголовки (оба метода)
+        App->>API: Authorization: Bearer {token}
+        App->>API: Notion-Version: 2025-09-03
+        App->>API: Content-Type: application/json
+    end

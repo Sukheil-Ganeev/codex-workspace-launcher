@@ -1,0 +1,28 @@
+{
+  "eval_name": "eval-fix-loop",
+  "config": "without_skill",
+  "expectations": [
+    {
+      "text": "F1: Распознаёт петлю ошибок (3+ раза)",
+      "passed": true,
+      "evidence": "Чтобы это не повторялось в четвёртый раз / Ты правишь симптом, а не причину"
+    },
+    {
+      "text": "F2: Предлагает проверить определение dataclass/NamedTuple",
+      "passed": false,
+      "evidence": "dataclass и NamedTuple не упомянуты. Предлагается print(dir(result)) или print(result.__dict__)"
+    },
+    {
+      "text": "F3: Объясняет ПОЧЕМУ ошибка повторяется",
+      "passed": true,
+      "evidence": "Ты правишь handlers.py, но в проекте может быть несколько файлов / Ты правишь симптом, а не причину"
+    },
+    {
+      "text": "F4: Упоминает поиск по всему проекту (grep/search)",
+      "passed": true,
+      "evidence": "Найди класс PipelineResult в коде (поиском по проекту) или в документации библиотеки"
+    }
+  ],
+  "pass_rate": 0.75,
+  "notes": "3 из 4 assertion пройдены. Ответ без скилла распознаёт петлю и объясняет причину, предлагает поиск по проекту, но не упоминает конкретно dataclass/NamedTuple определение — ключевой технический момент. MagicMock проблема не выявлена."
+}

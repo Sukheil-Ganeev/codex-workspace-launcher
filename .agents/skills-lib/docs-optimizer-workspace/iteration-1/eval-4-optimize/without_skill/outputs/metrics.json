@@ -1,0 +1,101 @@
+{
+  "file_analyzed": "D:/Downloads/TouristBotEcosystem/CLAUDE.md",
+  "original_lines": 557,
+  "target_lines": 155,
+  "reduction_percent": 72,
+  "sections_analyzed": [
+    {
+      "name": "Статус проекта",
+      "lines": 8,
+      "action": "сократить",
+      "lines_after": 8,
+      "note": "Убрать детали из ячеек, оставить версию и дату"
+    },
+    {
+      "name": "Стандарты дизайна",
+      "lines": 9,
+      "action": "оставить",
+      "lines_after": 9
+    },
+    {
+      "name": "Источники READ-ONLY",
+      "lines": 6,
+      "action": "оставить",
+      "lines_after": 6
+    },
+    {
+      "name": "Архитектура (дерево файлов)",
+      "lines": 315,
+      "action": "заменить таблицей подсистем",
+      "lines_after": 16,
+      "savings": 299
+    },
+    {
+      "name": "Статистика",
+      "lines": 18,
+      "action": "оставить",
+      "lines_after": 18
+    },
+    {
+      "name": "Команды",
+      "lines": 41,
+      "action": "оставить",
+      "lines_after": 41
+    },
+    {
+      "name": "AI Backends",
+      "lines": 9,
+      "action": "оставить",
+      "lines_after": 9
+    },
+    {
+      "name": "Зависимости",
+      "lines": 28,
+      "action": "удалить",
+      "lines_after": 0,
+      "savings": 28,
+      "reason": "Дублирует requirements.txt"
+    },
+    {
+      "name": "Бизнес-контекст",
+      "lines": 6,
+      "action": "оставить",
+      "lines_after": 6
+    },
+    {
+      "name": "Деплой GCP",
+      "lines": 36,
+      "action": "оставить (таблица уже компактна)",
+      "lines_after": 36
+    },
+    {
+      "name": "Cloudflare Tunnel",
+      "lines": 47,
+      "action": "сократить до 2 строк, инструкцию перенести в docs/DEPLOY_NOTES.md",
+      "lines_after": 2,
+      "savings": 45
+    },
+    {
+      "name": "Открытые проблемы",
+      "lines": 8,
+      "action": "оставить",
+      "lines_after": 8
+    },
+    {
+      "name": "План миграции",
+      "lines": 3,
+      "action": "оставить",
+      "lines_after": 3
+    }
+  ],
+  "top_savings": [
+    { "section": "Архитектура (дерево файлов)", "saved_lines": 299 },
+    { "section": "Cloudflare Tunnel (инструкция)", "saved_lines": 45 },
+    { "section": "Зависимости", "saved_lines": 28 }
+  ],
+  "new_files_to_create": [
+    "D:/Downloads/TouristBotEcosystem/docs/DEPLOY_NOTES.md"
+  ],
+  "approach": "manual_analysis",
+  "uses_skill": false
+}

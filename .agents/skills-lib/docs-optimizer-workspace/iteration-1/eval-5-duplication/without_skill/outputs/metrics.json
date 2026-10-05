@@ -1,0 +1,34 @@
+{
+  "task": "duplication_analysis",
+  "project": "D:/Downloads/TouristBotEcosystem/",
+  "files_examined": 39,
+  "duplication_groups_found": 10,
+  "total_files_involved_in_duplication": 21,
+  "duplication_by_type": {
+    "verbatim_copy": 6,
+    "overlapping_coverage": 2,
+    "partial_duplicates": 2
+  },
+  "most_duplicated_topics": [
+    "GCP deploy parameters (6 files)",
+    "Business context / team composition (5 files)",
+    "AI cascade description (5 files)",
+    "Bot table (4 files)",
+    "Project statistics (4 files)"
+  ],
+  "critical_issues": [
+    "ARCHITECTURE.md vs ARCHITECTURE_v1.md — identical content, v1 is redundant",
+    "DEPLOY.md (Oracle Cloud) vs DEPLOY_GCP.md (Google Cloud) — project uses GCP, DEPLOY.md is stale",
+    "Project statistics out of sync across 4 files (970 vs 1042 vs 1050 vs 1263 tests)",
+    "SSH command duplicated in 3 files — fragile if IP changes"
+  ],
+  "files_with_most_duplication": [
+    "CLAUDE.md",
+    "docs/ARCHITECTURE.md",
+    "docs/ARCHITECTURE_v1.md",
+    "docs/PROJECT_ACCOMPLISHMENTS.md",
+    "docs/DEPLOY_GCP.md",
+    "docs/SERVER_RUNBOOK.md",
+    "docs/CICD_SETUP.md"
+  ]
+}

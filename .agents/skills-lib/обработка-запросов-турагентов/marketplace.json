@@ -1,0 +1,86 @@
+{
+  "name": "обработка-запросов-турагентов",
+  "version": "2.0.0",
+  "description": "Полное руководство по обработке запросов от турагентов и клиентов на туристические продукты в ОАЭ. Используй когда нужно подготовить карточку товара (тур, ресторан, билеты) для WhatsApp или Telegram, обработать запрос на расчёт стоимости, или ответить на вопросы о продуктах.",
+  "author": "Tourism Content Team",
+  "license": "MIT",
+  "language": "ru",
+  "keywords": [
+    "туризм",
+    "турагент",
+    "ОАЭ",
+    "Дубай",
+    "WhatsApp",
+    "Telegram",
+    "форматирование",
+    "карточки товаров",
+    "туры",
+    "экскурсии",
+    "рестораны",
+    "билеты",
+    "аттракционы"
+  ],
+  "triggers": [
+    "запрос турагента",
+    "карточка товара",
+    "тур в",
+    "экскурсия в",
+    "ресторан",
+    "ужин с шоу",
+    "dhow cruise",
+    "сафари",
+    "билеты в",
+    "aquaventure",
+    "img worlds",
+    "dubai parks",
+    "burj khalifa",
+    "для whatsapp",
+    "для telegram",
+    "расчёт стоимости",
+    "сколько стоит"
+  ],
+  "files": {
+    "main": "SKILL.md",
+    "templates": [
+      "assets/templates/tour-whatsapp.txt",
+      "assets/templates/tour-telegram.txt",
+      "assets/templates/restaurant-whatsapp.txt",
+      "assets/templates/restaurant-telegram.txt",
+      "assets/templates/menu-whatsapp.txt",
+      "assets/templates/menu-telegram.txt",
+      "assets/templates/tickets-whatsapp.txt",
+      "assets/templates/tickets-telegram.txt"
+    ],
+    "examples": [
+      "assets/examples/tour-abudhabi-whatsapp.txt",
+      "assets/examples/tour-safari-telegram.txt",
+      "assets/examples/restaurant-dhowcruise-whatsapp.txt",
+      "assets/examples/menu-dhowcruise-whatsapp.txt",
+      "assets/examples/tickets-aquaventure-whatsapp.txt"
+    ],
+    "references": [
+      "references/faq.md",
+      "references/troubleshooting.md",
+      "references/syntax-reference.md",
+      "references/cheatsheet.md"
+    ],
+    "scripts": [
+      "scripts/validate-whatsapp.py",
+      "scripts/validate-telegram.py",
+      "scripts/helpers.py"
+    ]
+  },
+  "dependencies": [],
+  "compatibleWith": {
+    "claudeCode": ">=1.0.0",
+    "python": ">=3.8"
+  },
+  "categories": [
+    "tourism",
+    "content-creation",
+    "messaging",
+    "customer-service"
+  ],
+  "createdAt": "2026-01-16",
+  "updatedAt": "2026-01-16"
+}

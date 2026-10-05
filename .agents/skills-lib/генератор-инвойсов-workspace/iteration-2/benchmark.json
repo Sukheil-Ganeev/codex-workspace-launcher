@@ -1,0 +1,72 @@
+{
+  "skill_name": "генератор-инвойсов",
+  "iteration": 2,
+  "configurations": [
+    {
+      "name": "with_skill",
+      "label": "Со скиллом",
+      "pass_rate": 1.0,
+      "pass_count": 16,
+      "total_assertions": 16,
+      "mean_duration_seconds": 44.0,
+      "stddev_duration_seconds": 20.8,
+      "mean_tokens": 30424,
+      "stddev_tokens": 2171
+    },
+    {
+      "name": "without_skill",
+      "label": "Без скилла (baseline)",
+      "pass_rate": 0.6875,
+      "pass_count": 11,
+      "total_assertions": 16,
+      "mean_duration_seconds": 18.0,
+      "stddev_duration_seconds": 2.1,
+      "mean_tokens": 18043,
+      "stddev_tokens": 87
+    }
+  ],
+  "delta": {
+    "pass_rate": "+31.3%",
+    "duration_seconds": "+26.0s (скилл медленнее — читает SKILL.md)",
+    "tokens": "+12381 (скилл использует больше токенов)"
+  },
+  "per_eval": [
+    {
+      "eval_id": 7,
+      "eval_name": "wrong-brand-sokol-tour",
+      "prompt_summary": "Sokol + экскурсия — неверный бренд",
+      "with_skill": {"pass_rate": 1.0, "passed": 3, "total": 3, "duration_seconds": 42.7, "tokens": 29618},
+      "without_skill": {"pass_rate": 0.0, "passed": 0, "total": 3, "duration_seconds": 21.0, "tokens": 18063}
+    },
+    {
+      "eval_id": 8,
+      "eval_name": "quantity-multi-tickets",
+      "prompt_summary": "10 билетов Dubai Aquarium по 35 USD",
+      "with_skill": {"pass_rate": 1.0, "passed": 5, "total": 5, "duration_seconds": 26.7, "tokens": 28893},
+      "without_skill": {"pass_rate": 1.0, "passed": 5, "total": 5, "duration_seconds": 15.8, "tokens": 17962}
+    },
+    {
+      "eval_id": 9,
+      "eval_name": "vat-rounding-dirty-numbers",
+      "prompt_summary": "Jeep Safari 237.33 USD — округление VAT",
+      "with_skill": {"pass_rate": 1.0, "passed": 3, "total": 3, "duration_seconds": 30.1, "tokens": 29116},
+      "without_skill": {"pass_rate": 1.0, "passed": 3, "total": 3, "duration_seconds": 17.4, "tokens": 17985}
+    },
+    {
+      "eval_id": 10,
+      "eval_name": "dirty-whatsapp-input",
+      "prompt_summary": "Грязный WhatsApp-запрос (рус, нет номера/даты)",
+      "with_skill": {"pass_rate": 1.0, "passed": 5, "total": 5, "duration_seconds": 76.6, "tokens": 34071},
+      "without_skill": {"pass_rate": 0.6, "passed": 3, "total": 5, "duration_seconds": 17.6, "tokens": 18162}
+    }
+  ],
+  "analyst_observations": [
+    "Тест 7 (wrong brand): скилл 100% vs baseline 0% — самый большой разрыв. Baseline создал 'SOKOL TOUR' с VAT=0%",
+    "Тест 8 (Quantity): оба 100% — базовая математика одинаково доступна без скилла",
+    "Тест 9 (VAT rounding): оба 100% — модель умеет округлять сама, скилл не добавляет ценности для чистых чисел",
+    "Тест 10 (dirty input): 100% vs 60% — baseline трактовал '220 без ндс' как AED per-person × 4 = 880 AED (4× ошибка суммы)",
+    "Главная ценность скилла: domain validation (правильный бренд) и нормализация грязного ввода (валюта, количество)",
+    "Тесты 8-9 — недискриминирующие: проходят оба варианта, смысла их держать в регрессии меньше",
+    "Итого по двум итерациям: со скиллом 49/49 = 100%, без скилла 33/49 = 67.3%, delta +32.7%"
+  ]
+}

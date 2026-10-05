@@ -1,0 +1,35 @@
+{
+  "expectations": [
+    {
+      "text": "has_create_table",
+      "passed": true,
+      "evidence": "Section '## 1. CREATE TABLE' contains 'CREATE TABLE IF NOT EXISTS reviews (' (line 62) and 'CREATE TABLE IF NOT EXISTS review_photos (' (line 129)"
+    },
+    {
+      "text": "has_indexes",
+      "passed": true,
+      "evidence": "Section '## 2. Indexes' contains 8 CREATE INDEX statements: idx_reviews_slug_status, idx_reviews_moderation, idx_reviews_category_status, idx_reviews_featured, idx_reviews_slug_rating, idx_reviews_unique_email_slug, idx_reviews_created, idx_review_photos_review (lines 153-200)"
+    },
+    {
+      "text": "has_erd",
+      "passed": true,
+      "evidence": "Section '## 3. Mermaid ERD' contains a ```mermaid block with 'erDiagram' keyword, defining reviews, review_photos, and services_static entities with relationships (lines 206-267)"
+    },
+    {
+      "text": "has_moderation_status",
+      "passed": true,
+      "evidence": "Defines 'CREATE TYPE review_status AS ENUM ('pending', 'approved', 'rejected');' (line 60) and the reviews table has 'moderation_status review_status NOT NULL DEFAULT 'pending'' (line 93)"
+    },
+    {
+      "text": "has_timestamptz",
+      "passed": true,
+      "evidence": "Multiple columns use TIMESTAMPTZ: moderated_at (line 96), responded_at (line 103), created_at (line 118), updated_at (line 119), deleted_at (line 120), and review_photos.created_at (line 145)"
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 0,
+    "total": 5,
+    "pass_rate": 1.0
+  }
+}

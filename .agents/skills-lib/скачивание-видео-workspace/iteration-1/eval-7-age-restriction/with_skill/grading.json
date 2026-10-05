@@ -1,0 +1,26 @@
+{
+  "run_id": "eval-7-age-restriction-with_skill",
+  "expectations": [
+    {
+      "text": "Содержит --cookies-from-browser",
+      "passed": true,
+      "evidence": "--cookies-from-browser chrome — есть"
+    },
+    {
+      "text": "Называет конкретный браузер (chrome, firefox, edge или brave)",
+      "passed": true,
+      "evidence": "chrome, firefox, edge, brave — все четыре варианта перечислены"
+    },
+    {
+      "text": "Объясняет зачем нужны cookies (авторизация/возраст)",
+      "passed": true,
+      "evidence": "Объясняет: 'yt-dlp читает cookies из Chrome (где ты залогинен в Google)' и условие подтверждения возраста"
+    },
+    {
+      "text": "Содержит правильный путь D:/Downloads/YouTube/",
+      "passed": true,
+      "evidence": "-P \"D:/Downloads/YouTube/\" — есть в основной команде"
+    }
+  ],
+  "pass_rate": 1.0
+}

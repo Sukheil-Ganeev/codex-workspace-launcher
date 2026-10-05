@@ -1,0 +1,20 @@
+*[X]BR VILLA | [AREA]*
+_[Short description]_
+───────────────
+*FEATURES*
+▫️ [X] bedrooms | [X] bathrooms
+▫️ BUA: [X,XXX] sq.ft.
+▫️ Plot: [X,XXX] sq.ft.
+▫️ Pool: [Private/Shared]
+
+*COMMUNITY: [NAME]*
+───────────────
+💰 *RENT: [XXX,XXX] AED/year*
+
+*INCLUDED*
+▫️ Furnishing: [Full/Partial/None]
+▫️ Gardener: [Yes/No]
+
+⚠️ Available from [DATE]
+
+*CONTACT:* [NAME] | [+971 XX XXX XXXX]

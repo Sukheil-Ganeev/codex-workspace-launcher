@@ -1,0 +1,40 @@
+{
+  "expectations": [
+    {
+      "text": "has_moscow",
+      "passed": true,
+      "evidence": "Section '4. MoSCoW Prioritization' with a table containing Must (6 items), Should (3 items), Could (2 items), Won't (3 items) priorities with rationale for each."
+    },
+    {
+      "text": "has_architecture",
+      "passed": true,
+      "evidence": "Section '5. Technical Design' with '5.1 Architecture' containing a mermaid flowchart showing state layer (useCompare hook), UI components (CompareCheckbox, CompareFloatingBar, CompareModal), existing components, and conversion flow. Also includes data flow sequence diagram."
+    },
+    {
+      "text": "has_mermaid",
+      "passed": true,
+      "evidence": "Three ```mermaid code blocks: (1) flowchart TD for architecture overview, (2) sequenceDiagram for data flow between User/ServiceCard/CompareCheckbox/Hook/FloatingBar/Modal/WhatsApp, (3) flowchart LR for task dependency graph."
+    },
+    {
+      "text": "has_component_design",
+      "passed": true,
+      "evidence": "Describes CompareCheckbox (states: unchecked/checked/disabled, 32x32, stopPropagation), CompareFloatingBar (fixed bottom, slide-up animation, thumbnails, IntersectionObserver hide), CompareModal (responsive CSS Grid, horizontal scroll on mobile, lazy loaded via next/dynamic). Also includes UseCompareReturn interface with compareSlugs, toggleCompare, isFull props."
+    },
+    {
+      "text": "has_task_breakdown",
+      "passed": true,
+      "evidence": "10 numbered tasks (TASK-001 through TASK-010) in 3 phases. Each has file path, description, and time estimate: TASK-001 (30min), TASK-002 (25min), TASK-003 (15min), TASK-004 (30min), TASK-005 (20min), TASK-006 (40min), TASK-007 (60min), TASK-008 (20min), TASK-009 (25min), TASK-010 (15min). Total ~5 hours."
+    },
+    {
+      "text": "task_size_ok",
+      "passed": true,
+      "evidence": "All 10 tasks are <= 60 minutes: 30, 25, 15, 30, 20, 40, 60, 20, 25, 15 minutes respectively. The largest task (TASK-007 CompareModal) is exactly 60 minutes."
+    }
+  ],
+  "summary": {
+    "passed": 6,
+    "failed": 0,
+    "total": 6,
+    "pass_rate": 1.0
+  }
+}

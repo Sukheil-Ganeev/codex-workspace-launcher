@@ -1,0 +1,43 @@
+{
+  "name": "html-css-reference-scripts",
+  "version": "1.0.0",
+  "description": "Automation scripts for HTML/CSS reference site",
+  "scripts": {
+    "lint:html": "node lint-html.js",
+    "lint:css": "node lint-css.js",
+    "lint": "npm run lint:html && npm run lint:css",
+    "minify": "node minify.js",
+    "optimize:images": "node image-optimizer.js",
+    "serve": "node serve.js",
+    "serve:open": "node serve.js --open",
+    "build": "node build.js",
+    "build:prod": "node build.js --minify --optimize-img --clean",
+    "deploy": "node deploy.js",
+    "deploy:prod": "node deploy.js --prod",
+    "test:links": "node test-links.js",
+    "test:links:external": "node test-links.js --external"
+  },
+  "keywords": [
+    "html",
+    "css",
+    "validator",
+    "minifier",
+    "build",
+    "deploy"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "html-validate": "^8.0.0",
+    "stylelint": "^15.0.0",
+    "stylelint-config-standard": "^34.0.0",
+    "html-minifier-terser": "^7.0.0",
+    "csso-cli": "^4.0.0",
+    "terser": "^5.0.0",
+    "imagemin": "^8.0.0",
+    "imagemin-mozjpeg": "^10.0.0",
+    "imagemin-pngquant": "^10.0.0",
+    "imagemin-webp": "^8.0.0",
+    "netlify-cli": "^17.0.0"
+  }
+}

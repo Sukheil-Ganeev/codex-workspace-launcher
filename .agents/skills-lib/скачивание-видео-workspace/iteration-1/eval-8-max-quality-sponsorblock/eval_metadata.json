@@ -1,0 +1,27 @@
+{
+  "eval_id": 8,
+  "eval_name": "max-quality-sponsorblock",
+  "prompt": "скачай видео в максимальном качестве, убери все рекламные вставки, встрой субтитры и обложку: youtube.com/watch?v=dQw4w9WgXcQ",
+  "assertions": [
+    {
+      "text": "Содержит --sponsorblock-remove all",
+      "check": "contains --sponsorblock-remove all"
+    },
+    {
+      "text": "Содержит --embed-subs (встроить субтитры)",
+      "check": "contains --embed-subs"
+    },
+    {
+      "text": "Содержит --embed-thumbnail (встроить обложку)",
+      "check": "contains --embed-thumbnail"
+    },
+    {
+      "text": "Содержит format-селектор для высокого качества (bv* или bestvideo)",
+      "check": "contains bv* or bestvideo"
+    },
+    {
+      "text": "Содержит правильный путь D:/Downloads/YouTube/",
+      "check": "contains D:/Downloads/YouTube/"
+    }
+  ]
+}

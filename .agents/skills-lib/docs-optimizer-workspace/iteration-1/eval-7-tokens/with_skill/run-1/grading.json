@@ -1,0 +1,50 @@
+{
+  "expectations": [
+    {
+      "text": "Output contains at least one specific numeric token count estimate for a file or total",
+      "passed": true,
+      "evidence": "The output contains numerous specific numeric token count estimates. Examples include: global CLAUDE.md ~1,972 tokens, parent CLAUDE.md ~8,107 tokens, project CLAUDE.md ~9,062 tokens, total startup ~19,141 tokens, docs/IDEAL_MASTER_PLAN.md 30,520 tokens, grand total 275,692 tokens, and many more per-file estimates throughout the tables."
+    },
+    {
+      "text": "Output provides a breakdown of token usage by file or section (not just a single total)",
+      "passed": true,
+      "evidence": "The output provides extensive per-file breakdown across multiple tables: (1) Session startup breakdown: 3 CLAUDE.md files with individual token counts (1,972 / 8,107 / 9,062); (2) Root-level files table: 5 files with individual token counts; (3) docs/ section table: 34 files each with individual token counts; (4) Summary table by category (Root MD files 56,496 / docs/ 219,196). The breakdown is thorough and multi-level."
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 0,
+    "total": 2,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "total_tokens_used": 61600,
+    "files_analyzed": 39,
+    "session_startup_tokens_estimated": 19141,
+    "grand_total_tokens_estimated": 275692,
+    "token_estimation_method": "ASCII chars / 4 + Cyrillic chars / 2"
+  },
+  "timing": {
+    "total_tokens": 61600,
+    "duration_ms": 327577,
+    "total_duration_seconds": 327.6
+  },
+  "claims": [
+    "Session startup costs ~19,141 tokens across 3 CLAUDE.md files",
+    "Project CLAUDE.md alone is 9,062 tokens (3.6x over ~2,500 token target)",
+    "Parent CLAUDE.md is 8,107 tokens with significant duplication",
+    "docs/ folder contains 34 files totaling ~219,196 tokens",
+    "Grand total of 275,692 tokens across 39 documentation files",
+    "Potential savings of ~12,169 tokens (~60-63%) with optimization",
+    "No .claudeignore file exists in the project"
+  ],
+  "eval_feedback": {
+    "suggestions": [
+      "Output is thorough and well-structured with consistent per-file token breakdowns",
+      "Both a tiered structure (session startup vs full repo) and per-file granularity are present",
+      "Methodology is explicitly stated (ASCII/4 + Cyrillic/2 formula), which adds credibility",
+      "Optimization recommendations are backed by specific numbers, not just vague advice"
+    ],
+    "overall": "Both expectations are fully met. The output excels at providing specific numeric token estimates at every level — individual files, sections (session startup / root files / docs/), and grand totals. The breakdown is multi-dimensional: by file, by category, and by loading tier (essential / on-demand / archive). This is a high-quality token analysis output."
+  }
+}

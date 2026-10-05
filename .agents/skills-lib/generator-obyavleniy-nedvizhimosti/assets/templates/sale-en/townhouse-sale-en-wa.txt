@@ -1,0 +1,30 @@
+*[X]BR TOWNHOUSE | [AREA]*
+_[Short description]_
+───────────────
+*FEATURES*
+▫️ [X] bedrooms | [X] bathrooms | [X] floors
+▫️ Built-up area: [X,XXX] sq.ft.
+▫️ Plot size: [X,XXX] sq.ft.
+▫️ Type: [End unit/Middle unit]
+▫️ Terrace/Balcony: [X] sq.ft.
+▫️ Parking: [X] cars (covered/open)
+
+*ADDITIONAL*
+▫️ Maid's room: [Yes/No]
+▫️ Storage: [Yes/No]
+▫️ Garden: [Private/Shared]
+
+*COMMUNITY: [NAME]*
+[Pool | Gym | Parks | School nearby]
+───────────────
+💰 *SALE: [X,XXX,XXX] AED*
+_(~$[XXX,XXX])_
+_Service charge: [X] AED/sq.ft._
+
+*DOCUMENTS*
+▫️ Title Deed: [Ready]
+▫️ Mortgage: [Available]
+
+⚠️ Viewing by appointment
+
+*CONTACT:* [NAME] | [+971 XX XXX XXXX]

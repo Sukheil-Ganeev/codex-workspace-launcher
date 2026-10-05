@@ -1,0 +1,25 @@
+Для скачивания видео с возрастным ограничением на YouTube нужно передать yt-dlp твои cookies из браузера — YouTube проверяет, вошёл ли ты в аккаунт и подтвердил ли возраст.
+
+Самый простой способ — передать cookies из браузера напрямую:
+
+```
+yt-dlp --cookies-from-browser chrome "youtube.com/watch?v=xxx"
+```
+
+Замени chrome на firefox, edge или brave — в зависимости от того, каким браузером пользуешься.
+
+Что происходит: yt-dlp читает cookies из твоего браузера (где ты уже залогинен в Google), YouTube видит авторизованного пользователя и снимает ограничение.
+
+Если не сработало — экспортируй cookies вручную. Для этого нужно расширение "Get cookies.txt LOCALLY" (Chrome/Firefox), затем:
+
+```
+yt-dlp --cookies cookies.txt "youtube.com/watch?v=xxx"
+```
+
+Важно: команду запускай из той папки, куда хочешь сохранить видео, или добавь -o "D:/Downloads/%(title)s.%(ext)s" чтобы указать путь явно.
+
+Полная команда с путём и качеством:
+
+```
+yt-dlp --cookies-from-browser chrome -o "D:/Downloads/%(title)s.%(ext)s" -f "bestvideo+bestaudio" "youtube.com/watch?v=xxx"
+```

@@ -1,0 +1,41 @@
+{
+  "expectations": [
+    {
+      "text": "(D1) Упоминает обновление requirements.txt (триггер #16)",
+      "passed": false,
+      "evidence": "Response only mentions 'pip install httpx' but never references requirements.txt or pip freeze > requirements.txt. The trigger to update the requirements file is completely absent."
+    },
+    {
+      "text": "(D2) Обнаруживает синхронный requests в async функции как проблему (триггер #20)",
+      "passed": true,
+      "evidence": "Line 5: 'requests — синхронная библиотека, она блокирует event loop в async-коде'. Table row explicitly states 'Синхронный вызов (блокирует loop)' vs 'Асинхронный вызов (не блокирует)'. The blocking nature is flagged as the core reason for the switch."
+    },
+    {
+      "text": "(D3) Предлагает async httpx клиент (httpx.AsyncClient)",
+      "passed": true,
+      "evidence": "Lines 19-20: 'async with httpx.AsyncClient() as client:' followed by 'response = await client.get(...)'. Multiple code examples all use AsyncClient with await."
+    },
+    {
+      "text": "(D4) НЕ просто переименовывает requests в httpx без async",
+      "passed": true,
+      "evidence": "Response correctly uses httpx.AsyncClient with await throughout all code examples. The function is async and uses await client.get(...), not a synchronous drop-in replacement."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 1,
+    "total": 4,
+    "pass_rate": 0.75
+  },
+  "execution_metrics": {
+    "output_chars": 1925
+  },
+  "claims": [],
+  "eval_feedback": {
+    "suggestions": [
+      "Add explicit mention of requirements.txt update: 'pip freeze > requirements.txt' or 'add httpx to requirements.txt' — this is a real-world step that's easy to forget.",
+      "The blocking-call detection (D2) is present but could be stronger — mentioning that it can cause bot freezes or timeouts would make the warning more impactful."
+    ],
+    "overall": "Strong response that correctly identifies the async/blocking issue and provides proper AsyncClient usage with multiple practical patterns (context manager, singleton client, error handling). The single gap is the missing requirements.txt update reminder, which is a common real-world oversight when adding new dependencies."
+  }
+}

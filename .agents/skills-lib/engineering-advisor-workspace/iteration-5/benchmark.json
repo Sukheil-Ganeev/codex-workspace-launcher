@@ -1,0 +1,316 @@
+{
+  "metadata": {
+    "skill_name": "engineering-advisor",
+    "skill_path": "C:/Users/londo/.claude/skills/engineering-advisor/SKILL.md",
+    "executor_model": "claude-sonnet-4-6",
+    "analyzer_model": "claude-sonnet-4-6",
+    "timestamp": "2026-03-05T05:00:00Z",
+    "evals_run": [22, 24, 25],
+    "runs_per_configuration": 1
+  },
+  "runs": [
+    {
+      "eval_id": 22,
+      "eval_name": "eval-monolithic-file",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "time_seconds": 99.3,
+        "tokens": 40766,
+        "tool_calls": 6,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "(M1) Обнаруживает триггер #22 — монолитный файл >1000 строк",
+          "passed": true,
+          "evidence": "Явный WARN 1: handlers.py — монолитный файл 1200 строк (Триггер #22, Advisory). Confirmed in metrics.json as #22_WARN."
+        },
+        {
+          "text": "(M2) Предлагает план разделения файла на модули ПЕРЕД добавлением нового кода",
+          "passed": true,
+          "evidence": "Refactoring plan с handlers/ directory structure появился в WARN секции до кода хэндлера. Код представлен последним как 'Минимальная версия (безопасная)'."
+        },
+        {
+          "text": "(M3) Упоминает конкретные модули для разделения (например: handlers_commands.py, handlers_callbacks.py, handlers_media.py)",
+          "passed": true,
+          "evidence": "Конкретные модули названы: commands.py, callbacks.py, media.py, services/transcription.py."
+        },
+        {
+          "text": "(M4) НЕ просто добавляет хэндлер без комментария про размер файла",
+          "passed": true,
+          "evidence": "Монолит назван 'классическим God Object' явно до предоставления любого кода."
+        }
+      ],
+      "notes": ["Бонус: также обнаружен BLOCK #20 — sync Whisper в async handler заблокирует event loop. 5 триггеров сработало одновременно."]
+    },
+    {
+      "eval_id": 22,
+      "eval_name": "eval-monolithic-file",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.0,
+        "passed": 0,
+        "failed": 4,
+        "total": 4,
+        "time_seconds": 25.7,
+        "tokens": 18908,
+        "tool_calls": 3,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "(M1) Обнаруживает триггер #22 — монолитный файл >1000 строк",
+          "passed": false,
+          "evidence": "Агент никогда не упомянул размер файла, порог >1000 строк или проблему монолита. 2 tool calls, 2 steps — файл не читался."
+        },
+        {
+          "text": "(M2) Предлагает план разделения файла на модули ПЕРЕД добавлением нового кода",
+          "passed": false,
+          "evidence": "Никакого плана рефакторинга. Ответ сразу предложил код с 'добавь в handlers.py после handle_document'."
+        },
+        {
+          "text": "(M3) Упоминает конкретные модули для разделения (например: handlers_commands.py, handlers_callbacks.py, handlers_media.py)",
+          "passed": false,
+          "evidence": "Никаких имён модулей не упомянуто вообще."
+        },
+        {
+          "text": "(M4) НЕ просто добавляет хэндлер без комментария про размер файла",
+          "passed": false,
+          "evidence": "Агент сделал именно то, против чего этот assertion: добавил хэндлер без единого комментария о размере файла."
+        }
+      ],
+      "notes": ["Технически правильный код (aiogram 3.x + Whisper, логирование) но полностью пропущен структурный анализ."]
+    },
+    {
+      "eval_id": 24,
+      "eval_name": "eval-memory-leak",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "time_seconds": 78.2,
+        "tokens": 35470,
+        "tool_calls": 4,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "(L1) Обнаруживает утечку памяти — словари растут без очистки (триггер #24)",
+          "passed": true,
+          "evidence": "Явный WARN с упоминанием триггера #24 и 'словари растут бесконечно'."
+        },
+        {
+          "text": "(L2) Предлагает механизм очистки (asyncio.create_task / threading.Timer / фоновый cleanup)",
+          "passed": true,
+          "evidence": "Реализован threading.Timer-based scheduler _start_cleanup_scheduler() с интервалом 300 сек."
+        },
+        {
+          "text": "(L3) Объясняет риск: бот работает неделями, словари накапливают мёртвые записи",
+          "passed": true,
+          "evidence": "'Через неделю работы бота словари могут содержать тысячи устаревших записей'."
+        },
+        {
+          "text": "(L4) НЕ просто добавляет третий лимит с той же проблемой без предупреждения",
+          "passed": true,
+          "evidence": "ai_limit_map добавлен одновременно с исправлением — cleanup охватывает все три словаря."
+        }
+      ],
+      "notes": ["Грейдер: L4 как негативное условие менее строго — лучше проверять что новый словарь включён в cleanup. Бонус: рефакторинг дублирующих функций в _check_rate() shared helper."]
+    },
+    {
+      "eval_id": 24,
+      "eval_name": "eval-memory-leak",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.0,
+        "passed": 0,
+        "failed": 4,
+        "total": 4,
+        "time_seconds": 21.3,
+        "tokens": 18856,
+        "tool_calls": 3,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "(L1) Обнаруживает утечку памяти — словари растут без очистки (триггер #24)",
+          "passed": false,
+          "evidence": "Добавлен третий словарь той же схемой без единого упоминания об утечке памяти или неограниченном росте."
+        },
+        {
+          "text": "(L2) Предлагает механизм очистки (asyncio.create_task / threading.Timer / фоновый cleanup)",
+          "passed": false,
+          "evidence": "Никакого механизма очистки не предложено."
+        },
+        {
+          "text": "(L3) Объясняет риск: бот работает неделями, словари накапливают мёртвые записи",
+          "passed": false,
+          "evidence": "Никакого объяснения риска. Ничего о long-running ботах, накоплении мёртвых записей, последствиях для памяти."
+        },
+        {
+          "text": "(L4) НЕ просто добавляет третий лимит с той же проблемой без предупреждения",
+          "passed": false,
+          "evidence": "Ответ скопировал существующий паттерн rate-limiting третий раз без какого-либо анализа структурной проблемы."
+        }
+      ],
+      "notes": ["Чисто механический ответ — copy-paste существующего паттерна."]
+    },
+    {
+      "eval_id": 25,
+      "eval_name": "eval-db-aggregation",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "time_seconds": 67.5,
+        "tokens": 34851,
+        "tool_calls": 4,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "(D1) Обнаруживает антипаттерн findMany + JS агрегация (триггер #25)",
+          "passed": true,
+          "evidence": "Явный WARN(1) и WARN(2) с пометкой 'Триггер #25: findMany + JS агрегация' для обоих мест в коде."
+        },
+        {
+          "text": "(D2) Предлагает prisma.order.groupBy() или prisma.order.count({ where }) как альтернативу",
+          "passed": true,
+          "evidence": "Код содержит prisma.order.groupBy(...) и prisma.customer.count({ where: ... }) в рабочем примере."
+        },
+        {
+          "text": "(D3) Объясняет проблему производительности — загрузка всех записей в память",
+          "passed": true,
+          "evidence": "'При 10,000 заказов — в память грузится 10,000 объектов', сравнение ~секунды vs ~миллисекунды."
+        },
+        {
+          "text": "(D4) НЕ просто добавляет ещё один orders.filter() без предупреждения",
+          "passed": true,
+          "evidence": "INFO-блок: 'НЕЛЬЗЯ выполнять в текущей архитектуре. Иначе добавим ещё три .filter() — это усугубит проблему'."
+        }
+      ],
+      "notes": ["Грейдер: нет assertion на то что фича (статусы) реально реализована, только предупреждение. Нет проверки валидности Prisma API синтаксиса."]
+    },
+    {
+      "eval_id": 25,
+      "eval_name": "eval-db-aggregation",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.0,
+        "passed": 0,
+        "failed": 4,
+        "total": 4,
+        "time_seconds": 24.3,
+        "tokens": 18433,
+        "tool_calls": 3,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "(D1) Обнаруживает антипаттерн findMany + JS агрегация (триггер #25)",
+          "passed": false,
+          "evidence": "Никогда не упомянул findMany + JS агрегация как проблему."
+        },
+        {
+          "text": "(D2) Предлагает prisma.order.groupBy() или prisma.order.count({ where }) как альтернативу",
+          "passed": false,
+          "evidence": "Никакой альтернативы не предложено."
+        },
+        {
+          "text": "(D3) Объясняет проблему производительности — загрузка всех записей в память",
+          "passed": false,
+          "evidence": "Никакого объяснения о загрузке всех записей в память."
+        },
+        {
+          "text": "(D4) НЕ просто добавляет ещё один orders.filter() без предупреждения",
+          "passed": false,
+          "evidence": "Добавил три новых orders.filter() для pending/confirmed/cancelled. Явно похвалил 'matching the same style as the rest of the code' — что и есть антипаттерн."
+        }
+      ],
+      "notes": ["Прямо похвалил антипаттерн как 'тот же стиль кода'. Ожидаемое поведение baseline."]
+    }
+  ],
+  "run_summary": {
+    "by_configuration": {
+      "with_skill": {
+        "pass_rate_mean": 1.0,
+        "pass_rate_stddev": 0.0,
+        "time_seconds_mean": 81.7,
+        "tokens_mean": 37029
+      },
+      "without_skill": {
+        "pass_rate_mean": 0.0,
+        "pass_rate_stddev": 0.0,
+        "time_seconds_mean": 23.8,
+        "tokens_mean": 18732
+      }
+    },
+    "delta": {
+      "pass_rate": "+1.00",
+      "time_seconds": "+57.9",
+      "tokens": "+18297"
+    }
+  },
+  "analyst_observations": [
+    "Все 12 assertions discriminating: with_skill 12/12, without_skill 0/12. Идеальный контраст — лучший возможный результат.",
+    "Тест #22 поймал бонусный BLOCK #20 (sync Whisper в async) — демонстрирует compound-эффект: один запрос активирует несколько триггеров.",
+    "Without_skill агент для #25 явно похвалил антипаттерн ('matching the same style') — сильная контрастная демонстрация.",
+    "Трейдоф производительности: with_skill в среднем 81.7 сек vs 23.8 сек без скилла (~3.4x медленнее, ~2x больше токенов). Оправдано качеством анализа.",
+    "Предупреждение грейдера: L4/D4 как негативные условия менее строги — можно усилить в следующей итерации.",
+    "Все assertions были по-настоящему discriminating (не как #12 N+1 в iteration-4 где оба прошли) — хороший дизайн eval-сета."
+  ],
+  "next_iteration_recommendations": {
+    "eval_improvements": [
+      {
+        "assertion": "L4 — НЕ просто добавляет третий лимит с той же проблемой",
+        "problem": "Негативное условие ('не делает X') менее строго — технически проходит если есть любое упоминание",
+        "fix": "Заменить на позитивный: '(L4+) Новый словарь ai_limit_map явно включён в cleanup-механизм (threading.Timer или asyncio)'"
+      },
+      {
+        "assertion": "D4 — НЕ просто добавляет ещё один orders.filter()",
+        "problem": "Не проверяет что фича (подсчёт по статусам) реально реализована — только что предупреждение было дано",
+        "fix": "Добавить '(D4+) Реализует подсчёт по статусам через prisma.order.groupBy() в рабочем коде'"
+      },
+      {
+        "assertion": "M2 — Предлагает план разделения ПЕРЕД добавлением нового кода",
+        "problem": "Грейдер отметил: в summary рефакторинг помечен как 'позже' — скилл даёт код несмотря на WARN",
+        "fix": "Уточнить assertion: '(M2+) Явно указывает что хэндлер нельзя добавлять пока файл не разбит на модули, OR помечает добавление как временное'",
+        "note": "Advisory-уровень (#22) по определению не блокирует — это ограничение скилла, не бага eval"
+      }
+    ],
+    "new_tests": [
+      {
+        "id": "compound-22-26",
+        "name": "Compound: монолит + дублирование утилит",
+        "prompt": "Добавь функцию расчёта комиссии в мой 1200-строчный handlers.py. Кстати, похожая функция уже есть в payments.py, orders.py и reports.py",
+        "triggers": ["#22 (монолитный файл)", "#26 (дублирование утилит в 3+ файлах)"],
+        "expected_level": "Advisory для #22 + Advisory для #26 → по правилу EXP-023 (5+ триггеров) оба → Recommended",
+        "key_assertions": [
+          "Обнаруживает ОБА триггера (#22 и #26)",
+          "Предлагает извлечь функцию в src/utils/ вместо добавления четвёртой копии",
+          "Предлагает план разбивки файла"
+        ]
+      }
+    ],
+    "skill_observations": [
+      "Compound-эффект работает: запрос #22 активировал BLOCK #20 бонусом — скилл читает код глубже чем ожидалось",
+      "Without_skill для #25 явно похвалил антипаттерн — возможно добавить в references/faq.md как демо-пример",
+      "Все assertions iteration-5 были discriminating (в отличие от #12 N+1 в iteration-4) — дизайн eval-сета улучшился"
+    ]
+  },
+  "notes": []
+}

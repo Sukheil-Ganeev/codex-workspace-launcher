@@ -1,0 +1,23 @@
+{
+  "eval_id": 1,
+  "eval_name": "simple-1080p",
+  "prompt": "скачай это видео с ютуба в 1080p MP4: youtube.com/watch?v=dQw4w9WgXcQ",
+  "assertions": [
+    {
+      "text": "Содержит правильный путь D:/Downloads/YouTube/",
+      "check": "contains D:/Downloads/YouTube/"
+    },
+    {
+      "text": "Содержит ограничение высоты 1080 (height<=1080 или height=1080)",
+      "check": "contains height<=1080 or height=1080"
+    },
+    {
+      "text": "Содержит --merge-output-format mp4",
+      "check": "contains --merge-output-format mp4"
+    },
+    {
+      "text": "Содержит корректный format-селектор с ext=mp4",
+      "check": "contains ext=mp4"
+    }
+  ]
+}

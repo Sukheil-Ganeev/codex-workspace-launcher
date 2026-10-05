@@ -1,0 +1,48 @@
+{
+  "_comment": "Конфигурация Notion MCP Server для Claude Code / Claude Desktop",
+  "_usage": {
+    "claude_code": "claude mcp add --transport http notion https://mcp.notion.com/mcp",
+    "claude_desktop": "Скопировать mcpServers в claude_desktop_config.json",
+    "note": "Hosted MCP (рекомендуемый) использует OAuth 2.1, Open-Source -- Bearer Token"
+  },
+
+  "mcpServers": {
+    "notion-hosted": {
+      "_description": "Hosted MCP Server (рекомендуемый, OAuth 2.1, Notion-Flavored Markdown)",
+      "_tools": "16 tools: search, fetch, create-pages, update-page, move-pages, duplicate-page, create-database, update-data-source, query-data-sources, query-database-view, create-comment, get-comments, get-teams, get-users, get-user, get-self",
+      "_limitations": "Нельзя: удалять БД, загружать файлы, block-level комментарии, управлять webhook-подписками",
+      "transport": "http",
+      "url": "https://mcp.notion.com/mcp"
+    },
+
+    "notion-opensource": {
+      "_description": "Open-Source MCP Server (Bearer Token, JSON output, NOT actively maintained)",
+      "command": "npx",
+      "args": ["-y", "@notionhq/notion-mcp-server"],
+      "env": {
+        "NOTION_TOKEN": "ntn_YOUR_TOKEN_HERE"
+      }
+    }
+  },
+
+  "claude_code_commands": {
+    "add_hosted": "claude mcp add --transport http notion https://mcp.notion.com/mcp",
+    "add_opensource": "claude mcp add notion -- npx -y @notionhq/notion-mcp-server",
+    "list": "claude mcp list",
+    "remove": "claude mcp remove notion"
+  },
+
+  "environment_variables": {
+    "NOTION_TOKEN": {
+      "description": "Internal Integration token",
+      "format": "ntn_*** (ранее secret_***)",
+      "where": "https://www.notion.so/profile/integrations",
+      "required_for": "Open-Source MCP, JS SDK, Python SDK, REST API"
+    },
+    "NOTION_VERSION": {
+      "description": "API Version header",
+      "value": "2025-09-03",
+      "note": "Обязательный заголовок для всех API запросов"
+    }
+  }
+}

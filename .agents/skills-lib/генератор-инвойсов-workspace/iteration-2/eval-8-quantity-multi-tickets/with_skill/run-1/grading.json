@@ -1,0 +1,35 @@
+{
+  "eval_id": 8,
+  "eval_name": "quantity-multi-tickets",
+  "run_type": "with_skill",
+  "expectations": [
+    {
+      "text": "Quantity = 10",
+      "passed": true,
+      "evidence": "Quantity: 10 tickets явно указано в таблице"
+    },
+    {
+      "text": "Unit Price = 35.00 USD",
+      "passed": true,
+      "evidence": "Unit Price: 35,00 USD"
+    },
+    {
+      "text": "Amount = 350.00 USD",
+      "passed": true,
+      "evidence": "Amount (Excl. VAT): 350,00 USD (10 × 35 = 350)"
+    },
+    {
+      "text": "VAT = 17.50 USD",
+      "passed": true,
+      "evidence": "VAT 5%: 17,50 USD (350 × 0.05 = 17.50)"
+    },
+    {
+      "text": "Total incl. VAT = 367.50 USD",
+      "passed": true,
+      "evidence": "Amount (Incl. VAT): 367,50 USD (350 + 17.50 = 367.50)"
+    }
+  ],
+  "pass_count": 5,
+  "total_count": 5,
+  "pass_rate": 1.0
+}

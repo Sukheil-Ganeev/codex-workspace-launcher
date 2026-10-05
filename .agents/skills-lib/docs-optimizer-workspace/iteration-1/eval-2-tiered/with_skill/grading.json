@@ -1,0 +1,51 @@
+{
+  "eval_id": "eval-2-tiered",
+  "config": "with_skill",
+  "assertions": [
+    {
+      "id": "a1",
+      "description": "Output classifies files into three named tiers: Essential, On-demand, and Archive",
+      "passed": true,
+      "evidence": "Tier-таблица содержит все три тира с явными заголовками: 'Essential' (CLAUDE.md, ISSUES.md), 'On-demand' (CHANGELOG.md, DEPLOY_GCP.md, ARCHITECTURE.md и др.), 'Archive' (26 файлов включая IDEAL_MASTER_PLAN.md, DEPLOY.md и все audit_*.md)"
+    },
+    {
+      "id": "a2",
+      "description": "Output provides at least one numeric token estimate (e.g. '~800 токенов' or similar)",
+      "passed": true,
+      "evidence": "Множество токенных оценок: '~2,228 токенов' (CLAUDE.md), '~84,796 токенов' (всего), '~800 токенов' (цель после оптимизации), '~5,508' (суммарно авто-загрузка), '~14,588 токенов' (типичная сессия до), '~5,488 токенов' (типичная сессия после)"
+    },
+    {
+      "id": "a3",
+      "description": "Output suggests .claudeignore content or archiving strategy",
+      "passed": true,
+      "evidence": "Секция 'ГЕНЕРИРУЕМЫЙ .claudeignore' содержит готовый к использованию файл с 27 записями, разбитыми по категориям: Phase 0 аудиты, одноразовые отчёты, устаревшие версии, redesign документы, user guides, orphan планы, системные файлы"
+    },
+    {
+      "id": "a4",
+      "description": "Output explicitly uses the tier name 'Essential' for always-loaded files",
+      "passed": true,
+      "evidence": "В tier-таблице: '| Essential | CLAUDE.md | 557 | ~2,228 | Навигационный хаб, загружается каждую сессию |' и '| Essential | ISSUES.md | 110 | ~440 | Актуальный список открытых проблем |'. В секции итогов: '| Essential (авто) | 2 | ~2,668 |'"
+    },
+    {
+      "id": "a5",
+      "description": "Output explicitly uses the tier name 'On-demand' for conditionally-loaded files",
+      "passed": true,
+      "evidence": "В tier-таблице: '| On-demand | CHANGELOG.md | ... | Читать при анализе истории изменений |', '| On-demand | docs/DEPLOY_GCP.md | ... | Читать при деплое/настройке сервера |' и 8 других On-demand файлов. В секции итогов: '| On-demand (по запросу) | 9 | ~25,960 |'"
+    },
+    {
+      "id": "a6",
+      "description": "Output explicitly uses the tier name 'Archive' for rarely-needed files",
+      "passed": true,
+      "evidence": "В tier-таблице 26 файлов с тиром Archive: '| Archive | MASTER_PLAN.md | 1,900 | ~7,600 | Orphan: нет ссылок из CLAUDE.md |' и другие. В итогах: '| Archive (0 токенов) | 26 | ~51,584 | Перенести в docs/archive/ + .claudeignore |'"
+    },
+    {
+      "id": "a7",
+      "description": "Output uses the specific score format N/5 for overall documentation quality",
+      "passed": true,
+      "evidence": "Строка 5 output.md: '**Overall Documentation Quality Score: 2/5**' — формат N/5 соблюдён точно"
+    }
+  ],
+  "pass_rate": 1.0000,
+  "passed": 7,
+  "total": 7
+}

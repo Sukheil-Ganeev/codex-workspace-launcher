@@ -1,0 +1,23 @@
+{
+  "expectations": [
+    {
+      "text": "Предлагает yt-dlp -F URL для просмотра доступных форматов",
+      "passed": true,
+      "evidence": "Шаг 1: 'yt-dlp -F youtube.com/watch?v=xxx' с примером вывода таблицы"
+    },
+    {
+      "text": "Предлагает fallback формат (например best, или без строгих ограничений по качеству)",
+      "passed": true,
+      "evidence": "Шаг 3: 'bestvideo+bestaudio/best' и вариант без флага -f вообще"
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 0,
+    "total": 2,
+    "pass_rate": 1.0
+  },
+  "timing": {
+    "executor_duration_seconds": 37.4
+  }
+}

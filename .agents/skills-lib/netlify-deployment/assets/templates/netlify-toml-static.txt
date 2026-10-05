@@ -1,0 +1,39 @@
+# Netlify конфигурация для статичного сайта
+# Используется для: HTML/CSS/JS сайты без сборки, landing pages
+
+[build]
+  # Папка с готовыми файлами (корневая или public/)
+  publish = "."
+
+  # Команда для сборки (пустая для статичных сайтов)
+  command = ""
+
+# Настройки кэширования для статичных ресурсов
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # Базовая безопасность
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Кастомная страница 404
+[[redirects]]
+  from = "/404"
+  to = "/404.html"
+  status = 404

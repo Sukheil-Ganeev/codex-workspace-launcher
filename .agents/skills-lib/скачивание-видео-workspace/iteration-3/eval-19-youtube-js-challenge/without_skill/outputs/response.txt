@@ -1,0 +1,79 @@
+Запрос пользователя: "yt-dlp вдруг перестал скачивать с YouTube, пишет что-то про 'Sign in to confirm you're not a bot' или ошибку при получении информации о видео"
+
+---
+
+Это распространённая проблема — YouTube периодически ужесточает проверки и начинает блокировать автоматические запросы. Вот что можно попробовать:
+
+## 1. Обновить yt-dlp (первое, что нужно сделать)
+
+YouTube часто меняет свои внутренние механизмы, и разработчики yt-dlp регулярно выпускают патчи.
+
+```bash
+# Если установлен через pip
+pip install -U yt-dlp
+
+# Если установлен как бинарник
+yt-dlp -U
+```
+
+## 2. Использовать cookies из браузера
+
+YouTube видит запрос от залогиненного пользователя — это снимает подозрения.
+
+```bash
+# Из Chrome
+yt-dlp --cookies-from-browser chrome URL
+
+# Из Firefox
+yt-dlp --cookies-from-browser firefox URL
+
+# Или экспортировать cookies вручную (расширение "Get cookies.txt LOCALLY")
+yt-dlp --cookies cookies.txt URL
+```
+
+## 3. Использовать PO Token (для новых версий yt-dlp)
+
+YouTube ввёл проверку через Proof of Origin Token. Новые версии yt-dlp поддерживают его передачу:
+
+```bash
+yt-dlp --extractor-args "youtube:player_client=web;po_token=web+TOKEN" URL
+```
+
+TOKEN можно получить через расширение "YouTube trusted session generator" для браузера.
+
+## 4. Добавить заголовок User-Agent
+
+```bash
+yt-dlp --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36" URL
+```
+
+## 5. Использовать другой клиент
+
+yt-dlp поддерживает несколько внутренних клиентов YouTube:
+
+```bash
+# Попробовать Android-клиент
+yt-dlp --extractor-args "youtube:player_client=android" URL
+
+# Или iOS
+yt-dlp --extractor-args "youtube:player_client=ios" URL
+
+# Или TV
+yt-dlp --extractor-args "youtube:player_client=tv_embedded" URL
+```
+
+## 6. Обойти через прокси
+
+Если IP заблокирован:
+
+```bash
+yt-dlp --proxy socks5://127.0.0.1:1080 URL
+```
+
+## Рекомендуемый порядок действий
+
+1. Сначала — обновить yt-dlp до последней версии
+2. Если не помогло — добавить cookies из браузера
+3. Если всё ещё не работает — попробовать другой player_client (android или ios)
+
+Чаще всего обновление + cookies решает проблему.

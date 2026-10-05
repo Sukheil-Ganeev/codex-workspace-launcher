@@ -1,0 +1,33 @@
+{
+  "eval_id": "eval-7-tokens",
+  "config": "with_skill",
+  "assertions": [
+    {
+      "id": "a1",
+      "description": "Output contains at least one specific numeric token count estimate for a file or total",
+      "passed": true,
+      "evidence": "Found: ~19,141 токен"
+    },
+    {
+      "id": "a2",
+      "description": "Output provides a breakdown of token usage by file or section (not just a single total)",
+      "passed": true,
+      "evidence": "Found 27 token mentions"
+    },
+    {
+      "id": "a3",
+      "description": "Output classifies files into Essential, On-demand, and Archive tiers based on token impact",
+      "passed": true,
+      "evidence": "Found all three tiers"
+    },
+    {
+      "id": "a4",
+      "description": "Output uses the specific tier names Essential, On-demand, Archive (not generic categories)",
+      "passed": true,
+      "evidence": "Found exact tier names"
+    }
+  ],
+  "pass_rate": 1.0,
+  "passed": 4,
+  "total": 4
+}

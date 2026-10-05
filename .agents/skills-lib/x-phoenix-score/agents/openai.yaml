@@ -1,0 +1,4 @@
+interface:
+  display_name: "X Phoenix Score"
+  short_description: "Score X posts with Phoenix-style weights"
+  default_prompt: "Use $x-phoenix-score to analyze this X post and suggest concrete improvements."

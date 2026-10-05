@@ -1,0 +1,35 @@
+{
+  "eval_id": 10,
+  "eval_name": "dirty-whatsapp-input",
+  "run_type": "with_skill",
+  "expectations": [
+    {
+      "text": "Имя клиента в CAPS",
+      "passed": true,
+      "evidence": "PETROV ANDREI — правильный формат: CAPS, сначала фамилия"
+    },
+    {
+      "text": "Телефон с кодом страны",
+      "passed": true,
+      "evidence": "+7 916 555 22 11 — добавлен код страны +7 (Россия)"
+    },
+    {
+      "text": "VAT рассчитан верно",
+      "passed": true,
+      "evidence": "VAT = 11,00 USD (220,00 × 0,05 = 11,00) — 220 USD трактован как итоговая цена, не per person"
+    },
+    {
+      "text": "Total incl. VAT = 231.00",
+      "passed": true,
+      "evidence": "Total (Incl. VAT): 231,00 USD (220 + 11 = 231)"
+    },
+    {
+      "text": "POS комиссия 4%",
+      "passed": true,
+      "evidence": "PAYMENT VIA POS TERMINAL (+4%): 9,24 USD; Grand Total: 240,24 USD"
+    }
+  ],
+  "pass_count": 5,
+  "total_count": 5,
+  "pass_rate": 1.0
+}

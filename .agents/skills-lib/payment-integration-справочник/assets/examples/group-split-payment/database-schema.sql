@@ -1,0 +1,2 @@
+CREATE TABLE group_payments (id SERIAL PRIMARY KEY, group_name VARCHAR(255), total_amount NUMERIC(10,2));
+CREATE TABLE participants (id SERIAL PRIMARY KEY, group_payment_id INT, name VARCHAR(255), email VARCHAR(255), amount NUMERIC(10,2));

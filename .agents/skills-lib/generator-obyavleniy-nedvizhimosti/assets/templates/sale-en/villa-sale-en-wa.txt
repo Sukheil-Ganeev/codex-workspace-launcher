@@ -1,0 +1,22 @@
+*[X]BR VILLA | [AREA]*
+_[Short description]_
+───────────────
+*FEATURES*
+▫️ [X] bedrooms | [X] bathrooms | [X] floors
+▫️ BUA: [X,XXX] sq.ft.
+▫️ Plot: [X,XXX] sq.ft.
+▫️ Pool: [Private/Shared]
+▫️ Parking: [X] cars
+
+*COMMUNITY: [NAME]*
+───────────────
+💰 *SALE: [XX,XXX,XXX] AED*
+_(~$[X,XXX,XXX])_
+
+*DOCUMENTS*
+▫️ Title Deed: [Ready]
+▫️ Mortgage: [Available]
+
+⚠️ Viewing by appointment
+
+*CONTACT:* [NAME] | [+971 XX XXX XXXX]

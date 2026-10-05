@@ -1,0 +1,35 @@
+{
+  "expectations": [
+    {
+      "text": "has_create_table",
+      "passed": true,
+      "evidence": "Section 'Raw SQL' contains 'CREATE TABLE reviews (' (line 162) and 'CREATE TABLE review_photos (' (line 212)"
+    },
+    {
+      "text": "has_indexes",
+      "passed": true,
+      "evidence": "Section 'INDEXES' in the SQL block contains 6 CREATE INDEX statements: idx_reviews_slug_status, idx_reviews_status_created, idx_reviews_slug_rating, idx_reviews_featured, idx_reviews_deleted, idx_review_photos_review (lines 231-246)"
+    },
+    {
+      "text": "has_erd",
+      "passed": false,
+      "evidence": "No Mermaid erDiagram found anywhere in the document. There is a Prisma schema (lines 38-137) and raw SQL (lines 143-264), but no Mermaid ERD diagram."
+    },
+    {
+      "text": "has_moderation_status",
+      "passed": true,
+      "evidence": "Defines 'CREATE TYPE review_status AS ENUM ('PENDING', 'APPROVED', 'REJECTED');' (line 148) and the reviews table has 'status review_status NOT NULL DEFAULT 'PENDING'' (line 189). Also in Prisma schema: 'enum ReviewStatus { PENDING APPROVED REJECTED }' (lines 44-48)"
+    },
+    {
+      "text": "has_timestamptz",
+      "passed": true,
+      "evidence": "Multiple columns use TIMESTAMPTZ in the raw SQL: responded_at (line 185), moderated_at (line 190), review_date (line 202), created_at (line 203), updated_at (line 204), deleted_at (line 205), review_photos.created_at (line 224)"
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 1,
+    "total": 5,
+    "pass_rate": 0.8
+  }
+}

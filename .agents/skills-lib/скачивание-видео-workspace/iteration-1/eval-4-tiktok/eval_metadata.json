@@ -1,0 +1,23 @@
+{
+  "eval_id": 4,
+  "eval_name": "tiktok-download",
+  "prompt": "скачай это видео с тиктока: tiktok.com/@user/video/7123456789",
+  "assertions": [
+    {
+      "text": "Содержит правильный путь D:/Downloads/YouTube/",
+      "check": "contains D:/Downloads/YouTube/"
+    },
+    {
+      "text": "Содержит ссылку на TikTok в команде",
+      "check": "contains tiktok.com"
+    },
+    {
+      "text": "Команда корректна (содержит yt-dlp)",
+      "check": "contains yt-dlp"
+    },
+    {
+      "text": "НЕ добавляет лишние флаги только-для-YouTube (нет ext=mp4 фильтра)",
+      "check": "not contains [ext=mp4]"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+Вот команда для скачивания всего плейлиста с нумерацией файлов в отдельной папке:
+
+```bash
+yt-dlp -P "D:/Downloads/YouTube/" -o "%(playlist)s/%(playlist_index)02d - %(title)s.%(ext)s" "youtube.com/playlist?list=PLxxx"
+```
+
+Что делает каждая часть:
+
+- `-P "D:/Downloads/YouTube/"` — папка для сохранения
+- `%(playlist)s/` — автоматически создаёт папку с названием плейлиста
+- `%(playlist_index)02d` — номер видео в плейлисте: 01, 02, 03... (двузначный с нулём)
+- `%(title)s` — название видео
+- `%(ext)s` — расширение файла (mp4, webm и т.д.)
+
+В итоге получишь структуру:
+```
+D:/Downloads/YouTube/
+└── Название плейлиста/
+    ├── 01 - Первое видео.mp4
+    ├── 02 - Второе видео.mp4
+    ├── 03 - Третье видео.mp4
+    └── ...
+```
+
+Если хочешь гарантированно MP4 (а не webm):
+
+```bash
+yt-dlp -f "bv*[ext=mp4]+ba[ext=m4a]/b[ext=mp4]" --merge-output-format mp4 -P "D:/Downloads/YouTube/" -o "%(playlist)s/%(playlist_index)02d - %(title)s.%(ext)s" "youtube.com/playlist?list=PLxxx"
+```
+
+Замени `youtube.com/playlist?list=PLxxx` на свою ссылку — и запускай.

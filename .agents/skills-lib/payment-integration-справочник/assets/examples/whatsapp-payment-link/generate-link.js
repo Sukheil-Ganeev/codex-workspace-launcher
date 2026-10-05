@@ -1,0 +1,3 @@
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const generate = async (tourName, amount) => { const session = await stripe.checkout.sessions.create({ payment_method_types: ["card"], line_items: [{ price_data: { currency: "aed", product_data: { name: tourName }, unit_amount: amount * 100 }, quantity: 1 }], mode: "payment", success_url: "https://example.com/success" }); return session.url; };
+module.exports = generate;

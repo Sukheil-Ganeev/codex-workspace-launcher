@@ -1,0 +1,31 @@
+{
+  "run_id": "eval-2-mp3-metadata-with_skill",
+  "expectations": [
+    {
+      "text": "Содержит флаг -x (извлечение аудио)",
+      "passed": true,
+      "evidence": "-x — есть в команде"
+    },
+    {
+      "text": "Содержит --audio-format mp3",
+      "passed": true,
+      "evidence": "--audio-format mp3 — есть"
+    },
+    {
+      "text": "Содержит --embed-thumbnail (встроить обложку)",
+      "passed": true,
+      "evidence": "--embed-thumbnail — есть"
+    },
+    {
+      "text": "Содержит --audio-quality 0 (лучшее качество)",
+      "passed": true,
+      "evidence": "--audio-quality 0 — есть"
+    },
+    {
+      "text": "Содержит правильный путь D:/Downloads/YouTube/",
+      "passed": true,
+      "evidence": "-P \"D:/Downloads/YouTube/\" — есть"
+    }
+  ],
+  "pass_rate": 1.0
+}

@@ -1,0 +1,8 @@
+# _redirects для SPA (Single Page Application)
+# Файл размещается в папке publish (например dist/ или public/)
+
+# Redirect всех запросов на index.html для client-side routing
+# Это позволяет React Router, Vue Router работать корректно
+/*    /index.html   200
+
+# Альтернатива (если используете netlify.toml, этот файл не нужен)

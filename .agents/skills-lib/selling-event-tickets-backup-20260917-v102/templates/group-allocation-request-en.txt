@@ -1,0 +1,14 @@
+Subject: Group Allocation Request — [EVENT] / [QTY] Guests
+
+Dear Team,
+
+We require [QTY] tickets for [EVENT] on [DATE]. Our priority is to keep the group together.
+
+Preferred configuration: [one block / same row].
+Acceptable alternative: [e.g. 15+15 or adjacent rows].
+Preferred category: [CATEGORY].
+
+Please confirm the largest contiguous block available, exact row/seat distribution, all-in price, hold deadline, payment terms, guest-name deadline, delivery method and cancellation terms.
+
+Kind regards,
+Marsel

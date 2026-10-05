@@ -1,0 +1,10 @@
+{
+  "eval_id": 9,
+  "eval_name": "troubleshooting-http-403",
+  "prompt": "yt-dlp выдаёт ошибку HTTP Error 403: Forbidden при скачивании с тиктока, что делать?",
+  "assertions": [
+    "Упоминает yt-dlp -U или обновление yt-dlp как одно из решений",
+    "Упоминает --cookies-from-browser как способ передать авторизацию",
+    "Упоминает -v или --verbose для диагностики ошибки"
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "run_id": "eval-8-max-quality-sponsorblock-with_skill",
+  "expectations": [
+    {
+      "text": "Содержит --sponsorblock-remove all",
+      "passed": true,
+      "evidence": "--sponsorblock-remove all — есть"
+    },
+    {
+      "text": "Содержит --embed-subs (встроить субтитры)",
+      "passed": true,
+      "evidence": "--embed-subs — есть"
+    },
+    {
+      "text": "Содержит --embed-thumbnail (встроить обложку)",
+      "passed": true,
+      "evidence": "--embed-thumbnail — есть"
+    },
+    {
+      "text": "Содержит format-селектор для высокого качества (bv* или bestvideo)",
+      "passed": true,
+      "evidence": "-f \"bv*[ext=mp4]+ba[ext=m4a]/b[ext=mp4]\" — bv* есть"
+    },
+    {
+      "text": "Содержит правильный путь D:/Downloads/YouTube/",
+      "passed": true,
+      "evidence": "-P \"D:/Downloads/YouTube/\" — есть"
+    }
+  ],
+  "pass_rate": 1.0
+}

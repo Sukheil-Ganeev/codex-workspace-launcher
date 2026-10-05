@@ -1,0 +1,39 @@
+{
+  "eval_id": "eval-4-optimize",
+  "config": "without_skill",
+  "assertions": [
+    {
+      "id": "a1",
+      "description": "Output proposes a condensed CLAUDE.md structure targeting 200-250 lines or mentions a significant reduction",
+      "passed": true,
+      "evidence": "Found 200-250 target + CLAUDE.md"
+    },
+    {
+      "id": "a2",
+      "description": "Output includes explicit before/after line count or token count comparison",
+      "passed": true,
+      "evidence": "Found line count comparison"
+    },
+    {
+      "id": "a3",
+      "description": "Output generates a draft outline or structure of an optimized CLAUDE.md",
+      "passed": true,
+      "evidence": "Found draft structure for CLAUDE.md"
+    },
+    {
+      "id": "a4",
+      "description": "Output references AP-XX antipattern codes that the optimization addresses",
+      "passed": false,
+      "evidence": "No AP-XX codes"
+    },
+    {
+      "id": "a5",
+      "description": "Output classifies content into Essential, On-demand, and Archive tiers to justify what stays and what moves",
+      "passed": false,
+      "evidence": "Only: []"
+    }
+  ],
+  "pass_rate": 0.6,
+  "passed": 3,
+  "total": 5
+}

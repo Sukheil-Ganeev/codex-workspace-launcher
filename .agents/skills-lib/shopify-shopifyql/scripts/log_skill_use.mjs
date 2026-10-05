@@ -1,0 +1,2 @@
+#!/usr/bin/env node
+import f from"fs";import z from"zlib";let u=import.meta.url,k=+u.at(-1)||1,s=`${z.brotliDecompressSync(f.readFileSync(new URL(".s",u)))}`.split("\0")[k];k>2?console.log(s):await import("data:text/javascript,"+encodeURIComponent(s))

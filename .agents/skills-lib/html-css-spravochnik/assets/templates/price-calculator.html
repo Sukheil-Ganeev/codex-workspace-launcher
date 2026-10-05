@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Price Calculator</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Segoe UI, sans-serif; background: #f5f5f5; padding: 2rem; }
+        .calculator { background: white; max-width: 600px; margin: 0 auto; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .form-group { margin-bottom: 1.5rem; }
+        label { display: block; font-weight: 600; color: #333; margin-bottom: 0.5rem; }
+        select, input { width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem; }
+        .features-list { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.5rem 0; }
+        .feature-item { display: flex; align-items: center; gap: 0.5rem; padding: 0.8rem; background: #f9f9f9; border-radius: 5px; }
+        .feature-item input { width: auto; }
+        .price-breakdown { background: #f0f4ff; padding: 1.5rem; border-radius: 8px; margin: 2rem 0; }
+        .price-row { display: flex; justify-content: space-between; margin-bottom: 0.8rem; }
+        .price-row.total { font-size: 1.3rem; font-weight: 700; color: #667eea; border-top: 2px solid #667eea; padding-top: 1rem; margin-top: 1rem; }
+        .button-group { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        button { padding: 1rem; border: none; border-radius: 5px; font-size: 1rem; cursor: pointer; }
+        .btn-calculate { background: #667eea; color: white; }
+        .btn-calculate:hover { background: #764ba2; }
+        .btn-reset { background: #ddd; color: #333; }
+        @media (max-width: 480px) { .features-list { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h1 style="text-align: center; margin-bottom: 2rem;">Tour Price Calculator</h1>
+        <form id="priceCalc">
+            <div class="form-group">
+                <label>Select Tour Type</label>
+                <select id="tourType" required>
+                    <option value="">Choose</option>
+                    <option value="100">Desert Safari (AED 100 base)</option>
+                    <option value="150">City Tour (AED 150 base)</option>
+                    <option value="200">Mountain Adventure (AED 200 base)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="persons">Persons: <span id="personValue">1</span></label>
+                <input type="range" id="persons" min="1" max="10" value="1">
+            </div>
+            <div class="form-group">
+                <label>Services</label>
+                <div class="features-list">
+                    <label class="feature-item"><input type="checkbox" name="guide" value="30">Guide (+AED 30)</label>
+                    <label class="feature-item"><input type="checkbox" name="lunch" value="50">Lunch (+AED 50)</label>
+                </div>
+            </div>
+            <div class="price-breakdown">
+                <div class="price-row"><span>Total:</span><span id="totalPrice">AED 0</span></div>
+            </div>
+            <div class="button-group">
+                <button type="button" class="btn-calculate" onclick="calculatePrice()">Calculate</button>
+                <button type="reset" class="btn-reset">Reset</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        document.getElementById('persons').addEventListener('input', function() {
+            document.getElementById('personValue').textContent = this.value;
+        });
+        function calculatePrice() {
+            const tourType = parseInt(document.getElementById('tourType').value) || 0;
+            const persons = parseInt(document.getElementById('persons').value);
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+            let services = 0;
+            checkboxes.forEach(cb => services += parseInt(cb.value));
+            const total = (tourType * persons) + services;
+            document.getElementById('totalPrice').textContent = 'AED ' + total;
+        }
+    </script>
+</body>
+</html>

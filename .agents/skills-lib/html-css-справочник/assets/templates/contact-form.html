@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form</title>
+    <!-- TEMPLATE: Contact Form with Validation -->
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 2rem; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+        
+        .form-container { background: white; padding: 2.5rem; border-radius: 10px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); width: 100%; max-width: 500px; }
+        
+        .form-container h1 { text-align: center; color: #333; margin-bottom: 0.5rem; }
+        .form-container p { text-align: center; color: #666; margin-bottom: 2rem; }
+        
+        .form-group { margin-bottom: 1.5rem; }
+        label { display: block; color: #333; font-weight: 600; margin-bottom: 0.5rem; }
+        
+        input, textarea, select { width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; font-size: 1rem; transition: border-color 0.3s; }
+        input:focus, textarea:focus, select:focus { outline: none; border-color: #667eea; box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1); }
+        
+        textarea { resize: vertical; min-height: 120px; }
+        
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .form-row .form-group { margin-bottom: 1.5rem; }
+        
+        .checkbox-group { display: flex; gap: 2rem; flex-wrap: wrap; }
+        .checkbox-item { display: flex; align-items: center; gap: 0.5rem; }
+        .checkbox-item input { width: auto; }
+        
+        .submit-button { width: 100%; padding: 1rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 5px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: transform 0.3s; }
+        .submit-button:hover { transform: translateY(-2px); }
+        
+        .error-message { color: #ff6b6b; font-size: 0.85rem; margin-top: 0.3rem; display: none; }
+        .form-group.error input, .form-group.error textarea { border-color: #ff6b6b; }
+        .form-group.error .error-message { display: block; }
+        
+        .success-message { background: #d4edda; color: #155724; padding: 1rem; border-radius: 5px; margin-bottom: 1rem; display: none; }
+        
+        @media (max-width: 480px) { .form-row { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Get in Touch</h1>
+        <p>Have questions about our tours? Contact us today!</p>
+        
+        <form id="contactForm">
+            <div class="success-message" id="successMsg">Your message has been sent successfully!</div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="firstName">First Name *</label>
+                    <input type="text" id="firstName" name="firstName" required>
+                    <span class="error-message">First name is required</span>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name *</label>
+                    <input type="text" id="lastName" name="lastName" required>
+                    <span class="error-message">Last name is required</span>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email Address *</label>
+                <input type="email" id="email" name="email" required>
+                <span class="error-message">Valid email is required</span>
+            </div>
+            
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone">
+            </div>
+            
+            <div class="form-group">
+                <label for="subject">Subject *</label>
+                <select id="subject" name="subject" required>
+                    <option value="">Select a subject</option>
+                    <option value="tour-inquiry">Tour Inquiry</option>
+                    <option value="booking">Booking Question</option>
+                    <option value="pricing">Pricing Information</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="message">Message *</label>
+                <textarea id="message" name="message" required></textarea>
+                <span class="error-message">Message is required</span>
+            </div>
+            
+            <div class="form-group">
+                <div class="checkbox-group">
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="newsletter">
+                        Newsletter
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="agree" required>
+                        I agree to terms
+                    </label>
+                </div>
+            </div>
+            
+            <button type="submit" class="submit-button">Send Message</button>
+        </form>
+    </div>
+    
+    <script>
+        const form = document.getElementById('contactForm');
+        
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            let isValid = true;
+            
+            const fields = ['firstName', 'lastName', 'email', 'message'];
+            fields.forEach(field => {
+                const input = document.getElementById(field);
+                const group = input.closest('.form-group');
+                
+                if (!input.value.trim()) {
+                    group.classList.add('error');
+                    isValid = false;
+                } else {
+                    group.classList.remove('error');
+                }
+            });
+            
+            const emailInput = document.getElementById('email');
+            if (emailInput.value && !emailInput.value.includes('@')) {
+                emailInput.closest('.form-group').classList.add('error');
+                isValid = false;
+            }
+            
+            if (isValid) {
+                document.getElementById('successMsg').style.display = 'block';
+                form.reset();
+                setTimeout(() => {
+                    document.getElementById('successMsg').style.display = 'none';
+                }, 5000);
+            }
+        });
+    </script>
+</body>
+</html>

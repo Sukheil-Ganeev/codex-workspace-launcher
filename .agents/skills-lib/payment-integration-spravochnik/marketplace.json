@@ -1,0 +1,35 @@
+{
+  "name": "payment-integration-справочник",
+  "version": "1.0.0",
+  "description": "Production-ready справочник по интеграции платёжных систем для туристического бизнеса ОАЭ: Stripe, Telr, USDT, PayPal",
+  "author": "Сухейль (Tourism UAE)",
+  "tags": ["payments", "stripe", "telr", "cryptocurrency", "paypal", "tourism", "uae", "webhooks", "multi-currency"],
+  "categories": ["Integration", "Finance", "Tourism"],
+  "difficulty": "intermediate",
+  "languages": ["JavaScript", "Node.js"],
+  "frameworks": ["Express.js", "Stripe SDK"],
+  "features": [
+    "Stripe integration (135+ currencies)",
+    "Telr UAE local payments",
+    "Cryptocurrency (USDT, Bitcoin)",
+    "PayPal Express Checkout",
+    "WhatsApp payment links",
+    "Multi-currency converter",
+    "Fraud detection",
+    "PCI DSS compliance",
+    "Automated invoicing",
+    "Reconciliation tools"
+  ],
+  "use_cases": [
+    "Tour booking with deposits",
+    "Split payments for groups",
+    "Recurring subscriptions",
+    "Refund processing",
+    "WhatsApp/Telegram payment flows",
+    "Multi-currency accounting"
+  ],
+  "integrations": ["WhatsApp Business API", "PostgreSQL", "Email (Nodemailer)", "Accounting exports"],
+  "estimated_setup_time": "30 minutes (Quick Start) to 1 day (full production)",
+  "prerequisites": ["Node.js 18+", "Database (PostgreSQL)", "Payment provider accounts"],
+  "license": "MIT"
+}

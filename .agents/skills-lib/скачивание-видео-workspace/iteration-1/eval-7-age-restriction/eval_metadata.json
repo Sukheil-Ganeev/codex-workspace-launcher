@@ -1,0 +1,23 @@
+{
+  "eval_id": 7,
+  "eval_name": "age-restriction",
+  "prompt": "видео с 18+ ограничением не скачивается, как это обойти? вот ссылка: youtube.com/watch?v=xxx",
+  "assertions": [
+    {
+      "text": "Содержит --cookies-from-browser",
+      "check": "contains --cookies-from-browser"
+    },
+    {
+      "text": "Называет конкретный браузер (chrome, firefox, edge или brave)",
+      "check": "contains chrome or firefox or edge or brave"
+    },
+    {
+      "text": "Объясняет зачем нужны cookies (авторизация/возраст)",
+      "check": "qualitative: explains why cookies solve age restriction"
+    },
+    {
+      "text": "Содержит правильный путь D:/Downloads/YouTube/",
+      "check": "contains D:/Downloads/YouTube/"
+    }
+  ]
+}

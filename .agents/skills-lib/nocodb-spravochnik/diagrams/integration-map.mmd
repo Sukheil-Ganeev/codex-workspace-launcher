@@ -1,0 +1,95 @@
+%% NocoDB Integration Map Diagram
+%% NocoDB в центре с интеграциями: n8n, Zapier, Make, Webhooks, API, MCP
+
+graph TB
+    %% Центр
+    nocodb["NocoDB<br/>REST API v2<br/>Webhooks v3"]
+
+    %% Автоматизация
+    subgraph automation["Платформы автоматизации"]
+        n8n["n8n<br/>Action Node (CRUD)<br/>Self-hosted бесплатно<br/>Trigger: Webhook / Schedule"]
+        zapier["Zapier<br/>Native App<br/>Trigger: New/Updated Record<br/>от $20/мес"]
+        make["Make.com<br/>Native Module<br/>CRUD + Upsert + Bulk<br/>от $9/мес"]
+    end
+
+    %% Webhooks
+    subgraph webhooks["Webhooks v3"]
+        whInsert["After Insert"]
+        whUpdate["After Update"]
+        whDelete["After Delete"]
+        whAll["Send Me Everything"]
+        whButton["Button / Manual"]
+    end
+
+    %% REST API
+    subgraph restapi["REST API"]
+        curlPost["curl / Postman<br/>HTTP запросы"]
+        pythonReq["Python requests<br/>Скрипты"]
+        nocodbSdk["nocodb-sdk<br/>npm package"]
+    end
+
+    %% Import/Export
+    subgraph importexport["Import / Export"]
+        csv["CSV"]
+        excel["Excel"]
+        jsonImp["JSON"]
+        airtable["Airtable Import"]
+    end
+
+    %% AI / MCP
+    subgraph ai["AI интеграции"]
+        mcpClaude["MCP -> Claude<br/>Desktop / Web OAuth"]
+        mcpCursor["MCP -> Cursor"]
+        mcpWindsurf["MCP -> Windsurf"]
+    end
+
+    %% Внешние сервисы
+    subgraph external["Внешние сервисы"]
+        telegram["Telegram Bot<br/>Уведомления"]
+        email["Email<br/>SMTP"]
+        gsheets["Google Sheets<br/>(через n8n/Zapier)"]
+        whatsapp["WhatsApp<br/>(через n8n)"]
+    end
+
+    %% Связи от NocoDB
+    nocodb --> n8n
+    nocodb --> zapier
+    nocodb --> make
+
+    nocodb --> webhooks
+    webhooks --> n8n
+    webhooks --> zapier
+    webhooks --> make
+
+    nocodb --> restapi
+
+    nocodb --> importexport
+
+    nocodb --> ai
+
+    %% Автоматизация -> внешние
+    n8n --> telegram
+    n8n --> email
+    n8n --> gsheets
+    n8n --> whatsapp
+    zapier --> telegram
+    zapier --> gsheets
+    make --> telegram
+    make --> gsheets
+
+    %% Стили
+    classDef centerStyle fill:#7B68EE,stroke:#5A4DB0,color:#FFFFFF,font-weight:bold
+    classDef autoStyle fill:#3498DB,stroke:#2E86C1,color:#FFFFFF
+    classDef webhookStyle fill:#E74C3C,stroke:#C0392B,color:#FFFFFF
+    classDef apiStyle fill:#F39C12,stroke:#D68910,color:#FFFFFF
+    classDef importStyle fill:#1ABC9C,stroke:#16A085,color:#FFFFFF
+    classDef aiStyle fill:#9B59B6,stroke:#8E44AD,color:#FFFFFF
+    classDef externalStyle fill:#27AE60,stroke:#1E8449,color:#FFFFFF
+
+    class nocodb centerStyle
+    class n8n,zapier,make autoStyle
+    class whInsert,whUpdate,whDelete,whAll,whButton webhookStyle
+    class curlPost,pythonReq,nocodbSdk apiStyle
+    class csv,excel,jsonImp,airtable importStyle
+    class mcpClaude,mcpCursor,mcpWindsurf aiStyle
+    class telegram,email,gsheets,whatsapp externalStyle

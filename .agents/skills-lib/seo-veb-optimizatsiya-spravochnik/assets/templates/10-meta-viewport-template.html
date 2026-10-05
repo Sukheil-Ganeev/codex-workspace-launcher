@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <!-- ===== MOBILE OPTIMIZATION META TAGS ===== -->
+    <!-- Viewport: Mobile-First Responsive Design -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+    <!-- Apple/iOS Specific -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Your Company">
+
+    <!-- Microsoft/Windows Specific -->
+    <meta name="msapplication-config" content="browserconfig.xml">
+    <meta name="msapplication-TileColor" content="#667eea">
+    <meta name="msapplication-TileImage" content="/images/favicon-144x144.png">
+
+    <!-- Android Specific -->
+    <meta name="theme-color" content="#667eea">
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- Disable Automatic Zoom on Input Focus (iOS) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+
+    <!-- Format Detection -->
+    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="email=no">
+
+    <!-- Full Screen Mode (iOS Safari) -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+    <!-- Prevents zoom on double-tap in iOS Safari -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+    <!-- ===== ICONS ===== -->
+    <!-- Favicon for desktop browsers -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+
+    <!-- Apple Touch Icons (iOS) -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-180x180.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/images/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/images/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/images/apple-touch-icon-120x120.png">
+
+    <!-- Android Chrome Icon -->
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/android-chrome-192x192.png">
+
+    <!-- Android Chrome Maskable Icon (for adaptive icons) -->
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/maskable-icon-192x192.png" type="image/png">
+
+    <!-- Manifest for PWA (Progressive Web App) -->
+    <link rel="manifest" href="/manifest.json">
+
+    <!-- ===== STYLES FOR MOBILE ===== -->
+    <meta name="color-scheme" content="light dark">
+
+    <style>
+        /* Mobile-First CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 16px;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.5;
+            color: #333;
+            background: #fff;
+        }
+
+        /* Safe Area for notched devices */
+        main {
+            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+            padding: 16px 16px 16px 16px;
+        }
+
+        /* Touch-friendly buttons and links */
+        button, a {
+            min-height: 44px;
+            min-width: 44px;
+            padding: 10px 16px;
+        }
+
+        /* Input fields */
+        input, textarea, select {
+            font-size: 16px; /* Prevents zoom on iOS */
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        /* Prevent image zooming on double-tap */
+        img {
+            touch-action: manipulation;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        /* Responsive Typography */
+        h1 {
+            font-size: clamp(1.5rem, 5vw, 2.5rem);
+        }
+
+        h2 {
+            font-size: clamp(1.25rem, 4vw, 2rem);
+        }
+
+        h3 {
+            font-size: clamp(1rem, 3vw, 1.5rem);
+        }
+
+        /* Mobile-Specific Fixes */
+        body {
+            -webkit-user-select: none;
+            -webkit-touch-callout: none;
+        }
+
+        a, button {
+            -webkit-user-select: none;
+        }
+
+        /* Disable tap highlight on iOS */
+        a {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Media queries for responsive design */
+        @media (max-width: 480px) {
+            html {
+                font-size: 14px;
+            }
+        }
+
+        @media (min-width: 481px) and (max-width: 768px) {
+            html {
+                font-size: 15px;
+            }
+        }
+
+        @media (min-width: 769px) {
+            html {
+                font-size: 16px;
+            }
+        }
+
+        /* Dark Mode Support */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: #1a1a1a;
+                color: #fff;
+            }
+        }
+
+        /* High DPI Displays */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            /* Fine-tune for retina displays if needed */
+        }
+
+        /* Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Low Power Mode Detection (iOS) */
+        @media (prefers-reduced-motion: reduce) {
+            body {
+                animation: none;
+                transition: none;
+            }
+        }
+    </style>
+
+    <!-- Critical CSS (inline) for faster rendering -->
+    <link rel="preload" href="css/main.css" as="style">
+    <link rel="stylesheet" href="css/main.css" media="print" onload="this.media='all'">
+
+    <!-- ===== PERFORMANCE META TAGS ===== -->
+    <!-- DNS Prefetch for external resources -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+
+    <!-- Preconnect to important origins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="fonts/roboto-v30-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="images/hero-mobile.webp" as="image" imagesrcset="images/hero-mobile.webp 480w, images/hero-tablet.webp 768w" imagesizes="100vw">
+
+    <!-- ===== PAGE IDENTIFICATION ===== -->
+    <title>Your Company - Mobile Optimized</title>
+    <meta name="description" content="Professional tours and excursions in Dubai and UAE. Mobile-optimized for seamless booking.">
+    <link rel="canonical" href="https://example.com/">
+
+    <!-- ===== SEO META TAGS ===== -->
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="Russian">
+    <meta name="revisit-after" content="7 days">
+
+    <!-- Structured Data for Local Business (Schema.org) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Your Tour Company",
+      "image": "https://example.com/logo.png",
+      "telephone": "+971-4-XXXXXXX",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "123 Sheikh Zayed Road",
+        "addressLocality": "Dubai",
+        "addressCountry": "AE"
+      }
+    }
+    </script>
+</head>
+<body>
+    <main>
+        <!-- Mobile-optimized content -->
+        <h1>Welcome to Mobile-Optimized Experience</h1>
+        <p>This page is designed for all devices with responsive design.</p>
+
+        <!-- Touch-friendly form example -->
+        <form action="/submit" method="POST">
+            <input type="text" placeholder="Enter your name" required>
+            <button type="submit">Submit</button>
+        </form>
+    </main>
+
+    <!-- No critical JavaScript blocking rendering -->
+    <script defer src="js/app.js"></script>
+
+    <!-- Web Font optimization -->
+    <script>
+        /* Font loading optimization */
+        if ('fonts' in document) {
+            Promise.all([
+                document.fonts.load('16px Roboto'),
+                document.fonts.load('bold 16px Roboto')
+            ]).then(function() {
+                document.documentElement.classList.add('fonts-loaded');
+            });
+        }
+    </script>
+</body>
+</html>

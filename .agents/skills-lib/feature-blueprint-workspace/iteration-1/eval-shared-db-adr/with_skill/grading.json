@@ -1,0 +1,40 @@
+{
+  "expectations": [
+    {
+      "text": "has_context",
+      "passed": true,
+      "evidence": "Section '## Context' explains the two applications (vipdxbrus.com and tourism-crm), their current stacks, the integration need (dynamic catalog, booking calendar, chat sessions, favorites, reviews), the 6 planned new tables, and the key constraint that Sukheil is a solo non-programmer entrepreneur."
+    },
+    {
+      "text": "has_decision",
+      "passed": true,
+      "evidence": "Section '## Decision' with clear blockquote: 'We will use a Shared Neon PostgreSQL database: both vipdxbrus.com and tourism-crm connect to the same Neon instance via Prisma. The website adds its own 6 tables to the existing database. Each application maintains its own schema.prisma file scoped to the tables it owns.'"
+    },
+    {
+      "text": "has_consequences_positive",
+      "passed": true,
+      "evidence": "Section '### Positive (benefits we gain)' lists 6 positive consequences: single source of truth, zero operational overhead, minimal infrastructure cost, sub-millisecond data access, Prisma ecosystem reuse, simpler development workflow."
+    },
+    {
+      "text": "has_consequences_negative",
+      "passed": true,
+      "evidence": "Section '### Negative / Trade-offs (drawbacks we accept)' lists 5 negative consequences with mitigations: schema coupling (mitigated by naming prefix), connection pool contention (mitigated by PgBouncer), no independent deployability (mitigated by Neon SLA + graceful degradation), tight coupling making future separation harder (mitigated by isolated tables), dual Prisma schemas (mitigated by separate migration directories)."
+    },
+    {
+      "text": "has_alternatives",
+      "passed": true,
+      "evidence": "Three rejected alternatives: (A) API Gateway with detailed pros (5 bullets), cons (6 bullets), and 'Rejected because' paragraph; (B) Separate databases with data replication — pros (3), cons (5), 'Rejected because'; (C) Headless CMS — pros (3), cons (4), 'Rejected because'."
+    },
+    {
+      "text": "has_status",
+      "passed": true,
+      "evidence": "'**Status:** Proposed' at the top of the document, alongside Date and Deciders fields."
+    }
+  ],
+  "summary": {
+    "passed": 6,
+    "failed": 0,
+    "total": 6,
+    "pass_rate": 1.0
+  }
+}

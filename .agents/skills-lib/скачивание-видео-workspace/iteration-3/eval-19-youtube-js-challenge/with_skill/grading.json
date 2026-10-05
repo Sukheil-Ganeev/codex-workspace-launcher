@@ -1,0 +1,22 @@
+{
+  "expectations": [
+    {
+      "text": "Упоминает deno runtime как решение для YouTube JS challenges",
+      "passed": true,
+      "evidence": "'в конфиге уже настроен deno runtime — он специально обрабатывает YouTube JS challenges'"
+    },
+    {
+      "text": "Упоминает yt-dlp -U (обновление) как первый шаг",
+      "passed": true,
+      "evidence": "'Шаг 1 — обновить yt-dlp (решает 90% случаев): yt-dlp -U'"
+    },
+    {
+      "text": "Упоминает --extractor-args youtube:player_client как альтернативный вариант",
+      "passed": true,
+      "evidence": "'yt-dlp --extractor-args \"youtube:player_client=web,ios\"' — Шаг 2"
+    }
+  ],
+  "passed": 3,
+  "total": 3,
+  "score": 1.0
+}

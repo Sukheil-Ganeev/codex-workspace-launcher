@@ -1,0 +1,166 @@
+{
+  "analysis_date": "2026-03-12",
+  "project": "TouristBotEcosystem",
+  "current_version": "v5.9.0",
+  "last_commit_date": "2026-03-05",
+
+  "total_md_files": 41,
+  "tracked_in_git": 39,
+  "untracked": 2,
+
+  "files_by_last_update": {
+    "2026-03-05": {
+      "count": 2,
+      "days_ago": 7,
+      "files": ["CHANGELOG.md", "CLAUDE.md"]
+    },
+    "2026-03-04": {
+      "count": 15,
+      "days_ago": 8,
+      "files": [
+        "ISSUES.md",
+        "README.md",
+        "docs/ADMIN_BOT_REDESIGN.md",
+        "docs/BUTTON_DESIGN_GUIDE.md",
+        "docs/CICD_SETUP.md",
+        "docs/COMMAND_AUDIT.md",
+        "docs/COMMAND_AUDIT_ADMIN.md",
+        "docs/DATABASE_COVERAGE_AUDIT.md",
+        "docs/IMPROVEMENT_MASTER_PLAN.md",
+        "docs/IMPROVEMENT_MASTER_PLAN_v2.md",
+        "docs/PROJECT_ACCOMPLISHMENTS.md",
+        "docs/SENTRY_GUIDE.md",
+        "docs/SERVER_HEALTH_REPORT_2026-03-04.md",
+        "docs/SERVER_RUNBOOK.md",
+        "docs/WHATSAPP_BOT_REDESIGN.md"
+      ]
+    },
+    "2026-03-03": {
+      "count": 20,
+      "days_ago": 9,
+      "files": [
+        "deploy/README.md",
+        "docs/ARCHITECTURE.md",
+        "docs/ARCHITECTURE_v1.md",
+        "docs/AUDIT_2026-03-03.md",
+        "docs/audit_ai_lessons.md",
+        "docs/audit_business.md",
+        "docs/audit_content.md",
+        "docs/audit_ecosystem.md",
+        "docs/audit_infra.md",
+        "docs/audit_voice.md",
+        "docs/CODE_REVIEW_v1.md",
+        "docs/DEPLOY.md",
+        "docs/DEPLOY_GCP.md",
+        "docs/DEPLOY_LESSONS_2026-03-03.md",
+        "docs/MANUAL_TESTS.md",
+        "docs/USER_GUIDE_admin.md",
+        "docs/USER_GUIDE_owner.md",
+        "docs/USER_GUIDE_staff.md",
+        "docs/UX_DESIGN_v1.md",
+        "MASTER_PLAN.md"
+      ]
+    },
+    "2026-03-02": {
+      "count": 2,
+      "days_ago": 10,
+      "files": [
+        "docs/plans/2026-03-02-merge-vtb-cf-plan.md",
+        "docs/plans/2026-03-02-unified-telegram-bot.md"
+      ]
+    },
+    "untracked": {
+      "count": 2,
+      "files": [
+        "docs/IDEAL_MASTER_PLAN.md",
+        ".pytest_cache/README.md"
+      ]
+    }
+  },
+
+  "staleness_categories": {
+    "critical_stale": {
+      "count": 6,
+      "description": "Living docs significantly behind current version (v4.x vs v5.9.0)",
+      "files": [
+        "docs/ARCHITECTURE.md",
+        "docs/MANUAL_TESTS.md",
+        "docs/USER_GUIDE_admin.md",
+        "docs/USER_GUIDE_owner.md",
+        "docs/USER_GUIDE_staff.md",
+        "MASTER_PLAN.md"
+      ]
+    },
+    "moderate_stale": {
+      "count": 5,
+      "description": "Living docs that need review — specific known gaps",
+      "files": [
+        "docs/COMMAND_AUDIT.md",
+        "docs/COMMAND_AUDIT_ADMIN.md",
+        "docs/IMPROVEMENT_MASTER_PLAN_v2.md",
+        "docs/DEPLOY.md",
+        "docs/DEPLOY_GCP.md"
+      ]
+    },
+    "intentional_archive": {
+      "count": 16,
+      "description": "Versioned snapshots or dated reports — do not update",
+      "files": [
+        "docs/ARCHITECTURE_v1.md",
+        "docs/AUDIT_2026-03-03.md",
+        "docs/audit_ai_lessons.md",
+        "docs/audit_business.md",
+        "docs/audit_content.md",
+        "docs/audit_ecosystem.md",
+        "docs/audit_infra.md",
+        "docs/audit_voice.md",
+        "docs/CODE_REVIEW_v1.md",
+        "docs/DEPLOY_LESSONS_2026-03-03.md",
+        "docs/SERVER_HEALTH_REPORT_2026-03-04.md",
+        "docs/UX_DESIGN_v1.md",
+        "docs/plans/2026-03-02-merge-vtb-cf-plan.md",
+        "docs/plans/2026-03-02-unified-telegram-bot.md",
+        "docs/IMPROVEMENT_MASTER_PLAN.md",
+        "docs/ADMIN_BOT_REDESIGN.md"
+      ]
+    },
+    "up_to_date": {
+      "count": 7,
+      "description": "Core living docs recently updated",
+      "files": [
+        "CHANGELOG.md",
+        "CLAUDE.md",
+        "ISSUES.md",
+        "README.md",
+        "docs/BUTTON_DESIGN_GUIDE.md",
+        "docs/SERVER_RUNBOOK.md",
+        "docs/SENTRY_GUIDE.md"
+      ]
+    },
+    "special_cases": {
+      "count": 2,
+      "description": "Untracked or auto-generated",
+      "files": [
+        "docs/IDEAL_MASTER_PLAN.md",
+        ".pytest_cache/README.md"
+      ]
+    }
+  },
+
+  "version_gap": {
+    "most_stale_doc_version": "v4.0 (docs/ARCHITECTURE.md)",
+    "current_version": "v5.9.0",
+    "versions_behind": "~6 minor releases"
+  },
+
+  "key_untracked_features_not_in_docs": [
+    "Admin inline action callbacks (v5.9.0): note/tag/assign/remind buttons",
+    "Full i18n EN/AR/ZH (v5.8.0): core/i18n/ module with 100+ keys",
+    "/expenses and /report handlers (v5.7.x)",
+    "/areas card navigation with prev/next (v5.7.x)",
+    "Admin ReplyKeyboard menu 2x3 (v5.7.0)",
+    "Admin inline panel apanel: 6 sections (v5.7.0)",
+    "5 source commands: /events /areas /rss /trends /repurpose",
+    "deploy --remove-orphans fix (v5.8.0)"
+  ]
+}

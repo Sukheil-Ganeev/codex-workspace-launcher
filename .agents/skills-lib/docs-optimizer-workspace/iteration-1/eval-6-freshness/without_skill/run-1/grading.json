@@ -1,0 +1,50 @@
+{
+  "expectations": [
+    {
+      "text": "Output uses git log or checks modification dates to determine when files were last updated",
+      "passed": true,
+      "evidence": "The output contains a full table with a 'Последнее обновление (git)' column showing exact git-based dates for all 39 tracked files, along with a 'Коммитов' (commits count) column. The metrics.json confirms files_by_last_update grouped by git commit dates (2026-03-02 through 2026-03-05). The analysis explicitly states 'Последний коммит: 2026-03-05' and references commit history counts (e.g., CHANGELOG.md: 35 commits, CLAUDE.md: 41 commits)."
+    },
+    {
+      "text": "Output identifies at least one specific file as potentially stale based on modification date or commit history",
+      "passed": true,
+      "evidence": "The output identifies 6 critically stale files and 5 moderately stale files with specific reasons. For example: 'docs/ARCHITECTURE.md' is flagged as 'Устарел (v4.0 → v5.9.0)' — last updated 2026-03-03 (9 days ago) while code is at v5.9.0. Other flagged files include docs/MANUAL_TESTS.md ('Устарел (v4.3.0+ → v5.9.0)'), docs/USER_GUIDE_admin.md ('Устарел (v1.0)'), MASTER_PLAN.md ('Устарел'), and docs/COMMAND_AUDIT_ADMIN.md ('Inline action callbacks (v5.9.0) не отражены'). All staleness judgments are explicitly tied to git modification dates vs current version."
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 0,
+    "total": 2,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "total_tokens": 57622,
+    "total_md_files_analyzed": 41,
+    "tracked_in_git": 39,
+    "untracked": 2,
+    "critical_stale_files": 6,
+    "moderate_stale_files": 5,
+    "up_to_date_files": 7,
+    "intentional_archive_files": 16
+  },
+  "timing": {
+    "duration_ms": 349858,
+    "total_duration_seconds": 349.9
+  },
+  "claims": [
+    "All 41 .md files analyzed with git-based last-update dates",
+    "6 critically stale living docs identified (v4.x vs current v5.9.0)",
+    "5 moderately stale docs identified with specific known gaps",
+    "docs/ARCHITECTURE.md is ~6 minor versions behind (v4.0 vs v5.9.0)",
+    "docs/IDEAL_MASTER_PLAN.md identified as untracked (not in git)",
+    "8 specific untracked features listed that are missing from documentation"
+  ],
+  "eval_feedback": {
+    "suggestions": [
+      "The output is comprehensive and well-structured — it goes beyond the minimum requirements by not only checking dates but also cross-referencing commit history with version numbers to determine staleness severity",
+      "The distinction between 'living docs' and 'intentional archive' files is valuable and shows nuanced understanding",
+      "The output correctly identifies that modification date alone is insufficient — it also checks what version the doc references vs current version"
+    ],
+    "overall": "Excellent output. Both expectations are fully met with high confidence. The analysis uses git-based modification dates throughout (expectation 1) and identifies multiple specific stale files with detailed reasoning (expectation 2). The output exceeds minimum requirements by providing prioritized staleness categories, specific version gaps, and a feature-to-doc impact matrix."
+  }
+}

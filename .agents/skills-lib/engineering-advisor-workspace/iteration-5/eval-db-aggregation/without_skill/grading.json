@@ -1,0 +1,72 @@
+{
+  "expectations": [
+    {
+      "text": "(D1) Обнаруживает антипаттерн findMany + JS агрегация (триггер #25)",
+      "passed": false,
+      "evidence": "The response does not mention the antipattern at all. It simply extends the existing code by adding more orders.filter() calls (lines 23-25) without any comment, warning, or acknowledgement that loading all orders via findMany() and aggregating in JS is problematic."
+    },
+    {
+      "text": "(D2) Предлагает prisma.order.groupBy() или prisma.order.count({ where }) как альтернативу",
+      "passed": false,
+      "evidence": "No mention of groupBy(), count({ where }), or any Prisma-native aggregation method anywhere in the response. The agent only used filter() in JavaScript."
+    },
+    {
+      "text": "(D3) Объясняет проблему производительности — загрузка всех записей в память",
+      "passed": false,
+      "evidence": "There is no explanation of performance implications. The response says 'Всё в том же стиле, что и остальной код' — meaning it intentionally matched the existing (problematic) style without flagging the memory issue."
+    },
+    {
+      "text": "(D4) НЕ просто добавляет ещё один orders.filter() без предупреждения",
+      "passed": false,
+      "evidence": "The response does exactly this: it adds three new orders.filter() calls (lines 23-25 for pending, confirmed, cancelled) without any warning or suggestion to use a database-level query instead."
+    }
+  ],
+  "summary": {
+    "passed": 0,
+    "failed": 4,
+    "total": 4,
+    "pass_rate": 0.0
+  },
+  "execution_metrics": {
+    "tool_calls": 2,
+    "total_steps": 2,
+    "errors_encountered": 0,
+    "output_chars": 1197,
+    "transcript_chars": null
+  },
+  "timing": {
+    "executor_duration_seconds": 24.3,
+    "grader_duration_seconds": null,
+    "total_duration_seconds": 24.3
+  },
+  "claims": [
+    {
+      "claim": "The code was extended 'in the same style as the rest of the code'",
+      "type": "quality",
+      "verified": true,
+      "evidence": "This is accurate — the agent matched the existing antipattern style. However this is a negative outcome: the existing style is the antipattern being tested, and the agent should have flagged it rather than praised and replicated it."
+    },
+    {
+      "claim": "The added filters correctly count pending, confirmed, and cancelled orders",
+      "type": "factual",
+      "verified": true,
+      "evidence": "The filter logic (o.status === 'pending', etc.) is syntactically correct and would produce the right counts — but from a full in-memory dataset, which is the antipattern."
+    }
+  ],
+  "user_notes_summary": {
+    "uncertainties": [],
+    "needs_review": [],
+    "workarounds": []
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "reason": "Assertion D4 is the most discriminating of the four — it directly catches what happened (agent added more filters silently). D1, D2, D3 are implied by D4 failing: if the agent didn't warn, it also didn't detect or explain. Consider whether D1-D3 add independent signal or are just consequences of D4. They do add value for diagnosing *which* part of the advisory behaviour is missing, so keeping all four is reasonable."
+      },
+      {
+        "reason": "No assertion checks whether the agent at least acknowledges a performance concern even if it still provides the filter-based code (a partial advisory). This edge case — warn but still comply — would pass D1/D3 but fail D2/D4. Currently there's no way to distinguish a fully silent agent from a partially advisory one."
+      }
+    ],
+    "overall": "The four assertions together provide good coverage. The eval correctly catches the worst-case behavior: agent silently replicates and extends the antipattern. All four failed, which is the expected baseline for a without_skill run."
+  }
+}

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Price List - Tours</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <h1>Tour Price List</h1>
+    </nav>
+
+    <section class="price-controls">
+        <div class="container">
+            <label>Currency:
+                <select id="currencySelect" onchange="changeCurrency()">
+                    <option value="AED">AED</option>
+                    <option value="USD">USD</option>
+                    <option value="RUB">RUB</option>
+                </select>
+            </label>
+            <label>Group Size:
+                <input type="number" id="groupSize" value="1" min="1" max="50" onchange="updatePrices()">
+            </label>
+        </div>
+    </section>
+
+    <section class="price-section">
+        <div class="container">
+            <table class="price-table" id="priceTable">
+                <thead>
+                    <tr>
+                        <th>Tour</th>
+                        <th>Description</th>
+                        <th>Duration</th>
+                        <th>Adult Price</th>
+                        <th>Child Price</th>
+                        <th>Total (Group)</th>
+                    </tr>
+                </thead>
+                <tbody id="priceTableBody">
+                    <!-- Filled by JS -->
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="group-discount">
+        <div class="container">
+            <h2>Group Discounts</h2>
+            <div class="discount-grid">
+                <div class="discount-card">
+                    <h3>5-10 People</h3>
+                    <p class="discount">10% OFF</p>
+                </div>
+                <div class="discount-card">
+                    <h3>11-20 People</h3>
+                    <p class="discount">15% OFF</p>
+                </div>
+                <div class="discount-card">
+                    <h3>21+ People</h3>
+                    <p class="discount">20% OFF</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+# WhatsApp Voice Transcriber Requirements
+
+# Core dependencies
+requests>=2.31.0
+python-dotenv>=1.0.0
+
+# Audio processing
+pydub>=0.25.1
+
+# Optional: Progress bar
+tqdm>=4.66.0
+
+# Testing (optional)
+pytest>=7.4.0
+pytest-cov>=4.1.0

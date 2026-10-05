@@ -1,0 +1,13 @@
+{
+  "eval_id": 1,
+  "eval_name": "simple-tour",
+  "prompt": "Сделай инвойс #26-047 от Feb 5, 2026. Клиент PETROV ALEXEY, +7 925 111 2233. Тур в Дубае для 2 человек 15 февраля, старт 10:00. Цена 190 USD без VAT.",
+  "assertions": [
+    {"id": "A1-1", "name": "Правильный номер инвойса", "description": "Инвойс содержит номер #26-047"},
+    {"id": "A1-2", "name": "VAT рассчитан верно", "description": "VAT = 9.50 USD (190 × 0.05)"},
+    {"id": "A1-3", "name": "Amount incl. VAT верен", "description": "Amount incl. VAT = 199.50 USD"},
+    {"id": "A1-4", "name": "Реквизиты Marsel", "description": "Account 28642584 или MARSEL LUXURY CAR RENTAL"},
+    {"id": "A1-5", "name": "Имя клиента в CAPS", "description": "PETROV ALEXEY заглавными"},
+    {"id": "A1-6", "name": "Описание услуги CAPS", "description": "Описание содержит TOUR, DUBAI, 2 persons"}
+  ]
+}

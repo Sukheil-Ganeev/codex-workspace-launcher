@@ -1,0 +1,4 @@
+interface:
+  display_name: "Skill Orchestrator Master"
+  short_description: "Routes complex tasks to the right local skills."
+  default_prompt: "Выбери лучшие навыки для моей задачи и выстрой порядок работы."

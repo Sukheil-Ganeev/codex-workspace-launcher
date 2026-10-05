@@ -1,0 +1,92 @@
+{
+  "eval": "eval-4-optimize",
+  "skill_used": "docs-optimizer",
+  "mode": "optimize",
+  "project": "TouristBotEcosystem",
+  "date": "2026-03-12",
+
+  "before": {
+    "claude_md_lines": 557,
+    "claude_md_tokens_approx": 2228,
+    "anti_patterns_found": 9,
+    "ssot_violations": 6,
+    "duplicate_sections": 3,
+    "project_stage": "STABLE",
+    "verification_score": "3/5"
+  },
+
+  "after_projected": {
+    "claude_md_lines": 230,
+    "claude_md_tokens_approx": 920,
+    "anti_patterns_remaining": 1,
+    "ssot_violations": 0,
+    "duplicate_sections": 0,
+    "verification_score_projected": "5/5"
+  },
+
+  "savings": {
+    "lines_removed": 327,
+    "lines_removed_pct": 59,
+    "tokens_saved": 1308,
+    "tokens_saved_pct": 59
+  },
+
+  "anti_patterns_detected": [
+    {"id": "AP-01", "name": "Context Stuffing", "severity": "HIGH", "lines": 315, "detail": "Full file tree 315 lines inline"},
+    {"id": "AP-04", "name": "Cache-Hostile Order", "severity": "HIGH", "detail": "Dynamic 'Batch status' first, static commands buried"},
+    {"id": "AP-09", "name": "Code-Doc Drift", "severity": "MEDIUM", "detail": "Disabled bots (telegram_voice, telegram_content) described in detail"},
+    {"id": "AP-10", "name": "Monolithic Status", "severity": "MEDIUM", "detail": "Batch 4 description is a 400+ char single line"},
+    {"id": "AP-11", "name": "Duplicate Commands", "severity": "MEDIUM", "detail": "GCP deploy commands appear in both Commands and Deploy sections"},
+    {"id": "AP-16", "name": "Cross-File Duplication", "severity": "HIGH", "detail": "Full GCP table in CLAUDE.md AND docs/DEPLOY_GCP.md"},
+    {"id": "AP-20", "name": "Protocol Sprawl", "severity": "HIGH", "detail": "Cloudflare Tunnel setup tutorial (47 lines) — tunnel already configured"},
+    {"id": "AP-02", "name": "Stale Docs", "severity": "MEDIUM", "detail": "Detailed descriptions of 2 disabled bots"},
+    {"id": "AP-13", "name": "Flat Hierarchy", "severity": "LOW", "detail": "docs/ not split into audits/archive/active"}
+  ],
+
+  "ssot_violations_detected": [
+    {"fact": "GCP deploy params", "found_in": ["CLAUDE.md", "docs/DEPLOY_GCP.md"], "ssot": "docs/DEPLOY_GCP.md"},
+    {"fact": "Cloudflare Tunnel setup", "found_in": ["CLAUDE.md"], "ssot": "docs/DEPLOY_GCP.md (move there, remove from CLAUDE.md)"},
+    {"fact": "requirements.txt contents", "found_in": ["CLAUDE.md", "requirements.txt"], "ssot": "requirements.txt"},
+    {"fact": "AI backends detail", "found_in": ["CLAUDE.md", "core/ai/models.py"], "ssot": "core/ai/models.py"},
+    {"fact": "Project file tree", "found_in": ["CLAUDE.md", "docs/ARCHITECTURE_v1.md"], "ssot": "docs/ARCHITECTURE_v1.md"},
+    {"fact": "Batch progress details", "found_in": ["CLAUDE.md", "CHANGELOG.md"], "ssot": "CHANGELOG.md (history), CLAUDE.md (status only)"}
+  ],
+
+  "sections_to_remove_or_replace": [
+    {"section": "Full file tree (315 lines)", "action": "replace_with_subsystems_table_13_lines", "link_to": "docs/ARCHITECTURE_v1.md"},
+    {"section": "Cloudflare Tunnel setup (47 lines)", "action": "remove_keep_status_1_line", "link_to": "docs/DEPLOY_GCP.md"},
+    {"section": "requirements.txt copy (30 lines)", "action": "remove", "replace_with": "22 зависимости, см. requirements.txt"},
+    {"section": "GCP full table (13 rows)", "action": "compress_to_4_lines", "link_to": "docs/DEPLOY_GCP.md"},
+    {"section": "Batch 4/5 long descriptions", "action": "compress_to_2_words_plus_version"}
+  ],
+
+  "sections_to_add": [
+    {"section": "Quick Start (5 steps)", "priority": "HIGH"},
+    {"section": "Navigation table (file → when to read)", "priority": "MEDIUM"},
+    {"section": ".claudeignore suggestion", "priority": "LOW"}
+  ],
+
+  "claudeignore_suggested": [
+    "docs/audit_*.md",
+    "docs/AUDIT_2026-03-03.md",
+    "docs/CODE_REVIEW_v1.md",
+    "docs/COMMAND_AUDIT.md",
+    "docs/COMMAND_AUDIT_ADMIN.md",
+    "docs/DATABASE_COVERAGE_AUDIT.md",
+    "docs/DEPLOY_LESSONS_2026-03-03.md",
+    "docs/SERVER_HEALTH_REPORT_2026-03-04.md",
+    "docs/PROJECT_ACCOMPLISHMENTS.md",
+    "docs/plans/",
+    ".claude/worktrees/",
+    "*.bak"
+  ],
+
+  "do_not_touch": [
+    "CHANGELOG.md (журнал, растёт)",
+    "ISSUES.md (трекер)",
+    "docs/ARCHITECTURE_v1.md (ссылочный документ)",
+    "docs/BUTTON_DESIGN_GUIDE.md",
+    "docs/IMPROVEMENT_MASTER_PLAN.md",
+    "bots/telegram_voice/ и bots/telegram_content/ (dormant, не удалять)"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "eval_id": 14,
+  "eval_name": "playlist-specific-items",
+  "prompt": "скачай только видео с 5 по 10 из этого плейлиста: youtube.com/playlist?list=PLxxx",
+  "assertions": [
+    "Использует --playlist-items 5-10 для выбора диапазона",
+    "Указывает путь сохранения D:/Downloads/YouTube/"
+  ]
+}

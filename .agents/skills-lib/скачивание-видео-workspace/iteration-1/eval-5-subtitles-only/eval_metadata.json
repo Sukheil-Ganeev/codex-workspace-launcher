@@ -1,0 +1,23 @@
+{
+  "eval_id": 5,
+  "eval_name": "subtitles-only",
+  "prompt": "хочу получить только субтитры на русском с этого видео, само видео не нужно: youtube.com/watch?v=dQw4w9WgXcQ",
+  "assertions": [
+    {
+      "text": "Содержит --skip-download (не скачивать видео)",
+      "check": "contains --skip-download"
+    },
+    {
+      "text": "Содержит --write-subs или --write-auto-subs",
+      "check": "contains --write-subs or --write-auto-subs"
+    },
+    {
+      "text": "Содержит ru как язык субтитров",
+      "check": "contains ru"
+    },
+    {
+      "text": "Содержит правильный путь D:/Downloads/YouTube/",
+      "check": "contains D:/Downloads/YouTube/"
+    }
+  ]
+}

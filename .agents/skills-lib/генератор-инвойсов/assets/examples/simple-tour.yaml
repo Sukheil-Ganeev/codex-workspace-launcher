@@ -1,0 +1,37 @@
+# Пример 1: Простой инвойс — приватный тур для физлица
+# Использование: скопировать и заполнить своими данными
+
+invoice:
+  number: "#26-001"
+  date: "Jan 22, 2026"
+
+brand: "marsel"  # marsel | sokol
+
+client:
+  name: "IVANOV IVAN"           # CAPS для физлиц
+  phone: "+7 999 123 4567"
+  address: ""                    # Пусто для физлиц
+  trn: ""                        # Пусто для физлиц
+
+services:
+  - type: "PRIVATE_TOUR"
+    description: "PRIVATE TOUR IN DUBAI (for 2 persons)"
+    date: "28 JANUARY"
+    time: "START AT 10:00 AM"    # Опционально
+    quantity: 1
+    price_excl_vat: 238.10       # Цена без VAT
+    # VAT рассчитывается автоматически: 238.10 * 0.05 = 11.91 (округление)
+    # Итого с VAT: 250.01
+
+payment:
+  pos_terminal: false
+  # pos_commission: 3.5          # Только если pos_terminal: true
+
+bank_details:
+  use_default: true              # Использовать актуальные реквизиты Marsel
+
+# Ожидаемые итоги:
+# Total (Excl. VAT): $238.10
+# Total VAT: $11.91
+# Total (Incl. VAT): $250.01
+# Примечание: для ровных сумм используйте price_excl_vat = 238.095

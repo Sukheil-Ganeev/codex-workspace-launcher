@@ -1,0 +1,77 @@
+[project]
+name = "cc-cleaner"
+version = "0.4.1"
+description = "The cache cleaner for the AI Coding era. Clean up Claude Code, Cursor, npm, pip, cargo caches and more."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.10"
+authors = [
+    { name = "elexingyu", email = "elexingyu@gmail.com" }
+]
+keywords = [
+    "cli",
+    "cache",
+    "cleaner",
+    "ai-coding",
+    "claude-code",
+    "cursor",
+    "copilot",
+    "disk-space",
+    "npm",
+    "pip",
+    "cargo",
+    "docker",
+    "developer-tools",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: MacOS",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: System :: Systems Administration",
+    "Topic :: Utilities",
+    "Typing :: Typed",
+]
+dependencies = [
+    "typer>=0.9.0",
+    "rich>=13.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/elexingyu/cc-cleaner"
+Repository = "https://github.com/elexingyu/cc-cleaner"
+Issues = "https://github.com/elexingyu/cc-cleaner/issues"
+
+[project.scripts]
+cc-cleaner = "cc_cleaner.cli:app"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.sdist]
+include = ["src/cc_cleaner"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/cc_cleaner"]
+
+[tool.hatch.build.targets.wheel.sources]
+"src" = ""
+
+[tool.ruff]
+line-length = 88
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.mypy]
+python_version = "3.10"
+strict = true

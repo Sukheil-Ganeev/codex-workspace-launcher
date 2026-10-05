@@ -1,0 +1,1 @@
+CREATE TABLE exchange_rates (id SERIAL PRIMARY KEY, aed_to_usd NUMERIC(10,6), updated_at TIMESTAMP DEFAULT NOW());

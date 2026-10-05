@@ -1,0 +1,390 @@
+{
+  "metadata": {
+    "skill_name": "скачивание-видео",
+    "skill_path": "C:/Users/londo/.claude/skills/скачивание-видео",
+    "executor_model": "claude-sonnet-4-6",
+    "timestamp": "2026-03-05T03:48:00Z",
+    "evals_run": [9, 10, 11, 12, 13, 14, 15, 16],
+    "runs_per_configuration": 1
+  },
+
+  "runs": [
+    {
+      "eval_id": 9,
+      "eval_name": "Troubleshooting: HTTP 403",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 3,
+        "failed": 0,
+        "total": 3,
+        "time_seconds": 56.0,
+        "tokens": 39218,
+        "tool_calls": 5,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "Упоминает yt-dlp -U или обновление yt-dlp как одно из решений", "passed": true, "evidence": "Шаг 1 явно с командой yt-dlp -U и комментарием '90% ошибок решаются обновлением'"},
+        {"text": "Упоминает --cookies-from-browser как способ передать авторизацию", "passed": true, "evidence": "Шаг 2: --cookies-from-browser chrome с вариантами"},
+        {"text": "Упоминает -v или --verbose для диагностики ошибки", "passed": true, "evidence": "Раздел Диагностика: yt-dlp -v с примером"}
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 9,
+      "eval_name": "Troubleshooting: HTTP 403",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 3,
+        "failed": 0,
+        "total": 3,
+        "time_seconds": 50.0,
+        "tokens": 21736,
+        "tool_calls": 3,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "Упоминает yt-dlp -U или обновление yt-dlp как одно из решений", "passed": true, "evidence": "Раздел 1: pip install -U yt-dlp и yt-dlp -U"},
+        {"text": "Упоминает --cookies-from-browser как способ передать авторизацию", "passed": true, "evidence": "--cookies-from-browser chrome"},
+        {"text": "Упоминает -v или --verbose для диагностики ошибки", "passed": true, "evidence": "Раздел ДИАГНОСТИКА: yt-dlp -v"}
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 10,
+      "eval_name": "Troubleshooting: нет звука",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 3,
+        "failed": 0,
+        "total": 3,
+        "time_seconds": 49.6,
+        "tokens": 32593,
+        "tool_calls": 4,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "Называет отсутствие FFmpeg как причину проблемы", "passed": true, "evidence": "'FFmpeg — это отдельная программа. Без неё yt-dlp ограничен форматами'"},
+        {"text": "Упоминает --merge-output-format или слияние потоков через FFmpeg", "passed": true, "evidence": "--merge-output-format mp4 в Решение 3"},
+        {"text": "Объясняет как проверить FFmpeg: команда ffmpeg -version", "passed": true, "evidence": "Раздел 'Как проверить': ffmpeg -version"}
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 10,
+      "eval_name": "Troubleshooting: нет звука",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 3,
+        "failed": 0,
+        "total": 3,
+        "time_seconds": 43.3,
+        "tokens": 21379,
+        "tool_calls": 3,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "Называет отсутствие FFmpeg как причину проблемы", "passed": true, "evidence": "'Без ffmpeg yt-dlp не сможет склеить'"},
+        {"text": "Упоминает --merge-output-format или слияние потоков через FFmpeg", "passed": true, "evidence": "--merge-output-format mp4 в команде bestvideo+bestaudio"},
+        {"text": "Объясняет как проверить FFmpeg: команда ffmpeg -version", "passed": true, "evidence": "'Проверить: ffmpeg -version'"}
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 11,
+      "eval_name": "Troubleshooting: format not available",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 2,
+        "failed": 0,
+        "total": 2,
+        "time_seconds": 52.3,
+        "tokens": 39216,
+        "tool_calls": 5,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "Предлагает yt-dlp -F URL для просмотра доступных форматов", "passed": true, "evidence": "Шаг 1: yt-dlp -F назван 'главным инструментом диагностики'"},
+        {"text": "Предлагает fallback формат без строгих ограничений", "passed": true, "evidence": "Шаг 2: цепочка bv*[height=1080]+ba/bv*[height=720]+ba/best; Шаг 3: -f best"}
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 11,
+      "eval_name": "Troubleshooting: format not available",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 2,
+        "failed": 0,
+        "total": 2,
+        "time_seconds": 37.4,
+        "tokens": 21510,
+        "tool_calls": 3,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "Предлагает yt-dlp -F URL для просмотра доступных форматов", "passed": true, "evidence": "Шаг 1: yt-dlp -F с примером вывода таблицы"},
+        {"text": "Предлагает fallback формат без строгих ограничений", "passed": true, "evidence": "bestvideo+bestaudio/best и вариант без флага -f"}
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 12,
+      "eval_name": "Нишевая платформа: ВКонтакте",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 3,
+        "failed": 0,
+        "total": 3,
+        "time_seconds": 35.4,
+        "tokens": 32254,
+        "tool_calls": 4,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "Даёт корректную команду yt-dlp с VK URL", "passed": true, "evidence": "yt-dlp -P D:/Downloads/YouTube/ https://vk.com/video-123456_789"},
+        {"text": "Указывает путь сохранения D:/Downloads/YouTube/", "passed": true, "evidence": "-P D:/Downloads/YouTube/ + явное упоминание пути"},
+        {"text": "Упоминает cookies как возможное требование для ВК", "passed": true, "evidence": "Раздел ВАЖНО с --cookies-from-browser"}
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 12,
+      "eval_name": "Нишевая платформа: ВКонтакте",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.667,
+        "passed": 2,
+        "failed": 1,
+        "total": 3,
+        "time_seconds": 35.9,
+        "tokens": 21231,
+        "tool_calls": 3,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "Даёт корректную команду yt-dlp с VK URL", "passed": true, "evidence": "yt-dlp https://vk.com/video-123456_789"},
+        {"text": "Указывает путь сохранения D:/Downloads/YouTube/", "passed": false, "evidence": "Путь указан как D:/Downloads/ без /YouTube/"},
+        {"text": "Упоминает cookies как возможное требование для ВК", "passed": true, "evidence": "--cookies-from-browser chrome"}
+      ],
+      "notes": ["Без скилла Claude не знает о правильном пути D:/Downloads/YouTube/"]
+    },
+    {
+      "eval_id": 13,
+      "eval_name": "Пакетная загрузка с архивом",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "time_seconds": 41.7,
+        "tokens": 32557,
+        "tool_calls": 4,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "Использует флаг -a urls.txt для пакетной загрузки", "passed": true, "evidence": "-a urls.txt в команде"},
+        {"text": "Использует --download-archive для хранения ID скачанных", "passed": true, "evidence": "--download-archive D:/Downloads/YouTube/archive.txt с детальным объяснением"},
+        {"text": "Указывает путь сохранения D:/Downloads/YouTube/", "passed": true, "evidence": "-P D:/Downloads/YouTube/"},
+        {"text": "Упоминает --no-overwrites для пропуска существующих файлов", "passed": true, "evidence": "--no-overwrites с объяснением"}
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 13,
+      "eval_name": "Пакетная загрузка с архивом",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.5,
+        "passed": 2,
+        "failed": 2,
+        "total": 4,
+        "time_seconds": 36.9,
+        "tokens": 21512,
+        "tool_calls": 3,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "Использует флаг -a urls.txt для пакетной загрузки", "passed": true, "evidence": "--batch-file urls.txt (эквивалентный флаг)"},
+        {"text": "Использует --download-archive для хранения ID скачанных", "passed": true, "evidence": "--download-archive downloaded.txt"},
+        {"text": "Указывает путь сохранения D:/Downloads/YouTube/", "passed": false, "evidence": "Путь не указан, видео сохранится в текущую директорию"},
+        {"text": "Упоминает --no-overwrites для пропуска существующих файлов", "passed": false, "evidence": "Используются --ignore-errors и --no-abort-on-error вместо --no-overwrites"}
+      ],
+      "notes": ["Без скилла: правильный путь и --no-overwrites не упоминаются"]
+    },
+    {
+      "eval_id": 14,
+      "eval_name": "Конкретные видео из плейлиста (5-10)",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 2,
+        "failed": 0,
+        "total": 2,
+        "time_seconds": 31.4,
+        "tokens": 32271,
+        "tool_calls": 4,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "Использует --playlist-items 5-10 для выбора диапазона", "passed": true, "evidence": "--playlist-items 5-10 в основной команде"},
+        {"text": "Указывает путь сохранения D:/Downloads/YouTube/", "passed": true, "evidence": "-P D:/Downloads/YouTube/ с явным указанием пути сохранения"}
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 14,
+      "eval_name": "Конкретные видео из плейлиста (5-10)",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.5,
+        "passed": 1,
+        "failed": 1,
+        "total": 2,
+        "time_seconds": 32.1,
+        "tokens": 21231,
+        "tool_calls": 3,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "Использует --playlist-items 5-10 для выбора диапазона", "passed": true, "evidence": "--playlist-items 5-10 в основной команде"},
+        {"text": "Указывает путь сохранения D:/Downloads/YouTube/", "passed": false, "evidence": "Путь сохранения не указан ни в одной команде"}
+      ],
+      "notes": ["Без скилла: --playlist-items знает, но путь D:/Downloads/YouTube/ не добавляет"]
+    },
+    {
+      "eval_id": 15,
+      "eval_name": "Амбигуозный запрос: нет URL",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 3,
+        "failed": 0,
+        "total": 3,
+        "time_seconds": 33.3,
+        "tokens": 32082,
+        "tool_calls": 4,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "Просит пользователя предоставить конкретную ссылку", "passed": true, "evidence": "'мне нужна конкретная ссылка' — первое предложение"},
+        {"text": "Не выдумывает и не угадывает URL видео", "passed": true, "evidence": "Нет ни одного выдуманного URL"},
+        {"text": "Не пытается выполнить команду скачивания без ссылки", "passed": true, "evidence": "Команда показана как будущее действие после получения ссылки"}
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 15,
+      "eval_name": "Амбигуозный запрос: нет URL",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 3,
+        "failed": 0,
+        "total": 3,
+        "time_seconds": 24.8,
+        "tokens": 20893,
+        "tool_calls": 3,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "Просит пользователя предоставить конкретную ссылку", "passed": true, "evidence": "'Пожалуйста, пришлите ссылку вида'"},
+        {"text": "Не выдумывает и не угадывает URL видео", "passed": true, "evidence": "Использован только placeholder XXXXXXXXX"},
+        {"text": "Не пытается выполнить команду скачивания без ссылки", "passed": true, "evidence": "Задаёт уточняющие вопросы, не начинает скачивание"}
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 16,
+      "eval_name": "Информация без скачивания (форматы)",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 3,
+        "failed": 0,
+        "total": 3,
+        "time_seconds": 62.7,
+        "tokens": 34059,
+        "tool_calls": 4,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "Использует yt-dlp -F URL для просмотра доступных форматов", "passed": true, "evidence": "yt-dlp -F https://youtube.com/watch?v=dQw4w9WgXcQ — первая команда"},
+        {"text": "Объясняет что означают колонки или ID форматов в выводе", "passed": true, "evidence": "Таблица 'Расшифровка колонок' с 12 колонками + объяснение кодеков"},
+        {"text": "Не предлагает команду скачивания как основное действие", "passed": true, "evidence": "Скачивание — второстепенная информация в конце 'если захочешь'"}
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 16,
+      "eval_name": "Информация без скачивания (форматы)",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 3,
+        "failed": 0,
+        "total": 3,
+        "time_seconds": 52.5,
+        "tokens": 22857,
+        "tool_calls": 3,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "Использует yt-dlp -F URL для просмотра доступных форматов", "passed": true, "evidence": "yt-dlp -F https://www.youtube.com/watch?v=dQw4w9WgXcQ"},
+        {"text": "Объясняет что означают колонки или ID форматов в выводе", "passed": true, "evidence": "Таблица Расшифровка колонок с 9 колонками + DASH объяснение"},
+        {"text": "Не предлагает команду скачивания как основное действие", "passed": true, "evidence": "Раздел скачивания дан как дополнительная информация"}
+      ],
+      "notes": []
+    }
+  ],
+
+  "run_summary": {
+    "with_skill": {
+      "pass_rate": {"mean": 1.0, "stddev": 0.0, "min": 1.0, "max": 1.0},
+      "time_seconds": {"mean": 45.3, "stddev": 10.8, "min": 31.4, "max": 62.7},
+      "tokens": {"mean": 34281, "stddev": 2906, "min": 32082, "max": 39218}
+    },
+    "without_skill": {
+      "pass_rate": {"mean": 0.833, "stddev": 0.217, "min": 0.5, "max": 1.0},
+      "time_seconds": {"mean": 39.1, "stddev": 8.6, "min": 24.8, "max": 52.5},
+      "tokens": {"mean": 21544, "stddev": 549, "min": 20893, "max": 22857}
+    },
+    "delta": {
+      "pass_rate": "+0.167",
+      "time_seconds": "+6.2",
+      "tokens": "+12737"
+    }
+  },
+
+  "notes": [
+    "Тесты 9, 10, 11, 15, 16 — одинаковый результат (100%) для обеих конфигураций: troubleshooting и поведенческие паттерны не требуют скилла",
+    "Тесты 12, 13, 14 — скилл даёт +33% благодаря одному паттерну: правильный путь D:/Downloads/YouTube/",
+    "Путь D:/Downloads/YouTube/ — главная дискриминирующая assertion в iteration-2, как и в iteration-1",
+    "Тест 15 (нет URL) — оба варианта справились одинаково: Claude просит ссылку без скилла тоже",
+    "Без скилла Claude использует --batch-file вместо -a (длинная форма vs короткая) и опускает --no-overwrites",
+    "Скилл добавляет +6.2s среднего времени и +12737 токенов — стоимость чтения SKILL.md"
+  ]
+}

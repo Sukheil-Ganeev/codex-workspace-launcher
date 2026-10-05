@@ -1,0 +1,39 @@
+{
+  "eval_id": "eval-4-optimize",
+  "config": "with_skill",
+  "assertions": [
+    {
+      "id": "a1",
+      "description": "Output proposes a condensed CLAUDE.md structure targeting 200-250 lines or mentions a significant reduction",
+      "passed": true,
+      "evidence": "Before/After table explicitly shows 558 → ~220 строк (-61%). Draft skeleton is ~220 lines. Text states 'Целевой диапазон: 200-250 строк, ~800-1,000 токенов'."
+    },
+    {
+      "id": "a2",
+      "description": "Output includes explicit before/after line count or token count comparison",
+      "passed": true,
+      "evidence": "Before/After metrics table: строк 558→~220 (-338 lines, -61%), токенов ~2,232→~880 (-1,352 tokens, -61%)."
+    },
+    {
+      "id": "a3",
+      "description": "Output generates a draft outline or structure of an optimized CLAUDE.md",
+      "passed": true,
+      "evidence": "Full draft CLAUDE.md skeleton (~220 lines) provided with sections: Quick Start, Статус, Статистика, Архитектура краткая, AI Backends, Команды, Деплой, Стандарты дизайна, Навигация по docs/, Открытые проблемы."
+    },
+    {
+      "id": "a4",
+      "description": "Output references AP-XX antipattern codes that the optimization addresses",
+      "passed": true,
+      "evidence": "AP-01 (Context Stuffing), AP-04 (Cache-Hostile Order), AP-09 (Code-Doc Drift), AP-10 (Monolithic Status), AP-11 (Duplicate Commands), AP-20 (Protocol Sprawl) all explicitly referenced with descriptions."
+    },
+    {
+      "id": "a5",
+      "description": "Output classifies content into Essential, On-demand, and Archive tiers to justify what stays and what moves",
+      "passed": true,
+      "evidence": "Tier-таблица contains all three tiers explicitly labeled: Essential (8 rows: шапка, статус, стандарты дизайна, команды, AI backends, деплой, открытые проблемы, статистика), On-demand (8 rows: полное архитектурное дерево, зависимости, источники READ-ONLY, бизнес-контекст, cloudflare инструкция, скрипты деплоя), Archive (4 rows: cloudflare steps already done ✅, старый туннель voicebot, альтернатива через браузер, план миграции)."
+    }
+  ],
+  "pass_rate": 1.0,
+  "passed": 5,
+  "total": 5
+}

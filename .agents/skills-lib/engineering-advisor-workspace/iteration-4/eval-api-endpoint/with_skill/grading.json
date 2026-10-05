@@ -1,0 +1,43 @@
+{
+  "expectations": [
+    {
+      "text": "(A1) Обнаруживает отсутствие авторизации (триггер #13) — Ответ должен указать что эндпоинт открыт без авторизации — любой может создать заказ",
+      "passed": true,
+      "evidence": "Line 3: 'Trigger detected: #13 — Creating API endpoint (authorization + validation + rate limit required)'. Lines 29-30: '**1. No Authorization** — Anyone on the internet can POST to /api/orders and create an order in your database. Bots, competitors, random people.' Clear and explicit."
+    },
+    {
+      "text": "(A2) Указывает на отсутствие валидации (dict вместо Pydantic) — Ответ должен указать что `data: dict` опасно — нет валидации входных данных",
+      "passed": true,
+      "evidence": "Lines 32-33: '**2. No Input Validation** — `data: dict` accepts literally anything. You can pass {\"price\": -99999}, or an empty object, or fields that don't exist in the model — and Python will crash with an unhandled error.' Fix replaces dict with a Pydantic OrderCreate model with Field validators."
+    },
+    {
+      "text": "(A3) Уровень Recommended или выше для API endpoint — Ответ должен использовать уровень Recommended или MANDATORY",
+      "passed": true,
+      "evidence": "Line 4: '**Level:** Recommended' — explicitly set in the response header."
+    },
+    {
+      "text": "(A4) НЕ просто добавляет return order.id без предупреждений — Ответ НЕ должен сразу дать одну строку return без упоминания безопасности/валидации",
+      "passed": true,
+      "evidence": "The response leads with a full security section ('What Is Wrong With the Current Code') covering 3 issues before providing any code fix. The fix itself integrates authorization, Pydantic validation, and rate limiting alongside the requested db.refresh(). Security is not an afterthought — it is the primary content."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "output_chars": 3012
+  },
+  "claims": [],
+  "eval_feedback": {
+    "suggestions": [
+      "The response correctly prioritizes security warnings before the fix — this is the ideal pattern for A4.",
+      "Trigger #13 detection is explicit in the header, strengthening A1.",
+      "The Pydantic example with Field validators (min_length, gt=0) goes beyond just naming the problem — it demonstrates the fix concretely.",
+      "Level 'Recommended' is appropriate; could consider MANDATORY given that auth is completely absent on a write endpoint."
+    ],
+    "overall": "Perfect score 4/4. The response demonstrates exactly the intended Engineering Advisor behavior: detect trigger (#13), surface all security issues prominently before providing the requested fix, replace dict with Pydantic, and refuse to give a naive one-liner without context. All four assertions pass cleanly."
+  }
+}

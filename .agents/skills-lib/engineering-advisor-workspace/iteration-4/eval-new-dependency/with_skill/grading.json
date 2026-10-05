@@ -1,0 +1,42 @@
+{
+  "expectations": [
+    {
+      "text": "(D1) Упоминает обновление requirements.txt (триггер #16) — Ответ должен указать на необходимость добавить httpx в requirements.txt",
+      "passed": true,
+      "evidence": "WARN блок явно говорит: 'httpx не зафиксирован в requirements.txt. Добавить httpx>=0.27.0 в requirements.txt.' Раздел 'Шаг #16: requirements.txt' показывает конкретную строку для добавления и bash-команду для автоматического добавления."
+    },
+    {
+      "text": "(D2) Обнаруживает синхронный requests в async функции (триггер #20) — Ответ должен заметить что requests.get() — синхронный вызов в async функции — блокирующий вызов, опасно",
+      "passed": true,
+      "evidence": "BLOCK блок явно: 'requests.get() в async функции. Блокирует весь event loop бота пока ждёт ответ от API. Пока один запрос висит — ВСЕ остальные пользователи ждут.' Раздел 'BLOCK: requests.get в async' объясняет это простыми словами с аналогией про 50 клиентов."
+    },
+    {
+      "text": "(D3) Предлагает async httpx клиент (httpx.AsyncClient) — Ответ должен показать правильную async версию с await client.get(...)",
+      "passed": true,
+      "evidence": "Исправленный код показывает: 'async with httpx.AsyncClient() as client: response = await client.get(...)'. Также предложен оптимизированный вариант с переиспользованием клиента и startup/shutdown хуками для aiogram."
+    },
+    {
+      "text": "(D4) НЕ просто переименовывает requests в httpx без async — Ответ НЕ должен дать код где просто заменён import requests на import httpx без перехода на AsyncClient и await",
+      "passed": true,
+      "evidence": "Код использует httpx.AsyncClient с await: 'async with httpx.AsyncClient() as client: response = await client.get(...)'. Это полноценный async переход, а не просто переименование import. Раздел 'Что изменилось' явно перечисляет все три изменения включая переход на await."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "output_chars": 4500
+  },
+  "claims": [],
+  "eval_feedback": {
+    "suggestions": [
+      "Ответ полностью покрывает все 4 критерия с чёткими блоками BLOCK/WARN/INFO",
+      "Дополнительно даёт продакшн-вариант с переиспользованием AsyncClient — выше требований",
+      "Чеклист в конце — хорошая структура для проверки"
+    ],
+    "overall": "Отличный ответ: все 4 assertion пройдены. Обнаружены оба триггера (#16 и #20), предложен правильный async код с httpx.AsyncClient и await, добавление в requirements.txt явно указано, нет упрощённой замены без async. Ответ превышает минимальные требования за счёт объяснений простыми словами и продакшн-паттернов."
+  }
+}

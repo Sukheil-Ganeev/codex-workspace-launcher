@@ -1,0 +1,43 @@
+{
+  "expectations": [
+    {
+      "text": "(N1) Обнаруживает N+1 проблему (SELECT в цикле)",
+      "passed": true,
+      "evidence": "Response explicitly states: 'Твой код делает N+1 запросов к базе данных: 1 запрос — получить всех туристов, N запросов — для каждого туриста отдельный запрос за заказами'"
+    },
+    {
+      "text": "(N2) Объясняет риск производительности",
+      "passed": true,
+      "evidence": "Response states: 'Если туристов 500 — будет 501 запрос. Это медленно.' — directly explains the scaling problem with a concrete example"
+    },
+    {
+      "text": "(N3) Предлагает JOIN или subqueryload как решение",
+      "passed": true,
+      "evidence": "Response proposes 'from sqlalchemy.orm import joinedload' and 'db.query(Tourist).options(joinedload(Tourist.orders)).all()' as the concrete fix, noting it reduces to 1-2 queries"
+    },
+    {
+      "text": "(N4) НЕ просто отвечает на вопрос про форматирование",
+      "passed": true,
+      "evidence": "Response addresses BOTH N+1 (first section) AND formatting (Telegram bot pretty output with HTML, icons, pagination). N+1 is the primary focus, formatting is secondary."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "output_chars": 1812
+  },
+  "claims": [],
+  "eval_feedback": {
+    "suggestions": [
+      "This eval may be non-discriminating if both skill and no-skill versions catch N+1 — consider checking whether the without_skill version provides LESS depth (e.g., no mention of DB load, no alternative solutions like subqueryload/batching, no explanation of why it happens)",
+      "N2 passes but the explanation is minimal ('Это медленно') — consider requiring mention of DB load/server load in addition to slowness",
+      "The response does not mention subqueryload as an alternative to joinedload — if that distinction matters, N3 criteria should be more specific",
+      "Consider adding an assertion about whether the response explains WHY N+1 happens (lazy loading pattern) for deeper discrimination"
+    ],
+    "overall": "The without_skill response passes all 4 assertions. It correctly identifies N+1, explains the performance risk with a concrete example (500 tourists = 501 queries), proposes joinedload as the solution, and addresses both N+1 and formatting rather than formatting alone. The response is well-structured and technically accurate."
+  }
+}

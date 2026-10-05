@@ -1,0 +1,26 @@
+{
+  "run_id": "eval-4-tiktok-without_skill",
+  "expectations": [
+    {
+      "text": "Содержит правильный путь D:/Downloads/YouTube/",
+      "passed": false,
+      "evidence": "Основная команда без пути. Пример: D:/Downloads/%(uploader)s_%(id)s.%(ext)s — не тот путь"
+    },
+    {
+      "text": "Содержит ссылку на TikTok в команде",
+      "passed": true,
+      "evidence": "tiktok.com — есть"
+    },
+    {
+      "text": "Команда корректна (содержит yt-dlp)",
+      "passed": true,
+      "evidence": "yt-dlp — есть"
+    },
+    {
+      "text": "НЕ добавляет лишние флаги только-для-YouTube (нет ext=mp4 фильтра)",
+      "passed": true,
+      "evidence": "Нет YouTube-специфичных флагов"
+    }
+  ],
+  "pass_rate": 0.75
+}

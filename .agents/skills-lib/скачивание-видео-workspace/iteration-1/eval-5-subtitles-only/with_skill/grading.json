@@ -1,0 +1,26 @@
+{
+  "run_id": "eval-5-subtitles-only-with_skill",
+  "expectations": [
+    {
+      "text": "Содержит --skip-download (не скачивать видео)",
+      "passed": true,
+      "evidence": "--skip-download — есть в основной команде"
+    },
+    {
+      "text": "Содержит --write-subs или --write-auto-subs",
+      "passed": true,
+      "evidence": "--write-subs — есть"
+    },
+    {
+      "text": "Содержит ru как язык субтитров",
+      "passed": true,
+      "evidence": "--sub-lang ru — есть"
+    },
+    {
+      "text": "Содержит правильный путь D:/Downloads/YouTube/",
+      "passed": true,
+      "evidence": "-P \"D:/Downloads/YouTube/\" — есть"
+    }
+  ],
+  "pass_rate": 1.0
+}

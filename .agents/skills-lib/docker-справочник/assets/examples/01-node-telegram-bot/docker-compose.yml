@@ -1,0 +1,35 @@
+# =============================================================================
+# docker-compose.yml — Telegram-бот бронирования туров ОАЭ
+# Docker Compose v2.40+ | Февраль 2026
+#
+# Запуск: docker compose up -d
+# Логи:   docker compose logs -f bot
+# Стоп:   docker compose down
+# =============================================================================
+
+services:
+  bot:
+    build: .
+    container_name: telegram-booking-bot
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - TOURS_CURRENCY=AED
+      - DEFAULT_LANGUAGE=ru
+    healthcheck:
+      test: ["CMD", "node", "-e", "process.exit(0)"]
+      interval: 30s
+      timeout: 5s
+      start_period: 15s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+          cpus: '0.25'
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"

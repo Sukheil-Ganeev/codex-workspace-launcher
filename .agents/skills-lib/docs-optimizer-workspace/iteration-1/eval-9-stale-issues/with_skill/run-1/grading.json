@@ -1,0 +1,58 @@
+{
+  "expectations": [
+    {
+      "text": "Output reads ISSUES.md from D:/Downloads/TouristBotEcosystem/ and reports its content",
+      "passed": true,
+      "evidence": "Output explicitly references ISSUES.md content: reports last update date '2026-03-04 19:57 (Dubai) — v5.8.0', lists all 5 sections (Phase 9 Code Review with 11 issues, Phase 8 Testing with 6 issues, Open issues with 1 dormant, Closed issues with 25, Sentry issues with 5 open). The output clearly sourced and summarized the actual content of ISSUES.md."
+    },
+    {
+      "text": "Output reports the status of each issue or at minimum the overall breakdown (open vs closed count)",
+      "passed": true,
+      "evidence": "Output provides a detailed breakdown table showing: Phase 9 (11 closed, 0 open), Phase 8 (6 closed, 0 open), Open issues (1 dormant, 0 open), Closed issues (25 closed, 0 open), Sentry issues (0 closed, 5 open). Also provides per-issue status for all 5 Sentry issues (SEN-01 through SEN-05) with individual verdicts. Total breakdown: 48 closed/dormant, 5 open, 0 stale."
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 0,
+    "total": 2,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "total_tokens": 60045,
+    "anti_pattern": "AP-18",
+    "mode": "audit",
+    "project": "TouristBotEcosystem",
+    "stale_issues_found": 0,
+    "stale_ratio_percent": 0.0,
+    "ap18_violated": false,
+    "ap18_verdict": "PASS — no closed issues marked as open",
+    "issues_total": 48,
+    "issues_open": 5,
+    "issues_closed_or_dormant": 43,
+    "file_staleness_days": 8,
+    "file_staleness_warning": true,
+    "commits_after_update": 11
+  },
+  "timing": {
+    "total_tokens": 60045,
+    "duration_ms": 159336,
+    "total_duration_seconds": 159.3
+  },
+  "claims": [
+    "ISSUES.md last updated 2026-03-04 19:57 (Dubai)",
+    "5 Sentry issues (SEN-01..SEN-05) all genuinely open",
+    "0 stale issues (no closed issues marked as open)",
+    "SEN-03 possibly partially resolved by docker healthcheck (depends_on + service_healthy)",
+    "SEN-05 borderline stale — condition was 'after next deploy', 11+ deploys happened since",
+    "File is 8 days old (>7 day threshold) — recommended status update to ЧАСТИЧНО УСТАРЕЛ"
+  ],
+  "eval_feedback": {
+    "suggestions": [
+      "The output goes well beyond the minimum requirements — it not only reports content and status breakdown but also performs code verification (e.g., checked core/ai/models.py for gemini-2.5-flash-lite, checked docker-compose.yml for healthcheck) to validate whether open issues are genuinely open.",
+      "The metrics.json file provides machine-readable breakdown that complements the human-readable output.md, showing clear separation of concerns.",
+      "Duration of ~159 seconds and 60K tokens is high but justified given the depth of analysis (code verification, git log analysis, staleness checks).",
+      "The output correctly distinguishes between 'stale issues' (AP-18 definition: closed but marked open) vs 'aging open issues' (genuinely open but inactive) — a nuanced and accurate interpretation."
+    ],
+    "overall": "Both expectations fully met. The output clearly reads ISSUES.md from the correct project path and provides a comprehensive breakdown of all issues by section, including per-issue status for all open Sentry issues. The analysis is thorough, accurate, and adds value beyond the minimum requirements by cross-referencing git history and actual code state."
+  }
+}

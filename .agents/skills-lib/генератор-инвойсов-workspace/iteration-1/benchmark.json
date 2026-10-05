@@ -1,0 +1,85 @@
+{
+  "skill_name": "генератор-инвойсов",
+  "iteration": 1,
+  "configurations": [
+    {
+      "name": "with_skill",
+      "label": "Со скиллом",
+      "pass_rate": 1.0,
+      "pass_count": 33,
+      "total_assertions": 33,
+      "mean_duration_seconds": 38.9,
+      "stddev_duration_seconds": 3.8,
+      "mean_tokens": 36077,
+      "stddev_tokens": 186
+    },
+    {
+      "name": "without_skill",
+      "label": "Без скилла (baseline)",
+      "pass_rate": 0.667,
+      "pass_count": 22,
+      "total_assertions": 33,
+      "mean_duration_seconds": 28.0,
+      "stddev_duration_seconds": 3.8,
+      "mean_tokens": 25680,
+      "stddev_tokens": 243
+    }
+  ],
+  "delta": {
+    "pass_rate": "+33.3%",
+    "duration_seconds": "+10.9s (скилл медленнее — читает SKILL.md)",
+    "tokens": "+10397 (скилл использует больше токенов)"
+  },
+  "per_eval": [
+    {
+      "eval_id": 1,
+      "eval_name": "simple-tour",
+      "prompt_summary": "Простой тур в Дубае для 2 человек",
+      "with_skill": {"pass_rate": 1.0, "passed": 6, "total": 6, "duration_seconds": 36.6, "tokens": 35838},
+      "without_skill": {"pass_rate": 0.5, "passed": 3, "total": 6, "duration_seconds": 26.5, "tokens": 25569}
+    },
+    {
+      "eval_id": 2,
+      "eval_name": "yacht-pos",
+      "prompt_summary": "Яхта + кейтеринг + POS 4% + AED",
+      "with_skill": {"pass_rate": 1.0, "passed": 6, "total": 6, "duration_seconds": 44.0, "tokens": 35906},
+      "without_skill": {"pass_rate": 1.0, "passed": 6, "total": 6, "duration_seconds": 33.9, "tokens": 26187}
+    },
+    {
+      "eval_id": 3,
+      "eval_name": "sokol-car-rental",
+      "prompt_summary": "Аренда авто Sokol (другие реквизиты)",
+      "with_skill": {"pass_rate": 1.0, "passed": 5, "total": 5, "duration_seconds": 34.5, "tokens": 36218},
+      "without_skill": {"pass_rate": 0.4, "passed": 2, "total": 5, "duration_seconds": 22.6, "tokens": 25530}
+    },
+    {
+      "eval_id": 4,
+      "eval_name": "corporate-trn",
+      "prompt_summary": "Корпоративный клиент с TRN",
+      "with_skill": {"pass_rate": 1.0, "passed": 5, "total": 5, "duration_seconds": 38.1, "tokens": 36094},
+      "without_skill": {"pass_rate": 1.0, "passed": 5, "total": 5, "duration_seconds": 30.0, "tokens": 25662}
+    },
+    {
+      "eval_id": 5,
+      "eval_name": "error-correction",
+      "prompt_summary": "Исправление ошибок: номер, имя, телефон",
+      "with_skill": {"pass_rate": 1.0, "passed": 4, "total": 4, "duration_seconds": 43.8, "tokens": 36290},
+      "without_skill": {"pass_rate": 0.5, "passed": 2, "total": 4, "duration_seconds": 28.5, "tokens": 25617}
+    },
+    {
+      "eval_id": 6,
+      "eval_name": "complex-multi-service",
+      "prompt_summary": "3 типа услуг + шаблоны описаний + CAPS",
+      "with_skill": {"pass_rate": 1.0, "passed": 7, "total": 7, "duration_seconds": 36.5, "tokens": 36116},
+      "without_skill": {"pass_rate": 0.571, "passed": 4, "total": 7, "duration_seconds": 26.5, "tokens": 25512}
+    }
+  ],
+  "analyst_observations": [
+    "Скилл выигрывает на 4 из 6 тестов (Eval 1, 3, 5, 6) после добавления CAPS assertions",
+    "Eval 2, 4 — равные результаты только по математике; без скилла нет реквизитов и неверный курс AED",
+    "Главная ценность: реквизиты Marsel/Sokol, UAE VAT compliance, CAPS форматирование, исправление ошибок",
+    "Без скилла: придумывает компанию (VIP Dubai Tours), пропускает VAT, использует курс 3.6725 вместо 3.65",
+    "Стоимость скилла: +38% времени, +40% токенов — оправдана для бизнес-инвойсов где ошибки стоят денег",
+    "Eval 6 после ужесточения assertions: без_скилла 57% vs со_скиллом 100% — разрыв значительный"
+  ]
+}

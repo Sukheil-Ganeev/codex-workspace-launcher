@@ -1,0 +1,56 @@
+{
+  "expectations": [
+    {
+      "text": "Output contains at least one specific numeric token count estimate for a file or total",
+      "passed": true,
+      "evidence": "Multiple specific numeric token estimates present: Global CLAUDE.md ~2,441 tokens, Parent CLAUDE.md ~9,647 tokens, Project CLAUDE.md ~10,158 tokens, System overhead ~500 tokens, TOTAL ~22,746 tokens. Also confirmed in metrics.json."
+    },
+    {
+      "text": "Output provides a breakdown of token usage by file or section (not just a single total)",
+      "passed": true,
+      "evidence": "A full per-file table is provided (lines 35-41 of output.md) with columns: File, Size (bytes), Lines, ASCII chars, Cyrillic chars, Estimated tokens — covering all 4 loaded files individually. Also summarized as percentages in the Summary section (Global 11%, Parent 42%, Project 45%, System 2%)."
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 0,
+    "total": 2,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "total_tokens_used": 58074,
+    "context_window": 200000,
+    "files_analyzed": 4,
+    "total_bytes_analyzed": 71338,
+    "total_lines_analyzed": 1385,
+    "estimated_session_tokens": 22746,
+    "context_window_percentage": 11.4,
+    "memory_md_exists": false,
+    "token_methodology": {
+      "ascii_chars_per_token": 4.0,
+      "cyrillic_chars_per_token": 1.5,
+      "other_chars_per_token": 2.0,
+      "margin_of_error_percent": 15
+    }
+  },
+  "timing": {
+    "total_tokens": 58074,
+    "duration_ms": 164106,
+    "total_duration_seconds": 164.1
+  },
+  "claims": [
+    "Global CLAUDE.md: ~2,441 tokens (7,965 bytes, 139 lines)",
+    "Parent CLAUDE.md: ~9,647 tokens (23,549 bytes, 659 lines)",
+    "Project CLAUDE.md: ~10,158 tokens (39,824 bytes, 557 lines)",
+    "System overhead: ~500 tokens (~30 lines)",
+    "Total: ~22,746 tokens = 11.4% of 200,000 token context window",
+    "Architecture tree in project CLAUDE.md alone ~5,000-6,000 tokens"
+  ],
+  "eval_feedback": {
+    "suggestions": [
+      "Output could further enhance trust by noting that estimates carry ±15-20% margin and comparing to an actual tokenizer (e.g., tiktoken) for validation.",
+      "Could include a section-level breakdown within the largest file (project CLAUDE.md) since it accounts for 44.6% of the total — the output hints at this (architecture tree ~5,000-6,000 tokens) but does not formalize it as a sub-table."
+    ],
+    "overall": "Both expectations are fully met. The output provides multiple specific numeric token estimates per file and a clear multi-file breakdown with percentages. The methodology is well-documented with character-type differentiation (ASCII vs Cyrillic vs Other), making estimates reproducible. Metrics.json confirms all numbers match the output narrative."
+  }
+}

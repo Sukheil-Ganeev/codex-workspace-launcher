@@ -1,0 +1,109 @@
+{
+  "skill_name": "docs-optimizer",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Проверь документацию проекта D:/Downloads/TouristBotEcosystem/ и дай оценку — что там с качеством документации?",
+      "expected_output": "Structured report with Verification Score (0-5), table of MD files with metrics, detected anti-patterns, and prioritized recommendations. CLAUDE.md being 557 lines should be flagged as critical.",
+      "files": [],
+      "expectations": [
+        "Output contains a Verification Score explicitly in N/5 format",
+        "Output identifies CLAUDE.md exceeding 300-400 line threshold as a critical problem",
+        "Output includes a recommendations section with ranked items (HIGH/MEDIUM/LOW or приоритет)"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Сэкономь токены — покажи что загружается в каждой сессии при работе с проектом D:/Downloads/TouristBotEcosystem/",
+      "expected_output": "Tiered loading plan with three tiers (Essential, On-demand, Archive), numeric token estimates, .claudeignore suggestion, and before/after token savings projection.",
+      "files": [],
+      "expectations": [
+        "Output classifies files into three named tiers: Essential, On-demand, and Archive",
+        "Output provides at least one numeric token estimate (e.g. '~800 токенов' or similar)",
+        "Output suggests .claudeignore content or archiving strategy"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Полный аудит документации в D:/Downloads/TouristBotEcosystem/ — найди дубли, битые ссылки и устаревший контент",
+      "expected_output": "Full audit report covering duplication between CLAUDE.md and other files, ISSUES.md stale detection, cross-reference validation, freshness check.",
+      "files": [],
+      "expectations": [
+        "Output analyzes duplication between CLAUDE.md and MEMORY.md or other documentation files",
+        "Output checks ISSUES.md for stale or incorrectly-open entries",
+        "Output validates file path references mentioned in CLAUDE.md"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Оптимизируй CLAUDE.md в проекте D:/Downloads/TouristBotEcosystem/ — сделай его значительно короче",
+      "expected_output": "Optimized CLAUDE.md draft targeting 200-250 lines, before/after metrics, SSOT table showing where each fact should live.",
+      "files": [],
+      "expectations": [
+        "Output proposes a condensed CLAUDE.md structure targeting 200-250 lines or mentions a significant reduction",
+        "Output includes explicit before/after line count or token count comparison",
+        "Output generates a draft outline or structure of an optimized CLAUDE.md"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "В проекте D:/Downloads/TouristBotEcosystem/ есть ли одна и та же информация в нескольких файлах?",
+      "expected_output": "Duplication map showing which facts appear in multiple files, SSOT violations with specific file pairs identified.",
+      "files": [],
+      "expectations": [
+        "Output names at least two specific files that contain overlapping or duplicated information",
+        "Output provides at least one concrete example of content that appears in multiple files (e.g. mentions MASTER_PLAN or deployment info duplicated)"
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "Какие файлы документации в D:/Downloads/TouristBotEcosystem/ давно не обновлялись?",
+      "expected_output": "Freshness report using git log dates for each documentation file, stale files identified with dates, recommendations.",
+      "files": [],
+      "expectations": [
+        "Output uses git log or checks modification dates to determine when files were last updated",
+        "Output identifies at least one specific file as potentially stale based on modification date or commit history"
+      ]
+    },
+    {
+      "id": 7,
+      "prompt": "Сколько токенов тратится при старте каждой сессии с проектом D:/Downloads/TouristBotEcosystem/?",
+      "expected_output": "Token audit with per-file numeric breakdown, total session startup cost estimate, suggestions to reduce it.",
+      "files": [],
+      "expectations": [
+        "Output contains at least one specific numeric token count estimate for a file or total",
+        "Output provides a breakdown of token usage by file or section (not just a single total)"
+      ]
+    },
+    {
+      "id": 8,
+      "prompt": "Найди все ссылки на файлы и пути в CLAUDE.md проекта D:/Downloads/TouristBotEcosystem/ — какие из них ведут на несуществующие файлы?",
+      "expected_output": "List of file paths referenced in CLAUDE.md, existence check for each, broken references highlighted.",
+      "files": [],
+      "expectations": [
+        "Output reads CLAUDE.md and extracts specific file path references mentioned in it",
+        "Output reports whether each referenced path actually exists in the filesystem (pass/fail per reference)"
+      ]
+    },
+    {
+      "id": 9,
+      "prompt": "Посмотри в ISSUES.md проекта D:/Downloads/TouristBotEcosystem/ — там есть давно закрытые проблемы которые всё ещё помечены как открытые?",
+      "expected_output": "ISSUES.md analysis showing all issue IDs, their current status, any stale-open entries, and a summary verdict.",
+      "files": [],
+      "expectations": [
+        "Output reads ISSUES.md from D:/Downloads/TouristBotEcosystem/ and reports its content",
+        "Output reports the status of each issue or at minimum the overall breakdown (open vs closed count)"
+      ]
+    },
+    {
+      "id": 10,
+      "prompt": "Какие файлы в папке docs/ проекта D:/Downloads/TouristBotEcosystem/ Claude скорее всего никогда не читает?",
+      "expected_output": "Orphan documentation audit listing docs/ files that have no reference from CLAUDE.md or other navigation files. IDEAL_MASTER_PLAN.md and similar large files expected as likely orphans.",
+      "files": [],
+      "expectations": [
+        "Output lists specific files found in the docs/ directory of the project",
+        "Output cross-checks which docs/ files are referenced from CLAUDE.md or other navigation documents and flags unreferenced ones"
+      ]
+    }
+  ]
+}

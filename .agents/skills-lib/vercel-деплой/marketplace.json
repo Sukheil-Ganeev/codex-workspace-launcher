@@ -1,0 +1,48 @@
+{
+  "name": "vercel-деплой",
+  "displayName": "Vercel Deployment",
+  "version": "1.0.0",
+  "description": "Полный справочник по деплою на Vercel: CLI workflow, serverless functions, vercel.json конфигурация, детальное сравнение с Netlify.",
+  "author": "Сухейль",
+  "tags": [
+    "vercel",
+    "deployment",
+    "serverless",
+    "hosting",
+    "next.js",
+    "cli",
+    "preview-deployments",
+    "справочник"
+  ],
+  "category": "deployment",
+  "triggers": [
+    "vercel",
+    "деплой на vercel",
+    "vercel cli",
+    "vercel vs netlify",
+    "serverless function vercel",
+    "preview deployment"
+  ],
+  "language": "ru",
+  "license": "Private",
+  "useCases": [
+    "Деплой Next.js приложений",
+    "Статичные сайты через GitHub",
+    "Serverless functions для API и webhooks",
+    "Preview Deployments для каждого PR",
+    "Custom domains и HTTPS",
+    "Environment variables",
+    "Сравнение с Netlify (когда использовать что)"
+  ],
+  "businessContext": "Туристический бизнес ОАЭ — лендинги, CRM, автоматизация",
+  "skillLevel": "beginner-to-advanced",
+  "estimatedReadTime": "40 минут",
+  "lastUpdated": "2026-02-04",
+  "dependencies": [
+    "vercel-cli"
+  ],
+  "relatedSkills": [
+    "netlify-deployment",
+    "git-github-справочник"
+  ]
+}

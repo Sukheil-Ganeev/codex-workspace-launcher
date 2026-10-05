@@ -1,0 +1,5 @@
+CREATE TABLE reviews (id SERIAL PRIMARY KEY, reviewable_type VARCHAR(100), reviewable_id INTEGER, reviewer_id INTEGER, rating INTEGER CHECK (rating BETWEEN 1 AND 5), title VARCHAR(255), comment TEXT, is_verified BOOLEAN DEFAULT FALSE, helpful_count INTEGER DEFAULT 0, unhelpful_count INTEGER DEFAULT 0, status VARCHAR(50), review_date TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP);
+CREATE TABLE review_responses (id SERIAL PRIMARY KEY, review_id INTEGER REFERENCES reviews(id) ON DELETE CASCADE, responder_name VARCHAR(255), response_text TEXT, response_date TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP);
+CREATE TABLE rating_criteria (id SERIAL PRIMARY KEY, reviewable_type VARCHAR(100), criteria_name VARCHAR(255), criteria_description TEXT, display_order INTEGER);
+CREATE TABLE detailed_ratings (id SERIAL PRIMARY KEY, review_id INTEGER REFERENCES reviews(id) ON DELETE CASCADE, criteria_id INTEGER, rating_value INTEGER CHECK (rating_value BETWEEN 1 AND 5));
+CREATE TABLE review_moderation (id SERIAL PRIMARY KEY, review_id INTEGER REFERENCES reviews(id), status VARCHAR(50), moderation_notes TEXT, moderated_by VARCHAR(100), moderated_at TIMESTAMPTZ);

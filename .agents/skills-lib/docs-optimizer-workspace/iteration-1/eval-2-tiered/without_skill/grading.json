@@ -1,0 +1,51 @@
+{
+  "eval_id": "eval-2-tiered",
+  "config": "without_skill",
+  "assertions": [
+    {
+      "id": "a1",
+      "description": "Output classifies files into three named tiers: Essential, On-demand, and Archive",
+      "passed": false,
+      "evidence": "Missing tiers: Essential"
+    },
+    {
+      "id": "a2",
+      "description": "Output provides at least one numeric token estimate (e.g. '~800 токенов' or similar)",
+      "passed": true,
+      "evidence": "Found: 000 токен"
+    },
+    {
+      "id": "a3",
+      "description": "Output suggests .claudeignore content or archiving strategy",
+      "passed": true,
+      "evidence": "Found .claudeignore or archiving"
+    },
+    {
+      "id": "a4",
+      "description": "Output explicitly uses the tier name 'Essential' for always-loaded files",
+      "passed": false,
+      "evidence": "No 'Essential' tier"
+    },
+    {
+      "id": "a5",
+      "description": "Output explicitly uses the tier name 'On-demand' for conditionally-loaded files",
+      "passed": true,
+      "evidence": "Found 'On-demand'"
+    },
+    {
+      "id": "a6",
+      "description": "Output explicitly uses the tier name 'Archive' for rarely-needed files",
+      "passed": true,
+      "evidence": "Found 'Archive'"
+    },
+    {
+      "id": "a7",
+      "description": "Output uses the specific score format N/5 for overall documentation quality",
+      "passed": false,
+      "evidence": "No N/5 score"
+    }
+  ],
+  "pass_rate": 0.5714,
+  "passed": 4,
+  "total": 7
+}

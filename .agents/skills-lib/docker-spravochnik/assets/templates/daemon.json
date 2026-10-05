@@ -1,0 +1,31 @@
+{
+  "_comment_1": "=== daemon.json -- Конфигурация Docker Engine ===",
+  "_comment_2": "Docker Engine 29.x | Февраль 2026",
+  "_comment_3": "Скопируй в /etc/docker/daemon.json (Linux) или настрой через Docker Desktop",
+  "_comment_4": "После изменений: sudo systemctl restart docker",
+  "_comment_5": "УДАЛИ все поля _comment_* перед использованием!",
+
+  "log-driver": "json-file",
+  "log-opts": {
+    "_comment": "Ротация логов: без неё логи растут бесконечно",
+    "max-size": "10m",
+    "max-file": "3"
+  },
+
+  "default-address-pools": [
+    {
+      "_comment": "Пул адресов для Docker-сетей (избегает конфликтов с VPN/LAN)",
+      "base": "172.17.0.0/16",
+      "size": 24
+    }
+  ],
+
+  "features": {
+    "_comment": "containerd image store -- дефолт для новых установок Engine 29+",
+    "containerd-snapshotter": true
+  },
+
+  "dns": ["8.8.8.8", "8.8.4.4"],
+
+  "live-restore": true
+}

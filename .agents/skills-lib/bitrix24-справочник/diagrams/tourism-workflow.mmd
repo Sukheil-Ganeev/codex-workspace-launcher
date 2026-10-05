@@ -1,0 +1,111 @@
+%% Название: Рабочий процесс туризма -- от запроса клиента до отзыва (бизнес в ОАЭ)
+%% Автор: diagram-designer
+%% Дата: 2026-02-16
+
+flowchart TD
+    %% === ВХОДЯЩИЙ ЗАПРОС ===
+    CLIENT["Запрос клиента\nWhatsApp / Telegram / Звонок / Сайт"]
+
+    CLIENT --> AUTO_LEAD["Авто-создание лида\nв Битрикс24 CRM"]
+
+    %% === КЛАССИФИКАЦИЯ ===
+    AUTO_LEAD --> CLASSIFY{"Классификация\nТип услуги?"}
+
+    %% === ТРИ НАПРАВЛЕНИЯ БИЗНЕСА ===
+    CLASSIFY -->|"Экскурсии\nБилеты в парки\nДжип-сафари"| SUHEIL
+
+    CLASSIFY -->|"Аренда авто\nТрансферы\nМВУ"| MARCEL
+
+    CLASSIFY -->|"Яхты\nВодные развлечения\nМероприятия"| MUFAMAD
+
+    %% === СУХЕЙЛЬ -- ЭКСКУРСИИ ===
+    subgraph SUHEIL_BLOCK["Сухейль -- Экскурсии и билеты"]
+        SUHEIL["Ответственный: Сухейль"]
+        S_CONSULT["Консультация\nПодбор экскурсии / билетов"]
+        S_OPTIONS["Варианты:\n- Городской тур\n- Desert Safari\n- Абу-Даби тур\n- Парки: IMG, Legoland..."]
+        SUHEIL --> S_CONSULT --> S_OPTIONS
+    end
+
+    %% === МАРСЕЛЬ -- АВТО ===
+    subgraph MARCEL_BLOCK["Марсель -- Авто и трансферы"]
+        MARCEL["Ответственный: Марсель"]
+        M_CONSULT["Консультация\nВыбор авто / маршрута"]
+        M_OPTIONS["Варианты:\n- Люкс / Спорт / Эконом\n- Трансфер аэропорт\n- МВУ оформление"]
+        MARCEL --> M_CONSULT --> M_OPTIONS
+    end
+
+    %% === МУФАМАД -- ЯХТЫ ===
+    subgraph MUFAMAD_BLOCK["Муфамад -- Paramount Yachts"]
+        MUFAMAD["Ответственный: Муфамад"]
+        MF_CONSULT["Консультация\nПодбор яхты / программы"]
+        MF_OPTIONS["Варианты:\n- 300+ яхт (малые-большие)\n- Водные развлечения\n- Кейтеринг на борту\n- Мероприятия"]
+        MUFAMAD --> MF_CONSULT --> MF_OPTIONS
+    end
+
+    %% === ОБЩИЙ ПРОЦЕСС ПОСЛЕ КЛАССИФИКАЦИИ ===
+    S_OPTIONS & M_OPTIONS & MF_OPTIONS --> BOOKING["Бронирование\nСоздание сделки в CRM"]
+
+    BOOKING --> CONFIRM{"Подтверждение\nКлиент согласен?"}
+    CONFIRM -->|"Думает"| FOLLOWUP_24["Follow-up\nчерез 24 часа"]
+    FOLLOWUP_24 --> CONFIRM
+    CONFIRM -->|"Отказ"| LOST["Сделка провалена\nПричина в карточке"]
+    LOST -->|"Повторное обращение\n(Генератор продаж: 30 дней)"| CLIENT
+
+    CONFIRM -->|"Да"| PAYMENT_CHOICE
+
+    %% === ОПЛАТА ===
+    subgraph PAYMENT_BLOCK["Способы оплаты"]
+        direction LR
+        PAYMENT_CHOICE["Выбор способа оплаты"]
+        PAY_AED["Наличные AED"]
+        PAY_USD["Наличные USD"]
+        PAY_KASPI["Kaspi (KZT)"]
+        PAY_SBER["Сбер (RUB)"]
+        PAY_CRYPTO["Криптокошелек"]
+        PAY_TRANSFER["Международный перевод"]
+        PAYMENT_CHOICE --> PAY_AED & PAY_USD & PAY_KASPI & PAY_SBER & PAY_CRYPTO & PAY_TRANSFER
+    end
+
+    PAY_AED & PAY_USD & PAY_KASPI & PAY_SBER & PAY_CRYPTO & PAY_TRANSFER --> PAID["Оплата получена\nРобот: смена стадии"]
+
+    %% === ПОДГОТОВКА И ПРОВЕДЕНИЕ ===
+    PAID --> PREP["Подготовка\nЗадача гиду / водителю / капитану"]
+    PREP --> REMIND["Робот: Напоминание\nклиенту за 24 часа\nДетали, место встречи"]
+    REMIND --> EXECUTE["Проведение услуги\nЭкскурсия / Аренда / Яхта"]
+
+    %% === ПОСТ-ОБСЛУЖИВАНИЕ ===
+    EXECUTE --> FOLLOWUP_2D["Follow-up через 2 дня\nРобот: запрос отзыва"]
+    FOLLOWUP_2D --> REVIEW{"Отзыв получен?"}
+    REVIEW -->|"Да"| REVIEW_SAVE["Отзыв сохранен\nв карточке CRM"]
+    REVIEW -->|"Нет"| REVIEW_REMIND["Повторный запрос\nчерез 5 дней"]
+    REVIEW_REMIND --> REVIEW_SAVE
+
+    %% === ПОВТОРНЫЕ ПРОДАЖИ ===
+    REVIEW_SAVE --> REPEAT["Генератор продаж\nПовторная сделка через 30 дней\nUp-sell / Cross-sell"]
+    REPEAT -->|"Был на экскурсии\n-> предложить яхту"| CLASSIFY
+    REPEAT -->|"Арендовал авто\n-> предложить тур"| CLASSIFY
+
+    %% === VIP ===
+    BOOKING -->|"Сумма > $500"| VIP["VIP-приоритет\nУведомление руководителю\nПерсональное сопровождение"]
+    VIP --> CONFIRM
+
+    %% === СТИЛИ ===
+    style CLIENT fill:#E3F2FD,stroke:#1565C0,stroke-width:2px
+    style AUTO_LEAD fill:#FFF9C4,stroke:#FBC02D,stroke-width:2px
+    style CLASSIFY fill:#E8EAF6,stroke:#283593,stroke-width:3px
+
+    style SUHEIL_BLOCK fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px
+    style SUHEIL fill:#4CAF50,stroke:#1B5E20,color:#fff,stroke-width:2px
+    style MARCEL_BLOCK fill:#E3F2FD,stroke:#1565C0,stroke-width:2px
+    style MARCEL fill:#1976D2,stroke:#0D47A1,color:#fff,stroke-width:2px
+    style MUFAMAD_BLOCK fill:#F3E5F5,stroke:#6A1B9A,stroke-width:2px
+    style MUFAMAD fill:#7B1FA2,stroke:#4A148C,color:#fff,stroke-width:2px
+
+    style BOOKING fill:#FFF3E0,stroke:#E65100,stroke-width:2px
+    style PAYMENT_BLOCK fill:#E8F5E9,stroke:#1B5E20,stroke-width:2px
+    style PAID fill:#C8E6C9,stroke:#2E7D32,stroke-width:2px
+    style EXECUTE fill:#B2DFDB,stroke:#00695C,stroke-width:2px
+    style VIP fill:#FCE4EC,stroke:#C62828,stroke-width:2px
+    style LOST fill:#FFCDD2,stroke:#D32F2F,stroke-width:2px
+    style REVIEW_SAVE fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px
+    style REPEAT fill:#E0F7FA,stroke:#00838F,stroke-width:2px

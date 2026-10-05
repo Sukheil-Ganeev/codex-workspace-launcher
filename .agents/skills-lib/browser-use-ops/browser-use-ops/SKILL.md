@@ -1,0 +1,102 @@
+---
+name: browser-use-ops
+description: Browser-use CLI and browser automation operations skill. Use when working with browser-use CLI, controlled Chrome profiles, ChatGPT Projects, source uploads, Deep Research monitoring, right-side activity panels, parallel browser tasks, browser automation logs, or reusable browser workflow documentation.
+---
+
+# Browser Use Ops
+
+Use this skill for non-trivial browser automation work.
+
+## Canonical Knowledge Base
+
+Before starting, read:
+
+```text
+E:\10_PROJECTS\Projects\API-Интеграция-Партнёры\00_BROWSER_AUTOMATION_KNOWLEDGE_BASE\START_HERE.md
+```
+
+For detailed rules, load only the needed file:
+
+- Profile/session rules: `02_PROFILE_AND_SESSION_MAP.md`
+- CLI workflow: `03_BROWSER_USE_CLI_RUNBOOK.md`
+- Logging: `04_LOGGING_STANDARD.md`
+- Parallel work: `05_PARALLEL_BROWSER_WORK.md`
+- ChatGPT Project automation: `06_CHATGPT_PROJECT_AUTOMATION.md`
+- Lessons: `07_LESSONS_LEARNED.md`
+- Long-running monitors: `09_AUTOMATION_MONITORING.md`
+
+## Mandatory Workflow
+
+```text
+state -> decide -> act -> verify -> log
+```
+
+Use a fresh `browser-use state` before clicking/input/uploading.
+
+## Mandatory Logging
+
+For every non-trivial workflow, update a daily log:
+
+```text
+E:\10_PROJECTS\Projects\API-Интеграция-Партнёры\00_BROWSER_AUTOMATION_KNOWLEDGE_BASE\logs\YYYY-MM-DD-browser-use-cli-work-log.md
+```
+
+Use:
+
+```text
+E:\10_PROJECTS\Projects\API-Интеграция-Партнёры\00_BROWSER_AUTOMATION_KNOWLEDGE_BASE\templates\log-entry-template.md
+```
+
+Do not log passwords, 2FA codes, cookies, tokens, or unrelated private sidebar/chat names.
+
+## Current Profile Rule
+
+For ChatGPT Project automation, prefer:
+
+```text
+ai1 / google-ai1 / http://127.0.0.1:9226
+```
+
+Do not use main/default/random profiles unless the user explicitly asks.
+
+## ChatGPT Project Rule
+
+If the Project already exists, do not create a new one.
+
+Use separate chats inside the existing Project for separate research tasks.
+
+## Deep Research Monitoring
+
+Completion is not proven by finding a phrase like `Executive summary`.
+
+If the task can run more than 5 minutes, set a monitor first.
+
+Default interval for active ChatGPT Deep Research:
+
+```text
+5 minutes
+```
+
+Treat a Deep Research as complete only when:
+
+- stop button disappears; or
+- final answer is visible; or
+- copy/export controls are available for the assistant answer.
+
+Monitor the right-side activity panel when available. Log it as a short operational summary only; final claims must come from the completed answer and official/public sources.
+
+## Parallel Work
+
+Recommended limit:
+
+```text
+2 active research tasks
+```
+
+Absolute max:
+
+```text
+3 active research tasks
+```
+
+Each parallel task must have topic, profile, chat/URL, status, output file, and log entries.

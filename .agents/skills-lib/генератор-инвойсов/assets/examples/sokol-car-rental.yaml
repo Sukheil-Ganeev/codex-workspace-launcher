@@ -1,0 +1,54 @@
+# Пример 4: Инвойс Sokol Car Rental — долгосрочная аренда авто
+# Использование: для бренда Sokol (аренда без водителя)
+
+invoice:
+  number: "#26-SKL-001"
+  date: "Jan 20, 2026"
+
+brand: "sokol"                   # ВАЖНО: меняет реквизиты и лицензию
+
+client:
+  name: "MICHKOV DMITRY"
+  phone: "+7 812 999 8877"
+  address: ""
+  trn: ""
+
+services:
+  - type: "CAR_RENTAL"
+    description: "TOYOTA LAND CRUISER 300 RENTAL"
+    date: "20.01.2026 - 19.02.2026"    # Формат периода для аренды
+    time: ""
+    quantity: 30                        # Дней аренды
+    price_excl_vat: 285.71             # За день без VAT
+
+  # Дополнительные позиции для аренды авто:
+  - type: "DEPOSIT"
+    description: "SECURITY DEPOSIT (REFUNDABLE)"
+    date: ""
+    time: ""
+    quantity: 1
+    price_excl_vat: 952.38
+
+  - type: "SALIK"
+    description: "SALIK TOLL CHARGES"
+    date: "20.01 - 19.02.2026"
+    time: ""
+    quantity: 1
+    price_excl_vat: 47.62              # Фактические расходы
+
+payment:
+  pos_terminal: false
+
+bank_details:
+  use_default: true                     # Автоматически Sokol реквизиты
+
+# Реквизиты Sokol (автоматически):
+# Company: Sokol Car Rental L.L.C
+# Licence: 1442819
+# Account: 19346595
+# IBAN: AE070500000000019346595
+
+# Особенности Sokol:
+# - Другой логотип
+# - Другие реквизиты
+# - Часто включает депозиты, штрафы, Salik

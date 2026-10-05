@@ -1,0 +1,32 @@
+{
+  "eval_id": 8,
+  "eval_name": "quantity-multi-tickets",
+  "prompt": "Инвойс #26-071 от Mar 3, 2026. Клиент LEE JINHEE, +971 55 123 4567. 10 билетов Dubai Aquarium по 35 USD каждый.",
+  "assertions": [
+    {
+      "id": "A8-1",
+      "name": "Quantity = 10",
+      "description": "Колонка Quantity содержит значение 10"
+    },
+    {
+      "id": "A8-2",
+      "name": "Unit Price = 35.00 USD",
+      "description": "Цена за единицу = 35.00 USD"
+    },
+    {
+      "id": "A8-3",
+      "name": "Amount = 350.00 USD",
+      "description": "Сумма = 10 × 35 = 350.00 USD"
+    },
+    {
+      "id": "A8-4",
+      "name": "VAT = 17.50 USD",
+      "description": "VAT = 350.00 × 0.05 = 17.50 USD"
+    },
+    {
+      "id": "A8-5",
+      "name": "Total incl. VAT = 367.50 USD",
+      "description": "Итог = 350.00 + 17.50 = 367.50 USD"
+    }
+  ]
+}

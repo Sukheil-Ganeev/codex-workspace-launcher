@@ -1,0 +1,25 @@
+Скачаю через yt-dlp — он отлично работает с TikTok.
+
+Команда:
+
+yt-dlp "https://www.tiktok.com/@user/video/7123456789"
+
+Что происходит:
+- yt-dlp автоматически определяет формат и скачивает видео в максимальном качестве
+- Файл сохранится в текущую папку с именем вроде: @user_7123456789.mp4
+
+Если хочешь указать папку для сохранения:
+
+yt-dlp -o "D:/Downloads/%(uploader)s_%(id)s.%(ext)s" "https://www.tiktok.com/@user/video/7123456789"
+
+Если видео скачивается без звука (такое бывает на TikTok) — добавь флаг:
+
+yt-dlp --merge-output-format mp4 "https://www.tiktok.com/@user/video/7123456789"
+
+Если возникает ошибка "HTTP Error 403" — попробуй с куками браузера:
+
+yt-dlp --cookies-from-browser chrome "https://www.tiktok.com/@user/video/7123456789"
+
+Убедись что yt-dlp актуальной версии (TikTok часто меняет защиту):
+
+yt-dlp -U

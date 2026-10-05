@@ -1,0 +1,20 @@
+Скачиваю TikTok — всё просто, yt-dlp поддерживает его без дополнительных настроек.
+
+Команда:
+
+yt-dlp -P "D:/Downloads/YouTube/" "https://www.tiktok.com/@user/video/7123456789"
+
+Что происходит:
+- yt-dlp автоматически определяет TikTok и скачивает видео в лучшем доступном качестве
+- Файл сохранится в D:/Downloads/YouTube/ с именем из заголовка видео
+- Обычно TikTok отдаёт видео уже в одном файле (не нужно слияние через FFmpeg)
+
+Если хочешь сразу с метаданными и обложкой:
+
+yt-dlp --embed-metadata --embed-thumbnail -P "D:/Downloads/YouTube/" "https://www.tiktok.com/@user/video/7123456789"
+
+Если вылезет ошибка "Sign in to confirm you're not a bot" — добавь куки из браузера:
+
+yt-dlp --cookies-from-browser chrome -P "D:/Downloads/YouTube/" "https://www.tiktok.com/@user/video/7123456789"
+
+Запускай первую команду — в большинстве случаев она работает без каких-либо дополнений.

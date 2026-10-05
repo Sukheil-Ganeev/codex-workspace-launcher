@@ -311,15 +311,15 @@ def test_picker_server(tmp):
     url = f"http://127.0.0.1:{port}/"
     token = server.token
     try:
-        html = urllib.request.urlopen(f"{url}?token={token}").read().decode()
+        html = urllib.request.urlopen(f"{url}?token={token}", timeout=10).read().decode()
         check("serves picker page", "<title>Codex Workspace</title>" in html)
         state = json.loads(
-            urllib.request.urlopen(f"{url}api/state?token={token}").read())
+            urllib.request.urlopen(f"{url}api/state?token={token}", timeout=10).read())
         check("state has projects/tools/modes",
               len(state["projects"]) == 1 and len(state["tools"]) >= 10
               and len(state["modes"]) == 3)
         try:
-            urllib.request.urlopen(f"{url}api/state?token=WRONG")
+            urllib.request.urlopen(f"{url}api/state?token=WRONG", timeout=10)
             check("rejects bad token", False)
         except urllib.error.HTTPError as e:
             check("rejects bad token", e.code == 403)
@@ -329,12 +329,12 @@ def test_picker_server(tmp):
                              "mode": "safe"}).encode(),
             headers={"Content-Type": "application/json"})
         try:
-            urllib.request.urlopen(req)
+            urllib.request.urlopen(req, timeout=10)
             check("rejects unknown project", False)
         except urllib.error.HTTPError as e:
             check("rejects unknown project", e.code == 404)
         check("ping", json.loads(
-            urllib.request.urlopen(f"{url}api/ping?token={token}").read())
+            urllib.request.urlopen(f"{url}api/ping?token={token}", timeout=10).read())
             == {"ok": True})
     finally:
         srv.shutdown()

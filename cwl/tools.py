@@ -14,6 +14,7 @@ import subprocess
 import sys
 from dataclasses import dataclass, field
 from pathlib import Path
+import logging
 
 TOOL_ID_PATTERN = "abcdefghijklmnopqrstuvwxyz0123456789_-"
 
@@ -197,7 +198,8 @@ def probe_tool(definition: ToolDefinition,
         completed = subprocess.run(
             [*command, *command_args], capture_output=True, text=True,
             encoding="utf-8", errors="replace", timeout=12, check=False)
-    except (OSError, subprocess.SubprocessError):
+    except (OSError, subprocess.SubprocessError) as _exc:
+        logging.getLogger(__name__).debug("suppressed %s", _exc)
         return ToolReport(
             id=definition.id, label=definition.label, state="degraded",
             message=f"{definition.label} found but does not run",

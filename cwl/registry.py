@@ -15,6 +15,7 @@ import time
 import uuid
 from pathlib import Path
 from typing import Any
+import logging
 
 APP_NAME = "codex-workspace-launcher"
 PROBE_TTL_SECONDS = 300.0
@@ -188,7 +189,8 @@ class Registry:
             return None
         try:
             checked_at = float(checked_at)
-        except (OverflowError, TypeError, ValueError):
+        except (OverflowError, TypeError, ValueError) as _exc:
+            logging.getLogger(__name__).debug("suppressed %s", _exc)
             return None
         if not math.isfinite(checked_at):
             return None

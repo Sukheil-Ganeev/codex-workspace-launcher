@@ -23,6 +23,7 @@ from .launch import build_plan, execute, os_name
 from .registry import Registry
 from .tools import (MODES, MODE_DESCRIPTIONS, MODE_LABELS, mode_flags,
                     probe_all, tool_by_id, validate_mode_id)
+import logging
 
 HTML_PATH = Path(__file__).parent / "picker.html"
 
@@ -131,7 +132,8 @@ class _PickerServer:
                 length = int(self.headers.get("Content-Length", 0))
                 try:
                     payload = json.loads(self.rfile.read(length) or b"{}")
-                except Exception:
+                except Exception as _exc:
+                    logging.getLogger(__name__).debug("suppressed %s", _exc)
                     return self._json({"error": "bad json"}, 400)
                 project_id = str(payload.get("project_id", ""))
                 tool_id = str(payload.get("tool_id", "codex"))
@@ -151,6 +153,7 @@ class _PickerServer:
                     plan = build_plan(row["path"], tool, mode,
                                       mode_flags(tool_id, mode))
                 except (ValueError, OSError) as error:
+                    logging.getLogger(__name__).debug("suppressed %s", error)
                     return self._json({"error": str(error)}, 400)
                 execute(plan)
                 server.registry.mark_opened(row["id"], tool_id, mode)
@@ -197,8 +200,8 @@ class _PickerServer:
         print(f"Picker opened in your browser: {url}")
         try:
             self._server.serve_forever()
-        except KeyboardInterrupt:
-            pass
+        except KeyboardInterrupt as _exc:
+            logging.getLogger(__name__).debug("suppressed %s", _exc)
         finally:
             self._server.server_close()
 
@@ -219,7 +222,8 @@ def _choose(items: list[str], prompt: str) -> int | None:
     try:
         choice = input(f"{prompt}: ").strip()
         index = int(choice) - 1
-    except (ValueError, EOFError):
+    except (ValueError, EOFError) as _exc:
+        logging.getLogger(__name__).debug("suppressed %s", _exc)
         return None
     return index if 0 <= index < len(items) else None
 

@@ -39,6 +39,7 @@ from cwl.picker import run_cli_picker, run_web_picker  # noqa: E402
 from cwl.registry import Registry  # noqa: E402
 from cwl.tools import (MODES, MODE_LABELS, mode_flags, probe_all,  # noqa: E402
                        tool_by_id, validate_mode_id, validate_tool_id)
+import logging
 
 
 def make_parser() -> argparse.ArgumentParser:
@@ -98,14 +99,16 @@ def make_parser() -> argparse.ArgumentParser:
 def _tool_id(value: str) -> str | None:
     try:
         return validate_tool_id(value)
-    except ValueError:
+    except ValueError as _exc:
+        logging.getLogger(__name__).debug("suppressed %s", _exc)
         return None
 
 
 def _mode_id(value: str) -> str | None:
     try:
         return validate_mode_id(value)
-    except ValueError:
+    except ValueError as _exc:
+        logging.getLogger(__name__).debug("suppressed %s", _exc)
         return None
 
 

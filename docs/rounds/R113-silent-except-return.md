@@ -1,5 +1,9 @@
 # R113: except → return/continue/break — подавленная ошибка ведёт в журнал
 
+**Статус:** done
+**PR:** #12
+
+
 **Статус:** выполнено
 **Семья:** silent-except-return
 

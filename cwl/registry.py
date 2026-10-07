@@ -88,8 +88,8 @@ class Registry:
                 os.replace(self.path, corrupt)
                 print(f"warning: registry unreadable, preserved as {corrupt}",
                       file=sys.stderr)
-            except OSError:
-                pass
+            except OSError as _exc:
+                logging.getLogger(__name__).debug("suppressed %s", _exc)
             self.data = {"schema": 1, "workspaces": {}, "probes": {},
                          "app_state": {}}
         except OSError:

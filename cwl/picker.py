@@ -200,8 +200,8 @@ class _PickerServer:
         print(f"Picker opened in your browser: {url}")
         try:
             self._server.serve_forever()
-        except KeyboardInterrupt:
-            pass
+        except KeyboardInterrupt as _exc:
+            logging.getLogger(__name__).debug("suppressed %s", _exc)
         finally:
             self._server.server_close()
 

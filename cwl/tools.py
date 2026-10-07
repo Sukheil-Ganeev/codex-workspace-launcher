@@ -164,8 +164,8 @@ def probe_tool(definition: ToolDefinition,
     if isinstance(cached, dict) and cached.get("id") == definition.id:
         try:
             return ToolReport.from_dict(cached)
-        except (TypeError, ValueError):
-            pass
+        except (TypeError, ValueError) as _exc:
+            logging.getLogger(__name__).debug("suppressed %s", _exc)
 
     if definition.probe_kind == "files":
         if sys.platform == "darwin" and definition.macos_app:

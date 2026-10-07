@@ -1,7 +1,7 @@
 # R123: mkdir/makedirs — exist_ok обязателен
 
 **Статус:** done
-**PR:** TBD
+**PR:** #14
 **Семья:** mkdir-exist-ok
 
 ## Дефект

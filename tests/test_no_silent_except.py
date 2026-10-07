@@ -18,7 +18,7 @@ SKIP_PREFIXES = ("tests/", ".agents/")
 
 def _tracked_py() -> list[str]:
     out = subprocess.check_output(
-        ["git", "ls-files", "-z", "*.py"], cwd=ROOT
+        ["git", "ls-files", "-z", "*.py"], cwd=ROOT, timeout=60
     ).decode().split("\x00")
     return [n for n in out if n and not n.startswith(SKIP_PREFIXES)]
 

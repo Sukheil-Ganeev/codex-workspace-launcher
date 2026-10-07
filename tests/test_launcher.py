@@ -289,7 +289,7 @@ def test_doctor(tmp):
           notool.state)
     if os.name != "nt":
         locked = tmp / "locked"
-        locked.mkdir()
+        locked.mkdir(exist_ok=True)
         locked.chmod(0o000)
         try:
             blocked = check_workspace(reg, locked, "codex")
@@ -393,9 +393,9 @@ def test_discovery(tmp):
     section("discovery from CODEX_WORKSPACE_ROOTS")
     reg = make_registry(tmp, "r5")
     parent = tmp / "roots"
-    (parent / "ProjA").mkdir(parents=True)
-    (parent / "ProjB").mkdir(parents=True)
-    (parent / "ProjC").mkdir(parents=True)
+    (parent / "ProjA").mkdir(parents=True, exist_ok=True)
+    (parent / "ProjB").mkdir(parents=True, exist_ok=True)
+    (parent / "ProjC").mkdir(parents=True, exist_ok=True)
     old = os.environ.get("CODEX_WORKSPACE_ROOTS")
     os.environ["CODEX_WORKSPACE_ROOTS"] = str(parent)
     try:
